@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game1", "Game1\Game1.csproj", "{73833BC9-CC94-4E16-83B3-E88AA0FBA418}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flat", "Flat\Flat.csproj", "{0ABEC070-B9F6-4440-A94C-059E25C551FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogic", "GameLogic\GameLogic.csproj", "{AA58E335-E1A3-44F3-BF23-4EA59E417909}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73833BC9-CC94-4E16-83B3-E88AA0FBA418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73833BC9-CC94-4E16-83B3-E88AA0FBA418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73833BC9-CC94-4E16-83B3-E88AA0FBA418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73833BC9-CC94-4E16-83B3-E88AA0FBA418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ABEC070-B9F6-4440-A94C-059E25C551FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ABEC070-B9F6-4440-A94C-059E25C551FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ABEC070-B9F6-4440-A94C-059E25C551FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ABEC070-B9F6-4440-A94C-059E25C551FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA58E335-E1A3-44F3-BF23-4EA59E417909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA58E335-E1A3-44F3-BF23-4EA59E417909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA58E335-E1A3-44F3-BF23-4EA59E417909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA58E335-E1A3-44F3-BF23-4EA59E417909}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD5F35DC-4979-480B-ACEF-938F527292F7}
+	EndGlobalSection
+EndGlobal
