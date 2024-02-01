@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,7 +8,7 @@ namespace Flat.Graphics
 {
     public sealed class Shapes : IDisposable
     {
-        public static readonly float MinLineThickness = 1f;
+        public static readonly float MinLineThickness = 0.5f;
         public static readonly float MaxLineThickness = 10f;
 
         private bool isDisposed;
@@ -20,6 +21,8 @@ namespace Flat.Graphics
         private int shapeCount;
         private int vertexCount;
         private int indexCount;
+
+        private List<(float x, float y, string text)> texts = new();
 
         private bool isStarted;
 
@@ -455,6 +458,11 @@ namespace Flat.Graphics
                 ay = by;
             }
         }
+
+        //public void DrawString(float x, float y, string text)
+        //{
+        //    this.texts.Add(new (x, y, text));
+        //}
 
         public void DrawPolygon(Vector2[] vertices, FlatTransform transform, float thickness, Color color)
         {

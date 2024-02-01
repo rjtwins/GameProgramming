@@ -24,8 +24,9 @@ namespace Game1
         private Camera _camera;
         private FlatKeyboard _flatKeyboard => FlatKeyboard.Instance;
         private FlatMouse _flatMouse => FlatMouse.Instance;
-
-        Texture2D shipSprite1, shipSprite2, shipSprite3;
+        private SpriteFont font;
+        private int textx = 0;
+        private int texty = 0;
 
         Ship ship;
         CircleEntity pointer;
@@ -72,6 +73,7 @@ namespace Game1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
         }
 
         protected override void Update(GameTime gameTime)
@@ -141,13 +143,17 @@ namespace Game1
         {
             _screen.Set();
             GraphicsDevice.Clear(Color.Black);
-
             _shapes.Begin(_camera);
-
             this.ship.Draw(_shapes);
             this.pointer.Draw(_shapes);
+            
             //_shapes.DrawCircle(0, 0, 5, 100, 0.1f, Color.Red);
             _shapes.End();
+
+            _spriteBatch.Begin();
+            
+            _spriteBatch.DrawString(font, "Score", this.ship.Position, Color.White, 0, Vector2.Zero, 0.01f * _camera.Zoom, SpriteEffects.None, 0);
+            _spriteBatch.End();
 
             _screen.UnSet();
             _screen.Present(this._sprites);
