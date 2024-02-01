@@ -1,16 +1,11 @@
-﻿using Microsoft.VisualBasic;
+﻿using Flat.Entities;
+using Flat.Graphics;
+using Flat.Input;
+using Game1.Extensions;
+using GameLogic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Data.Common;
-using Flat.Graphics;
-using Flat.Input;
-using Flat.Physics;
-using System;
-using System.Runtime.CompilerServices;
-using Game1.Entities;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace Game1
 {
@@ -25,8 +20,9 @@ namespace Game1
         private FlatKeyboard _flatKeyboard => FlatKeyboard.Instance;
         private FlatMouse _flatMouse => FlatMouse.Instance;
         private SpriteFont font;
-        private int textx = 0;
-        private int texty = 0;
+
+        private double timeSinceLastTick = 0;
+        private bool firstFrame = true;
 
         Ship ship;
         CircleEntity pointer;
@@ -45,8 +41,8 @@ namespace Game1
         {
             DisplayMode dm = _graphics.GraphicsDevice.DisplayMode;
 
-            _graphics.PreferredBackBufferWidth = 1920; //(int)(dm.Width * 0.8f);
-            _graphics.PreferredBackBufferHeight = 1080; //(int)(dm.Height * 0.8f);
+            _graphics.PreferredBackBufferWidth = (int)(dm.Width * 0.8f);
+            _graphics.PreferredBackBufferHeight = (int)(dm.Height * 0.8f);
             _graphics.ApplyChanges();
 
             // TODO: Add your initialization logic here
@@ -55,6 +51,11 @@ namespace Game1
             this._shapes = new Shapes(this);
             this._camera = new Camera(_screen);
             this._camera.Zoom = 0.5f;
+
+            this.Services.AddService<Camera>(_camera);
+            this.Services.AddService<Screen>(_screen);
+            this.Services.AddService<Shapes>(_shapes);
+            this.Services.AddService<GraphicsDeviceManager>(_graphics);
             //this._camera.min
 
             Vector2[] vertices = new Vector2[5];
@@ -63,8 +64,9 @@ namespace Game1
             vertices[2] = new(-5, -3);
             vertices[3] = new(-5, 3);
             vertices[4] = new(-10, 10);
-            ship = new Ship(vertices, new Vector2(0, 0), new Vector2(0, 0), 0f, Color.Red);
-            pointer = new(Vector2.Zero, 5, Vector2.Zero, 0f, Color.Green);
+
+            ship = new Ship(this, vertices, new Vector2(0, 0), new Vector2(0, 0), 0f, Color.Red);
+            pointer = new(this, Vector2.Zero, 20, Vector2.Zero, 0f, Color.Green);
             pointer.FixScreenSize(true);
 
             base.Initialize();
@@ -78,6 +80,19 @@ namespace Game1
 
         protected override void Update(GameTime gameTime)
         {
+            if (firstFrame)
+                _camera.IncZoom();
+
+            var elapsed = gameTime.ElapsedGameTime.TotalSeconds;
+            timeSinceLastTick += elapsed;
+
+            if(timeSinceLastTick >= 1)
+            {
+                timeSinceLastTick = 0;
+                Ticker.TotalSeconds += 1;
+                Ticker.UpdateGameState();
+            }
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -137,6 +152,8 @@ namespace Game1
             this.pointer.Update(gameTime);
 
             base.Update(gameTime);
+
+            firstFrame = false;
         }
 
         protected override void Draw(GameTime gameTime)
@@ -147,12 +164,10 @@ namespace Game1
             this.ship.Draw(_shapes);
             this.pointer.Draw(_shapes);
             
-            //_shapes.DrawCircle(0, 0, 5, 100, 0.1f, Color.Red);
             _shapes.End();
 
             _spriteBatch.Begin();
-            
-            _spriteBatch.DrawString(font, "Score", this.ship.Position, Color.White, 0, Vector2.Zero, 0.01f * _camera.Zoom, SpriteEffects.None, 0);
+            _spriteBatch.DrawString(this.ship, font, "Score", new Vector2(10, 10), Color.White);
             _spriteBatch.End();
 
             _screen.UnSet();

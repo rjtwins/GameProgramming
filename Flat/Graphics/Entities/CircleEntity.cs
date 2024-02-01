@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Entities
+namespace Flat.Entities
 {
-    internal class CircleEntity : PolyEntity
+    public class CircleEntity : PolyEntity
     {
         float _radius { get; set; } = 1f;
 
-        public CircleEntity(Vector2 position, int radius, Vector2 velocity, float angle, Color color) : base(null, position, velocity, angle, color)
+        public CircleEntity(Game game, Vector2 position, int radius, Vector2 velocity, float angle, Color color) : base(game, null, position, velocity, angle, color)
         {
             _radius = radius;
         }

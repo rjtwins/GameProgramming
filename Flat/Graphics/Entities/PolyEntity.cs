@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Entities
+namespace Flat.Entities
 {
-    internal class PolyEntity : Entity
+    public class PolyEntity : Entity
     {
         public Vector2[] Vertices {  get; set; }
 
-        public PolyEntity(Vector2[] vertices, Vector2 position, Vector2 velocity, float angle, Color color) : base(position, velocity, angle, color)
+        public PolyEntity(Game game, Vector2[] vertices, Vector2 position, Vector2 velocity, float angle, Color color) : base(game, position, velocity, angle, color)
         {
             Vertices = vertices;
         }
