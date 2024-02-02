@@ -9,6 +9,7 @@ using Flat.Graphics;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 
 namespace Flat.Entities
 {
@@ -16,12 +17,13 @@ namespace Flat.Entities
     public abstract class Entity
     {
         public Game Game { get; set; }
+        private OrthographicCamera _camera {  get; set; }
+        protected float _zoom => _camera.Zoom;
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
         public float Angle { get; set; }
         public Color Color { get; set; }
         public float ScaleFactor { get; set; } = 0.01f;
-        public bool FixeScreenSize { get; set; } = false;
         public List<SubPoly> SubEntities { get; set; } = new();
 
         protected Entity(Game game, Vector2 position, Vector2 velocity, float angle, Color color)
@@ -31,8 +33,7 @@ namespace Flat.Entities
             Velocity = velocity;
             Angle = angle;
             Color = color;
-
-            var device = Game.Services.GetService<GraphicsDeviceManager>();
+            _camera = Game.Services.GetService<OrthographicCamera>();
         }
 
         public virtual void MoveTo(Vector2 position)
@@ -67,11 +68,6 @@ namespace Flat.Entities
             angle = offEntityDirection ? angle + Angle : angle;
             Vector2 forceDirection = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
             this.Velocity += forceDirection * amount;
-        }
-
-        public virtual void FixScreenSize(bool state)
-        {
-            FixeScreenSize = state;
         }
 
         public virtual Vector2 GetWindowSpacePos()

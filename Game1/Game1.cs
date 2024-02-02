@@ -37,7 +37,7 @@ namespace Game1
 
         private double _baseZ = 1;
 
-        Entity pointer;
+        PolyEntity pointer;
 
         public Game1()
         {
@@ -93,7 +93,7 @@ namespace Game1
             ship.SubEntities.Add(subShp);
 
             pointer =  new PolyEntity(this, vertices, new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2), new Vector2(0, 0), 0f, Color.Red);
-
+            pointer.FixLineWidth = false;
             //pointer.FixScreenSize(true);
 
             //Earth moon system:

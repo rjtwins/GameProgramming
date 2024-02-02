@@ -17,6 +17,9 @@ namespace Flat.Entities
     {
         public Vector2[] Vertices {  get; set; }
         private Polygon Polygon { get; set; }
+        public bool FixLineWidth { get; set; } = true;
+        public float LineWidt { get; set; } = 1;
+        protected float ActualLineWidth => FixLineWidth ? 1 * (1 / _zoom) : 1;
 
         public PolyEntity(Game game, Vector2[] vertices, Vector2 position, Vector2 velocity, float angle, Color color) : base(game, position, velocity, angle, color)
         {
@@ -24,15 +27,14 @@ namespace Flat.Entities
             if (vertices == null)
                 return;
             Polygon = new Polygon(Vertices);
+
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            var scaleFactor = FixeScreenSize ? (1 / ScaleFactor) : ScaleFactor;
-
-            FlatTransform transform = new FlatTransform(Position, Angle, scaleFactor);
-            spriteBatch.DrawPolygon(Position, Polygon, Color);
-            //shapes.DrawPolygon(Vertices, transform, 1f, Color);
+            
+            spriteBatch.DrawPolygon(Position, Polygon, Color, ActualLineWidth);
         }
     }
 }

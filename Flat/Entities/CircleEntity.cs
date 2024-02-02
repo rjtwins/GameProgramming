@@ -23,8 +23,7 @@ namespace Flat.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            var scaleFactor = FixeScreenSize ? (1 / ScaleFactor) : ScaleFactor;
-            spriteBatch.DrawCircle(Position, _radius * scaleFactor, 256, Color, 100f);
+            spriteBatch.DrawCircle(Position, _radius * ScaleFactor, 256, Color, ActualLineWidth);
         }
     }
 }
