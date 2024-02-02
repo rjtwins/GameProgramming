@@ -34,7 +34,7 @@ namespace Game1.GameEntities
         public long TotalBurn => MaxFuel / (FuelConsumption * (MaxThrust / Thrust));
         public long HalfTotalBurn => TotalBurn / 2;
 
-        public Ship() 
+        public Ship()
         {
             
         }
