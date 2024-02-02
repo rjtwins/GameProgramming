@@ -4,24 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Flat;
-using Flat.Graphics;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using System.ComponentModel;
+using Game1.Graphics;
+using Camera = Game1.Graphics.Camera;
+using Game1.Input;
 
-namespace Flat.Entities
+namespace Game1.GraphicalEntities
 {
 
     public abstract class Entity
     {
         public Guid Guid { get; } = Guid.NewGuid();
         public Game Game { get; set; }
-        private Camera _camera {  get; set; }
-        protected float _zoom => _camera.Zoom;
-        public (long x, long y) Position { get; set; }
+        private Camera _camera { get; set; }
+        protected double _zoom => _camera.Zoom;
+        public (double x, double y) Position { get; set; }
         public Vector2 Velocity { get; set; }
         public float Angle { get; set; }
         public Color Color { get; set; }
@@ -31,10 +32,10 @@ namespace Flat.Entities
 
         public bool WorldSpace = true;
 
-        protected string Name { get; set; }
-        protected string Label { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
 
-        protected Entity(Game game, (long x, long y) position, Vector2 velocity, float angle, Color color, bool worldSpace = true)
+        protected Entity(Game game, (double x, double y) position, Vector2 velocity, float angle, Color color, bool worldSpace = true)
         {
             WorldSpace = worldSpace;
             Game = game;
@@ -55,11 +56,21 @@ namespace Flat.Entities
 
         public virtual void Update(double deltaSeconds)
         {
-            if (CheckClick())
-                Clicked();
+
         }
 
-        public abstract void Clicked();
+        public virtual void Clicked()
+        {
+            bool right = FlatMouse.Instance.IsRightButtonClicked();
+
+            if (!right)
+            {
+                GameState.SelectedEntities.Add(this);
+                GameState.SelectedEntity = this;
+            }
+
+            Debug.WriteLine($"{Guid} was clicked.");
+        }
 
         public abstract bool CheckClick();
 
@@ -77,31 +88,28 @@ namespace Flat.Entities
         public virtual void ApplyForce(float amount)
         {
             Vector2 forceDirection = new Vector2(MathF.Cos(Angle), MathF.Sin(Angle));
-            this.Velocity += forceDirection * amount;
+            Velocity += forceDirection * amount;
         }
 
         public virtual void ApplyForce(float amount, float angle, bool offEntityDirection = false)
         {
             angle = offEntityDirection ? angle + Angle : angle;
             Vector2 forceDirection = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
-            this.Velocity += forceDirection * amount;
+            Velocity += forceDirection * amount;
         }
 
         public virtual Vector2 GetWindowSpacePos()
         {
             if (!WorldSpace)
-                return new Vector2(Position.x, Position.y);
+                return new Vector2((float)Position.x, (float)Position.y);
 
-            var device = Game.Services.GetService<GraphicsDeviceManager>();
-            var width = device.PreferredBackBufferWidth;
-            var height = device.PreferredBackBufferHeight;
+            var width = GlobalStatic.Width;
+            var height = GlobalStatic.Height;
 
-            var x = (_camera.Position.x * -1) + Position.x;
-            var y = (_camera.Position.y * -1) + Position.y;
+            var x = (_camera.Position.x * -1 + Position.x) * _camera.Zoom + width / 2;
+            var y = (_camera.Position.y * -1 + Position.y) * _camera.Zoom + height / 2;
 
-            var pos = new Vector2(x , y) * (float)_camera.Zoom;
-
-            pos = new Vector2((pos.X + (width / 2)), pos.Y + (height / 2));
+            var pos = new Vector2((float)x, (float)y);
 
             //Debug.WriteLine($"camera: {_camera.Position}, worldPos: {Position}, windowPos: {pos}");
 
@@ -122,6 +130,11 @@ namespace Flat.Entities
         }
 
         public abstract void DrawLabel(SpriteBatch spriteBatch);
+
+        public virtual Vector2 GetLabelWidth()
+        {
+            return GlobalStatic.MainFont.MeasureString(Label);
+        }
 
         public virtual void Scale(float amount)
         {

@@ -9,8 +9,9 @@ namespace Flat.Entities
 {
     public class Star : Body
     {
-        public Star(Game game, Vector2 position, long radius, Vector2 velocity, float angle, Color color) : base(game, position, radius, velocity, angle, color)
+        public Star(Game game, (long x, long y) position, long radius, Vector2 velocity, float angle, Color color, bool worldSpace = true) : base(game, position, radius, velocity, angle, color, worldSpace)
         {
+
         }
     }
 }

@@ -29,10 +29,6 @@
     <Folder Include="Content\audio\" />
     <Folder Include="Content\fonts\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Flat\Flat.csproj" />
-    <ProjectReference Include="..\GameLogic\GameLogic.csproj" />
-  </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
     <Exec Command="dotnet tool restore" />

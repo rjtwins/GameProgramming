@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Flat.Entities
+namespace Game1.GraphicalEntities
 {
     public class Body : CircleEntity
     {
@@ -16,7 +16,7 @@ namespace Flat.Entities
 
         public float Radius = 0f;
 
-        public Body(Game game, (long x, long y) position, long radius, Microsoft.Xna.Framework.Vector2 velocity, float angle, Color color, bool worldSpace = true) : base(game, position, radius, velocity, angle, color, worldSpace)
+        public Body(Game game, (double x, double y) position, double radius, Microsoft.Xna.Framework.Vector2 velocity, float angle, Color color, bool worldSpace = true) : base(game, position, radius, velocity, angle, color, worldSpace)
         {
 
         }

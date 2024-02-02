@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 //using Microsoft.Xna.Framework.Graphics;
 
-namespace Flat
+namespace Game1
 {
     public static class Util
     {

@@ -9,7 +9,7 @@ namespace Flat.Entities
 {
     public class Ship : PolyEntity
     {
-        public Ship(Game game, Vector2[] vertices, Vector2 position, Vector2 velocity, float angle, Color color) : base(game, vertices, position, velocity, angle, color)
+        public Ship(Game game, Vector2[] vertices, (long x, long y) position, Vector2 velocity, float angle, Color color, bool worldSpace = true) : base(game, vertices, position, velocity, angle, color, worldSpace)
         {
 
         }

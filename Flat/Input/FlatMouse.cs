@@ -82,25 +82,5 @@ namespace Flat.Input
             var y = currMouseState.Y - prevMouseState.Y;
             return new Vector2(x, y);
         }
-
-        public Vector2 GetScreenPosition(Screen screen)
-        {
-            Rectangle screenDestinationRectangle = screen.CalculateDestinationRectangle();
-
-            Point windowPosition = this.WindowPosition;
-
-            float sx = windowPosition.X - screenDestinationRectangle.X;
-            float sy = windowPosition.Y - screenDestinationRectangle.Y;
-
-            sx /= (float)screenDestinationRectangle.Width;
-            sy /= (float)screenDestinationRectangle.Height;
-
-            sx *= (float)screen.Width;
-            sy *= (float)screen.Height;
-
-            sy = (float)screen.Height - sy;
-
-            return new Vector2(sx, sy);
-        }
     }
 }

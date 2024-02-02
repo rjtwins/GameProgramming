@@ -9,7 +9,7 @@ namespace Flat.Entities
 {
     public class Planet : Body
     {
-        public Planet(Game game, Vector2 position, long radius, Vector2 velocity, float angle, Color color) : base(game, position, radius, velocity, angle, color)
+        public Planet(Game game, (long x, long y) position, long radius, Vector2 velocity, float angle, Color color, bool worldSpace = true) : base(game, position, radius, velocity, angle, color, worldSpace)
         {
 
         }

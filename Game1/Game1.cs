@@ -1,18 +1,15 @@
-﻿using Flat.Entities;
-using Flat.Graphics;
-using Flat.Input;
-using Game1.Extensions;
-using GameLogic;
+﻿using Game1;
+using Game1.Entities;
+using Game1.GraphicalEntities;
+using Game1.Graphics;
+using Game1.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Transactions;
 
 namespace Game1
 {
@@ -20,22 +17,13 @@ namespace Game1
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        //private Screen _screen;
-        private Sprites _sprites;
-        //private Shapes _shapes;
-        //private Camera _camera;
-        private OrthographicCamera _camera;
-        BoxingViewportAdapter _viewportAdapter;
+        private Camera _camera;
+
         private FlatKeyboard _flatKeyboard => FlatKeyboard.Instance;
         private FlatMouse _flatMouse => FlatMouse.Instance;
-        private SpriteFont font;
 
         private double timeSinceLastTick = 0;
         private bool firstFrame = true;
-
-        private List<Entity> _entities = new();
-
-        private double _baseZ = 1;
 
         PolyEntity pointer;
 
@@ -53,55 +41,59 @@ namespace Game1
         {
             DisplayMode dm = _graphics.GraphicsDevice.DisplayMode;
 
-            _graphics.PreferredBackBufferWidth = (int)(dm.Width * 0.8f);
-            _graphics.PreferredBackBufferHeight = (int)(dm.Height * 0.8f);
+            GlobalStatic.Width = (int)(dm.Width * 1f);
+            GlobalStatic.Height = (int)(dm.Height * 1f);
+
+            _graphics.PreferredBackBufferWidth = GlobalStatic.Width;
+            _graphics.PreferredBackBufferHeight = GlobalStatic.Height;
+            _graphics.ToggleFullScreen();
             _graphics.ApplyChanges();
 
-
-            _viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            
-            _baseZ = _viewportAdapter.Viewport.Height;
-
-            _camera = new OrthographicCamera(_viewportAdapter);
-
-            // TODO: Add your initialization logic here
-            //this._screen = new Screen(this, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            //this._sprites = new Sprites(this);
-            //this._shapes = new Shapes(this);
-            //this._camera = new Camera(_screen);
-            //this._camera.Zoom = 1f;
-
-            this.Services.AddService<OrthographicCamera>(_camera);
-            //this.Services.AddService<Screen>(_screen);
-            //this.Services.AddService<Shapes>(_shapes);
+            _camera = new Camera();
+            this.Services.AddService<Camera>(_camera);
             this.Services.AddService<GraphicsDeviceManager>(_graphics);
-            //this._camera.min
 
             Vector2[] vertices = new Vector2[5];
-            vertices[0] = new(10, 0);
-            vertices[1] = new(-10, -10);
-            vertices[2] = new(-5, -3);
-            vertices[3] = new(-5, 3);
-            vertices[4] = new(-10, 10);
+            vertices[0] = new(100, 0);
+            vertices[1] = new(-100, -100);
+            vertices[2] = new(-50, -30);
+            vertices[3] = new(-50, 30);
+            vertices[4] = new(-100, 100);
 
-            var ship = new Ship(this, vertices, new Vector2(0, 0), new Vector2(0, 0), 0f, Color.Red);
+            var ship = new Ship(this, vertices, (0, 0), new Vector2(0, 0), 0f, Color.Red);
 
-            this._entities.Add(ship);
+            GameState.WorldEntities.Add(ship);
 
             var subShp = new SubPoly(this, ship, new Vector2(5f, 5f), vertices, 0f, Color.Red);
-            subShp.ScaleFactor = ship.ScaleFactor / 2;
+            subShp.Scale(ship.ScaleFactor / 2);
             ship.SubEntities.Add(subShp);
 
-            pointer =  new PolyEntity(this, vertices, new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2), new Vector2(0, 0), 0f, Color.Red);
+            pointer = new CircleEntity(this, (_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2), 5, Vector2.Zero, 0f, Color.Red, false);
             pointer.FixLineWidth = false;
-            //pointer.FixScreenSize(true);
+            pointer.WorldSpace = true;
+            pointer.Label = "+";
+            GameState.WorldEntities.Add(pointer);
 
             //Earth moon system:
-            var earth = new Planet(this, Vector2.Zero, 6317000, Vector2.Zero, 0f, Color.Blue);
-            var moon = new Planet(this, new Vector2(0, 384400000), 1737000, Vector2.Zero, 0f, Color.Gray);
+            var earth = new Planet(this, (149600000000, 0), 6317000, Vector2.Zero, 0f, Color.Blue);
+            earth.Label = "EARTH";
+            var moon = new Planet(this, (149600000000, 384400000), 1737000, Vector2.Zero, 0f, Color.Gray);
+            moon.Label = "MOON";
+            var sun = new Star(this, (0, 0), 696000000, Vector2.Zero, 0f, Color.Yellow);
+            sun.Label = "SUN";
+            var proxima = new Star(this, (40208000000000000, 0), 696000000, Vector2.Zero, 0f, Color.Yellow);
+            proxima.Label = "PROXIMA";
+            var solarSystem = new SolarSystem(this, (0, 0), Color.Gray);
+            solarSystem.Label = "SOLAR SYSTEM";
+            var proximaSystem = new SolarSystem(this, (40208000000000000, 0), Color.Gray);
+            proximaSystem.Label = "PROXIMA SYSTEM";
 
-            _entities.Add(earth);
-            _entities.Add(moon);
+            GameState.WorldEntities.Add(sun);
+            GameState.WorldEntities.Add(earth);
+            GameState.WorldEntities.Add(moon);
+            GameState.WorldEntities.Add(proxima);
+            GameState.WorldEntities.Add(proximaSystem);
+            GameState.WorldEntities.Add(solarSystem);
 
             base.Initialize();
         }
@@ -109,20 +101,35 @@ namespace Game1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
+            GlobalStatic.MainFont = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (firstFrame)
-                _camera.LookAt(new Vector2(0, 0));
+                _camera.Position = (0, 0);
 
             timeSinceLastTick += gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (FlatMouse.Instance.IsLeftButtonClicked())
+                GameState.SelectedEntity = null;
+
+            if (FlatMouse.Instance.IsRightButtonClicked())
+            {
+                GameState.RightButtonClicked = true;
+                GameState.RightMouseClickedWorldLocation = FlatMouse.Instance.WorldPosition(_camera);
+            }
+
+            var mousePos = _flatMouse.WorldPosition(_camera);
+            pointer.Position = mousePos;
+
+            GameState.CheckClick();
 
             if(timeSinceLastTick >= 1)
             {
                 GameState.Update(timeSinceLastTick);
                 timeSinceLastTick = 0;
+                GameState.RightButtonClicked = false;
             }
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -130,26 +137,67 @@ namespace Game1
 
             _flatKeyboard.Update();
             _flatMouse.Update();
-
-            var windowPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-            var mouseOfset = new Vector2(((_graphics.PreferredBackBufferWidth / 2) - windowPos.X) * -1, ((_graphics.PreferredBackBufferHeight / 2) - windowPos.Y) * 1);
+            var zoom = _camera.Zoom;
+            var zoomChange = 0f;
 
             //Zoom:
             if (_flatMouse.ScrolledUp())
             {
-                this._camera.Zoom *= 1.2f;
-                Debug.WriteLine(this._camera.Zoom);
+                if (_flatKeyboard.IsKeyDown(Keys.LeftShift))
+                {
+                    zoomChange = 1f;
+                    _camera.Zoom = Math.Min(_camera.Zoom *= 2f, 1);
+                }
+                else
+                {
+                    zoomChange = 0.2f;
+                    _camera.Zoom = Math.Min(_camera.Zoom *= 1.2f, 1);
+                }
             }
 
-            if(_flatMouse.ScrolledDown())
+            mousePos = _flatMouse.WorldPosition(_camera);
+            pointer.Position = mousePos;
+
+            if (_flatMouse.ScrolledDown())
             {
-                this._camera.Zoom *= 0.8f;
-                Debug.WriteLine(this._camera.Zoom);
+                if (_flatKeyboard.IsKeyDown(Keys.LeftShift))
+                {
+                    zoomChange = -0.9f;
+                    _camera.Zoom = Math.Min(_camera.Zoom *= 0.4f, 1);
+                }
+                else
+                {
+                    zoomChange = -0.2f;
+                    _camera.Zoom = Math.Min(_camera.Zoom *= 0.8f, 1);
+                }
             }
 
-            if(_flatMouse.IsLeftButtonDown())
+            if (zoomChange != 0f)
             {
-                this._camera.Move(new Vector2(_flatMouse.MouseMovement().X, _flatMouse.MouseMovement().Y * -1) * (1 / _camera.Zoom));
+                var mouseX = mousePos.x;
+                var mouseY = mousePos.y;
+
+                var camPos = _camera.Position;
+                var camX = camPos.x;
+                var camY = camPos.y;
+
+                var divx = (mouseX - camX) * zoomChange;
+                var divy = (mouseY - camY) * zoomChange;
+
+                var newX = camX + divx;
+                var newY = camY + divy;
+
+                //Debug.WriteLine($"mousePos: {mousePos} camPos: {_camera.Position} div: {(divx, divy)}");
+
+                _camera.Position = (newX, newY);
+            }
+
+            if (_flatMouse.IsLeftButtonDown())
+            {
+                var x = (long)(_flatMouse.MouseMovement().X * (1 / _camera.Zoom));
+                var y = (long)(_flatMouse.MouseMovement().Y * -1 * (1 / _camera.Zoom));
+
+                _camera.Position = (_camera.Position.x + x, _camera.Position.y + y);                
             }
 
             float playerRotAmount = MathHelper.Pi * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -189,27 +237,15 @@ namespace Game1
             //Clear window
             GraphicsDevice.Clear(Color.Black);
 
-            ////Move screen
-            //_screen.Set();
+            //On Window
+            _spriteBatch.Begin();
 
-            ////Draw shapes on screen:
-            //_shapes.Begin(_camera);
-
-            //On world:
-            var transformMatrix = _camera.GetViewMatrix();
-            _spriteBatch.Begin(transformMatrix: transformMatrix);
-            //_spriteBatch.DrawRectangle(new RectangleF(250, 250, 50, 50), Color.Black, 1f);
-            _entities.ForEach(e =>
+            GameState.WorldEntities.ForEach(e =>
             {
                 e.Draw(_spriteBatch);
                 e.DrawSubEntities(_spriteBatch);
             });
 
-            _spriteBatch.End();
-
-            //On Window
-            _spriteBatch.Begin();
-            this.pointer.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

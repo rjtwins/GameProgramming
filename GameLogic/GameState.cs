@@ -1,5 +1,4 @@
-﻿using Flat.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,6 +10,9 @@ namespace GameLogic
     public static class GameState
     {
         public static List<Entity> WorldEntities = new();
+
+        public static List<Entity> SelectedEntities = new();
+
         public static double TotalSeconds { get; set; } = 0;
         public static double TotalMinutes => TotalSeconds / 60;
         public static double TotalHours => TotalSeconds / 3600;
@@ -22,8 +24,6 @@ namespace GameLogic
             TotalSeconds = TotalSeconds + (deltaSeconds * GameSpeed);
             //Debug.WriteLine(TotalSeconds);
             WorldEntities.ForEach(x => x.Update(deltaSeconds));
-
-
         }
     }
 }

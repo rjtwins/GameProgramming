@@ -1,6 +1,4 @@
-﻿using Flat;
-using Flat.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -10,22 +8,22 @@ using System.Threading.Tasks;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
 using MonoGame.Extended.Shapes;
-using Flat.Input;
 using Microsoft.Xna.Framework.Input;
-using GameLogic;
+using Game1.Input;
+using System.Net.Http.Headers;
 
-namespace Flat.Entities
+namespace Game1.GraphicalEntities
 {
     public class PolyEntity : Entity
     {
-        public Vector2[] Vertices {  get; set; }
+        public Vector2[] Vertices { get; set; }
         private Polygon Polygon { get; set; }
         public bool FixLineWidth { get; set; } = true;
         public float LineWidth { get; set; } = 2f;
         protected float ActualLineWidth => LineWidth;
-        private Polygon _scaledPolygon {  get; set; }
+        private Polygon _scaledPolygon { get; set; }
 
-        public PolyEntity(Game game, Vector2[] vertices, (long x, long y) position, Vector2 velocity, float angle, Color color, bool worldSpace = true) : base(game, position, velocity, angle, color, worldSpace)
+        public PolyEntity(Game game, Vector2[] vertices, (double x, double y) position, Vector2 velocity, float angle, Color color, bool worldSpace = true) : base(game, position, velocity, angle, color, worldSpace)
         {
             if (vertices == null)
                 return;
@@ -37,8 +35,9 @@ namespace Flat.Entities
         public override void Draw(SpriteBatch spriteBatch)
         {
             _scaledPolygon = Polygon;
+
             if (WorldSpace)
-                _scaledPolygon = Polygon.TransformedCopy(Vector2.Zero, Angle, new Vector2(_zoom));// = new Polygon(Vertices.Select(x => x * _zoom).ToArray());
+                _scaledPolygon = Polygon.TransformedCopy(Vector2.Zero, Angle, new Vector2((float)_zoom));
 
             spriteBatch.DrawPolygon(GetWindowSpacePos(), _scaledPolygon, Color, ActualLineWidth);
         }
@@ -63,24 +62,15 @@ namespace Flat.Entities
             return true;
         }
 
-        public override void Clicked()
-        {
-            bool right = FlatMouse.Instance.IsRightButtonClicked();
-
-            if(!right)
-                GameState.
-        }
-
         public override bool CheckClick()
         {
-            if (!FlatMouse.Instance.IsLeftButtonClicked() && !FlatMouse.Instance.IsRightButtonClicked())
-                return false;
-
             var mousePos = Mouse.GetState().Position;
-            var polygon = _scaledPolygon.TransformedCopy(GetWindowSpacePos(), 0f, Vector2.Zero);
+            var polygon = _scaledPolygon.TransformedCopy(GetWindowSpacePos(), 0f, Vector2.One);
 
             if (!polygon.Contains(mousePos.ToVector2()))
                 return false;
+
+            Clicked();
 
             return true;
         }
