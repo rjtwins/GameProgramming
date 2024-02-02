@@ -8,7 +8,7 @@ namespace Flat.Graphics
     public sealed class Camera
     {
         public readonly static float MinZ = 1f;
-        public readonly static float MaxZ = 2048f;
+        public readonly static float MaxZ = float.MaxValue;
 
         public readonly static float MinZoom = 1f;
         public float MaxZoom = int.MaxValue;
@@ -86,11 +86,11 @@ namespace Flat.Graphics
             return this.z * MathF.Tan(0.5f * this.fieldOfView) * 2f;
         }
 
-        public void MoveZ(float amount)
-        {
-            this.z += amount;
-            this.z = Util.Clamp(this.z, Camera.MinZ, Camera.MaxZ);
-        }
+        //public void MoveZ(float amount)
+        //{
+        //    this.z += amount;
+        //    this.z = Util.Clamp(this.z, Camera.MinZ, Camera.MaxZ);
+        //}
 
         public void ResetZ()
         {
@@ -109,11 +109,28 @@ namespace Flat.Graphics
 
         public void IncZoom()
         {
-            this.Zoom *= 1.2f;
-            this.Zoom = Util.Clamp(this.Zoom, MinZoom, MaxZoom);
-            this.z = this.baseZ / this.Zoom;
+            //this.Zoom *= 1.2f;
+            //this.Zoom = Util.Clamp(this.Zoom, MinZoom, MaxZoom);
+            //this.z = this.baseZ / this.Zoom;
 
-            System.Diagnostics.Debug.WriteLine(Zoom);
+            this.z *= 0.8f;
+            this.z = Math.Max(this.z, 100);
+
+            this.Zoom = this.baseZ / this.z;
+            //System.Diagnostics.Debug.WriteLine(this.Zoom);
+            System.Diagnostics.Debug.WriteLine(this.z);
+        }
+
+        public void DecZoom()
+        {
+            //this.Zoom *= 0.8f;
+            //this.Zoom = Util.Clamp(this.Zoom, MinZoom, MaxZoom);
+            //this.z = this.baseZ / this.Zoom;
+
+            this.z *= 1.2f;
+            this.Zoom = this.baseZ / this.z;
+
+            //System.Diagnostics.Debug.WriteLine(this.Zoom);
         }
 
         public void IncZoomToPos(Vector2 pos)
@@ -128,13 +145,7 @@ namespace Flat.Graphics
             this.Move(pos * -0.1f);
         }
 
-        public void DecZoom()
-        {
-            this.Zoom *= 0.8f;
-            this.Zoom = Util.Clamp(this.Zoom, MinZoom, MaxZoom);
-            this.z = this.baseZ / this.Zoom;
-            System.Diagnostics.Debug.WriteLine(Zoom);
-        }
+
 
         public void SetZoom(int amount)
         {

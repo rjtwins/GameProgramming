@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameLogic.LogicalEntities
+namespace GameLogic
 {
-    internal class Station
+    public class VectorShape
     {
-
+        public Vector2[]? Vertices {  get; set; }
     }
 }

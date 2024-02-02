@@ -8,6 +8,7 @@ using Flat;
 using Flat.Graphics;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Flat.Entities
 {
@@ -21,6 +22,7 @@ namespace Flat.Entities
         public Color Color { get; set; }
         public float ScaleFactor { get; set; } = 0.01f;
         public bool FixeScreenSize { get; set; } = false;
+        public List<SubPoly> SubEntities { get; set; } = new();
 
         protected Entity(Game game, Vector2 position, Vector2 velocity, float angle, Color color)
         {
@@ -29,6 +31,8 @@ namespace Flat.Entities
             Velocity = velocity;
             Angle = angle;
             Color = color;
+
+            var device = Game.Services.GetService<GraphicsDeviceManager>();
         }
 
         public virtual void MoveTo(Vector2 position)
@@ -36,9 +40,9 @@ namespace Flat.Entities
             Position = position;
         }
 
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update(double deltaSeconds)
         {
-            Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public virtual void Rotate(float amount)
@@ -70,14 +74,6 @@ namespace Flat.Entities
             FixeScreenSize = state;
         }
 
-        public virtual Vector2 GetScreenSpacePos()
-        {
-            var camera = Game.Services.GetService<Camera>();
-            //var screen = Game.Services.GetService<Screen>();
-
-            return camera.Position - Position;
-        }
-
         public virtual Vector2 GetWindowSpacePos()
         {
             var device = Game.Services.GetService<GraphicsDeviceManager>();
@@ -88,12 +84,24 @@ namespace Flat.Entities
             var pos = new Vector2((camera.Position.X *-1) - Position.X, camera.Position.Y + Position.Y) * camera.Zoom;
             pos = new Vector2((pos.X + (width / 2)), pos.Y + (height / 2));
 
-            Debug.WriteLine(camera.Position);
-            Debug.WriteLine(pos);
-
             return pos;
         }
 
-        public abstract void Draw(Shapes shapes);
+        public abstract void Draw(SpriteBatch spriteBatch);
+
+        //Recursively draw
+        public virtual void DrawSubEntities(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < SubEntities.Count; i++)
+            {
+                SubEntities[i].Draw(spriteBatch);
+                SubEntities[i].DrawSubEntities(spriteBatch);
+            }
+        }
+
+        public virtual void Scale(float amount)
+        {
+            ScaleFactor = amount;
+        }
     }
 }
