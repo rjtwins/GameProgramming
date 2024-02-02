@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities.SubSystems
 {
-    internal class Weapons
+    public class Weapons : SubSystemBase
     {
-
+        public string WeaponType { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Game1;
-using Game1.Entities;
 using Game1.GraphicalEntities;
 using Game1.Graphics;
 using Game1.Input;

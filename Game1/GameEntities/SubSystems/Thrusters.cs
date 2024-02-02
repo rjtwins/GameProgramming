@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities.SubSystems
 {
-    internal class Thrusters
+    public class Thrusters : SubSystemBase
     {
     }
 }

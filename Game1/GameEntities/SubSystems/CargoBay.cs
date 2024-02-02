@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities.SubSystems
 {
-    public class Sensors : SubSystemBase
+    public class CargoBay : SubSystemBase
     {
     }
 }
