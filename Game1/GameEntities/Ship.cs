@@ -6,27 +6,16 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    public class Ship
+    public class Ship : BodyBase
     {
-        public Guid Guid { get; set; }
-
-        //Names and stuff;
-        public string Name { get; set; }
-        public string Description { get; set; }
         public string ShipClass { get; set; }
 
-
-        //In 1000kg (ton)
-        public int Mass { get; set; }
         //Crew in men
         public int Crew { get; set; }
 
         //In KN
         public long MaxThrust { get; set; }
         public long Thrust { get; set; }
-
-        //In kM/s (kilometers per second)
-        public long Speed { get; set; }
 
         //in kilo liters
         public long Fuel { get; set; }

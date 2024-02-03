@@ -9,6 +9,7 @@ using MonoGame.Extended.ViewportAdapters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Game1
 {
@@ -93,6 +94,31 @@ namespace Game1
             GameState.WorldEntities.Add(proxima);
             GameState.WorldEntities.Add(proximaSystem);
             GameState.WorldEntities.Add(solarSystem);
+
+            var generator = new SpaceGenerator();
+            var systems = generator.Generate(100);
+
+            systems.ForEach(s =>
+            {
+                var system = new SolarSystem(this, (s.X, s.Y), Color.Gray);
+                system.Label = s.Name;
+                s.Planets.ForEach(p =>
+                {
+                    var planet = new Planet(this, (p.X, p.Y), p.Radius, Vector2.Zero, 0f, Color.Blue);
+                    planet.Label = p.Name;
+                    GameState.WorldEntities.Add(planet);
+                });
+
+                s.Stars.ForEach(st =>
+                {
+                    var star = new Star(this, (st.X, st.Y), st.Radius, Vector2.Zero, 0f, Color.Yellow);
+                    star.Label = st.Name;
+                    GameState.WorldEntities.Add(star);
+                });
+
+                GameState.WorldEntities.Add(system);
+            });
+
 
             base.Initialize();
         }
