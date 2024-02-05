@@ -8,11 +8,12 @@ namespace Game1.GraphicalEntities
 {
     public interface IEntity
     {
-        float Angle { get; }
-        Color Color { get; }
+        bool IsDrawn { get; set; }
+        float Angle { get; set; }
+        Color Color { get; set; }
         Game Game { get; set; }
-        Guid Guid { get; }
-        string Label { get; }
+        Guid Guid { get; set; }
+        string Label { get; set; }
         (double x, double y) Position { get; }
         float ScaleFactor { get; }
         //List<SubPoly> SubEntities { get; set; }

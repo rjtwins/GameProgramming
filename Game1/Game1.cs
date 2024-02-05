@@ -39,7 +39,6 @@ namespace Game1
         
         private Vector2 _selectionStart = new Vector2();
         private Vector2 _selectionEnd = new Vector2();
-
         private Vector2 _pointerVector = new Vector2();
         Vector2[] _cross1, _cross2;
 
@@ -136,7 +135,7 @@ namespace Game1
                 Name = "PROXIMA SYSTEM"
             };
 
-            GameState.GameEntities.AddRange(new List<BodyBase>() { earth, sun, solarSystem, proxima });
+            GameState.GameEntities.AddRange(new List<GameEntity>() { earth, sun, solarSystem, proxima });
 
             //GameState.MiscGraphicalEntities.Add(sun);
             //GameState.MiscGraphicalEntities.Add(earth);
@@ -174,7 +173,7 @@ namespace Game1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             GlobalStatic.MainFont = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
-            GameState.MiscGraphicalEntities.AddRange(GameState.GameEntities.Select(x => x.GenerateGraphicalEntity(this)));
+            GameState.GraphicalEntities.AddRange(GameState.GameEntities.Select(x => x.GenerateGraphicalEntity(this)));
         }
 
         protected override void Update(GameTime gameTime)
@@ -202,7 +201,7 @@ namespace Game1
 
             GameState.CheckClick();
 
-            if(timeSinceLastTick >= 1)
+            if (timeSinceLastTick >= 1)
             {
                 GameState.Update(timeSinceLastTick);
                 timeSinceLastTick = 0;
@@ -215,7 +214,10 @@ namespace Game1
 
             _flatKeyboard.Update();
             _flatMouse.Update();
-            
+
+            if (FlatMouse.Instance.IsLeftButtonClicked())
+                GameState.SelectedEntities.Clear();
+
             ProcessZoom();
 
             ProcessPan();
@@ -281,19 +283,34 @@ namespace Game1
             //    x.GraphicalEntity.DrawSubEntities(_spriteBatch);
             //});
 
-            GameState.MiscGraphicalEntities.ForEach(e =>
+            GameState.GraphicalEntities.ForEach(e =>
             {
+                if (!e.InView())
+                {
+                    e.IsDrawn = false;
+                    return;
+                }
+
+                e.IsDrawn = true;
+
                 if (!e.ShouldDraw())
                 {
                     _spriteBatch.DrawPoint(e.GetWindowSpacePos(), e.Color, 2f);
-                    //e.DrawLabel(_spriteBatch);
-                    return;
                 }
 
                 e.Draw(_spriteBatch);
                 e.DrawSubEntities(_spriteBatch);
+
+                if (GameState.SelectedEntities.Contains(e.GameEntity))
+                {
+                    var windowSpace = e.GetWindowSpacePos();
+                    var dimensions = e.GetDimensions();
+                    _spriteBatch.DrawRectangle(windowSpace.X - dimensions.X - 5, windowSpace.Y - dimensions.X - 5, dimensions.X * 2 + 10, dimensions.Y * 2 + 10, Color.Cyan);
+                }
             });
 
+
+            //UI stuff:
             _spriteBatch.DrawPolygon(Vector2.Zero, _cross1, Color.Red);
             _spriteBatch.DrawPolygon(Vector2.Zero, _cross2, Color.Red);
             _spriteBatch.DrawCircle(_pointerVector, 5f, 255, Color.Red);
@@ -477,7 +494,21 @@ namespace Game1
 
         private void ProcessSelectingEntities()
         {
-            Debug.WriteLine("ProcessSelectingEntities");
+            var selectionRectangle = GetSelectionRectangle();
+
+            var isDrawn = GameState.GraphicalEntities
+                .Where(x => x.IsDrawn)
+                .ToList();
+
+            var inSelectionRectangle = GameState.GraphicalEntities
+                .Where(x => x.IsDrawn)
+                .Where(x => selectionRectangle.Contains(x.GetWindowSpacePos()))
+                .ToList();
+
+            if(!_flatKeyboard.IsKeyDown(Keys.LeftShift))
+                GameState.SelectedEntities.Clear();
+
+            GameState.SelectedEntities.AddRange(inSelectionRectangle.Select(x => x.GameEntity));
         }
 
         private Rectangle GetSelectionRectangle()

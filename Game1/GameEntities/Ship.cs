@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    public class Ship : BodyBase
+    public class Ship : GameEntity
     {
         public string ShipClass { get; set; }
 

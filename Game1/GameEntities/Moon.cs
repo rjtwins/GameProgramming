@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    internal class Moon : BodyBase
+    internal class Moon : GameEntity
     {
         public override GameGraphicalEntity GenerateGraphicalEntity(Game game)
         {

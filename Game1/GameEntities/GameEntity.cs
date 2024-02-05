@@ -1,19 +1,16 @@
 ﻿using Game1.GraphicalEntities;
-using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    public abstract class BodyBase
+    public abstract class GameEntity
     {
         public GameGraphicalEntity GraphicalEntity { get; set; }
-        public BodyBase Parent { get; set; }
+        public GameEntity Parent { get; set; }
         public Guid Guid { get; set; }
+
+        public bool Selected { get; set; } = false;
 
         public double X { get; set; }
         public double Y { get; set; }
@@ -27,13 +24,13 @@ namespace Game1.GameEntities
         public Color Color { get; set; }
 
         //In 1000kg (ton)
-        public long Mass { get; set; }
+        public long Mass { get; set; } = 0;
 
         //kM/s
-        public long Velocity { get; set; }
+        public long Velocity { get; set; } = 0;
 
         //Radials against galaxtic plane x axis;
-        public float Angle { get; set; }
+        public float Angle { get; set; } = 0f;
 
         public double Radius { get; set; } = 0d;
 

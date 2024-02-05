@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    public class Planet : BodyBase
+    public class Planet : GameEntity
     {
         public Planet() 
         {

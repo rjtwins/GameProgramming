@@ -8,7 +8,7 @@ namespace Game1.GraphicalEntities
 {
     public abstract class GraphicalEntity : IEntity
     {
-        public Guid Guid { get; } = Guid.NewGuid();
+        public Guid Guid { get; set; } = Guid.NewGuid();
         public Game Game { get; set; }
         private Camera _camera { get; set; }
         public virtual double _zoom { get; set; }
@@ -22,8 +22,8 @@ namespace Game1.GraphicalEntities
         //public List<SubPoly> SubEntities { get; set; } = new();
 
         public bool WorldSpace = true;
-        public virtual string Label => "";
-
+        public bool IsDrawn { get; set; }
+        public virtual string Label { get; set; }
         protected GraphicalEntity(Game game, (double x, double y) position, float angle, Color color, bool worldSpace = true)
         {
             WorldSpace = worldSpace;
@@ -80,6 +80,22 @@ namespace Game1.GraphicalEntities
         }
 
         public abstract Vector2 GetDimensions();
+
+        public virtual bool InView()
+        {
+            var windowSpacePos = this.GetWindowSpacePos();
+            var dims = GetDimensions();
+            var max = windowSpacePos + dims / 2;
+            var min = windowSpacePos - dims / 2;
+
+            if (max.X <= 0 && max.Y <= 0)
+                return false;
+
+            if (min.X >= GlobalStatic.Width && min.Y >= GlobalStatic.Height)
+                return false;
+
+            return true;
+        }
 
         public virtual bool ShouldDraw()
         {

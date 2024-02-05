@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    public class Star : BodyBase
+    public class Star : GameEntity
     {
         public Star()
         {

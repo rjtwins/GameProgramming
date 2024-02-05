@@ -15,10 +15,11 @@ namespace Game1
 {
     public static class GameState
     {
-        public static List<GameGraphicalEntity> MiscGraphicalEntities { get; set; } = new();
-        public static List<GameGraphicalEntity> SelectedEntities { get; set; } = new();
+        public static List<GameGraphicalEntity> GraphicalEntities { get; set; } = new();
+        public static List<GameEntity> GameEntities { get; set; } = new();
+
         public static GameGraphicalEntity SelectedEntity { get; set; }
-        public static List<BodyBase> GameEntities { get; set; } = new();
+        public static List<GameEntity> SelectedEntities { get; set; } = new();
 
         public static double TotalSeconds { get; set; } = 0;
         public static double TotalMinutes => TotalSeconds / 60;
@@ -43,9 +44,10 @@ namespace Game1
 
         public static void CheckClick()
         {
+
             if (FlatMouse.Instance.IsLeftButtonClicked() || FlatMouse.Instance.IsRightButtonClicked())
             {
-                MiscGraphicalEntities.ForEach(x => x.CheckClick());
+                GraphicalEntities.ForEach(x => x.CheckClick());
             }
         }
 

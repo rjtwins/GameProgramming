@@ -19,7 +19,7 @@ namespace Game1.GraphicalEntities
 
     public abstract class GameGraphicalEntity : GraphicalEntity
     {
-        public BodyBase GameEntity { get; set; }
+        public GameEntity GameEntity { get; set; }
         private Camera _camera { get; set; }
         public override double _zoom => _camera.Zoom;
 

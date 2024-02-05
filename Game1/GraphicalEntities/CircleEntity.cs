@@ -65,7 +65,7 @@ namespace Game1.GraphicalEntities
 
         public override Vector2 GetDimensions()
         {
-            var radius = Radius;
+            var radius = Radius * 2;
 
             if (WorldSpace)
                 radius = Radius * _zoom;

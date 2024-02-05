@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    public class SolarSystem : BodyBase
+    public class SolarSystem : GameEntity
     {
         public List<Planet> Planets { get; set; } = new();
         public List<Star> Stars { get; set; } = new();
