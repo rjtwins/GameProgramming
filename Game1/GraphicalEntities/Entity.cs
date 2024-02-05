@@ -141,6 +141,25 @@ namespace Game1.GraphicalEntities
             _scaleFactor = amount;
         }
 
-        public abstract bool ShouldDraw();
+        public abstract Vector2 GetDimensions();
+
+        public virtual bool ShouldDraw()
+        {
+            var windowSpacePos = this.GetWindowSpacePos();
+            var dims = GetDimensions();
+            var max = windowSpacePos + dims / 2;
+            var min = windowSpacePos - dims / 2;
+
+            if (dims.X <= 10 && dims.Y <= 10)
+                return false;
+
+            if (max.X <= 0 && max.Y <= 0)
+                return false;
+
+            if (min.X >= GlobalStatic.Width && min.Y >= GlobalStatic.Height)
+                return false;
+
+            return true;
+        }
     }
 }

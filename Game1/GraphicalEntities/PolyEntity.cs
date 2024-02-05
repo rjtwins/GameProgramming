@@ -57,11 +57,6 @@ namespace Game1.GraphicalEntities
             spriteBatch.DrawString(GlobalStatic.MainFont, Label, new Vector2(x, y), Color);
         }
 
-        public override bool ShouldDraw()
-        {
-            return true;
-        }
-
         public override bool CheckClick()
         {
             var mousePos = Mouse.GetState().Position;
@@ -73,6 +68,12 @@ namespace Game1.GraphicalEntities
             Clicked();
 
             return true;
+        }
+
+        public override Vector2 GetDimensions()
+        {
+            var bbox = Polygon.TransformedCopy(Vector2.Zero, Angle, new Vector2((float)_zoom)).BoundingRectangle;
+            return new Vector2(bbox.Width, bbox.Height);
         }
     }
 }

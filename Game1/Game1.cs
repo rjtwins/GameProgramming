@@ -5,6 +5,7 @@ using Game1.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
 using System;
 using System.Collections.Generic;
@@ -267,6 +268,13 @@ namespace Game1
 
             GameState.WorldEntities.ForEach(e =>
             {
+                if (!e.ShouldDraw())
+                {
+                    _spriteBatch.DrawPoint(e.GetWindowSpacePos(), e.Color, 2f);
+                    e.DrawLabel(_spriteBatch);
+                    return;
+                }
+
                 e.Draw(_spriteBatch);
                 e.DrawSubEntities(_spriteBatch);
             });

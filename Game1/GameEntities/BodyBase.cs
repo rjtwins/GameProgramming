@@ -12,6 +12,9 @@ namespace Game1.GameEntities
         public double X { get; set; } = 0;
         public double Y { get; set; } = 0;
 
+        public double LocalX { get; set; } = 0;
+        public double LocalY { get; set; } = 0;
+
         //Names and stuff;
         public string Name { get; set; }
         public string Description { get; set; }

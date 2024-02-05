@@ -18,16 +18,17 @@ namespace Game1.GraphicalEntities
 
         public CircleEntity(Game game, (double x, double y) position, double radius, Vector2 velocity, float angle, Color color, bool worldSpace = true) : base(game, null, position, velocity, angle, color, worldSpace)
         {
-            _radius = radius;
+            _radius = radius * ScaleFactor;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             var radius = _radius;
+
             if (WorldSpace)
                 radius = _radius * _zoom;
 
-            spriteBatch.DrawCircle(GetWindowSpacePos(), (float)(radius * ScaleFactor), 256, Color, ActualLineWidth);
+            spriteBatch.DrawCircle(GetWindowSpacePos(), (float)(radius), 256, Color, ActualLineWidth);
 
             //Debug.WriteLine($"radius: {radius}, pos: {GetWindowSpacePos()}");
         }
@@ -47,6 +48,8 @@ namespace Game1.GraphicalEntities
             if (WorldSpace)
                 radius = _radius * _zoom;
 
+            radius = radius * (1 / ScaleFactor);
+
             var y = windowPos.Y - radius * (double)ScaleFactor - 20;
 
             spriteBatch.DrawString(GlobalStatic.MainFont, Label, new Vector2(x, (float)y), Color);
@@ -55,6 +58,17 @@ namespace Game1.GraphicalEntities
         public override bool CheckClick()
         {
             return false;
+        }
+
+        public override Vector2 GetDimensions()
+        {
+            var radius = _radius;
+
+            if (WorldSpace)
+                radius = _radius * _zoom;
+
+            var bbox = new Vector2((float)radius, (float)radius);
+            return bbox;
         }
     }
 }

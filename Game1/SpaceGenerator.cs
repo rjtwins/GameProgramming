@@ -68,15 +68,16 @@ namespace Game1
         public List<Planet> GeneratePlanets(int number, double x, double y, double systemSize)
         {
             List<Planet> planets = new();
-            for(int i = 0; i < number; i++)
+
+            for (int i = 0; i < number; i++)
             {
-                var localX = Math.Round(Rand.Next(-100, 100) * 0.01 * (systemSize / 4));
-                var localY = Math.Round(Rand.Next(-100, 100) * 0.01 * (systemSize / 4));
+                var lx = ((x - systemSize / 2) + Rand.NextDouble() * systemSize);
+                var ly = ((y - systemSize / 2) + Rand.NextDouble() * systemSize);
 
-                x += localX;
-                y += localY;
-
-                var planet = GeneratePlanet(x, y);
+                var planet = GeneratePlanet(lx, ly);
+                planet.LocalX = (x - lx) * -1;
+                planet.LocalY = (y - ly);
+                planet.Name = $"Planet ({planet.LocalX}, {planet.LocalY})";
 
                 planets.Add(planet);
             }
@@ -91,7 +92,7 @@ namespace Game1
                 Name = "Planet",
                 X = x,
                 Y = y,
-                Radius = Math.Round(Rand.NextDouble() * 24540000)
+                Radius = Rand.Next(10000, 24540000)
             };
         }
     }

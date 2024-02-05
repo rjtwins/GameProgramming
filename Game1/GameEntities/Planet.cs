@@ -8,5 +8,6 @@ namespace Game1.GameEntities
 {
     public class Planet : BodyBase
     {
+
     }
 }

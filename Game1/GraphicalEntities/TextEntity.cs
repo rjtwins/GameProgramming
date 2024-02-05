@@ -40,6 +40,11 @@ namespace Game1.GraphicalEntities
             return;
         }
 
+        public override Vector2 GetDimensions()
+        {
+            return new Vector2(0, 0);
+        }
+
         public override bool ShouldDraw()
         {
             return true;
