@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Game1.GraphicalEntities;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,6 +57,11 @@ namespace Game1.GameEntities
             double totalDistance = distanceDuringAcceleration + distanceDuringDeceleration;
 
             return totalDistance;
+        }
+
+        public override GameGraphicalEntity GenerateGraphicalEntity(Game game)
+        {
+            return null;
         }
     }
 }

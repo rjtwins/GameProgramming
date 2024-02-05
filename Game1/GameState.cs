@@ -1,4 +1,5 @@
-﻿using Game1.GraphicalEntities;
+﻿using Game1.GameEntities;
+using Game1.GraphicalEntities;
 using Game1.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -14,10 +15,10 @@ namespace Game1
 {
     public static class GameState
     {
-        public static List<Entity> WorldEntities = new();
-
-        public static List<Entity> SelectedEntities = new();
-        public static Entity SelectedEntity { get; set; }
+        public static List<GameGraphicalEntity> MiscGraphicalEntities { get; set; } = new();
+        public static List<GameGraphicalEntity> SelectedEntities { get; set; } = new();
+        public static GameGraphicalEntity SelectedEntity { get; set; }
+        public static List<BodyBase> GameEntities { get; set; } = new();
 
         public static double TotalSeconds { get; set; } = 0;
         public static double TotalMinutes => TotalSeconds / 60;
@@ -30,8 +31,9 @@ namespace Game1
         public static void Update(double deltaSeconds)
         {
             TotalSeconds = TotalSeconds + deltaSeconds * GameSpeed;
+            
             //Debug.WriteLine(TotalSeconds);
-            WorldEntities.ForEach(x => x.Update(deltaSeconds));
+            //MiscGraphicalEntities.ForEach(x => x.Update(deltaSeconds));
 
             if(RightButtonClicked)
             {
@@ -43,7 +45,7 @@ namespace Game1
         {
             if (FlatMouse.Instance.IsLeftButtonClicked() || FlatMouse.Instance.IsRightButtonClicked())
             {
-                WorldEntities.ForEach(x => x.CheckClick());
+                MiscGraphicalEntities.ForEach(x => x.CheckClick());
             }
         }
 
@@ -61,7 +63,7 @@ namespace Game1
             //double angleDegrees = angle * (180.0 / Math.PI);
             //Debug.WriteLine($"MousePos: {RightMouseClickedWorldLocation}, EntityPos: {SelectedEntity.Position}, Angle {angleDegrees}");
 
-            SelectedEntity.Angle = (float)angle;
+            //SelectedEntity.Angle = (float)angle;
 
         }
     }

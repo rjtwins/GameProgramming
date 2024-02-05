@@ -1,0 +1,111 @@
+{
+  "UserEvents": {
+    "jorre": [
+      {
+        "NewName": "main.textTestInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-05T16:14:06.2889698Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "main.textTest textTestInstance in main",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-05T16:14:17.5529674Z"
+      },
+      {
+        "NewName": "main.test2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-05T16:14:26.1112074Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "textTest",
+        "ElementType": "Components",
+        "EventType": 1,
+        "TimestampUtc": "2024-02-05T16:15:40.0264799Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "main.textTest test2 in main",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-05T16:15:42.5847743Z"
+      },
+      {
+        "NewName": "Button",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-05T16:15:47.3261641Z"
+      },
+      {
+        "NewName": "Button (Container).ColoredRectangleInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-05T16:16:02.4578165Z"
+      },
+      {
+        "NewName": "Button (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-05T16:16:05.1154014Z"
+      },
+      {
+        "NewName": "main.ButtonInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-05T16:18:35.8443506Z"
+      },
+      {
+        "NewName": "main.ButtonInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-05T16:18:55.4267027Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "main.Button ButtonInstance in main",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-05T16:19:23.5421278Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "main.Button ButtonInstance1 in main",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-05T16:19:23.5431264Z"
+      },
+      {
+        "NewName": "main.ButtonInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-05T16:22:36.046845Z"
+      },
+      {
+        "NewName": "main.ButtonInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-05T16:22:37.5627022Z"
+      },
+      {
+        "NewName": "main.ButtonInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-05T16:22:38.9279587Z"
+      }
+    ]
+  }
+}

@@ -1,5 +1,7 @@
 ﻿using System;
+using Game1.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 //using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1
@@ -102,6 +104,25 @@ namespace Game1
         {
             // a · b = ax × bx + ay × by
             return a.X * b.X + a.Y * b.Y;
+        }
+
+        public static (double x, double y) WorldPosition(Camera camera, Vector2 screenPos)
+        {
+            double cWorldx = camera.Position.x;
+            double cWorldy = camera.Position.y;
+
+            double mx = screenPos.X;
+            double my = screenPos.Y;
+            double divx = mx - GlobalStatic.Width / 2;
+            double divy = my - GlobalStatic.Height / 2;
+
+            divx *= (1 / camera.Zoom);
+            divy *= (1 / camera.Zoom);
+
+            var worldx = cWorldx + divx;
+            var worldy = cWorldy + divy;
+
+            return (worldx, worldy);
         }
     }
 }

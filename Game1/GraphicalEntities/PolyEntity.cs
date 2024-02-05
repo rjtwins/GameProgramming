@@ -14,16 +14,16 @@ using System.Net.Http.Headers;
 
 namespace Game1.GraphicalEntities
 {
-    public class PolyEntity : Entity
+    public class PolyEntity : GameGraphicalEntity
     {
         public Vector2[] Vertices { get; set; }
         private Polygon Polygon { get; set; }
         public bool FixLineWidth { get; set; } = true;
-        public float LineWidth { get; set; } = 2f;
+        public float LineWidth { get; set; } = 1f;
         protected float ActualLineWidth => LineWidth;
         private Polygon _scaledPolygon { get; set; }
 
-        public PolyEntity(Game game, Vector2[] vertices, (double x, double y) position, Vector2 velocity, float angle, Color color, bool worldSpace = true) : base(game, position, velocity, angle, color, worldSpace)
+        public PolyEntity(Game game, Vector2[] vertices) : base(game)
         {
             if (vertices == null)
                 return;
@@ -40,6 +40,8 @@ namespace Game1.GraphicalEntities
                 _scaledPolygon = Polygon.TransformedCopy(Vector2.Zero, Angle, new Vector2((float)_zoom));
 
             spriteBatch.DrawPolygon(GetWindowSpacePos(), _scaledPolygon, Color, ActualLineWidth);
+
+            DrawLabel(spriteBatch);
         }
 
         public override void DrawLabel(SpriteBatch spriteBatch)
@@ -72,7 +74,8 @@ namespace Game1.GraphicalEntities
 
         public override Vector2 GetDimensions()
         {
-            var bbox = Polygon.TransformedCopy(Vector2.Zero, Angle, new Vector2((float)_zoom)).BoundingRectangle;
+            var scaleVector = WorldSpace ? new Vector2((float)_zoom) : Vector2.One;
+            var bbox = Polygon.TransformedCopy(Vector2.Zero, Angle, scaleVector).BoundingRectangle;
             return new Vector2(bbox.Width, bbox.Height);
         }
     }

@@ -14,22 +14,25 @@ namespace Game1.GraphicalEntities
 {
     public class CircleEntity : PolyEntity
     {
-        double _radius { get; set; } = 1f;
+        public double Radius => GameEntity.Radius;
 
-        public CircleEntity(Game game, (double x, double y) position, double radius, Vector2 velocity, float angle, Color color, bool worldSpace = true) : base(game, null, position, velocity, angle, color, worldSpace)
+        public CircleEntity(Game game) : base(game, null)
         {
-            _radius = radius * ScaleFactor;
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            var radius = _radius;
+            var radius = Radius;
 
             if (WorldSpace)
-                radius = _radius * _zoom;
+                radius = Radius * _zoom;
 
-            spriteBatch.DrawCircle(GetWindowSpacePos(), (float)(radius), 256, Color, ActualLineWidth);
+            var pos = WorldSpace ? GetWindowSpacePos() : new Vector2((float)Position.x, (float)Position.y);
 
+            spriteBatch.DrawCircle(pos, (float)(radius), 256, Color, ActualLineWidth);
+
+            DrawLabel(spriteBatch);
             //Debug.WriteLine($"radius: {radius}, pos: {GetWindowSpacePos()}");
         }
 
@@ -41,12 +44,12 @@ namespace Game1.GraphicalEntities
             if (GlobalStatic.MainFont == null)
                 return;
 
-            var windowPos = GetWindowSpacePos();
+            var windowPos = WorldSpace ? GetWindowSpacePos() : new Vector2((float)Position.x, (float)Position.y);
             var x = windowPos.X - GetLabelWidth().X / 2;
 
-            var radius = _radius;
+            var radius = Radius;
             if (WorldSpace)
-                radius = _radius * _zoom;
+                radius = Radius * _zoom;
 
             radius = radius * (1 / ScaleFactor);
 
@@ -62,10 +65,10 @@ namespace Game1.GraphicalEntities
 
         public override Vector2 GetDimensions()
         {
-            var radius = _radius;
+            var radius = Radius;
 
             if (WorldSpace)
-                radius = _radius * _zoom;
+                radius = Radius * _zoom;
 
             var bbox = new Vector2((float)radius, (float)radius);
             return bbox;
