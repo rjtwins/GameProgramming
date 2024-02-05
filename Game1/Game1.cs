@@ -271,7 +271,7 @@ namespace Game1
                 if (!e.ShouldDraw())
                 {
                     _spriteBatch.DrawPoint(e.GetWindowSpacePos(), e.Color, 2f);
-                    e.DrawLabel(_spriteBatch);
+                    //e.DrawLabel(_spriteBatch);
                     return;
                 }
 

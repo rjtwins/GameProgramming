@@ -150,7 +150,7 @@ namespace Game1.GraphicalEntities
             var max = windowSpacePos + dims / 2;
             var min = windowSpacePos - dims / 2;
 
-            if (dims.X <= 10 && dims.Y <= 10)
+            if (dims.X <= 2 && dims.Y <= 2)
                 return false;
 
             if (max.X <= 0 && max.Y <= 0)
