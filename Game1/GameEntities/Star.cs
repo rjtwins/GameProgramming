@@ -20,6 +20,7 @@ namespace Game1.GameEntities
         {
             var entity = new CircleEntity(game);
             entity.GameEntity = this;
+            this.GraphicalEntity = entity;
             return entity;
         }
     }

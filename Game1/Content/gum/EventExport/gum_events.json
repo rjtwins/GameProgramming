@@ -2,109 +2,172 @@
   "UserEvents": {
     "jorre": [
       {
-        "NewName": "main.textTestInstance",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-05T16:14:06.2889698Z"
-      },
-      {
-        "NewName": null,
-        "OldName": "main.textTest textTestInstance in main",
-        "ElementType": "Screens",
-        "EventType": 6,
-        "TimestampUtc": "2024-02-05T16:14:17.5529674Z"
-      },
-      {
-        "NewName": "main.test2",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-05T16:14:26.1112074Z"
-      },
-      {
-        "NewName": null,
-        "OldName": "textTest",
-        "ElementType": "Components",
-        "EventType": 1,
-        "TimestampUtc": "2024-02-05T16:15:40.0264799Z"
-      },
-      {
-        "NewName": null,
-        "OldName": "main.textTest test2 in main",
-        "ElementType": "Screens",
-        "EventType": 6,
-        "TimestampUtc": "2024-02-05T16:15:42.5847743Z"
-      },
-      {
-        "NewName": "Button",
-        "OldName": null,
-        "ElementType": "Components",
-        "EventType": 0,
-        "TimestampUtc": "2024-02-05T16:15:47.3261641Z"
-      },
-      {
-        "NewName": "Button (Container).ColoredRectangleInstance",
-        "OldName": null,
-        "ElementType": "Components",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-05T16:16:02.4578165Z"
-      },
-      {
-        "NewName": "Button (Container).TextInstance",
-        "OldName": null,
-        "ElementType": "Components",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-05T16:16:05.1154014Z"
-      },
-      {
-        "NewName": "main.ButtonInstance",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-05T16:18:35.8443506Z"
-      },
-      {
-        "NewName": "main.ButtonInstance1",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-05T16:18:55.4267027Z"
-      },
-      {
         "NewName": null,
         "OldName": "main.Button ButtonInstance in main",
         "ElementType": "Screens",
         "EventType": 6,
-        "TimestampUtc": "2024-02-05T16:19:23.5421278Z"
+        "TimestampUtc": "2024-02-06T10:16:26.9358364Z"
       },
       {
         "NewName": null,
         "OldName": "main.Button ButtonInstance1 in main",
         "ElementType": "Screens",
         "EventType": 6,
-        "TimestampUtc": "2024-02-05T16:19:23.5431264Z"
+        "TimestampUtc": "2024-02-06T10:16:26.9378376Z"
       },
       {
-        "NewName": "main.ButtonInstance",
-        "OldName": null,
+        "NewName": null,
+        "OldName": "main.Button ButtonInstance2 in main",
         "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-05T16:22:36.046845Z"
+        "EventType": 6,
+        "TimestampUtc": "2024-02-06T10:16:26.9388418Z"
       },
       {
-        "NewName": "main.ButtonInstance1",
+        "NewName": "DropdownMenu",
         "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-05T16:22:37.5627022Z"
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-06T10:16:35.1468174Z"
       },
       {
-        "NewName": "main.ButtonInstance2",
+        "NewName": "Button (Container).RectangleInstance",
         "OldName": null,
-        "ElementType": "Screens",
+        "ElementType": "Components",
         "EventType": 5,
-        "TimestampUtc": "2024-02-05T16:22:38.9279587Z"
+        "TimestampUtc": "2024-02-06T16:32:59.2595169Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Button",
+        "ElementType": "Components",
+        "EventType": 1,
+        "TimestampUtc": "2024-02-06T16:33:45.0082577Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "DropdownMenu",
+        "ElementType": "Components",
+        "EventType": 1,
+        "TimestampUtc": "2024-02-06T16:33:55.3925295Z"
+      },
+      {
+        "NewName": "ContextMenu",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-06T16:34:30.1335738Z"
+      },
+      {
+        "NewName": "ContextMenu (Container).Test123",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-06T20:24:55.5220137Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ContextMenu (Container).Container Test123 in ContextMenu (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-06T20:25:00.5756323Z"
+      },
+      {
+        "NewName": "ContextMenu (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-06T20:28:07.346261Z"
+      },
+      {
+        "NewName": "ContextMenu (Container).TextInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-06T20:28:10.0169915Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ContextMenu (Container).Text TextInstance in ContextMenu (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-06T20:28:26.650941Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ContextMenu (Container).Text TextInstance1 in ContextMenu (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-06T20:28:31.2990651Z"
+      },
+      {
+        "NewName": "ContextMenu (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-06T20:29:40.18479Z"
+      },
+      {
+        "NewName": "ContextMenu (Container).TextInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-06T20:29:42.7803796Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ContextMenu (Container).Text TextInstance in ContextMenu (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-06T20:34:57.2881138Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ContextMenu (Container).Text TextInstance1 in ContextMenu (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-06T20:34:57.2881138Z"
+      },
+      {
+        "NewName": "ContextMenu (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-06T20:35:39.4579584Z"
+      },
+      {
+        "NewName": "ContextMenu (Container).TextInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-06T20:35:40.8650678Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ContextMenu (Container).Text TextInstance in ContextMenu (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-06T20:37:25.8676173Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ContextMenu (Container).Text TextInstance1 in ContextMenu (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-06T20:37:25.8676173Z"
+      },
+      {
+        "NewName": "ContextMenu (Container).RectangleInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-06T20:37:31.1869831Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ContextMenu (Container).Rectangle RectangleInstance in ContextMenu (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-06T20:55:40.3154413Z"
       }
     ]
   }

@@ -3,45 +3,9 @@
   <Name>main</Name>
   <State>
     <Name>Default</Name>
-    <Variable>
-      <Type>float</Type>
-      <Name>ButtonInstance1.X</Name>
-      <Value xsi:type="xsd:float">150</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>ButtonInstance1.Y</Name>
-      <Value xsi:type="xsd:float">0</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>ButtonInstance2.X</Name>
-      <Value xsi:type="xsd:float">0</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>ButtonInstance2.Y</Name>
-      <Value xsi:type="xsd:float">50</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
   </State>
-  <Instance>
-    <Name>ButtonInstance</Name>
-    <BaseType>Button</BaseType>
-    <DefinedByBase>false</DefinedByBase>
-  </Instance>
-  <Instance>
-    <Name>ButtonInstance1</Name>
-    <BaseType>Button</BaseType>
-    <DefinedByBase>false</DefinedByBase>
-  </Instance>
-  <Instance>
-    <Name>ButtonInstance2</Name>
-    <BaseType>Button</BaseType>
-    <DefinedByBase>false</DefinedByBase>
-  </Instance>
+  <State>
+    <Name>test123</Name>
+  </State>
   <Behaviors />
 </ScreenSave>

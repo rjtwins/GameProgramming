@@ -11,6 +11,7 @@ using MonoGame.Extended.Shapes;
 using Microsoft.Xna.Framework.Input;
 using Game1.Input;
 using System.Net.Http.Headers;
+using Game1.Extensions;
 
 namespace Game1.GraphicalEntities
 {
@@ -39,7 +40,7 @@ namespace Game1.GraphicalEntities
             if (WorldSpace)
                 _scaledPolygon = Polygon.TransformedCopy(Vector2.Zero, Angle, new Vector2((float)_zoom));
 
-            spriteBatch.DrawPolygon(GetWindowSpacePos(), _scaledPolygon, Color, ActualLineWidth);
+            spriteBatch.DrawPolygon(GetWindowPos(), _scaledPolygon, Color, ActualLineWidth);
 
             DrawLabel(spriteBatch);
         }
@@ -52,7 +53,7 @@ namespace Game1.GraphicalEntities
             if (GlobalStatic.MainFont == null)
                 return;
 
-            var windowPos = GetWindowSpacePos();
+            var windowPos = GetWindowPos();
             var x = windowPos.X;
             var y = windowPos.Y - _scaledPolygon.BoundingRectangle.Y;
 
@@ -62,7 +63,7 @@ namespace Game1.GraphicalEntities
         public override bool CheckClick()
         {
             var mousePos = Mouse.GetState().Position;
-            var polygon = _scaledPolygon.TransformedCopy(GetWindowSpacePos(), 0f, Vector2.One);
+            var polygon = _scaledPolygon.TransformedCopy(GetWindowPos(), 0f, Vector2.One);
 
             if (!polygon.Contains(mousePos.ToVector2()))
                 return false;
@@ -72,11 +73,30 @@ namespace Game1.GraphicalEntities
             return true;
         }
 
-        public override Vector2 GetDimensions()
+        public override Vector2 GetWindowDim()
         {
             var scaleVector = WorldSpace ? new Vector2((float)_zoom) : Vector2.One;
             var bbox = Polygon.TransformedCopy(Vector2.Zero, Angle, scaleVector).BoundingRectangle;
             return new Vector2(bbox.Width, bbox.Height);
+        }
+
+        public override Vector2 GetWorldDim()
+        {
+            return new Vector2(Polygon.Right, Polygon.Top);
+        }
+
+        public override RectangleF GetWindowRect()
+        {
+            var pos = GetWindowPos();
+            var dim = GetWindowDim();
+            return new RectangleF(pos.X, pos.Y, dim.X, dim.Y);
+        }
+
+        public override RectangleD GetWorldRect()
+        {
+            var pos = Position;
+            var dim = GetWorldDim();
+            return new RectangleD(pos.x, pos.y, dim.X, dim.Y);
         }
     }
 }

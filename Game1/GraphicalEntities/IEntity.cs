@@ -23,9 +23,9 @@ namespace Game1.GraphicalEntities
         void Draw(SpriteBatch spriteBatch);
         void DrawLabel(SpriteBatch spriteBatch);
         void DrawSubEntities(SpriteBatch spriteBatch);
-        Vector2 GetDimensions();
+        Vector2 GetWindowDim();
         Vector2 GetLabelWidth();
-        Vector2 GetWindowSpacePos();
+        Vector2 GetWindowPos();
         void Scale(float amount);
         bool ShouldDraw();
     }

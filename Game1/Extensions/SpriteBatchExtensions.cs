@@ -10,7 +10,7 @@ namespace Game1.Extensions
     {
         public static void DrawString(this SpriteBatch spriteBatch, GameGraphicalEntity entity, SpriteFont font, string text, Vector2 offset, Color color)
         {
-            var pos = entity.GetWindowSpacePos();
+            var pos = entity.GetWindowPos();
             pos += offset;
             spriteBatch.DrawString(font, text, pos, color);
         }

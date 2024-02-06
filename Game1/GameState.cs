@@ -17,8 +17,6 @@ namespace Game1
     {
         public static List<GameGraphicalEntity> GraphicalEntities { get; set; } = new();
         public static List<GameEntity> GameEntities { get; set; } = new();
-
-        public static GameGraphicalEntity SelectedEntity { get; set; }
         public static List<GameEntity> SelectedEntities { get; set; } = new();
 
         public static double TotalSeconds { get; set; } = 0;
@@ -26,20 +24,10 @@ namespace Game1
         public static double TotalHours => TotalSeconds / 3600;
 
         public static int GameSpeed { get; set; } = 1;
-        public static bool RightButtonClicked { get; set; }
-        public static (double x, double y) RightMouseClickedWorldLocation { get; set; }
 
         public static void Update(double deltaSeconds)
         {
             TotalSeconds = TotalSeconds + deltaSeconds * GameSpeed;
-            
-            //Debug.WriteLine(TotalSeconds);
-            //MiscGraphicalEntities.ForEach(x => x.Update(deltaSeconds));
-
-            if(RightButtonClicked)
-            {
-                ProcessClickActions();
-            }
         }
 
         public static void CheckClick()
@@ -49,24 +37,6 @@ namespace Game1
             {
                 GraphicalEntities.ForEach(x => x.CheckClick());
             }
-        }
-
-        private static void ProcessClickActions()
-        {
-            if(SelectedEntity == null)
-                return;
-
-            double x1 = SelectedEntity.Position.x;
-            double y1 = SelectedEntity.Position.y;
-            double x2 = RightMouseClickedWorldLocation.x;
-            double y2 = RightMouseClickedWorldLocation.y;
-            double angle = Math.Atan2(y2 - y1, x2 - x1);
-            
-            //double angleDegrees = angle * (180.0 / Math.PI);
-            //Debug.WriteLine($"MousePos: {RightMouseClickedWorldLocation}, EntityPos: {SelectedEntity.Position}, Angle {angleDegrees}");
-
-            //SelectedEntity.Angle = (float)angle;
-
         }
     }
 }

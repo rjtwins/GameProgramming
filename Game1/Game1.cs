@@ -1,10 +1,12 @@
 ﻿using Game1;
+using Game1.Extensions;
 using Game1.GameEntities;
 using Game1.GraphicalEntities;
 using Game1.Graphics;
 using Game1.Input;
 using Gum.DataTypes;
 using Gum.Managers;
+using Gum.Wireframe;
 using GumRuntime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -42,8 +44,11 @@ namespace Game1
         private Vector2 _pointerVector = new Vector2();
         Vector2[] _cross1, _cross2;
 
-        SmoothFramerate framerate = new(20);
+        GraphicalUiElement _currentScreen { get; set; }
+        GraphicalUiElement _contextMenu { get; set; }
 
+        SmoothFramerate framerate = new(20);
+        private bool _drawContextMenu;
 
         public Game1()
         {
@@ -85,14 +90,15 @@ namespace Game1
 
             _pointerVector = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
+            /*
             //Earth moon system:
-            var earth = new Planet()
-            {
-                Radius = 6317000,
-                X = 149600000000,
-                Y = 0,
-                Name = "EARTH"
-            };
+            //var earth = new Planet()
+            //{
+            //    Radius = 6317000,
+            //    X = 149600000000,
+            //    Y = 0,
+            //    Name = "EARTH"
+            //};
 
             //var moon = new Moon()
             //{
@@ -102,47 +108,41 @@ namespace Game1
             //    Name = "MOON"
             //};
 
-            var sun = new Star()
-            {
-                Radius = 696000000,
-                X = 0,
-                Y = 0,
-                Name = "SUN"
-            };
+            //var sun = new Star()
+            //{
+            //    Radius = 696000000,
+            //    X = 0,
+            //    Y = 0,
+            //    Name = "SUN"
+            //};
 
 
-            var solarSystem = new SolarSystem()
-            {
-                Radius = GlobalStatic.SYSTEMSIZE,
-                X = 0,
-                Y = 0,
-                Name = "SOLAR SYSTEM"
-            };
+            //var solarSystem = new SolarSystem()
+            //{
+            //    Radius = GlobalStatic.SYSTEMSIZE,
+            //    X = 0,
+            //    Y = 0,
+            //    Name = "SOLAR SYSTEM"
+            //};
 
-            var proxima = new Star()
-            {
-                Radius = 696000000,
-                X = 40208000000000000,
-                Y = 696000000,
-                Name = "PROXIMA"
-            };
+            //var proxima = new Star()
+            //{
+            //    Radius = 696000000,
+            //    X = 40208000000000000,
+            //    Y = 696000000,
+            //    Name = "PROXIMA"
+            //};
 
-            var proximaSystem = new SolarSystem()
-            {
-                Radius = GlobalStatic.SYSTEMSIZE,
-                X = 40208000000000000,
-                Y = 0,
-                Name = "PROXIMA SYSTEM"
-            };
+            //var proximaSystem = new SolarSystem()
+            //{
+            //    Radius = GlobalStatic.SYSTEMSIZE,
+            //    X = 40208000000000000,
+            //    Y = 0,
+            //    Name = "PROXIMA SYSTEM"
+            //};
 
-            GameState.GameEntities.AddRange(new List<GameEntity>() { earth, sun, solarSystem, proxima });
-
-            //GameState.MiscGraphicalEntities.Add(sun);
-            //GameState.MiscGraphicalEntities.Add(earth);
-            //GameState.MiscGraphicalEntities.Add(moon);
-            //GameState.MiscGraphicalEntities.Add(proxima);
-            //GameState.MiscGraphicalEntities.Add(proximaSystem);
-            //GameState.MiscGraphicalEntities.Add(solarSystem);
+            //GameState.GameEntities.AddRange(new List<GameEntity>() { earth, sun, solarSystem, proxima });
+            */
 
             var generator = new SpaceGenerator();
             var systems = generator.Generate(100);
@@ -164,7 +164,7 @@ namespace Game1
 
             InitGum();
 
-            this.IsMouseVisible = false;
+            //this.IsMouseVisible = false;
 
             base.Initialize();
         }
@@ -179,7 +179,7 @@ namespace Game1
         protected override void Update(GameTime gameTime)
         {
             if (firstFrame)
-                _camera.Position = (0, 0);
+                _camera.Position = (GlobalStatic.GALAXYSIZE / 2, GlobalStatic.GALAXYSIZE / 2);
 
             UpdateGum(gameTime);
 
@@ -187,16 +187,6 @@ namespace Game1
 
             timeSinceLastTick += gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (FlatMouse.Instance.IsLeftButtonClicked())
-                GameState.SelectedEntity = null;
-
-            if (FlatMouse.Instance.IsRightButtonClicked())
-            {
-                GameState.RightButtonClicked = true;
-                GameState.RightMouseClickedWorldLocation = FlatMouse.Instance.WorldPosition(_camera);
-            }
-
-            var mousePos = _flatMouse.WorldPosition(_camera);
             _pointerVector = Mouse.GetState().Position.ToVector2();
 
             GameState.CheckClick();
@@ -205,7 +195,6 @@ namespace Game1
             {
                 GameState.Update(timeSinceLastTick);
                 timeSinceLastTick = 0;
-                GameState.RightButtonClicked = false;
                 Debug.WriteLine(framerate.framerate);
             }
 
@@ -215,8 +204,12 @@ namespace Game1
             _flatKeyboard.Update();
             _flatMouse.Update();
 
-            if (FlatMouse.Instance.IsLeftButtonClicked())
-                GameState.SelectedEntities.Clear();
+            if (_flatMouse.IsRightButtonClicked())
+                HandleRightMouseClick();
+            
+
+            if (_flatMouse.IsLeftButtonClicked())
+                HandleLeftMouseClick();
 
             ProcessZoom();
 
@@ -260,6 +253,22 @@ namespace Game1
             framerate.Update(gameTime.GetElapsedSeconds());
         }
 
+        private void HandleLeftMouseClick()
+        {
+            HandleContextMenuClicked();
+            HideContextMenu();
+
+            if (FlatMouse.Instance.IsLeftButtonClicked() && !_flatKeyboard.IsKeyDown(Keys.LeftShift))
+            {
+                GameState.SelectedEntities.Clear();
+            }
+        }
+
+        private void HandleRightMouseClick()
+        {
+            ContextMenu();
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             //Clear window
@@ -267,21 +276,6 @@ namespace Game1
 
             //On Window
             _spriteBatch.Begin();
-
-            //GameState.GameEntities.ForEach(x =>
-            //{
-            //    if (x.GraphicalEntity == null)
-            //        return;
-
-            //    if(x.GraphicalEntity.ShouldDraw() == false)
-            //    {
-            //        _spriteBatch.DrawPoint(x.GraphicalEntity.GetWindowSpacePos(), x.GraphicalEntity.Color, 2f);
-            //        return;
-            //    }
-
-            //    x.GraphicalEntity.Draw(_spriteBatch);
-            //    x.GraphicalEntity.DrawSubEntities(_spriteBatch);
-            //});
 
             GameState.GraphicalEntities.ForEach(e =>
             {
@@ -295,25 +289,26 @@ namespace Game1
 
                 if (!e.ShouldDraw())
                 {
-                    _spriteBatch.DrawPoint(e.GetWindowSpacePos(), e.Color, 2f);
+                    _spriteBatch.DrawPoint(e.GetWindowPos(), e.Color, 2f);
                 }
-
-                e.Draw(_spriteBatch);
-                e.DrawSubEntities(_spriteBatch);
+                else
+                {
+                    e.Draw(_spriteBatch);
+                    e.DrawSubEntities(_spriteBatch);
+                }
 
                 if (GameState.SelectedEntities.Contains(e.GameEntity))
                 {
-                    var windowSpace = e.GetWindowSpacePos();
-                    var dimensions = e.GetDimensions();
-                    _spriteBatch.DrawRectangle(windowSpace.X - dimensions.X - 5, windowSpace.Y - dimensions.X - 5, dimensions.X * 2 + 10, dimensions.Y * 2 + 10, Color.Cyan);
+                    var windowRect = e.GetSelectionRect();
+                    _spriteBatch.DrawRectangle(windowRect.X, windowRect.Y, windowRect.Width, windowRect.Height, Color.Cyan);
                 }
             });
-
 
             //UI stuff:
             _spriteBatch.DrawPolygon(Vector2.Zero, _cross1, Color.Red);
             _spriteBatch.DrawPolygon(Vector2.Zero, _cross2, Color.Red);
-            _spriteBatch.DrawCircle(_pointerVector, 5f, 255, Color.Red);
+
+            DrawMousePointer();
 
             DrawSelecting();
 
@@ -344,10 +339,21 @@ namespace Game1
             //textInstance.AddToManagers();
 
             // This assumes that your project has at least 1 screen
-            var screen1 = gumProject.Screens.First().ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
+            _currentScreen = gumProject.Screens.First().ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
 
-            var button1 = screen1.GetGraphicalUiElementByName("ButtonInstance1");
-            var button1Text = button1.GetGraphicalUiElementByName("TextInstance");
+            var componentSave = ObjectFinder.Self.GumProjectSave.Components
+                .First(item => item.Name == "ContextMenu");
+
+            _contextMenu = componentSave.ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
+            //_contextMenu = ObjectFinder.Self.GetComponent("ContextMenu").ToGraphicalUiElement(SystemManagers.Default, addToManagers: false);
+            _contextMenu = new ContainerRuntime();
+            _contextMenu.Visible = false;
+            _contextMenu.X = 0;
+            _contextMenu.Y = 0;
+            //_contextMenu.AddToManagers(SystemManagers.Default, null);
+            
+            //var button1 = currentScreen.GetGraphicalUiElementByName("ButtonInstance1");
+            //var button1Text = button1.GetGraphicalUiElementByName("TextInstance");
 
             //var rectangle = new ColoredRectangleRuntime();
             //rectangle.Width = 100;
@@ -364,6 +370,32 @@ namespace Game1
         private void DrawGum()
         {
             SystemManagers.Default.Draw();
+        }
+
+        private void DrawMousePointer()
+        {
+            if (_flatKeyboard.IsKeyDown(Keys.Z))
+            {
+                _spriteBatch.DrawCircle(_pointerVector, 5f, 255, Color.Red);
+                _spriteBatch.DrawLine(_pointerVector.X + 5, _pointerVector.Y + 5, _pointerVector.X + 10, _pointerVector.Y + 10, Color.Red);
+                _spriteBatch.DrawRectangle(_pointerVector.X - 10f, _pointerVector.Y - 10f, 10, 10, Color.Red);
+            }
+            else if(_flatKeyboard.IsKeyDown(Keys.LeftAlt))
+            {
+                _spriteBatch.DrawCircle(_pointerVector, 5f, 255, Color.Red);
+                _spriteBatch.DrawLine(_pointerVector.X + 5, _pointerVector.Y + 5, _pointerVector.X + 10, _pointerVector.Y + 10, Color.Red);
+                _spriteBatch.DrawString(GlobalStatic.MainFont, "+", new Vector2(_pointerVector.X - 13 , _pointerVector.Y - (GlobalStatic.MainFont.MeasureString("+").Y)), Color.Red);
+            }
+            else if (_flatMouse.IsMiddleButtonDown())
+            {
+                IsMouseVisible = true;
+                Mouse.SetCursor(MouseCursor.Hand);
+            }
+            else
+            {
+                IsMouseVisible = false; 
+                _spriteBatch.DrawCircle(_pointerVector, 5f, 255, Color.Red);
+            }
         }
 
         private void ProcessSelecting()
@@ -403,8 +435,85 @@ namespace Game1
             if (_selecting)
             {
                 Rectangle selectionRect = GetSelectionRectangle();
-                _spriteBatch.DrawRectangle(selectionRect, Color.White);
+                _spriteBatch.DrawRectangle(selectionRect, Color.Green);
             }
+        }
+
+        private void HandleContextMenuClicked()
+        {
+            if (!_contextMenu.Visible)
+                return;
+
+            var mousePos = _flatMouse.WindowPosition;
+
+            if (!_contextMenu.Contains(mousePos.ToVector2()))
+                return;
+
+            var clicked = _contextMenu
+                .Children
+                .Where(x => x is GraphicalUiElement)
+                .Cast<GraphicalUiElement>()
+                .OrderByDescending(x => x.Z).ThenByDescending(x => x.Width * x.Height)
+                .FirstOrDefault(x => x.Contains(mousePos.ToVector2()));
+
+            if (clicked == null)
+                return;
+
+            Debug.WriteLine(clicked);
+        }
+
+        private void ContextMenu()
+        {
+            if (GameState.SelectedEntities.Count <= 0)
+                return;
+
+            var mousePos = _flatMouse.WindowPosition;
+            var contextEntities = GameState.SelectedEntities.Where(x => x.GraphicalEntity.GetSelectionRect().Contains(mousePos));
+
+            if (contextEntities.Count() == 0)
+                return;
+            _contextMenu.Children.Clear();
+
+            _contextMenu.X = _flatMouse.WindowPosition.X + 10;
+            _contextMenu.Y = _flatMouse.WindowPosition.Y + 10;
+
+            //.SetPosition(new System.Numerics.Vector2(_flatMouse.WindowPosition.X, _flatMouse.WindowPosition.Y));
+
+            //_contextMenu.ChildrenLayout = ChildrenLayout.TopToBottomStack;
+            //_contextMenu.Visible = true;
+
+            //var text = ObjectFinder
+            //    .Self
+            //    .GumProjectSave.StandardElements
+            //    .First(item => item.Name == "Text")
+            //    .ToGraphicalUiElement(SystemManagers.Default, addToManagers: false);
+
+            var text = new TextRuntime();
+            text.UseCustomFont = false;
+            text.Text = "test123";
+            text.Font = "Calibri";
+            text.FontSize = 12;
+            text.UseFontSmoothing = false;
+            text.X = _flatMouse.WindowPosition.X;
+            text.Y = _flatMouse.WindowPosition.Y;
+
+            text.AddToManagers(SystemManagers.Default, null);
+
+            //////text.SetProperty("Standards/Text.Alpha", 0);
+            ////var text2 = new TextRuntime();
+            ////text2.Text = "test456";
+            //_contextMenu.Children.Add(text);
+            ////_contextMenu.Children.Add(text2);
+
+            //_contextMenu.AddToManagers(SystemManagers.Default, null);
+
+
+        }
+
+        private void HideContextMenu()
+        {
+            _contextMenu.Visible = false;
+            _contextMenu.Children.Clear();
         }
 
         private void ProcessZoom()
@@ -416,7 +525,7 @@ namespace Game1
             //Zoom:
             if (_flatMouse.ScrolledUp())
             {
-                if (_flatKeyboard.IsKeyDown(Keys.LeftShift))
+                if (_flatKeyboard.IsKeyDown(Keys.LeftAlt))
                 {
                     zoomChange = 1f;
                     _camera.Zoom = Math.Min(_camera.Zoom *= 2f, 1);
@@ -430,7 +539,7 @@ namespace Game1
 
             if (_flatMouse.ScrolledDown())
             {
-                if (_flatKeyboard.IsKeyDown(Keys.LeftShift))
+                if (_flatKeyboard.IsKeyDown(Keys.LeftAlt))
                 {
                     zoomChange = -0.9f;
                     _camera.Zoom = Math.Min(_camera.Zoom *= 0.4f, 1);
@@ -465,18 +574,19 @@ namespace Game1
 
         private void ProcessSelectionZoom()
         {
-            if (!_flatKeyboard.IsKeyDown(Keys.LeftShift))
+            if (!_flatKeyboard.IsKeyDown(Keys.Z))
                 return;
-
 
             Rectangle selectionRect = GetSelectionRectangle();
 
-            var newZoom = GlobalStatic.Height / selectionRect.Height * _camera.Zoom;
+            var zx = ((double)GlobalStatic.Width / (double)selectionRect.Width) * _camera.Zoom;
+            var zy = ((double)GlobalStatic.Height / (double)selectionRect.Height) * _camera.Zoom;
 
+            var zoom = Math.Min(zx, zy);
 
             var worldPos = Util.WorldPosition(_camera, selectionRect.Center.ToVector2());
 
-            _camera.Zoom = newZoom;
+            _camera.Zoom = zoom;
             _camera.Position = (worldPos.x, worldPos.y);
 
 
@@ -494,6 +604,9 @@ namespace Game1
 
         private void ProcessSelectingEntities()
         {
+            if (_flatKeyboard.IsKeyDown(Keys.Z))
+                return;
+
             var selectionRectangle = GetSelectionRectangle();
 
             var isDrawn = GameState.GraphicalEntities
@@ -502,11 +615,13 @@ namespace Game1
 
             var inSelectionRectangle = GameState.GraphicalEntities
                 .Where(x => x.IsDrawn)
-                .Where(x => selectionRectangle.Contains(x.GetWindowSpacePos()))
+                .Where(x => selectionRectangle.Contains((Rectangle)x.GetWindowRect()))
                 .ToList();
 
             if(!_flatKeyboard.IsKeyDown(Keys.LeftShift))
                 GameState.SelectedEntities.Clear();
+
+
 
             GameState.SelectedEntities.AddRange(inSelectionRectangle.Select(x => x.GameEntity));
         }

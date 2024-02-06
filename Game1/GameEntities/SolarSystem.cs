@@ -12,7 +12,7 @@ namespace Game1.GameEntities
     {
         public List<Planet> Planets { get; set; } = new();
         public List<Star> Stars { get; set; } = new();
-        public SolarSystem() 
+        public SolarSystem()
         {
             Color = Color.Gray;
         }
@@ -21,6 +21,7 @@ namespace Game1.GameEntities
         {
             var entity = new CircleEntity(game);
             entity.GameEntity = this;
+            this.GraphicalEntity = entity;
             return entity;
         }
     }
