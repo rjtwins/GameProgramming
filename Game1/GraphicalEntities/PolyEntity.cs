@@ -24,7 +24,7 @@ namespace Game1.GraphicalEntities
         protected float ActualLineWidth => LineWidth;
         private Polygon _scaledPolygon { get; set; }
 
-        public PolyEntity(Game game, Vector2[] vertices) : base(game)
+        public PolyEntity(Vector2[] vertices) : base()
         {
             if (vertices == null)
                 return;
@@ -40,7 +40,7 @@ namespace Game1.GraphicalEntities
             if (WorldSpace)
                 _scaledPolygon = Polygon.TransformedCopy(Vector2.Zero, Angle, new Vector2((float)_zoom));
 
-            spriteBatch.DrawPolygon(GetWindowPos(), _scaledPolygon, Color, ActualLineWidth);
+            spriteBatch.DrawPolygon(Util.WindowPosition(Position), _scaledPolygon, Color, ActualLineWidth);
 
             DrawLabel(spriteBatch);
         }
@@ -53,24 +53,11 @@ namespace Game1.GraphicalEntities
             if (GlobalStatic.MainFont == null)
                 return;
 
-            var windowPos = GetWindowPos();
+            var windowPos = Util.WindowPosition(Position);
             var x = windowPos.X;
             var y = windowPos.Y - _scaledPolygon.BoundingRectangle.Y;
 
             spriteBatch.DrawString(GlobalStatic.MainFont, Label, new Vector2(x, y), Color);
-        }
-
-        public override bool CheckClick()
-        {
-            var mousePos = Mouse.GetState().Position;
-            var polygon = _scaledPolygon.TransformedCopy(GetWindowPos(), 0f, Vector2.One);
-
-            if (!polygon.Contains(mousePos.ToVector2()))
-                return false;
-
-            Clicked();
-
-            return true;
         }
 
         public override Vector2 GetWindowDim()
@@ -87,7 +74,7 @@ namespace Game1.GraphicalEntities
 
         public override RectangleF GetWindowRect()
         {
-            var pos = GetWindowPos();
+            var pos = Util.WindowPosition(Position);
             var dim = GetWindowDim();
             return new RectangleF(pos.X, pos.Y, dim.X, dim.Y);
         }

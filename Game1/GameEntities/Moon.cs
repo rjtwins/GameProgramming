@@ -10,9 +10,9 @@ namespace Game1.GameEntities
 {
     internal class Moon : GameEntity
     {
-        public override GameGraphicalEntity GenerateGraphicalEntity(Game game)
+        public override GameGraphicalEntity GenerateGraphicalEntity()
         {
-            var entity = new CircleEntity(game);
+            var entity = new CircleEntity();
             entity.GameEntity = this;
             this.GraphicalEntity = entity;
             return entity;

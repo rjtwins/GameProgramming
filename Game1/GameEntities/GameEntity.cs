@@ -1,5 +1,6 @@
 ﻿using Game1.GraphicalEntities;
 using Microsoft.Xna.Framework;
+using MonoGameGum.GueDeriving;
 using System;
 
 namespace Game1.GameEntities
@@ -7,6 +8,9 @@ namespace Game1.GameEntities
     public abstract class GameEntity
     {
         public GameGraphicalEntity GraphicalEntity { get; set; }
+
+        protected ContainerRuntime _container;
+
         public GameEntity Parent { get; set; }
         public Guid Guid { get; set; }
 
@@ -33,9 +37,9 @@ namespace Game1.GameEntities
 
         public double SOI { get; set; } = 0d;
 
-        public abstract GameGraphicalEntity GenerateGraphicalEntity(Game game);
+        public abstract GameGraphicalEntity GenerateGraphicalEntity();
 
-        public virtual void Update(float timePassed)
+        public virtual void Update(double timePassed)
         {
 
         }

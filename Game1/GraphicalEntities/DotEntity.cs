@@ -7,9 +7,9 @@ namespace Game1.GraphicalEntities
     {
         public override double Radius => 5f;
 
-        public DotEntity(Game game) : base(game)
+        public DotEntity() : base()
         {
-
+            LineWidth = 5f;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -18,7 +18,7 @@ namespace Game1.GraphicalEntities
             if (WorldSpace)
                 radius = Radius * _zoom;
 
-            var pos = WorldSpace ? GetWindowPos() : new Vector2((float)Position.x, (float)Position.y);
+            var pos = WorldSpace ? Util.WindowPosition(Position) : new Vector2((float)Position.x, (float)Position.y);
 
             spriteBatch.DrawPoint(pos.X, pos.Y, Color.Red, ActualLineWidth);
 

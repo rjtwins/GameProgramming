@@ -10,12 +10,11 @@ namespace Game1.Input
 {
     public sealed class FlatMouse
     {
-        private static readonly Lazy<FlatMouse> Lazy = new Lazy<FlatMouse>(() => new FlatMouse());
+        public static FlatMouse Instance { get; private set; }
+        
 
-        public static FlatMouse Instance
-        {
-            get { return Lazy.Value; }
-        }
+        private Game _game;
+        private Camera _camera;
 
         private MouseState prevMouseState;
         private MouseState currMouseState;
@@ -25,31 +24,38 @@ namespace Game1.Input
             get { return currMouseState.Position; }
         }
 
-        public (double x, double y) WorldPosition(Camera camera)
+        //public (double x, double y) WorldPosition()
+        //{
+
+        //    double cWorldx = _camera.Position.x;
+        //    double cWorldy = _camera.Position.y;
+
+        //    var screenPos = Mouse.GetState().Position;
+        //    double mx = screenPos.X;
+        //    double my = screenPos.Y;
+        //    double divx = mx - GlobalStatic.Width / 2;
+        //    double divy = my - GlobalStatic.Height / 2;
+
+        //    divx *= (1 / _camera.Zoom);
+        //    divy *= (1 / _camera.Zoom);
+
+        //    var worldx = cWorldx + divx;
+        //    var worldy = cWorldy + divy;
+
+        //    return (worldx, worldy);
+        //}
+
+        public static void Init(Game game)
         {
-
-            double cWorldx = camera.Position.x;
-            double cWorldy = camera.Position.y;
-
-            var screenPos = Mouse.GetState().Position;
-            double mx = screenPos.X;
-            double my = screenPos.Y;
-            double divx = mx - GlobalStatic.Width / 2;
-            double divy = my - GlobalStatic.Height / 2;
-
-            divx *= (1 / camera.Zoom);
-            divy *= (1 / camera.Zoom);
-
-            var worldx = cWorldx + divx;
-            var worldy = cWorldy + divy;
-
-            return (worldx, worldy);
+            Instance = new FlatMouse(game);
         }
 
-        public FlatMouse()
+        private FlatMouse(Game game)
         {
+            _game = game;
             prevMouseState = Mouse.GetState();
             currMouseState = prevMouseState;
+            _camera = _game.Services.GetService<Camera>();
         }
 
         public void Update()

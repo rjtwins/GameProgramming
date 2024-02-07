@@ -26,17 +26,13 @@ namespace Game1.GraphicalEntities
         public bool WorldSpace = true;
         public bool IsDrawn { get; set; }
         public virtual string Label { get; set; }
-        protected GraphicalEntity(Game game, (double x, double y) position, float angle, Color color, bool worldSpace = true)
+        protected GraphicalEntity((double x, double y) position, float angle, Color color, bool worldSpace = true)
         {
             WorldSpace = worldSpace;
-            Game = game;
+            Game = GlobalStatic.Game;
 
             _camera = Game.Services.GetService<Camera>();
         }
-
-        public abstract void Clicked();
-
-        public abstract bool CheckClick();
 
         public abstract void Draw(SpriteBatch spriteBatch);
 
@@ -62,23 +58,6 @@ namespace Game1.GraphicalEntities
         {
             _scaleFactor = amount;
         }
-        public virtual Vector2 GetWindowPos()
-        {
-            if (!WorldSpace)
-                return new Vector2((float)Position.x, (float)Position.y);
-
-            var width = GlobalStatic.Width;
-            var height = GlobalStatic.Height;
-
-            var x = (_camera.Position.x * -1 + Position.x) * _camera.Zoom + width / 2;
-            var y = (_camera.Position.y * -1 + Position.y) * _camera.Zoom + height / 2;
-
-            var pos = new Vector2((float)x, (float)y);
-
-            //Debug.WriteLine($"camera: {_camera.Position}, worldPos: {Position}, windowPos: {pos}");
-
-            return pos;
-        }
 
         public abstract Vector2 GetWindowDim();
 
@@ -97,7 +76,7 @@ namespace Game1.GraphicalEntities
 
         public virtual bool InView()
         {
-            var windowSpacePos = this.GetWindowPos();
+            var windowSpacePos = Util.WindowPosition(this.Position);
             var dims = GetWindowDim();
             var max = windowSpacePos + dims / 2;
             var min = windowSpacePos - dims / 2;
@@ -113,7 +92,7 @@ namespace Game1.GraphicalEntities
 
         public virtual bool ShouldDraw()
         {
-            var windowSpacePos = this.GetWindowPos();
+            var windowSpacePos = Util.WindowPosition(this.Position);
             var dims = GetWindowDim();
             var max = windowSpacePos + dims / 2;
             var min = windowSpacePos - dims / 2;

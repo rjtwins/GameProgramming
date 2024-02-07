@@ -17,7 +17,7 @@ namespace Game1.GraphicalEntities
     {
         public virtual double Radius => GameEntity.Radius;
 
-        public CircleEntity(Game game) : base(game, null)
+        public CircleEntity() : base(null)
         {
 
         }
@@ -29,7 +29,7 @@ namespace Game1.GraphicalEntities
             if (WorldSpace)
                 radius = Radius * _zoom;
 
-            var pos = WorldSpace ? GetWindowPos() : new Vector2((float)Position.x, (float)Position.y);
+            var pos = WorldSpace ? Util.WindowPosition(Position) : new Vector2((float)Position.x, (float)Position.y);
 
             spriteBatch.DrawCircle(pos, (float)(radius), 256, Color, ActualLineWidth);
 
@@ -45,7 +45,7 @@ namespace Game1.GraphicalEntities
             if (GlobalStatic.MainFont == null)
                 return;
 
-            var windowPos = WorldSpace ? GetWindowPos() : new Vector2((float)Position.x, (float)Position.y);
+            var windowPos = WorldSpace ? Util.WindowPosition(Position) : new Vector2((float)Position.x, (float)Position.y);
             var x = windowPos.X - GetLabelWidth().X / 2;
 
             var radius = Radius;
@@ -57,11 +57,6 @@ namespace Game1.GraphicalEntities
             var y = windowPos.Y - radius * (double)ScaleFactor - 20;
 
             spriteBatch.DrawString(GlobalStatic.MainFont, Label, new Vector2(x, (float)y), Color);
-        }
-
-        public override bool CheckClick()
-        {
-            return false;
         }
 
         public override Vector2 GetWindowDim()
@@ -82,7 +77,7 @@ namespace Game1.GraphicalEntities
 
         public override RectangleF GetWindowRect()
         {
-            var pos = GetWindowPos();
+            var pos = Util.WindowPosition(Position);
             var dim = GetWindowDim();
             return new RectangleF(pos.X - dim.X / 2, pos.Y - dim.Y / 2, dim.X, dim.Y);
         }

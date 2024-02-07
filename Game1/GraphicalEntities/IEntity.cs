@@ -17,15 +17,11 @@ namespace Game1.GraphicalEntities
         (double x, double y) Position { get; }
         float ScaleFactor { get; }
         //List<SubPoly> SubEntities { get; set; }
-
-        bool CheckClick();
-        void Clicked();
         void Draw(SpriteBatch spriteBatch);
         void DrawLabel(SpriteBatch spriteBatch);
         void DrawSubEntities(SpriteBatch spriteBatch);
         Vector2 GetWindowDim();
         Vector2 GetLabelWidth();
-        Vector2 GetWindowPos();
         void Scale(float amount);
         bool ShouldDraw();
     }

@@ -28,15 +28,7 @@ namespace Game1
         public static void Update(double deltaSeconds)
         {
             TotalSeconds = TotalSeconds + deltaSeconds * GameSpeed;
-        }
-
-        public static void CheckClick()
-        {
-
-            if (FlatMouse.Instance.IsLeftButtonClicked() || FlatMouse.Instance.IsRightButtonClicked())
-            {
-                GraphicalEntities.ForEach(x => x.CheckClick());
-            }
+            GameEntities.ForEach(x => x.Update(deltaSeconds));
         }
     }
 }

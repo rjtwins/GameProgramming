@@ -1,10 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1
 {
@@ -13,6 +8,7 @@ namespace Game1
         public static SpriteFont MainFont { get; set; }
         public static int Height { get; set; } = 0;
         public static int Width { get; set; } = 0;
+        public static Game Game { get; set; } = null;
 
         //Size statics
         public const double SYSTEMSIZE = (100d * 149597870000d);

@@ -1,6 +1,7 @@
 ﻿using Game1;
 using Game1.Extensions;
 using Game1.GameEntities;
+using Game1.GameLogic;
 using Game1.GraphicalEntities;
 using Game1.Graphics;
 using Game1.Input;
@@ -49,10 +50,10 @@ namespace Game1
 
         SmoothFramerate framerate = new(20);
 
-        private bool _drawContextMenu;
-
         public Game1()
         {
+            GlobalStatic.Game = this;
+
             _graphics = new GraphicsDeviceManager(this);
             _graphics.SynchronizeWithVerticalRetrace = true;
             
@@ -76,6 +77,7 @@ namespace Game1
             _camera = new Camera();
             this.Services.AddService<Camera>(_camera);
             this.Services.AddService<GraphicsDeviceManager>(_graphics);
+            FlatMouse.Init(this);
 
             _cross1 = new Vector2[2];
             _cross1[0] = new(10, 0);
@@ -88,6 +90,24 @@ namespace Game1
             //var subShp = new SubPoly(this, ship, new Vector2(5f, 5f), vertices, 0f, Color.Red);
             //subShp.Scale(ship.ScaleFactor / 2);
             //ship.SubEntities.Add(subShp);
+
+
+            var fleet = new Fleet()
+            {
+                Name = "Fleet 1",
+            };
+
+            var ship = new Ship()
+            {
+                Mass = 100,
+                Fuel = 100,
+                Crew = 100,
+                MaxThrust = 100
+            };
+
+            fleet.Members.Add(ship);
+
+            GameState.GameEntities.Add(fleet);
 
             _pointerVector = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -173,18 +193,18 @@ namespace Game1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             GlobalStatic.MainFont = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
-            GameState.GraphicalEntities.AddRange(GameState.GameEntities.Select(x => x.GenerateGraphicalEntity(this)));
+            GameState.GraphicalEntities.AddRange(GameState.GameEntities.Select(x => x.GenerateGraphicalEntity()));
 
             _contextMenu = new(this);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (firstFrame)
-            {
-                _camera.Position = (GlobalStatic.GALAXYSIZE / 2, GlobalStatic.GALAXYSIZE / 2);
-                _camera.Zoom = 3.5 * Math.Pow(10, -14);
-            }
+            //if (firstFrame)
+            //{
+            //    _camera.Position = (GlobalStatic.GALAXYSIZE / 2, GlobalStatic.GALAXYSIZE / 2);
+            //    _camera.Zoom = 3.5 * Math.Pow(10, -14);
+            //}
 
             UpdateGum(gameTime);
 
@@ -195,8 +215,6 @@ namespace Game1
             timeSinceLastTick += gameTime.ElapsedGameTime.TotalSeconds;
 
             _pointerVector = Mouse.GetState().Position.ToVector2();
-
-            GameState.CheckClick();
 
             if (timeSinceLastTick >= 1)
             {
@@ -254,6 +272,11 @@ namespace Game1
             //}
             */
 
+            if(_flatKeyboard.IsKeyDown(Keys.LeftAlt) && _flatKeyboard.IsKeyClicked(Keys.Enter))
+            {
+                Util.ToggleFullScreen(_graphics);
+            }
+
             base.Update(gameTime);
 
             firstFrame = false;
@@ -281,7 +304,7 @@ namespace Game1
 
                 if (!e.ShouldDraw())
                 {
-                    _spriteBatch.DrawPoint(e.GetWindowPos(), e.Color, 2f);
+                    _spriteBatch.DrawPoint(Util.WindowPosition(e.Position), e.Color, 2f);
                 }
                 else
                 {
@@ -295,10 +318,11 @@ namespace Game1
                     _spriteBatch.DrawRectangle(windowRect.X, windowRect.Y, windowRect.Width, windowRect.Height, Color.Cyan);
                 }
             });
+            GameState.GameEntities.Where(x => x is Fleet).Cast<Fleet>().ToList().ForEach(x => x.DrawTargetLine(_spriteBatch));
 
             //UI stuff:
-            _spriteBatch.DrawPolygon(Vector2.Zero, _cross1, Color.Red);
-            _spriteBatch.DrawPolygon(Vector2.Zero, _cross2, Color.Red);
+            _spriteBatch.DrawPolygon(new Vector2(GlobalStatic.Width / 2, GlobalStatic.Height / 2), _cross1, Color.Red);
+            _spriteBatch.DrawPolygon(new Vector2(GlobalStatic.Width / 2, GlobalStatic.Height / 2), _cross2, Color.Red);
 
             DrawMousePointer();
 
@@ -329,7 +353,7 @@ namespace Game1
             SystemManagers.Default = new SystemManagers(); 
             SystemManagers.Default.Initialize(_graphics.GraphicsDevice, fullInstantiation: true);
 
-            var gumProject = GumProjectSave.Load("gum\\ui.gumx", out _);
+            var gumProject = GumProjectSave.Load("gum.gumx", out _);
             ObjectFinder.Self.GumProjectSave = gumProject;
             gumProject.Initialize();
 
@@ -349,6 +373,9 @@ namespace Game1
 
         private void DrawMousePointer()
         {
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"{Util.WorldPosition(_flatMouse.WindowPosition.ToVector2())}", Vector2.Zero, Color.White);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"{_flatMouse.WindowPosition}", new Vector2(0, 20), Color.White);
+
             if (_flatKeyboard.IsKeyDown(Keys.Z))
             {
                 _spriteBatch.DrawCircle(_pointerVector, 5f, 255, Color.Red);
@@ -416,7 +443,7 @@ namespace Game1
 
         private void ProcessZoom()
         {
-            var mousePos = _flatMouse.WorldPosition(_camera);
+            var mousePos = Util.WorldPosition(_flatMouse.WindowPosition.ToVector2());
             var zoom = _camera.Zoom;
             var zoomChange = 0f;
 
@@ -483,7 +510,7 @@ namespace Game1
 
             var zoom = Math.Min(zx, zy);
 
-            var worldPos = Util.WorldPosition(_camera, selectionRect.Center.ToVector2());
+            var worldPos = Util.WorldPosition(selectionRect.Center.ToVector2());
 
             _camera.Zoom = zoom;
             _camera.Position = (worldPos.x, worldPos.y);

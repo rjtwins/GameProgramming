@@ -42,15 +42,9 @@ namespace Game1.GraphicalEntities
 
         public override string Label => GameEntity.Name;
 
-        protected GameGraphicalEntity(Game game) : base(game, (0,0), 0f, Color.Black, true)
+        protected GameGraphicalEntity() : base((0,0), 0f, Color.Black, true)
         {
-            Game = game;
             _camera = Game.Services.GetService<Camera>();
-        }
-
-        public override void Clicked()
-        {
-
         }
     }
 }

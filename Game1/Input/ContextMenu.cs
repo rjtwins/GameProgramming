@@ -1,4 +1,6 @@
 ﻿using Game1.Extensions;
+using Game1.GameEntities;
+using Game1.GameLogic;
 using Gum.Wireframe;
 using Microsoft.Xna.Framework;
 using MonoGameGum.GueDeriving;
@@ -38,12 +40,42 @@ namespace Game1.Input
         {
             Items.Clear();
 
-            Items.Add(new ContextMenuItem()
+            if (GameState.SelectedEntities.Any(x => x is Fleet))
+                Items.AddRange(GetFleetCommands());
+
+            //Items.Add(new ContextMenuItem()
+            //{
+            //    Guid = Guid.NewGuid(),
+            //    Label = "test 123",
+            //    Position = 0
+            //});
+        }
+
+        private IEnumerable<ContextMenuItem> GetFleetCommands()
+        {
+            List<ContextMenuItem> contextMenuItems = new List<ContextMenuItem>();
+
+            var fleets = GameState.SelectedEntities.Where(x => x is Fleet).Cast<Fleet>().ToList();
+
+            var moveOrder = new ContextMenuItem()
             {
+                Label = "Move To",
+                Position = 0,
                 Guid = Guid.NewGuid(),
-                Label = "TEST123",
-                Position = 0
-            });
+                OnClick = () =>
+                {
+                    fleets.ForEach(x => x.Orders.Add(new Order()
+                    {
+                        OrderType = OrderType.MoveTo,
+                        Owner = x,
+                        Position = Util.WorldPosition(_flatMouse.WindowPosition.ToVector2())
+                    }));
+                }
+            };
+
+            contextMenuItems.Add(moveOrder);
+
+            return contextMenuItems;
         }
 
         public void Update()
@@ -112,11 +144,17 @@ namespace Game1.Input
                 .ForEach(x =>
                 {
                     var text = new TextRuntime();
-                    text.UseCustomFont = true;
-                    text.CustomFontFile = "gum/FontCache/Font18Agency_FB_noSmooth.fnt";
-                    text.SetProperty("Standards/Text.Red", 255);
-                    text.SetProperty("Standards/Text.Green", 0);
-                    text.SetProperty("Standards/Text.Blue", 0);
+                    //text.UseCustomFont = true;
+                    //text.CustomFontFile = "gum/FontCache/Font18Agency_FB_noSmooth.fnt";
+
+                    text.UseCustomFont = false;
+                    text.Font = "Myanmar Text";
+                    text.FontSize = 18;
+                    text.UseFontSmoothing = false;
+
+                    text.SetProperty("Red", 255);
+                    text.SetProperty("Green", 0);
+                    text.SetProperty("Blue", 0);
                     text.Text = x.Label;
                     text.Tag = x.Guid;
                     text.AddToManagers();
