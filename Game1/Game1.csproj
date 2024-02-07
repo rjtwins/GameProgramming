@@ -43,6 +43,69 @@
     <None Update="Content\gum\EventExport\gum_events.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Content\gum\FontCache\Font12Agency_FB_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Agency_FB_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Agency_FB_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Algerian_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Algerian_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Algerian_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_Black_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_Black_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_Black_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_Narrow_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_Narrow_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_Narrow_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_Rounded_MT_Bold_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_Rounded_MT_Bold_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Arial_Rounded_MT_Bold_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Bahnschrift_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Bahnschrift_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Bahnschrift_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\gum\FontCache\Font12Calibri_Light.bmfc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -52,14 +115,233 @@
     <None Update="Content\gum\FontCache\Font12Calibri_Light_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\gum\FontCache\Font12Calibri_Light_noSmooth.bmfc">
+    <None Update="Content\gum\FontCache\Font12Consolas_noSmooth.bmfc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\gum\FontCache\Font12Calibri_Light_noSmooth.fnt">
+    <None Update="Content\gum\FontCache\Font12Consolas_noSmooth.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\gum\FontCache\Font12Calibri_Light_noSmooth_0.png">
+    <None Update="Content\gum\FontCache\Font12Consolas_noSmooth_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Microsoft_PhagsPa_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Microsoft_PhagsPa_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Microsoft_PhagsPa_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Mistral_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Mistral_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Mistral_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Modern_No._20_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Modern_No._20_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Modern_No._20_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Myanmar_Text_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Myanmar_Text_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Myanmar_Text_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12NSimSun_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12NSimSun_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12NSimSun_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Old_English_Text_MT_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Old_English_Text_MT_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Old_English_Text_MT_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Poor_Richard_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Poor_Richard_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Poor_Richard_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Ravie_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Ravie_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Ravie_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Rockwell_Condensed_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Rockwell_Condensed_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Rockwell_Condensed_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Rockwell_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Rockwell_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Rockwell_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Segoe_UI_Variable_Text_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Segoe_UI_Variable_Text_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Segoe_UI_Variable_Text_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Showcard_Gothic_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Showcard_Gothic_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Showcard_Gothic_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12SimSun_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12SimSun_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12SimSun_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Snap_ITC.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Snap_ITC.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Snap_ITC_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_09.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font158Consolas_noSmooth_11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Agency_FB_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Agency_FB_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Agency_FB_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas_noSmooth_Bold.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas_noSmooth_Bold.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas_noSmooth_Bold_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas_noSmooth_Italic.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas_noSmooth_Italic.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas_noSmooth_Italic_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas_o1_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas_o1_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font18Consolas_o1_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\TestFont\TestFont.fnt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\TestFont\Font12Calibri_Light_noSmooth_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\gum\FontCache\Font12Calibri_Light_noSmooth_Bold.bmfc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -79,6 +361,15 @@
     <None Update="Content\gum\FontCache\Font12Calibri_Light_noSmooth_Italic_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Content\gum\FontCache\Font12Calibri_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Calibri_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Calibri_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\gum\FontCache\Font12Candara_Light_noSmooth.bmfc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -86,6 +377,60 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Content\gum\FontCache\Font12Candara_Light_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Segoe_UI_Light_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Segoe_UI_Light_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Segoe_UI_Light_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Segoe_UI_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Segoe_UI_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Segoe_UI_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Snap_ITC_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Snap_ITC_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Snap_ITC_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Tw_Cen_MT_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Tw_Cen_MT_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Tw_Cen_MT_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Yu_Gothic_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Yu_Gothic_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Yu_Gothic_noSmooth_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Yu_Gothic_UI_noSmooth.bmfc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Yu_Gothic_UI_noSmooth.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\gum\FontCache\Font12Yu_Gothic_UI_noSmooth_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Content\gum\FontCache\Font18Arial.bmfc">

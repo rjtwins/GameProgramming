@@ -15,7 +15,7 @@ namespace Game1.GraphicalEntities
 {
     public class CircleEntity : PolyEntity
     {
-        public double Radius => GameEntity.Radius;
+        public virtual double Radius => GameEntity.Radius;
 
         public CircleEntity(Game game) : base(game, null)
         {

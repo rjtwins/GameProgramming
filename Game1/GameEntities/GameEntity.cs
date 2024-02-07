@@ -26,14 +26,18 @@ namespace Game1.GameEntities
         //In 1000kg (ton)
         public long Mass { get; set; } = 0;
 
-        //kM/s
-        public long Velocity { get; set; } = 0;
-
         //Radials against galaxtic plane x axis;
         public float Angle { get; set; } = 0f;
 
         public double Radius { get; set; } = 0d;
 
+        public double SOI { get; set; } = 0d;
+
         public abstract GameGraphicalEntity GenerateGraphicalEntity(Game game);
+
+        public virtual void Update(float timePassed)
+        {
+
+        }
     }
 }

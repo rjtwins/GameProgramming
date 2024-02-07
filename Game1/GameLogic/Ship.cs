@@ -1,27 +1,16 @@
-﻿using Game1.GraphicalEntities;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.GameEntities
+namespace Game1.GameLogic
 {
-    public class Ship : GameEntity
+    internal class Ship : Station
     {
-        public string ShipClass { get; set; }
-
-        //Crew in men
-        public int Crew { get; set; }
-
         //In KN
         public long MaxThrust { get; set; }
         public long Thrust { get; set; }
-
-        //in kilo liters
-        public long Fuel { get; set; }
-        public long MaxFuel { get; set; }
 
         //In kilo liters per second
         public long FuelConsumption { get; set; }
@@ -32,11 +21,6 @@ namespace Game1.GameEntities
         public long TotalBurn => MaxFuel / (FuelConsumption * (MaxThrust / Thrust));
         public long HalfTotalBurn => TotalBurn / 2;
 
-        public Ship()
-        {
-            
-        }
-
         public double CalculateMaxDistance(bool full = false)
         {
             var halfBurnTime = full ? HalfTotalBurn : HalfBurnLeft;
@@ -46,7 +30,7 @@ namespace Game1.GameEntities
 
             // Calculate distance traveled during acceleration
             double distanceDuringAcceleration = 0.5 * acceleration * halfBurnTime * halfBurnTime;
-            
+
             //Speed after acceleration
             double maxSpeed = acceleration * halfBurnTime;
 
@@ -57,11 +41,6 @@ namespace Game1.GameEntities
             double totalDistance = distanceDuringAcceleration + distanceDuringDeceleration;
 
             return totalDistance;
-        }
-
-        public override GameGraphicalEntity GenerateGraphicalEntity(Game game)
-        {
-            return null;
         }
     }
 }

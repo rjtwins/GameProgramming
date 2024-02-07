@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.GameEntities
+namespace Game1.GameLogic
 {
-    internal class ISelectable
+    public class Station : SubGameEntity
     {
-        public bool Selected;
+        //Class
+        public string ShipClass { get; set; }
     }
 }

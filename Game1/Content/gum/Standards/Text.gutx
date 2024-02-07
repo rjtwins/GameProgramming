@@ -13,7 +13,7 @@
     <Variable>
       <Type>int</Type>
       <Name>Blue</Name>
-      <Value xsi:type="xsd:int">255</Value>
+      <Value xsi:type="xsd:int">0</Value>
       <Category>Rendering</Category>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -36,7 +36,7 @@
       <IsFont>true</IsFont>
       <Type>string</Type>
       <Name>Font</Name>
-      <Value xsi:type="xsd:string">Segoe UI</Value>
+      <Value xsi:type="xsd:string">Agency FB</Value>
       <Category>Font</Category>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -50,14 +50,14 @@
     <Variable>
       <Type>int</Type>
       <Name>FontSize</Name>
-      <Value xsi:type="xsd:int">12</Value>
+      <Value xsi:type="xsd:int">18</Value>
       <Category>Font</Category>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>int</Type>
       <Name>Green</Name>
-      <Value xsi:type="xsd:int">255</Value>
+      <Value xsi:type="xsd:int">0</Value>
       <Category>Rendering</Category>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -77,7 +77,7 @@
     <Variable>
       <Type>float</Type>
       <Name>Height</Name>
-      <Value xsi:type="xsd:float">100</Value>
+      <Value xsi:type="xsd:float">1</Value>
       <Category>Dimensions</Category>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -165,7 +165,7 @@
     <Variable>
       <Type>string</Type>
       <Name>Text</Name>
-      <Value xsi:type="xsd:string">Hello</Value>
+      <Value xsi:type="xsd:string">TEST 123</Value>
       <Category>Text</Category>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -213,7 +213,7 @@
     <Variable>
       <Type>float</Type>
       <Name>Width</Name>
-      <Value xsi:type="xsd:float">100</Value>
+      <Value xsi:type="xsd:float">1</Value>
       <Category>Dimensions</Category>
       <SetsValue>true</SetsValue>
     </Variable>
