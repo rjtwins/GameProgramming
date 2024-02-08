@@ -195,6 +195,26 @@ namespace Game1
             GlobalStatic.MainFont = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
             GameState.GraphicalEntities.AddRange(GameState.GameEntities.Select(x => x.GenerateGraphicalEntity()));
 
+            var componentSave = ObjectFinder.Self.GumProjectSave.Components
+                .First(item => item.Name == "RectComponent");
+            var c = componentSave.ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
+            //_container.Visible = false;
+            c.Width = 1f;
+            c.Height = 1f;
+            c.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
+            c.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
+            c.ChildrenLayout = Gum.Managers.ChildrenLayout.TopToBottomStack;
+            c.SetProperty("Red", 255);
+            c.SetProperty("Green", 0);
+            c.SetProperty("Blue", 0);
+            c.X = 400;
+            c.Y = 400;
+
+            var text = new TextRuntime();
+            text.Text = $"({100}, {100})";
+            c.Children.Add(text);
+            c.Visible = true;
+
             _contextMenu = new(this);
         }
 
