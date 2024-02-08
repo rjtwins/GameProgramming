@@ -1,3 +1,76 @@
 {
-  "UserEvents": {}
+  "UserEvents": {
+    "jorre": [
+      {
+        "NewName": "Container1 (Container).PolygonInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-07T22:28:36.2164136Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Container1 (Container).Text TextInstance in Container1 (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-07T22:29:18.314815Z"
+      },
+      {
+        "NewName": "PolyRect",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-07T22:29:31.2455724Z"
+      },
+      {
+        "NewName": "PolyRect (Container).PolygonInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-07T22:29:42.5641447Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Container1 (Container).Polygon PolygonInstance in Container1 (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-08T07:39:10.6996758Z"
+      },
+      {
+        "NewName": "Container1 (Container).RectangleInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-08T07:39:13.0713078Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Container1",
+        "ElementType": "Components",
+        "EventType": 1,
+        "TimestampUtc": "2024-02-08T08:19:02.0872815Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "PolyRect",
+        "ElementType": "Components",
+        "EventType": 1,
+        "TimestampUtc": "2024-02-08T08:19:05.0630515Z"
+      },
+      {
+        "NewName": "RectComponent",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-08T08:19:33.8980063Z"
+      },
+      {
+        "NewName": "RectComponent (Container).RectangleInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-08T08:19:36.9516365Z"
+      }
+    ]
+  }
 }

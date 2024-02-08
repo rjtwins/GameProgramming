@@ -1,4 +1,5 @@
 ﻿using Game1.GraphicalEntities;
+using Gum.Wireframe;
 using Microsoft.Xna.Framework;
 using MonoGameGum.GueDeriving;
 using System;
@@ -9,7 +10,7 @@ namespace Game1.GameEntities
     {
         public GameGraphicalEntity GraphicalEntity { get; set; }
 
-        protected ContainerRuntime _container;
+        protected GraphicalUiElement _container;
 
         public GameEntity Parent { get; set; }
         public Guid Guid { get; set; }

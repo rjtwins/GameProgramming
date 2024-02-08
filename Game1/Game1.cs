@@ -318,7 +318,14 @@ namespace Game1
                     _spriteBatch.DrawRectangle(windowRect.X, windowRect.Y, windowRect.Width, windowRect.Height, Color.Cyan);
                 }
             });
-            GameState.GameEntities.Where(x => x is Fleet).Cast<Fleet>().ToList().ForEach(x => x.DrawTargetLine(_spriteBatch));
+            GameState.GameEntities.Where(x => x is Fleet)
+                .Cast<Fleet>()
+                .ToList()
+                .ForEach(x => 
+            {
+                x.DrawVelocityVector(_spriteBatch);
+                x.DrawTargetLine(_spriteBatch);
+            });
 
             //UI stuff:
             _spriteBatch.DrawPolygon(new Vector2(GlobalStatic.Width / 2, GlobalStatic.Height / 2), _cross1, Color.Red);
@@ -353,12 +360,12 @@ namespace Game1
             SystemManagers.Default = new SystemManagers(); 
             SystemManagers.Default.Initialize(_graphics.GraphicsDevice, fullInstantiation: true);
 
-            var gumProject = GumProjectSave.Load("gum.gumx", out _);
-            ObjectFinder.Self.GumProjectSave = gumProject;
-            gumProject.Initialize();
+            GlobalStatic.GumProject = GumProjectSave.Load("gum.gumx", out _);
+            ObjectFinder.Self.GumProjectSave = GlobalStatic.GumProject;
+            GlobalStatic.GumProject.Initialize();
 
             // This assumes that your project has at least 1 screen
-            _currentScreen = gumProject.Screens.First().ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
+            _currentScreen = GlobalStatic.GumProject.Screens.First().ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
         }
 
         private void UpdateGum(GameTime gameTime)

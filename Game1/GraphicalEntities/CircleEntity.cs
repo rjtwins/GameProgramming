@@ -26,7 +26,7 @@ namespace Game1.GraphicalEntities
         {
             var radius = Radius;
 
-            if (WorldSpace)
+            if (WorldSpace && !FixedSize)
                 radius = Radius * _zoom;
 
             var pos = WorldSpace ? Util.WindowPosition(Position) : new Vector2((float)Position.x, (float)Position.y);
@@ -34,7 +34,6 @@ namespace Game1.GraphicalEntities
             spriteBatch.DrawCircle(pos, (float)(radius), 256, Color, ActualLineWidth);
 
             DrawLabel(spriteBatch);
-            //Debug.WriteLine($"radius: {radius}, pos: {GetWindowSpacePos()}");
         }
 
         public override void DrawLabel(SpriteBatch spriteBatch)
@@ -49,7 +48,7 @@ namespace Game1.GraphicalEntities
             var x = windowPos.X - GetLabelWidth().X / 2;
 
             var radius = Radius;
-            if (WorldSpace)
+            if (WorldSpace && !FixedSize)
                 radius = Radius * _zoom;
 
             radius = radius * (1 / ScaleFactor);

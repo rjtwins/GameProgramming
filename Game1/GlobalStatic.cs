@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Gum.DataTypes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1
@@ -9,6 +10,7 @@ namespace Game1
         public static int Height { get; set; } = 0;
         public static int Width { get; set; } = 0;
         public static Game Game { get; set; } = null;
+        public static GumProjectSave GumProject { get; set; } = null;
 
         //Size statics
         public const double SYSTEMSIZE = (100d * 149597870000d);

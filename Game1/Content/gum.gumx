@@ -21,7 +21,7 @@
     <LinkType>ReferenceOriginal</LinkType>
   </ScreenReference>
   <ComponentReference>
-    <Name>Container1</Name>
+    <Name>RectComponent</Name>
     <ElementType>Component</ElementType>
     <LinkType>ReferenceOriginal</LinkType>
   </ComponentReference>

@@ -14,15 +14,12 @@ namespace Game1.GraphicalEntities
         public Game Game { get; set; }
         private Camera _camera { get; set; }
         public virtual double _zoom { get; set; }
-        public virtual  (double x, double y) Position { get; set; }
+        public virtual (double x, double y) Position { get; set; }
         public virtual float Angle { get; set; }
         public virtual Color Color { get; set; }
-        public float ScaleFactor => WorldSpace ? _scaleFactor : 1;
-
-        private float _scaleFactor = 1f;
-
+        public float ScaleFactor { get; set; } = 1f;
+        public bool FixedSize { get; set; }
         //public List<SubPoly> SubEntities { get; set; } = new();
-
         public bool WorldSpace = true;
         public bool IsDrawn { get; set; }
         public virtual string Label { get; set; }
@@ -56,7 +53,7 @@ namespace Game1.GraphicalEntities
 
         public virtual void Scale(float amount)
         {
-            _scaleFactor = amount;
+            ScaleFactor = amount;
         }
 
         public abstract Vector2 GetWindowDim();

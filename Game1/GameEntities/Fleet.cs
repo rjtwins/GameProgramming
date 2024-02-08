@@ -2,16 +2,20 @@
 using Game1.GameLogic;
 using Game1.GraphicalEntities;
 using Game1.Graphics;
+using Gum.Managers;
+using GumRuntime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGameGum.GueDeriving;
 using Newtonsoft.Json;
+using RenderingLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Camera = Game1.Graphics.Camera;
 
 namespace Game1.GameEntities
 {
@@ -23,7 +27,7 @@ namespace Game1.GameEntities
         public List<Order> Orders { get; set; } = new List<Order>();
         public Order CurrentOrder { get; set; }
 
-        private Game game = GlobalStatic.Game;
+        private Game Game = GlobalStatic.Game;
 
         public Vector2 Velocity { get; set; } = Vector2.Zero;
 
@@ -143,17 +147,19 @@ namespace Game1.GameEntities
         {
             InitInfo();
 
-            //var entity = new DotEntity(game);
-            Vector2[] vectors = new Vector2[4];
-            vectors[0] = new Vector2(50, 0);
-            vectors[0] = new Vector2(0, 50);
-            vectors[0] = new Vector2(0, -50);
-            vectors[0] = new Vector2(50, 0);
+            var entity = new CircleEntity();
+            //Vector2[] vectors = new Vector2[4];
+            //vectors[0] = new Vector2(50, 0);
+            //vectors[0] = new Vector2(0, 50);
+            //vectors[0] = new Vector2(0, -50);
+            //vectors[0] = new Vector2(50, 0);
 
-            var entity = new PolyEntity(vectors);
+            //var entity = new PolyEntity(vectors);
             entity.LineWidth = 1f;
+            Radius = 5d;
             Color = Color.Red;
             entity.GameEntity = this;
+            entity.FixedSize = true;
             this.GraphicalEntity = entity;
 
             return entity;
@@ -188,26 +194,52 @@ namespace Game1.GameEntities
             });
         }
 
+        public void DrawVelocityVector(SpriteBatch spriteBatch)
+        {
+            var camera = Game.Services.GetService<Camera>();
+            var color = Color.Green;
+            var windowPos = Util.WindowPosition((X, Y));
+            var vector = windowPos + (Velocity * -1) * (float)camera.Zoom;
+            spriteBatch.DrawLine(windowPos, vector, color, 1f);
+        }
+
         private void InitInfo()
         {
-            _container = new ContainerRuntime();
-            _container.ChildrenLayout = Gum.Managers.ChildrenLayout.TopToBottomStack;
+            //_container = new ContainerRuntime();
+            //_container.ChildrenLayout = Gum.Managers.ChildrenLayout.TopToBottomStack;
+            //_container.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
+            //_container.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
+            //_container.Height = 1f;
+            //_container.Width = 1f;
+            //_container.AddToManagers();
+
+            var componentSave = ObjectFinder.Self.GumProjectSave.Components
+                .First(item => item.Name == "RectComponent");
+
+            _container = componentSave.ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
+            //_container.Visible = false;
+            _container.Width = 1f;
+            _container.Height = 1f;
             _container.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
             _container.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
-            _container.Height = 100;
-            _container.Width = 100;
-            _container.AddToManagers();
+            _container.ChildrenLayout = Gum.Managers.ChildrenLayout.TopToBottomStack;
+            _container.SetProperty("Red", 255);
+            _container.SetProperty("Green", 0);
+            _container.SetProperty("Blue", 0);
+
+            //_container.Children.Add(rect);
         }
 
         private void UpdateInfo()
         {
-            _container.Children.Clear();
-            var pos = Util.WindowPosition((X, Y));
+            var rect = _container;
+            rect.Children.Clear();
+            var pos = Util.WindowPosition((X, Y + 20));
             _container.X = pos.X;
             _container.Y = pos.Y;
             var text = new TextRuntime();
             text.Text = $"({X}, {Y})";
-            _container.Children.Add(text);
+            rect.Children.Add(text);
             _container.Visible = true;
         }
     }
