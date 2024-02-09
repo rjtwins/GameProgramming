@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
+using System.Timers;
 using Game1.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -18,6 +19,12 @@ namespace Game1.Input
 
         private MouseState prevMouseState;
         private MouseState currMouseState;
+
+        private int rightClickCount;
+        private int leftClickCount;
+
+        private Timer rightClickTimer = new Timer();
+        private Timer leftClickTimer = new Timer();
 
         public Point WindowPosition
         {
@@ -56,10 +63,42 @@ namespace Game1.Input
             prevMouseState = Mouse.GetState();
             currMouseState = prevMouseState;
             _camera = _game.Services.GetService<Camera>();
+            leftClickTimer.Interval = 500;
+            leftClickTimer.AutoReset = false;
+            leftClickTimer.Elapsed += LeftClickTimer_Elapsed;
+
+            rightClickTimer.Interval = 500;
+            rightClickTimer.AutoReset = false;
+            rightClickTimer.Elapsed += RightClickTimer_Elapsed;
+
         }
+
+        private void LeftClickTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            leftClickCount = 0;
+        }
+
+        private void RightClickTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            rightClickCount = 0;
+        }
+
 
         public void Update()
         {
+            if (currMouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
+            {
+                leftClickCount++;
+                leftClickTimer.Start();
+            }
+
+            if (currMouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton == ButtonState.Released)
+            {
+                rightClickCount++;
+                rightClickTimer.Start();
+            }
+
+
             prevMouseState = currMouseState;
             currMouseState = Mouse.GetState();
         }
@@ -103,6 +142,16 @@ namespace Game1.Input
         public bool IsMiddleButtonClicked()
         {
             return currMouseState.MiddleButton == ButtonState.Pressed && prevMouseState.MiddleButton == ButtonState.Released;
+        }
+
+        public bool IsLeftButtonDoubleCLicked()
+        {
+            return leftClickCount >= 2;
+        }
+
+        public bool IsRightButtonDoubleCLicked()
+        {
+            return rightClickCount >= 2;
         }
 
         public Vector2 MouseMovement()

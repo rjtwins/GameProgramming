@@ -39,12 +39,18 @@ namespace Game1
         private double timeSinceLastTick = 0;
         private bool firstFrame = true;
 
+        private bool _measuring = false;
+        private Vector2 _measureStart;
+        private Vector2 _measureEnd;
+
         private bool _selecting = false;
-        
         private Vector2 _selectionStart = new Vector2();
         private Vector2 _selectionEnd = new Vector2();
+
         private Vector2 _pointerVector = new Vector2();
         Vector2[] _cross1, _cross2;
+
+        private Stopwatch _stopwatch = new();
 
         GraphicalUiElement _currentScreen { get; set; }
 
@@ -52,6 +58,8 @@ namespace Game1
 
         public Game1()
         {
+            _stopwatch.Start();
+
             GlobalStatic.Game = this;
 
             _graphics = new GraphicsDeviceManager(this);
@@ -64,6 +72,7 @@ namespace Game1
 
         protected override void Initialize()
         {
+
             DisplayMode dm = _graphics.GraphicsDevice.DisplayMode;
 
             GlobalStatic.Width = (int)(dm.Width * 0.9f);
@@ -90,24 +99,6 @@ namespace Game1
             //var subShp = new SubPoly(this, ship, new Vector2(5f, 5f), vertices, 0f, Color.Red);
             //subShp.Scale(ship.ScaleFactor / 2);
             //ship.SubEntities.Add(subShp);
-
-
-            var fleet = new Fleet()
-            {
-                Name = "Fleet 1",
-            };
-
-            var ship = new Ship()
-            {
-                Mass = 100,
-                Fuel = 100,
-                Crew = 100,
-                MaxThrust = 100
-            };
-
-            fleet.Members.Add(ship);
-
-            GameState.GameEntities.Add(fleet);
 
             _pointerVector = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -166,13 +157,17 @@ namespace Game1
             */
 
             var generator = new SpaceGenerator();
-            var systems = generator.Generate(100);
+            var systems = generator.Generate(1000);
 
             systems.ForEach(s =>
             {
                 s.Planets.ForEach(p =>
                 {
                     GameState.GameEntities.Add(p);
+                    p.Moons.ForEach(m =>
+                    {
+                        GameState.GameEntities.Add(m);
+                    });
                 });
 
                 s.Stars.ForEach(st =>
@@ -182,6 +177,29 @@ namespace Game1
 
                 GameState.GameEntities.Add(s);
             });
+
+            var fleet = new Fleet()
+            {
+                Name = "Fleet 1",
+            };
+
+            var ship = new Ship()
+            {
+                Mass = 100,
+                Fuel = 100,
+                Crew = 100,
+                MaxThrust = 100
+            };
+
+            fleet.Members.Add(ship);
+            var location = GameState.GameEntities[5];
+
+            fleet.X = 0;
+            fleet.Y = 0;
+
+            GameState.GameEntities.Add(fleet);
+
+            _camera.Position = (fleet.X, fleet.Y);
 
             InitGum();            
             //this.IsMouseVisible = false;
@@ -194,43 +212,14 @@ namespace Game1
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             GlobalStatic.MainFont = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
             GameState.GraphicalEntities.AddRange(GameState.GameEntities.Select(x => x.GenerateGraphicalEntity()));
-
-            var componentSave = ObjectFinder.Self.GumProjectSave.Components
-                .First(item => item.Name == "RectComponent");
-            var c = componentSave.ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
-            //_container.Visible = false;
-            c.Width = 1f;
-            c.Height = 1f;
-            c.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
-            c.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
-            c.ChildrenLayout = Gum.Managers.ChildrenLayout.TopToBottomStack;
-            c.SetProperty("Red", 255);
-            c.SetProperty("Green", 0);
-            c.SetProperty("Blue", 0);
-            c.X = 400;
-            c.Y = 400;
-
-            var text = new TextRuntime();
-            text.Text = $"({100}, {100})";
-            c.Children.Add(text);
-            c.Visible = true;
-
             _contextMenu = new(this);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            //if (firstFrame)
-            //{
-            //    _camera.Position = (GlobalStatic.GALAXYSIZE / 2, GlobalStatic.GALAXYSIZE / 2);
-            //    _camera.Zoom = 3.5 * Math.Pow(10, -14);
-            //}
-
             UpdateGum(gameTime);
 
             _contextMenu.Update();
-
-            ProcessSelecting();
 
             timeSinceLastTick += gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -240,7 +229,7 @@ namespace Game1
             {
                 GameState.Update(timeSinceLastTick);
                 timeSinceLastTick = 0;
-                Debug.WriteLine(framerate.framerate);
+                //Debug.WriteLine(framerate.framerate);
             }
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -249,6 +238,9 @@ namespace Game1
             _flatKeyboard.Update();
             _flatMouse.Update();
 
+            if (_flatMouse.IsLeftButtonDoubleCLicked())
+                HandleLeftMouseDoubleClick();
+
             if (_flatMouse.IsRightButtonClicked())
                 HandleRightMouseClick();
             
@@ -256,12 +248,28 @@ namespace Game1
             if (_flatMouse.IsLeftButtonClicked())
                 HandleLeftMouseClick();
 
+            if (_flatKeyboard.IsKeyClicked(Keys.OemPlus))
+            {
+                GameState.GameSpeed = GameState.GameSpeed * 2;
+            }
+
+
+            if (_flatKeyboard.IsKeyClicked(Keys.OemMinus))
+            {
+                GameState.GameSpeed = GameState.GameSpeed / 2;
+            }
+
+
             ProcessZoom();
 
             ProcessPan();
 
             ProcessSelecting();
 
+            ProcessMeasuring();
+
+            if(GameState.Focus != null)
+                _camera.Position = (GameState.Focus.X, GameState.Focus.Y);
 
             /*
             //float playerRotAmount = MathHelper.Pi * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -299,67 +307,135 @@ namespace Game1
 
             base.Update(gameTime);
 
-            firstFrame = false;
-
             framerate.Update(gameTime.GetElapsedSeconds());
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            //Clear window
+            var ticks = _stopwatch.ElapsedTicks;
+
             GraphicsDevice.Clear(new Color(15, 15, 15));
 
-            //On Window
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
-            GameState.GraphicalEntities.ForEach(e =>
+            var inView = GameState.GraphicalEntities
+                .Where(x => x.InView())
+                .ToList();
+
+            var shouldDraw = inView
+                .Where(x => x.DrawFull())
+                .ToList();
+
+            var drawInfo = inView
+                .Where(x => x.DrawLabel())
+                .ToList();
+
+            var drawDot = inView.Except(shouldDraw).ToList();
+
+
+            foreach (var item in shouldDraw)
             {
-                if (!e.InView())
-                {
-                    e.IsDrawn = false;
-                    return;
-                }
+                item.Draw(_spriteBatch);
+            }
 
-                e.IsDrawn = true;
+            foreach (var item in drawDot)
+            {
+                _spriteBatch.DrawPoint(Util.WindowPosition(item.Position), item.Color, 2f);
+            }
 
-                if (!e.ShouldDraw())
-                {
-                    _spriteBatch.DrawPoint(Util.WindowPosition(e.Position), e.Color, 2f);
-                }
-                else
-                {
-                    e.Draw(_spriteBatch);
-                    e.DrawSubEntities(_spriteBatch);
-                }
+            foreach (var item in GameState.SelectedEntities)
+            {
+                var windowRect = item.GraphicalEntity.GetSelectionRect();
+                _spriteBatch.DrawRectangle(windowRect.X, windowRect.Y, windowRect.Width, windowRect.Height, Color.Cyan);
+            }
 
-                if (GameState.SelectedEntities.Contains(e.GameEntity))
-                {
-                    var windowRect = e.GetSelectionRect();
-                    _spriteBatch.DrawRectangle(windowRect.X, windowRect.Y, windowRect.Width, windowRect.Height, Color.Cyan);
-                }
-            });
+            foreach (var item in drawInfo)
+            {
+                item.DrawLabel(_spriteBatch);
+            }
+
             GameState.GameEntities.Where(x => x is Fleet)
                 .Cast<Fleet>()
                 .ToList()
-                .ForEach(x => 
+                .ForEach(x =>
             {
                 x.DrawVelocityVector(_spriteBatch);
                 x.DrawTargetLine(_spriteBatch);
             });
 
-            //UI stuff:
-            _spriteBatch.DrawPolygon(new Vector2(GlobalStatic.Width / 2, GlobalStatic.Height / 2), _cross1, Color.Red);
-            _spriteBatch.DrawPolygon(new Vector2(GlobalStatic.Width / 2, GlobalStatic.Height / 2), _cross2, Color.Red);
-
-            DrawMousePointer();
-
             DrawSelecting();
+            DrawMeasuring();
+            DrawMiscUI();
+
+#if DEBUG
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Mouse World: {Util.WorldPosition(_flatMouse.WindowPosition.ToVector2())}", new Vector2(10, 0), Color.White);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Mouse Win: {_flatMouse.WindowPosition}", new Vector2(10, 20), Color.White);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"GameSpeed :{GameState.GameSpeed}", new Vector2(10, 40), Color.White);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"GameTime: {GameState.TotalSeconds}", new Vector2(10, 60), Color.White);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Draw Ticks: {_stopwatch.ElapsedTicks - ticks}", new Vector2(10, 80), Color.White);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"In View: {inView.Count}", new Vector2(10, 100), Color.White);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Draw Dot: {drawDot.Count}", new Vector2(10, 120), Color.White);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Draw Full: {shouldDraw.Count}", new Vector2(10, 140), Color.White);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Zoom: {_camera.Zoom}", new Vector2(10, 160), Color.White);
+#endif
+
 
             _spriteBatch.End();
 
             DrawGum();
 
             base.Draw(gameTime);
+
+            firstFrame = false;
+
+
+        }
+
+        private void DrawMiscUI()
+        {
+            //UI stuff:
+            _spriteBatch.DrawPolygon(new Vector2(GlobalStatic.Width / 2, GlobalStatic.Height / 2), _cross1, Color.Red);
+            _spriteBatch.DrawPolygon(new Vector2(GlobalStatic.Width / 2, GlobalStatic.Height / 2), _cross2, Color.Red);
+            
+            var lineLenght = (float)(GlobalStatic.Width * 0.10);
+            var height = (float)(GlobalStatic.Height * 0.95);
+            var start = new Vector2(GlobalStatic.Width - 100 - lineLenght, height);
+            var end = new Vector2(start.X + lineLenght, height);
+
+            _spriteBatch.DrawLine(start, end, Color.Red, 2f);
+
+            var length = Math.Round((decimal)lineLenght * 1 / _camera.Zoom);
+            var text = $"{length} km";
+            var textLenght = GlobalStatic.MainFont.MeasureString(text);
+
+            _spriteBatch.DrawString(GlobalStatic.MainFont, text, new Vector2(start.X + (lineLenght / 2) - (textLenght.X / 2), height - 30), Color.Red);
+
+            DrawMousePointer();
+        }
+
+        private void HandleLeftMouseDoubleClick()
+        {
+            var mousePos = _flatMouse.WindowPosition.ToVector2();
+            RectangleF rect = new RectangleF(mousePos.X - 10f, mousePos.Y - 10f, 20, 20);
+
+            var entity = GameState.GameEntities.Where(x =>
+            {
+                var winPos = Util.WindowPosition(x.GraphicalEntity.Position);
+                return rect.Contains(new Point2(winPos.X, winPos.Y));
+            }).MaxBy(x => x.GraphicalEntity.GetWorldDim().Length());
+
+            if (entity == null)
+                return;
+
+            var dims = entity.GraphicalEntity.GetWindowDim();
+            _camera.Position = (entity.X, entity.Y);
+
+            var zoomx = ((decimal)(GlobalStatic.Width - 500) / (decimal)dims.X);
+            var zoomy = ((decimal)(GlobalStatic.Height - 500) / (decimal)dims.Y);
+
+            _camera.Zoom *= Math.Min(zoomx, zoomy);
+
+            GameState.Focus = entity;
         }
 
         private void HandleLeftMouseClick()
@@ -367,6 +443,7 @@ namespace Game1
             if (FlatMouse.Instance.IsLeftButtonClicked() && !_flatKeyboard.IsKeyDown(Keys.LeftShift))
             {
                 GameState.SelectedEntities.Clear();
+                GameState.Focus = null;
             }
         }
 
@@ -400,20 +477,25 @@ namespace Game1
 
         private void DrawMousePointer()
         {
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"{Util.WorldPosition(_flatMouse.WindowPosition.ToVector2())}", Vector2.Zero, Color.White);
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"{_flatMouse.WindowPosition}", new Vector2(0, 20), Color.White);
+            var pointerColor = Color.Red;
+#if DEBUG
+            if(_flatMouse.IsLeftButtonDoubleCLicked())
+                pointerColor = Color.Green;
+            if(_flatMouse.IsRightButtonDoubleCLicked())
+                pointerColor = Color.Blue;
+#endif
 
             if (_flatKeyboard.IsKeyDown(Keys.Z))
             {
-                _spriteBatch.DrawCircle(_pointerVector, 5f, 255, Color.Red);
-                _spriteBatch.DrawLine(_pointerVector.X + 5, _pointerVector.Y + 5, _pointerVector.X + 10, _pointerVector.Y + 10, Color.Red);
-                _spriteBatch.DrawRectangle(_pointerVector.X - 10f, _pointerVector.Y - 10f, 10, 10, Color.Red);
+                _spriteBatch.DrawCircle(_pointerVector, 5f, 255, pointerColor);
+                _spriteBatch.DrawLine(_pointerVector.X + 5, _pointerVector.Y + 5, _pointerVector.X + 10, _pointerVector.Y + 10, pointerColor);
+                _spriteBatch.DrawRectangle(_pointerVector.X - 10f, _pointerVector.Y - 10f, 10, 10, pointerColor);
             }
             else if(_flatKeyboard.IsKeyDown(Keys.LeftAlt))
             {
-                _spriteBatch.DrawCircle(_pointerVector, 5f, 255, Color.Red);
-                _spriteBatch.DrawLine(_pointerVector.X + 5, _pointerVector.Y + 5, _pointerVector.X + 10, _pointerVector.Y + 10, Color.Red);
-                _spriteBatch.DrawString(GlobalStatic.MainFont, "+", new Vector2(_pointerVector.X - 13 , _pointerVector.Y - (GlobalStatic.MainFont.MeasureString("+").Y)), Color.Red);
+                _spriteBatch.DrawCircle(_pointerVector, 5f, 255, pointerColor);
+                _spriteBatch.DrawLine(_pointerVector.X + 5, _pointerVector.Y + 5, _pointerVector.X + 10, _pointerVector.Y + 10, pointerColor);
+                _spriteBatch.DrawString(GlobalStatic.MainFont, "+", new Vector2(_pointerVector.X - 13 , _pointerVector.Y - (GlobalStatic.MainFont.MeasureString("+").Y)), pointerColor);
             }
             else if (_flatMouse.IsMiddleButtonDown())
             {
@@ -423,7 +505,7 @@ namespace Game1
             else
             {
                 IsMouseVisible = false; 
-                _spriteBatch.DrawCircle(_pointerVector, 5f, 255, Color.Red);
+                _spriteBatch.DrawCircle(_pointerVector, 5f, 255, pointerColor);
             }
         }
 
@@ -459,6 +541,55 @@ namespace Game1
             }
         }
 
+        private void ProcessMeasuring()
+        {
+            //if (!_flatKeyboard.IsKeyDown(Keys.M) && _selectionEnd != _selectionStart)
+            //{
+            //    _measureEnd = _flatMouse.WindowPosition.ToVector2();
+            //    _measureStart = _flatMouse.WindowPosition.ToVector2();
+            //}
+
+            if (_flatKeyboard.IsKeyDown(Keys.M))
+            {
+                if (_measuring)
+                {
+                    _measureEnd = _flatMouse.WindowPosition.ToVector2();
+                }
+                else
+                {
+                    _measuring = true;
+                    _measureStart = _flatMouse.WindowPosition.ToVector2();
+                }
+            }
+            else
+            {
+                _measuring = false;
+                _measureEnd = _flatMouse.WindowPosition.ToVector2();
+                _measureStart = _flatMouse.WindowPosition.ToVector2();
+            }
+
+            Debug.WriteLine($"Start: {_measureStart} End:{_measureEnd}");
+        }
+
+        private void DrawMeasuring()
+        {
+            if (!_flatKeyboard.IsKeyDown(Keys.M))
+                return;
+
+            var start = _measureStart;
+            var end = _measureEnd;
+
+            var length = (decimal)Util.Distance(start, end);
+            
+            var angle = Util.AngleBetweenPoints(new decimal[] { (decimal)start.X, (decimal)start.Y }, new decimal[] { (decimal)end.X, (decimal)end.Y });
+            var worldLength = Math.Round(length * 1 / _camera.Zoom);
+
+            _spriteBatch.DrawCircle(start, 5f, 250, Color.Red, 1f);
+            _spriteBatch.DrawLine(start, end, Color.Green, 1f);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"{worldLength} km", new Vector2(end.X + 10, end.Y + 10), Color.Red);
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"{worldLength} km", new Vector2(start.X, start.Y), Color.Green, (float)angle, new Vector2((float)length/-2, 20), 1f, SpriteEffects.None, 0f);
+        }
+
         private void DrawSelecting()
         {
             if (_selecting)
@@ -472,20 +603,20 @@ namespace Game1
         {
             var mousePos = Util.WorldPosition(_flatMouse.WindowPosition.ToVector2());
             var zoom = _camera.Zoom;
-            var zoomChange = 0f;
+            decimal zoomChange = 0;
 
             //Zoom:
             if (_flatMouse.ScrolledUp())
             {
                 if (_flatKeyboard.IsKeyDown(Keys.LeftAlt))
                 {
-                    zoomChange = 1f;
-                    _camera.Zoom = Math.Min(_camera.Zoom *= 2f, 1);
+                    zoomChange = 1;
+                    _camera.Zoom = Math.Min(_camera.Zoom *= 2, 1);
                 }
                 else
                 {
-                    zoomChange = 0.2f;
-                    _camera.Zoom = Math.Min(_camera.Zoom *= 1.2f, 1);
+                    zoomChange = 0.2M;
+                    _camera.Zoom = Math.Min(_camera.Zoom *= (decimal)1.2, 1);
                 }
             }
 
@@ -493,17 +624,17 @@ namespace Game1
             {
                 if (_flatKeyboard.IsKeyDown(Keys.LeftAlt))
                 {
-                    zoomChange = -0.9f;
-                    _camera.Zoom = Math.Min(_camera.Zoom *= 0.4f, 1);
+                    zoomChange = -0.9M;
+                    _camera.Zoom = Math.Min(_camera.Zoom *= (decimal)0.4, 1);
                 }
                 else
                 {
-                    zoomChange = -0.2f;
-                    _camera.Zoom = Math.Min(_camera.Zoom *= 0.8f, 1);
+                    zoomChange = -0.2M;
+                    _camera.Zoom = Math.Min(_camera.Zoom *= (decimal)0.8, 1);
                 }
             }
 
-            if (zoomChange != 0f)
+            if (zoomChange != 0M)
             {
                 var mouseX = mousePos.x;
                 var mouseY = mousePos.y;
@@ -521,7 +652,7 @@ namespace Game1
                 //Debug.WriteLine($"mousePos: {mousePos} camPos: {_camera.Position} div: {(divx, divy)}");
 
                 _camera.Position = (newX, newY);
-                Debug.WriteLine(_camera.Zoom);
+                //Debug.WriteLine(_camera.Zoom);
             }
         }
 
@@ -532,8 +663,8 @@ namespace Game1
 
             Rectangle selectionRect = GetSelectionRectangle();
 
-            var zx = ((double)GlobalStatic.Width / (double)selectionRect.Width) * _camera.Zoom;
-            var zy = ((double)GlobalStatic.Height / (double)selectionRect.Height) * _camera.Zoom;
+            var zx = ((decimal)GlobalStatic.Width / (decimal)(selectionRect.Width)) * _camera.Zoom;
+            var zy = ((decimal)GlobalStatic.Height / (decimal)(selectionRect.Height)) * _camera.Zoom;
 
             var zoom = Math.Min(zx, zy);
 
@@ -541,18 +672,6 @@ namespace Game1
 
             _camera.Zoom = zoom;
             _camera.Position = (worldPos.x, worldPos.y);
-
-
-            //if (widthDiv < heightDiv)
-            //{
-            //    zoomPerc = ((float)(GlobalStatic.Height - heightDiv)) / (float)GlobalStatic.Height;
-            //}
-            //else
-            //{
-            //    zoomPerc = ((float)(GlobalStatic.Width - widthDiv)) / (float)GlobalStatic.Width;
-            //}
-
-
         }
 
         private void ProcessSelectingEntities()
@@ -562,19 +681,13 @@ namespace Game1
 
             var selectionRectangle = GetSelectionRectangle();
 
-            var isDrawn = GameState.GraphicalEntities
-                .Where(x => x.IsDrawn)
-                .ToList();
-
             var inSelectionRectangle = GameState.GraphicalEntities
-                .Where(x => x.IsDrawn)
+                .Where(x => x.InView())
                 .Where(x => selectionRectangle.Contains((Rectangle)x.GetWindowRect()))
                 .ToList();
 
             if(!_flatKeyboard.IsKeyDown(Keys.LeftShift))
                 GameState.SelectedEntities.Clear();
-
-
 
             GameState.SelectedEntities.AddRange(inSelectionRectangle.Select(x => x.GameEntity));
         }
@@ -594,10 +707,20 @@ namespace Game1
         {
             if (_flatMouse.IsMiddleButtonDown())
             {
-                var x = (long)(_flatMouse.MouseMovement().X * (1 / _camera.Zoom));
-                var y = (long)(_flatMouse.MouseMovement().Y * -1 * (1 / _camera.Zoom));
+                GameState.Focus = null;
+
+                var initPos = _camera.Position;
+
+                var divx = (decimal)_flatMouse.MouseMovement().X;
+                var divy = (decimal)_flatMouse.MouseMovement().Y;
+
+                var x = (divx * ((decimal)1 / _camera.Zoom));
+                var y = (divy * (decimal)-1 * ((decimal)1 / _camera.Zoom));
 
                 _camera.Position = (_camera.Position.x + x, _camera.Position.y + y);
+
+                //Debug.WriteLine((divx, divy));
+                //Debug.WriteLine($"init: {initPos}\nNew:{_camera.Position}");
             }
         }
     }

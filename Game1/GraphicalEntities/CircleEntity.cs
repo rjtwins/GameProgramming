@@ -15,7 +15,7 @@ namespace Game1.GraphicalEntities
 {
     public class CircleEntity : PolyEntity
     {
-        public virtual double Radius => GameEntity.Radius;
+        public virtual decimal Radius => GameEntity.Radius;
 
         public CircleEntity() : base(null)
         {
@@ -33,7 +33,7 @@ namespace Game1.GraphicalEntities
 
             spriteBatch.DrawCircle(pos, (float)(radius), 256, Color, ActualLineWidth);
 
-            DrawLabel(spriteBatch);
+            //DrawLabel(spriteBatch);
         }
 
         public override void DrawLabel(SpriteBatch spriteBatch)
@@ -44,6 +44,9 @@ namespace Game1.GraphicalEntities
             if (GlobalStatic.MainFont == null)
                 return;
 
+            if (!ShouldDrawLabel)
+                return;
+
             var windowPos = WorldSpace ? Util.WindowPosition(Position) : new Vector2((float)Position.x, (float)Position.y);
             var x = windowPos.X - GetLabelWidth().X / 2;
 
@@ -51,18 +54,16 @@ namespace Game1.GraphicalEntities
             if (WorldSpace && !FixedSize)
                 radius = Radius * _zoom;
 
-            radius = radius * (1 / ScaleFactor);
-
-            var y = windowPos.Y - radius * (double)ScaleFactor - 20;
+            var y = (decimal)windowPos.Y - radius - 20M;
 
             spriteBatch.DrawString(GlobalStatic.MainFont, Label, new Vector2(x, (float)y), Color);
         }
 
         public override Vector2 GetWindowDim()
         {
-            var radius = Radius * 2;
+            var radius = Radius;
 
-            if (WorldSpace)
+            if (WorldSpace && !FixedSize)
                 radius = Radius * _zoom;
 
             var bbox = new Vector2((float)radius * 2, (float)radius * 2);
@@ -81,11 +82,11 @@ namespace Game1.GraphicalEntities
             return new RectangleF(pos.X - dim.X / 2, pos.Y - dim.Y / 2, dim.X, dim.Y);
         }
 
-        public override RectangleD GetWorldRect()
+        public override RectangleM GetWorldRect()
         {
             var pos = Position;
             var dim = GetWorldDim();
-            return new RectangleD(pos.x - dim.X / 2, pos.y - dim.Y / 2, dim.X, dim.Y);
+            return new RectangleM(pos.x - (decimal)dim.X / 2, pos.y - (decimal)dim.Y / 2, (decimal)dim.X, (decimal)dim.Y);
         }
     }
 }

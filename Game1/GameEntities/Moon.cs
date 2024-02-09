@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    internal class Moon : GameEntity
+    public class Moon : Orbital
     {
+        public Moon() 
+        {
+            Color = Color.Gray;
+        }
+
         public override GameGraphicalEntity GenerateGraphicalEntity()
         {
-            var entity = new CircleEntity();
-            entity.GameEntity = this;
-            this.GraphicalEntity = entity;
+            var entity = base.GenerateGraphicalEntity();
+            entity.MinSize = 0.1f;
             return entity;
         }
     }

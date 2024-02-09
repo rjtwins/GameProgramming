@@ -73,7 +73,24 @@ namespace Game1.Input
                 }
             };
 
+            var teleportOrder = new ContextMenuItem()
+            {
+                Label = "Teleport To",
+                Position = 1,
+                Guid = Guid.NewGuid(),
+                OnClick = () =>
+                {
+                    fleets.ForEach(x =>
+                    {
+                        var pos = Util.WorldPosition(_flatMouse.WindowPosition.ToVector2());
+                        x.X = pos.x;
+                        x.Y = pos.y;
+                    });
+                }
+            };
+
             contextMenuItems.Add(moveOrder);
+            contextMenuItems.Add(teleportOrder);
 
             return contextMenuItems;
         }
@@ -148,7 +165,7 @@ namespace Game1.Input
                     //text.CustomFontFile = "gum/FontCache/Font18Agency_FB_noSmooth.fnt";
 
                     text.UseCustomFont = false;
-                    text.Font = "Myanmar Text";
+                    text.Font = "Calibri Light";
                     text.FontSize = 18;
                     text.UseFontSmoothing = false;
 

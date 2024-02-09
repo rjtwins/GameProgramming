@@ -5,7 +5,7 @@ namespace Game1.GraphicalEntities
 {
     internal class DotEntity : CircleEntity
     {
-        public override double Radius => 5f;
+        public override decimal Radius => 5M;
 
         public DotEntity() : base()
         {
@@ -22,7 +22,7 @@ namespace Game1.GraphicalEntities
 
             spriteBatch.DrawPoint(pos.X, pos.Y, Color.Red, ActualLineWidth);
 
-            DrawLabel(spriteBatch);
+            //DrawLabel(spriteBatch);
             //Debug.WriteLine($"radius: {radius}, pos: {GetWindowSpacePos()}");
         }
     }

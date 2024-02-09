@@ -29,7 +29,7 @@ namespace Game1.GraphicalEntities
             if (vertices == null)
                 return;
 
-            Vertices = vertices.Select(x => x * ScaleFactor).ToArray();
+            Vertices = vertices;
             Polygon = new Polygon(Vertices);
         }
 
@@ -42,7 +42,7 @@ namespace Game1.GraphicalEntities
 
             spriteBatch.DrawPolygon(Util.WindowPosition(Position), _scaledPolygon, Color, ActualLineWidth);
 
-            DrawLabel(spriteBatch);
+            //DrawLabel(spriteBatch);
         }
 
         public override void DrawLabel(SpriteBatch spriteBatch)
@@ -79,11 +79,11 @@ namespace Game1.GraphicalEntities
             return new RectangleF(pos.X, pos.Y, dim.X, dim.Y);
         }
 
-        public override RectangleD GetWorldRect()
+        public override RectangleM GetWorldRect()
         {
             var pos = Position;
             var dim = GetWorldDim();
-            return new RectangleD(pos.x, pos.y, dim.X, dim.Y);
+            return new RectangleM(pos.x, pos.y, (decimal)dim.X, (decimal)dim.Y);
         }
     }
 }

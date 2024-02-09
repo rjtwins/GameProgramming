@@ -21,16 +21,13 @@ namespace Game1.GraphicalEntities
     {
         public GameEntity GameEntity { get; set; }
         private Camera _camera { get; set; }
-        public override double _zoom => _camera.Zoom;
+        public override decimal _zoom => _camera.Zoom;
 
-        public override (double x, double y) Position
+        public override (decimal x, decimal y) Position
         {
             get
             {
-                var x = WorldSpace ? (GameEntity.X * ScaleFactor) : GameEntity.X;
-                var y = WorldSpace ? (GameEntity.Y * ScaleFactor) : GameEntity.Y;
-
-                return (x, y);
+                return (GameEntity.X, GameEntity.Y);
             }
         }
 
@@ -45,6 +42,11 @@ namespace Game1.GraphicalEntities
         protected GameGraphicalEntity() : base((0,0), 0f, Color.Black, true)
         {
             _camera = Game.Services.GetService<Camera>();
+        }
+
+        public override bool DrawLabel()
+        {
+            return GameEntity.DrawLabel();
         }
     }
 }

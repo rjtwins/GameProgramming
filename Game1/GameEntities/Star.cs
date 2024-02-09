@@ -9,19 +9,17 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    public class Star : GameEntity
+    public class Star : Orbital
     {
+        public List<Orbital> stars = new();
         public Star()
         {
             Color = Color.Yellow;
         }
 
-        public override GameGraphicalEntity GenerateGraphicalEntity()
+        public override void Update(decimal deltaTime)
         {
-            var entity = new CircleEntity();
-            entity.GameEntity = this;
-            this.GraphicalEntity = entity;
-            return entity;
+            
         }
     }
 }

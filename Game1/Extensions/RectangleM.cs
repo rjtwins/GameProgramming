@@ -9,29 +9,29 @@ using System.Threading.Tasks;
 
 namespace Game1.Extensions
 {
-    public struct RectangleD
+    public struct RectangleM
     {
-        public static readonly RectangleD Empty;
+        public static readonly RectangleM Empty;
 
         [DataMember]
-        public double X;
+        public decimal X;
 
         [DataMember]
-        public double Y;
+        public decimal Y;
 
         [DataMember]
-        public double Width;
+        public decimal Width;
 
         [DataMember]
-        public double Height;
+        public decimal Height;
 
-        public double Left => X;
+        public decimal Left => X;
 
-        public double Right => X + Width;
+        public decimal Right => X + Width;
 
-        public double Top => Y;
+        public decimal Top => Y;
 
-        public double Bottom => Y + Height;
+        public decimal Bottom => Y + Height;
 
         public bool IsEmpty
         {
@@ -46,7 +46,7 @@ namespace Game1.Extensions
             }
         }
 
-        public (double x, double y) Position
+        public (decimal x, decimal y) Position
         {
             get
             {
@@ -59,7 +59,7 @@ namespace Game1.Extensions
             }
         }
 
-        public (double x, double y) Size
+        public (decimal x, decimal y) Size
         {
             get
             {
@@ -72,19 +72,19 @@ namespace Game1.Extensions
             }
         }
 
-        public (double x, double y) Center => (X + Width * 0.5f, Y + Height * 0.5f);
+        public (decimal x, decimal y) Center => (X + Width * 0.5M, Y + Height * 0.5M);
 
-        public (double x, double y) TopLeft => (X, Y);
+        public (decimal x, decimal y) TopLeft => (X, Y);
 
-        public (double x, double y) TopRight => (X + Width, Y);
+        public (decimal x, decimal y) TopRight => (X + Width, Y);
 
-        public (double x, double y) BottomLeft => (X, Y + Height);
+        public (decimal x, decimal y) BottomLeft => (X, Y + Height);
 
-        public (double x, double y) BottomRight => (X + Width, Y + Height);
+        public (decimal x, decimal y) BottomRight => (X + Width, Y + Height);
 
         internal string DebugDisplayString => X + "  " + Y + "  " + Width + "  " + Height;
 
-        public RectangleD(double x, double y, double width, double height)
+        public RectangleM(decimal x, decimal y, decimal width, decimal height)
         {
             X = x;
             Y = y;
@@ -92,15 +92,15 @@ namespace Game1.Extensions
             Height = height;
         }
 
-        public RectangleD(Point2 position, Size2 size)
+        public RectangleM(Point2 position, Size2 size)
         {
-            X = position.X;
-            Y = position.Y;
-            Width = size.Width;
-            Height = size.Height;
+            X = (decimal)position.X;
+            Y = (decimal)position.Y;
+            Width = (decimal)size.Width;
+            Height = (decimal)size.Height;
         }
 
-        public RectangleD((double x, double y) position, (double x, double y) size)
+        public RectangleM((decimal x, decimal y) position, (decimal x, decimal y) size)
         {
             X = position.x;
             Y = position.y;
@@ -201,17 +201,17 @@ namespace Game1.Extensions
         //    return Intersects(ref this, ref rectangle);
         //}
 
-        public static bool Contains(ref RectangleD rectangle, ref Point2 point)
+        public static bool Contains(ref RectangleM rectangle, ref Point2 point)
         {
-            if (rectangle.X <= point.X && point.X < rectangle.X + rectangle.Width && rectangle.Y <= point.Y)
+            if (rectangle.X <= (decimal)point.X && (decimal)point.X < rectangle.X + rectangle.Width && rectangle.Y <= (decimal)point.Y)
             {
-                return point.Y < rectangle.Y + rectangle.Height;
+                return (decimal)point.Y < rectangle.Y + rectangle.Height;
             }
 
             return false;
         }
 
-        public static bool Contains(RectangleD rectangle, Point2 point)
+        public static bool Contains(RectangleM rectangle, Point2 point)
         {
             return Contains(ref rectangle, ref point);
         }
@@ -246,15 +246,15 @@ namespace Game1.Extensions
         //    return result;
         //}
 
-        public void Inflate(float horizontalAmount, float verticalAmount)
+        public void Inflate(decimal horizontalAmount, decimal verticalAmount)
         {
             X -= horizontalAmount;
             Y -= verticalAmount;
-            Width += horizontalAmount * 2f;
-            Height += verticalAmount * 2f;
+            Width += horizontalAmount * 2M;
+            Height += verticalAmount * 2M;
         }
 
-        public void Offset(float offsetX, float offsetY)
+        public void Offset(decimal offsetX, decimal offsetY)
         {
             X += offsetX;
             Y += offsetY;
@@ -262,26 +262,26 @@ namespace Game1.Extensions
 
         public void Offset(Vector2 amount)
         {
-            X += amount.X;
-            Y += amount.Y;
+            X += (decimal)amount.X;
+            Y += (decimal)amount.Y;
         }
 
-        public static bool operator ==(RectangleD first, RectangleD second)
+        public static bool operator ==(RectangleM first, RectangleM second)
         {
             return first.Equals(ref second);
         }
 
-        public static bool operator !=(RectangleD first, RectangleD second)
+        public static bool operator !=(RectangleM first, RectangleM second)
         {
             return !(first == second);
         }
 
-        public bool Equals(RectangleD rectangle)
+        public bool Equals(RectangleM rectangle)
         {
             return Equals(ref rectangle);
         }
 
-        public bool Equals(ref RectangleD rectangle)
+        public bool Equals(ref RectangleM rectangle)
         {
             if (X == rectangle.X && Y == rectangle.Y && Width == rectangle.Width)
             {
@@ -293,9 +293,9 @@ namespace Game1.Extensions
 
         public override bool Equals(object obj)
         {
-            if (obj is RectangleD)
+            if (obj is RectangleM)
             {
-                return Equals((RectangleD)obj);
+                return Equals((RectangleM)obj);
             }
 
             return false;
@@ -306,9 +306,9 @@ namespace Game1.Extensions
             return (((((X.GetHashCode() * 397) ^ Y.GetHashCode()) * 397) ^ Width.GetHashCode()) * 397) ^ Height.GetHashCode();
         }
 
-        public static implicit operator RectangleD(Rectangle rectangle)
+        public static implicit operator RectangleM(Rectangle rectangle)
         {
-            RectangleD result = default(RectangleD);
+            RectangleM result = default(RectangleM);
             result.X = rectangle.X;
             result.Y = rectangle.Y;
             result.Width = rectangle.Width;
@@ -316,22 +316,22 @@ namespace Game1.Extensions
             return result;
         }
 
-        public static explicit operator Rectangle(RectangleD rectangle)
+        public static explicit operator Rectangle(RectangleM rectangle)
         {
             return new Rectangle((int)rectangle.X, (int)rectangle.Y, (int)rectangle.Width, (int)rectangle.Height);
         }
 
-        public static implicit operator RectangleD(RectangleF rectangle)
+        public static implicit operator RectangleM(RectangleF rectangle)
         {
-            RectangleD result = default(RectangleD);
-            result.X = rectangle.X;
-            result.Y = rectangle.Y;
-            result.Width = rectangle.Width;
-            result.Height = rectangle.Height;
+            RectangleM result = default(RectangleM);
+            result.X = (decimal)rectangle.X;
+            result.Y = (decimal)rectangle.Y;
+            result.Width = (decimal)rectangle.Width;
+            result.Height = (decimal)rectangle.Height;
             return result;
         }
 
-        public static explicit operator RectangleF(RectangleD rectangle)
+        public static explicit operator RectangleF(RectangleM rectangle)
         {
             return new Rectangle((int)rectangle.X, (int)rectangle.Y, (int)rectangle.Width, (int)rectangle.Height);
         }

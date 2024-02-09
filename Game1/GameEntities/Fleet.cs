@@ -2,7 +2,9 @@
 using Game1.GameLogic;
 using Game1.GraphicalEntities;
 using Game1.Graphics;
+using Gum.DataTypes;
 using Gum.Managers;
+using Gum.Wireframe;
 using GumRuntime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -73,11 +75,11 @@ namespace Game1.GameEntities
                 .Min();
         }
 
-        public override void Update(double timePassed)
+        public override void Update(decimal deltaTime)
         {
             UpdateOrders();
 
-            UpdateMovement(timePassed);
+            UpdateMovement(deltaTime);
         }
 
         private void UpdateOrders()
@@ -109,10 +111,10 @@ namespace Game1.GameEntities
             }
         }
 
-        private void UpdateMovement(double timePassed)
+        private void UpdateMovement(decimal timePassed)
         {
-            this.X += Velocity.X * timePassed;
-            this.Y += Velocity.Y * timePassed;
+            this.X += (decimal)Velocity.X * timePassed;
+            this.Y += (decimal)Velocity.Y * timePassed;
         }
 
         private void MoveToPosition(Order order)
@@ -120,7 +122,7 @@ namespace Game1.GameEntities
             var pos = order.Position;
             var divx = pos.x - this.X;
             var divy = pos.y - this.Y;
-            var div = Math.Sqrt(Math.Pow(divx, 2) + Math.Pow(divy, 2));
+            var div = (decimal)Math.Sqrt((double)((double)divx * (double)divx + (double)divy * (double)divy));
 
             //Order completed
             if (div < 1000)
@@ -136,10 +138,10 @@ namespace Game1.GameEntities
                 return;
             }
 
-            var angle = Util.AngleBetweenPoints(new double[] { pos.x, pos.y }, new double[] { this.X, this.Y }) + Math.PI;
+            var angle = Util.AngleBetweenPoints(new decimal[] { pos.x, pos.y }, new decimal[] { this.X, this.Y }) + (decimal)Math.PI;
             this.Direction = (float)angle;
-            var velocity_x = GetMaxThrust() * Math.Cos(angle);
-            var velocity_y = GetMaxThrust() * Math.Sin(angle);
+            var velocity_x = GetMaxThrust() * Math.Cos((double)angle);
+            var velocity_y = GetMaxThrust() * Math.Sin((double)angle);
             Velocity = new Vector2((float)velocity_x, (float)velocity_y);
         }
 
@@ -156,8 +158,9 @@ namespace Game1.GameEntities
 
             //var entity = new PolyEntity(vectors);
             entity.LineWidth = 1f;
-            Radius = 5d;
+            Radius = 5M;
             Color = Color.Red;
+            entity.ShouldDrawLabel = false;
             entity.GameEntity = this;
             entity.FixedSize = true;
             this.GraphicalEntity = entity;
@@ -171,7 +174,7 @@ namespace Game1.GameEntities
             if (!GameState.SelectedEntities.Contains(this))
             {
                 _container.Visible = false;
-                color = Color.DarkGray;
+                color = Color.Red * 0.5f;
             }
             else
             {
@@ -198,6 +201,7 @@ namespace Game1.GameEntities
         {
             var camera = Game.Services.GetService<Camera>();
             var color = Color.Green;
+            color.A = 150;
             var windowPos = Util.WindowPosition((X, Y));
             var vector = windowPos + (Velocity * -1) * (float)camera.Zoom;
             spriteBatch.DrawLine(windowPos, vector, color, 1f);
@@ -205,42 +209,45 @@ namespace Game1.GameEntities
 
         private void InitInfo()
         {
-            //_container = new ContainerRuntime();
-            //_container.ChildrenLayout = Gum.Managers.ChildrenLayout.TopToBottomStack;
-            //_container.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
-            //_container.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
-            //_container.Height = 1f;
-            //_container.Width = 1f;
-            //_container.AddToManagers();
 
-            var componentSave = ObjectFinder.Self.GumProjectSave.Components
-                .First(item => item.Name == "RectComponent");
+            _container = new RectangleRuntime();
+            _container.Color = Color.Red * 0.5f;
+            //_container.SetProperty("Red", 255);
+            //_container.SetProperty("Green", 255);
+            //_container.SetProperty("Blue", 255);
+            //_container.SetProperty("Alpha", 150);
 
-            _container = componentSave.ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
-            //_container.Visible = false;
+            _container.Visible = false;
             _container.Width = 1f;
             _container.Height = 1f;
             _container.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
             _container.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
             _container.ChildrenLayout = Gum.Managers.ChildrenLayout.TopToBottomStack;
-            _container.SetProperty("Red", 255);
-            _container.SetProperty("Green", 0);
-            _container.SetProperty("Blue", 0);
 
-            //_container.Children.Add(rect);
+            _container.AddToManagers(SystemManagers.Default, null);
+
+            var _subContainer = new ContainerRuntime();
+            _subContainer.Width = 1f;
+            _subContainer.Height = 1f;
+            _subContainer.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
+            _subContainer.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
+            _subContainer.ChildrenLayout = Gum.Managers.ChildrenLayout.TopToBottomStack;
+
+            _container.Children.Add(_subContainer);
         }
 
         private void UpdateInfo()
         {
-            var rect = _container;
-            rect.Children.Clear();
-            var pos = Util.WindowPosition((X, Y + 20));
+            var pos = Util.WindowPosition((X, Y));
+
             _container.X = pos.X;
-            _container.Y = pos.Y;
-            var text = new TextRuntime();
-            text.Text = $"({X}, {Y})";
-            rect.Children.Add(text);
+            _container.Y = pos.Y + 20;
             _container.Visible = true;
+
+            var rect = _container.Children[0] as GraphicalUiElement;
+            rect.Children.Clear();
+            rect.Children.Add(Util.GetTextRuntime($"({Name}) ", 255, 0, 0, 150));
+            rect.Children.Add(Util.GetTextRuntime($"({X}, {Y}) ", 255, 0, 0, 150));
         }
     }
 }

@@ -70,6 +70,34 @@
         "ElementType": "Components",
         "EventType": 5,
         "TimestampUtc": "2024-02-08T08:19:36.9516365Z"
+      },
+      {
+        "NewName": "RectComponent (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-08T13:59:58.8824011Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "RectComponent (Container).Text TextInstance in RectComponent (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-08T14:00:59.1296931Z"
+      },
+      {
+        "NewName": "RectComponent (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-08T14:11:25.668905Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "RectComponent (Container).Text TextInstance in RectComponent (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-08T14:14:15.6521568Z"
       }
     ]
   }

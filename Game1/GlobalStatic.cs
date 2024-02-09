@@ -1,6 +1,9 @@
-﻿using Gum.DataTypes;
+﻿using Game1.GameEntities;
+using Game1.Graphics;
+using Gum.DataTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Game1
 {
@@ -12,10 +15,16 @@ namespace Game1
         public static Game Game { get; set; } = null;
         public static GumProjectSave GumProject { get; set; } = null;
 
-        //Size statics
-        public const double SYSTEMSIZE = (100d * 149597870000d);
-        //100 000 ly
-        public const double GALAXYSIZE = 100000000000000000d;
+        public const decimal AU = 1.5e8M;
+        public const decimal SYSTEMSIZE = AU * 100;
+        public const decimal GALAXYSIZE = AU * 1e9M;
 
+        public const double MSOLL = 2e30d;
+        public const double MEARTH = 6e25d;
+        public const double MLUNA = 7.34e22d;
+
+        public const decimal RSOLL = 696000;
+        public const decimal REARTH = 6378;
+        public const decimal RLUNA = 1740;
     }
 }

@@ -5,6 +5,7 @@ using System;
 using Game1.Graphics;
 using MonoGame.Extended;
 using Game1.Extensions;
+using System.Net.Http.Headers;
 
 namespace Game1.GraphicalEntities
 {
@@ -13,16 +14,21 @@ namespace Game1.GraphicalEntities
         public Guid Guid { get; set; } = Guid.NewGuid();
         public Game Game { get; set; }
         private Camera _camera { get; set; }
-        public virtual double _zoom { get; set; }
-        public virtual (double x, double y) Position { get; set; }
+
+        public virtual (decimal x, decimal y) Position { get; set; }
+
+        public virtual decimal _zoom { get; set; }
+        public virtual float MinSize { get; set; } = 0.0001f;
         public virtual float Angle { get; set; }
         public virtual Color Color { get; set; }
-        public float ScaleFactor { get; set; } = 1f;
         public bool FixedSize { get; set; }
         //public List<SubPoly> SubEntities { get; set; } = new();
         public bool WorldSpace = true;
         public bool IsDrawn { get; set; }
         public virtual string Label { get; set; }
+        public virtual bool ShouldDrawLabel {  get; set; } = true;
+
+
         protected GraphicalEntity((double x, double y) position, float angle, Color color, bool worldSpace = true)
         {
             WorldSpace = worldSpace;
@@ -51,18 +57,13 @@ namespace Game1.GraphicalEntities
             return GlobalStatic.MainFont.MeasureString(Label);
         }
 
-        public virtual void Scale(float amount)
-        {
-            ScaleFactor = amount;
-        }
-
         public abstract Vector2 GetWindowDim();
 
         public abstract Vector2 GetWorldDim();
 
         public abstract RectangleF GetWindowRect();
 
-        public abstract RectangleD GetWorldRect();
+        public abstract RectangleM GetWorldRect();
 
         public virtual RectangleF GetSelectionRect()
         {
@@ -73,37 +74,44 @@ namespace Game1.GraphicalEntities
 
         public virtual bool InView()
         {
-            var windowSpacePos = Util.WindowPosition(this.Position);
-            var dims = GetWindowDim();
-            var max = windowSpacePos + dims / 2;
-            var min = windowSpacePos - dims / 2;
+            var windowPos = Util.WindowPosition(this.Position);
+            var windowDim = GetWindowDim();
+            var width = windowDim.X;
+            var height = windowDim.Y;
 
-            if (max.X <= 0 && max.Y <= 0)
+            
+            if (windowPos.X + width < 0)
                 return false;
 
-            if (min.X >= GlobalStatic.Width && min.Y >= GlobalStatic.Height)
+            if(windowPos.Y + height < 0)
+                return false;
+
+            if(windowPos.X - height > GlobalStatic.Width) 
+                return false;
+
+            if (windowPos.Y - height > GlobalStatic.Height)
+                return false;
+
+            var size = Math.Max(width, height);
+
+            if(size <= MinSize)
                 return false;
 
             return true;
         }
 
-        public virtual bool ShouldDraw()
+        public virtual bool DrawFull()
         {
             var windowSpacePos = Util.WindowPosition(this.Position);
             var dims = GetWindowDim();
-            var max = windowSpacePos + dims / 2;
-            var min = windowSpacePos - dims / 2;
+            var size = Math.Max(dims.X, dims.Y);
 
-            if (dims.X <= 2 && dims.Y <= 2)
-                return false;
+            return size > 2;
+        }
 
-            if (max.X <= 0 && max.Y <= 0)
-                return false;
-
-            if (min.X >= GlobalStatic.Width && min.Y >= GlobalStatic.Height)
-                return false;
-
-            return true;
+        public virtual bool DrawLabel()
+        {
+            return DrawFull();
         }
     }
 }

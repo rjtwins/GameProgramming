@@ -19,16 +19,37 @@ namespace Game1
         public static List<GameEntity> GameEntities { get; set; } = new();
         public static List<GameEntity> SelectedEntities { get; set; } = new();
 
+        public static GameEntity Focus { get; set; }
+
         public static double TotalSeconds { get; set; } = 0;
         public static double TotalMinutes => TotalSeconds / 60;
         public static double TotalHours => TotalSeconds / 3600;
 
-        public static int GameSpeed { get; set; } = 1;
+        public static float GameSpeed
+        {
+            get
+            {
+                return _gameSpeed;
+            }
+            set
+            {
+                _gameSpeed = value;
+                _gameSpeed = Math.Min(_gameSpeed, 3.156e+7f);
+            }
+        }
+        private static float _gameSpeed = 1f;
 
         public static void Update(double deltaSeconds)
         {
-            TotalSeconds = TotalSeconds + deltaSeconds * GameSpeed;
-            GameEntities.ForEach(x => x.Update(deltaSeconds));
+            deltaSeconds = Math.Round(deltaSeconds);
+            var gameSeconds = deltaSeconds * GameSpeed;
+            TotalSeconds += gameSeconds;
+
+            //Main update loop.
+            for (int i = 0; i < GameEntities.Count; i++)
+            {
+                GameEntities[i].Update((decimal)gameSeconds);
+            }
         }
     }
 }

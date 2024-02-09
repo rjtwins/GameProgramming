@@ -1,8 +1,10 @@
 ﻿using System;
 using Game1.Graphics;
+using Gum.DataTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGameGum.GueDeriving;
 //using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1
@@ -115,20 +117,24 @@ namespace Game1
             return a.X * b.X + a.Y * b.Y;
         }
 
-        public static (double x, double y) WorldPosition(Vector2 screenPos)
+        public static (decimal x, decimal y) WorldPosition(Vector2 screenPos)
         {
             var camera = GlobalStatic.Game.Services.GetService<Camera>();
 
-            double cWorldx = camera.Position.x;
-            double cWorldy = camera.Position.y;
+            decimal cWorldx = camera.Position.x;
+            decimal cWorldy = camera.Position.y;
 
-            double mx = screenPos.X;
-            double my = screenPos.Y;
-            double divx = mx - GlobalStatic.Width / 2;
-            double divy = my - GlobalStatic.Height / 2;
+            decimal mx = (decimal)screenPos.X;
+            decimal my = (decimal)screenPos.Y;
 
-            divx *= (1 / camera.Zoom);
-            divy *= (1 / camera.Zoom);
+            decimal width = GlobalStatic.Width / (decimal)2;
+            decimal height = GlobalStatic.Height / (decimal)2;
+
+            decimal divx = mx - width;
+            decimal divy = my - height;
+
+            divx *= ((decimal)1 / camera.Zoom);
+            divy *= ((decimal)1 / camera.Zoom);
 
             var worldx = cWorldx + divx;
             var worldy = cWorldy + divy;
@@ -136,11 +142,11 @@ namespace Game1
             return (worldx, worldy);
         }
 
-        public static Vector2 WindowPosition((double x, double y) worldPos)
+        public static Vector2 WindowPosition((decimal x, decimal y) worldPos)
         {
             var camera = GlobalStatic.Game.Services.GetService<Camera>();
-            var width = GlobalStatic.Width;
-            var height = GlobalStatic.Height;
+            var width = (decimal)GlobalStatic.Width;
+            var height = (decimal)GlobalStatic.Height;
 
             var x = (camera.Position.x * -1 + worldPos.x) * camera.Zoom + width / 2;
             var y = (camera.Position.y * -1 + worldPos.y) * camera.Zoom + height / 2;
@@ -160,15 +166,15 @@ namespace Game1
             return Math.Sqrt(v[0] * v[0] + v[1] * v[1]);
         }
 
-        public static double AngleBetweenPoints(double[] A, double[] B)
+        public static decimal AngleBetweenPoints(decimal[] A, decimal[] B)
         {
             // Calculate the differences in coordinates
-            double deltaX = B[0] - A[0];
-            double deltaY = B[1] - A[1];
+            decimal deltaX = B[0] - A[0];
+            decimal deltaY = B[1] - A[1];
 
             // Calculate the angle using arctan
-            double angleRad = Math.Atan2(deltaY, deltaX);
-            double angleDeg = angleRad * (180.0 / Math.PI);
+            double angleRad = Math.Atan2((double)deltaY, (double)deltaX);
+            //double angleDeg = angleRad * (180.0 / Math.PI);
 
             //// Ensure the angle is positive
             //if (angleDeg < 0)
@@ -176,7 +182,66 @@ namespace Game1
             //    angleDeg += 360.0;
             //}
 
-            return angleRad;
+            return (decimal)angleRad;
+        }
+
+        public static TextRuntime GetTextRuntime(string text, int r, int g, int b, int a = 255)
+        {
+            var runtime = new TextRuntime();
+            runtime.Text = text;
+            runtime.WidthUnits = DimensionUnitType.RelativeToChildren;
+            runtime.HeightUnits = DimensionUnitType.RelativeToChildren;
+            runtime.Width = 10;
+            runtime.Height = 5;
+            runtime.UseCustomFont = false;
+            runtime.Font = "Calibri Light";
+            runtime.FontSize = 15;
+            runtime.UseFontSmoothing = false;
+            runtime.SetProperty("Red", r);
+            runtime.SetProperty("Green", g);
+            runtime.SetProperty("Blue", b);
+            runtime.SetProperty("Alpha", a);
+            runtime.HorizontalAlignment = RenderingLibrary.Graphics.HorizontalAlignment.Center;
+            runtime.VerticalAlignment = RenderingLibrary.Graphics.VerticalAlignment.Center;
+
+            return runtime;
+        }
+
+        private const double G = 6.67430e-11; // Gravitational constant in m^3/kg/s^2
+
+        public static (decimal x, decimal y) CircularOrbit(double massParent, double massChild, double radiusOrbit, double timeElapsed)
+        {
+            // Calculate angular velocity of the Moon
+            double orbitalPeriodMoon = Math.Sqrt((4 * Math.PI * Math.PI * radiusOrbit * radiusOrbit * radiusOrbit) / (G * (massParent + massChild)));
+            double angularVelocityMoon = 2 * Math.PI / orbitalPeriodMoon;
+
+            // Determine the angle covered by the Moon since the start of its orbit
+            double theta = angularVelocityMoon * timeElapsed;
+
+            // Convert polar coordinates to Cartesian coordinates
+            double xCoordinate = radiusOrbit * Math.Cos(theta);
+            double yCoordinate = radiusOrbit * Math.Sin(theta);
+
+            return ((decimal)xCoordinate, (decimal)yCoordinate);
+        }
+
+        public static (decimal x, decimal y) InclinedOrbit(double massParent, double massChild, double radiusOrbit, double timeElapsed, double inclinationAngle)
+        {
+            // Calculate angular velocity of the Moon
+            double orbitalPeriodMoon = Math.Sqrt((4 * Math.PI * Math.PI * radiusOrbit * radiusOrbit * radiusOrbit) / (G * (massChild + massParent)));
+            double angularVelocityMoon = 2 * Math.PI / orbitalPeriodMoon;
+
+            // Determine the angle covered by the Moon since the start of its orbit
+            double theta = angularVelocityMoon * timeElapsed;
+
+            // Adjust theta with inclination angle
+            theta -= inclinationAngle;
+
+            // Convert polar coordinates to Cartesian coordinates
+            double xCoordinate = radiusOrbit * Math.Cos(theta);
+            double yCoordinate = radiusOrbit * Math.Sin(theta);
+
+            return ((decimal)xCoordinate, (decimal)yCoordinate);
         }
     }
 }
