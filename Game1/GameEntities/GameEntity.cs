@@ -14,16 +14,11 @@ namespace Game1.GameEntities
 
         public GameEntity Parent { get; set; }
         public Guid Guid { get; set; }
-
-        public bool Selected { get; set; } = false;
-
-        public decimal X { get; set; }
-        public decimal Y { get; set; }
-
-        public decimal LocalX { get; set; } = 0;
-        public decimal LocalY { get; set; } = 0;
+        public virtual decimal X { get; set; }
+        public virtual decimal Y { get; set; }
 
         //Names and stuff
+        public string Faction { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Color Color { get; set; }

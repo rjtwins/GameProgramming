@@ -1,6 +1,7 @@
 ﻿using Game1.Extensions;
 using Game1.GameEntities;
 using Game1.GameLogic;
+using Game1.Graphics;
 using Gum.Wireframe;
 using Microsoft.Xna.Framework;
 using MonoGameGum.GueDeriving;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using static System.Net.Mime.MediaTypeNames;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Game1.Input
@@ -19,6 +21,7 @@ namespace Game1.Input
 
         public Vector2 Position { get; set; }
         public List<ContextMenuItem> Items { get; set; } = new();
+        public GameEntity TargetEntity { get; set; }
 
         private FlatMouse _flatMouse => FlatMouse.Instance;
         private FlatKeyboard _flatKeyboard => FlatKeyboard.Instance;
@@ -68,11 +71,10 @@ namespace Game1.Input
                     {
                         OrderType = OrderType.MoveTo,
                         Owner = x,
-                        Position = Util.WorldPosition(_flatMouse.WindowPosition.ToVector2())
+                        Position = Util.WorldPosition(this.Position)
                     }));
                 }
             };
-
             var teleportOrder = new ContextMenuItem()
             {
                 Label = "Teleport To",
@@ -82,15 +84,45 @@ namespace Game1.Input
                 {
                     fleets.ForEach(x =>
                     {
-                        var pos = Util.WorldPosition(_flatMouse.WindowPosition.ToVector2());
+                        var pos = Util.WorldPosition(this.Position);
                         x.X = pos.x;
                         x.Y = pos.y;
+                    });
+                }
+            };
+            var moveToTest = new ContextMenuItem()
+            {
+                Label = "Intercept Test",
+                Position = 1,
+                Guid = Guid.NewGuid(),
+                OnClick = () =>
+                {
+                    var fleet = fleets.First();
+                    var body = TargetEntity == null ? Util.FindUnderPos(Position) : TargetEntity;
+
+                    if (body == null)
+                        return;
+
+                    if (!(body is Orbital o))
+                        return;
+
+                    var result = Util.AproxIntercept(fleet, o);
+                    var camera = GlobalStatic.Game.Services.GetService<Camera>();
+
+                    camera.Position = result.pos;
+
+                    fleet.Orders.Add(new GameLogic.Order()
+                    {
+                        OrderType = GameLogic.OrderType.MoveTo,
+                        Position = result.pos,
+                        Guid = Guid.NewGuid()
                     });
                 }
             };
 
             contextMenuItems.Add(moveOrder);
             contextMenuItems.Add(teleportOrder);
+            contextMenuItems.Add(moveToTest);
 
             return contextMenuItems;
         }
@@ -103,7 +135,12 @@ namespace Game1.Input
             }
             else if (_flatMouse.IsLeftButtonClicked())
             {
-                HandleLeftButtonClicked();
+                //HandleLeftButtonClicked();
+                _contextMenu.Children.Cast<GraphicalUiElement>().ToList().ForEach(x =>
+                {
+                    UIClickEventHandler.Instance.RemoveElement(x);
+                });
+
                 _contextMenu.Children.Clear();
                 _contextMenu.Visible = false;
             }
@@ -129,7 +166,7 @@ namespace Game1.Input
             if (clicked == null)
                 return;
 
-            Debug.WriteLine(clicked.Tag);
+            //Debug.WriteLine(clicked.Tag);
             ContextMenuItem? item = Items.FirstOrDefault(x => x.Guid == (Guid)clicked.Tag);
 
             if (item == null)
@@ -155,6 +192,8 @@ namespace Game1.Input
             _contextMenu.Visible = true;
             _contextMenu.X = _flatMouse.WindowPosition.X + 10;
             _contextMenu.Y = _flatMouse.WindowPosition.Y + 10;
+            this.Position = _flatMouse.WindowPosition.ToVector2();
+            TargetEntity = Util.FindUnderCursor();
 
             Items.OrderBy(x => x.Position)
                 .ToList()
@@ -176,6 +215,7 @@ namespace Game1.Input
                     text.Tag = x.Guid;
                     text.AddToManagers();
                     _contextMenu.Children.Add(text);
+                    UIClickEventHandler.Instance.AddElement(text, x.OnClick);
                 });
         }
     }

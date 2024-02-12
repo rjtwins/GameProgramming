@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.GameEntities.SubSystems
+namespace Game1.GameLogic.SubSystems.WeaponSystems.Munitions
 {
-    public class Weapons : SubSystemBase
+    internal class Missile
     {
-        public string WeaponType { get; set; }
     }
 }

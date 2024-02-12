@@ -9,12 +9,20 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    public class Star : Orbital
+    public class Star : GameEntity
     {
         public List<Orbital> stars = new();
         public Star()
         {
             Color = Color.Yellow;
+        }
+
+        public override GameGraphicalEntity GenerateGraphicalEntity()
+        {
+            var entity = new CircleEntity();
+            entity.GameEntity = this;
+            this.GraphicalEntity = entity;
+            return entity;
         }
 
         public override void Update(decimal deltaTime)

@@ -25,4 +25,12 @@ namespace Game1.GameLogic
         public GameEntity Owner {  get; set; }
         public GameEntity Target { get; set; }
     }
+
+    public enum WeaponType
+    {
+        Laser,
+        Ballistic,
+        Missile,
+        Particle
+    }
 }

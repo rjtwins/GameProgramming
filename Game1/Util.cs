@@ -1,10 +1,17 @@
-﻿using System;
+﻿using Autofac;
+using Game1.GameEntities;
 using Game1.Graphics;
+using Game1.Input;
+using Game1.ScreenModels;
 using Gum.DataTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 using MonoGameGum.GueDeriving;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 //using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1
@@ -18,11 +25,22 @@ namespace Game1
 
             DisplayMode dm = graphics.GraphicsDevice.DisplayMode;
 
-            GlobalStatic.Width = (int)(dm.Width * 1f);
-            GlobalStatic.Height = (int)(dm.Height * 1f);
+            if (graphics.IsFullScreen)
+            {
+                GlobalStatic.Width = (int)(dm.Width * 1f);
+                GlobalStatic.Height = (int)(dm.Height * 1f);
+            }
+            else
+            {
+                GlobalStatic.Width = (int)(dm.Width * 0.8f);
+                GlobalStatic.Height = (int)(dm.Height * 0.8f);
+            }
+
             graphics.PreferredBackBufferWidth = GlobalStatic.Width;
             graphics.PreferredBackBufferHeight = GlobalStatic.Height;
             graphics.ApplyChanges();
+
+            Main.Instance.UpdateResolution();
         }
 
         public static int Clamp(int value, int min, int max)
@@ -74,34 +92,18 @@ namespace Game1
             y *= invLen;
         }
 
-        //public static Vector2 TransformSlow(Vector2 position, FlatTransform transform)
-        //{
-        //    // Scale:
-        //    float sx = position.X * transform.ScaleX;
-        //    float sy = position.Y * transform.ScaleY;
-
-        //    // Rotation:
-
-        //    /*
-        //     * x2 = cosβ x1 − sinβ y1 
-        //     * y2 = sinβ x1 + cosβ y1
-        //     */
-
-        //    float rx = sx * transform.Cos - sy * transform.Sin;
-        //    float ry = sx * transform.Sin + sy * transform.Cos;
-
-        //    // Translation:
-        //    float tx = rx + transform.PosX;
-        //    float ty = ry + transform.PosY;
-
-        //    return new Vector2(tx, ty);
-        //}
-
         public static float Distance(Vector2 a, Vector2 b)
         {
             float dx = b.X - a.X;
             float dy = b.Y - a.Y;
             return MathF.Sqrt(dx * dx + dy * dy);
+        }
+
+        public static decimal Distance((decimal x, decimal y) a, (decimal x, decimal y) b)
+        {
+            decimal dx = b.x - a.x;
+            decimal dy = b.y - a.y;
+            return (decimal)Math.Sqrt((double)(dx * dx + dy * dy));
         }
 
         public static float DistanceSquared(Vector2 a, Vector2 b)
@@ -195,7 +197,7 @@ namespace Game1
             runtime.Height = 5;
             runtime.UseCustomFont = false;
             runtime.Font = "Calibri Light";
-            runtime.FontSize = 15;
+            runtime.FontSize = 14;
             runtime.UseFontSmoothing = false;
             runtime.SetProperty("Red", r);
             runtime.SetProperty("Green", g);
@@ -207,41 +209,104 @@ namespace Game1
             return runtime;
         }
 
-        private const double G = 6.67430e-11; // Gravitational constant in m^3/kg/s^2
-
-        public static (decimal x, decimal y) CircularOrbit(double massParent, double massChild, double radiusOrbit, double timeElapsed)
+        public const double G = 6.67430e-11; // Gravitational constant in m^3/kg/s^2
+        
+        //This works WAY to well i have to say. (only if ships have enough thrust!!
+        public static ((decimal x, decimal y) pos, double time) AproxIntercept(Fleet f, Orbital o)
         {
-            // Calculate angular velocity of the Moon
-            double orbitalPeriodMoon = Math.Sqrt((4 * Math.PI * Math.PI * radiusOrbit * radiusOrbit * radiusOrbit) / (G * (massParent + massChild)));
-            double angularVelocityMoon = 2 * Math.PI / orbitalPeriodMoon;
+            return FindIntercept(f, o);
 
-            // Determine the angle covered by the Moon since the start of its orbit
-            double theta = angularVelocityMoon * timeElapsed;
+            //decimal distance = Distance((f.X, f.Y), (o.X, o.Y));
+            //var time = distance / f.GetMaxThrust();
 
-            // Convert polar coordinates to Cartesian coordinates
-            double xCoordinate = radiusOrbit * Math.Cos(theta);
-            double yCoordinate = radiusOrbit * Math.Sin(theta);
+            //var posOGlobal = o.GlobalCoordinatesAtTime(GameState.TotalSeconds + (double)time);
+            //distance = Distance((f.X, f.Y), posOGlobal);
+            //time = distance / f.GetMaxThrust();
 
-            return ((decimal)xCoordinate, (decimal)yCoordinate);
+            //return (posOGlobal, (double)time);
         }
 
-        public static (decimal x, decimal y) InclinedOrbit(double massParent, double massChild, double radiusOrbit, double timeElapsed, double inclinationAngle)
+        public static ((decimal x, decimal y) pos, double time) FindIntercept(Fleet f, Orbital o)
         {
-            // Calculate angular velocity of the Moon
-            double orbitalPeriodMoon = Math.Sqrt((4 * Math.PI * Math.PI * radiusOrbit * radiusOrbit * radiusOrbit) / (G * (massChild + massParent)));
-            double angularVelocityMoon = 2 * Math.PI / orbitalPeriodMoon;
+            decimal distance = Distance((f.X, f.Y), (o.X, o.Y));
+            double time = (double)(distance / f.GetMaxThrust());
 
-            // Determine the angle covered by the Moon since the start of its orbit
-            double theta = angularVelocityMoon * timeElapsed;
+            var posTime = o.GlobalCoordinatesAtTime(GameState.TotalSeconds + time);
+            distance = Distance((f.X, f.Y), posTime);
+            time = (double)(distance / f.GetMaxThrust());
 
-            // Adjust theta with inclination angle
-            theta -= inclinationAngle;
+            double t0 = 0.0;
+            double error = double.MaxValue;
+            double t = 0.0;
 
-            // Convert polar coordinates to Cartesian coordinates
-            double xCoordinate = radiusOrbit * Math.Cos(theta);
-            double yCoordinate = radiusOrbit * Math.Sin(theta);
+            for (int i = 0; i < 100; i++) // just avoiding infinite loop in case t/planet_orbit_period>=~0.5
+            {
+                t0 = t;
+                var postx = o.GlobalCoordinatesAtTime(GameState.TotalSeconds + t);
+                var distx = Distance((f.X, f.Y), postx);
+                t = (double)distx / f.GetMaxThrust();
+                //error = Math.Abs(t - t0);
 
-            return ((decimal)xCoordinate, (decimal)yCoordinate);
+                if (Math.Abs(t - t0) * f.GetMaxThrust() <= 1000) break;
+            }
+
+            var loc = o.GlobalCoordinatesAtTime(GameState.TotalSeconds + t);
+            return (loc, t);
+        }
+
+        //public static ((decimal x, decimal y) pos, double time) FindIntercept(Fleet f, Orbital o, (decimal x, decimal y) loc, double deltaTime, double startTime)
+        //{
+        //    var minTime = startTime - deltaTime;
+        //    var maxTime = startTime + deltaTime;
+        //    var timeStep = deltaTime / 25;
+        //    var prevDis = Distance((f.X, f.Y), loc);
+
+        //    List<(double time, double error)> times = new();
+
+        //    for (double i = minTime; i <= maxTime; i += timeStep)
+        //    {
+        //        var actualLoc = o.GlobalCoordinatesAtTime(GameState.TotalSeconds + i);
+        //        var actualLocDis = Distance((f.X, f.Y), actualLoc);
+        //        var actualLocTime = (double)(actualLocDis / f.GetMaxThrust());
+
+        //        var timeError = //Math.Abs(actualLocTime - i);
+        //        times.Add((actualLocTime, timeError));
+
+        //        Debug.WriteLine(((int)timeError).ToString("e1"));
+
+        //    }
+
+        //    times = times.OrderBy(x => x.error).ToList();
+        //    var best = times.First();
+
+        //    Debug.WriteLine($"FINAL: {best.error.ToString("e1")}");
+
+        //    if (best.error < 300)
+        //        return (o.GlobalCoordinatesAtTime(times.First().time), times.First().time);
+
+        //    return FindIntercept(f, o, o.GlobalCoordinatesAtTime(times.First().time), best.error, best.time);
+        //}
+
+        public static GameEntity FindUnderCursor()
+        {
+            var mousePos = FlatMouse.Instance.WindowPosition.ToVector2();
+            return FindUnderPos(mousePos);
+        }
+
+        public static GameEntity FindUnderPos(Vector2 pos)
+        {
+            var camera = GlobalStatic.Game.Services.GetService<Camera>();
+            RectangleF rect = new RectangleF(pos.X - 10f, pos.Y - 10f, 20, 20);
+
+            var entity = GameState.GameEntities
+                .Where(x => x.GraphicalEntity.IsInView)
+                .Where(x =>
+                {
+                    var winPos = Util.WindowPosition(x.GraphicalEntity.Position);
+                    return rect.Contains(new Point2(winPos.X, winPos.Y));
+                }).MaxBy(x => x.GraphicalEntity.GetWorldDim().Length());
+
+            return entity;
         }
     }
 }

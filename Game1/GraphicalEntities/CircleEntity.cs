@@ -10,6 +10,8 @@ using MonoGame.Extended.ViewportAdapters;
 using MonoGame.Extended.Shapes;
 using System.Diagnostics;
 using Game1.Extensions;
+using Game1.GameEntities;
+using System.ComponentModel;
 
 namespace Game1.GraphicalEntities
 {
@@ -36,6 +38,25 @@ namespace Game1.GraphicalEntities
             //DrawLabel(spriteBatch);
         }
 
+        public void DrawOrbit(SpriteBatch spriteBatch)
+        {
+            if (!(GameEntity is Orbital orbital))
+                return;
+
+            var points = orbital.OrbitalPoints;
+            var windowPoints = points.ToList().Select(x =>
+            {
+                decimal posx = ((decimal)x.X + orbital.Parent.X);
+                decimal posy = ((decimal)x.Y + orbital.Parent.Y);
+
+                var windowPos = Util.WindowPosition((posx, posy));
+
+                return windowPos;
+            }).ToArray();
+
+            spriteBatch.DrawPolygon(Vector2.Zero, windowPoints, Color * 0.5f, 1f);
+        }
+
         public override void DrawLabel(SpriteBatch spriteBatch)
         {
             if (string.IsNullOrEmpty(Label))
@@ -56,7 +77,18 @@ namespace Game1.GraphicalEntities
 
             var y = (decimal)windowPos.Y - radius - 20M;
 
-            spriteBatch.DrawString(GlobalStatic.MainFont, Label, new Vector2(x, (float)y), Color);
+            if(LabelRuntime == null)
+            {
+                LabelRuntime = Util.GetTextRuntime(Label, Color.R, Color.G, Color.B);
+                LabelRuntime.AddToManagers();
+            }
+
+            LabelRuntime.X = x;
+            LabelRuntime.Y = (float)y;
+
+            LabelRuntime.Visible = true;
+            
+            //spriteBatch.DrawString(GlobalStatic.MainFont, Label, new Vector2(x, (float)y), Color);
         }
 
         public override Vector2 GetWindowDim()

@@ -98,6 +98,748 @@
         "ElementType": "Components",
         "EventType": 6,
         "TimestampUtc": "2024-02-08T14:14:15.6521568Z"
+      },
+      {
+        "NewName": "shipDesigner",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-11T19:58:28.4953016Z"
+      },
+      {
+        "NewName": "TopBar",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-11T20:17:29.6355013Z"
+      },
+      {
+        "NewName": "TopBar (Container).ColoredRectangleInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:17:43.6981057Z"
+      },
+      {
+        "NewName": "TopBar (Container).ContainerInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:20:14.7602667Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:45:41.2318374Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:47:29.1176591Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text TextInstance1 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-11T20:47:32.5394778Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:47:39.1517415Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance2",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:47:40.0048001Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance3",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:47:40.653529Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text TextInstance3 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-11T20:48:31.2835302Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text TextInstance2 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-11T20:48:31.2848109Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text TextInstance1 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-11T20:48:31.2858181Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text TextInstance in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-11T20:48:34.4134728Z"
+      },
+      {
+        "NewName": "shipDesigner.TopBarInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:49:07.1536455Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:49:40.8165657Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:49:44.2023271Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance2",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:49:46.6123913Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance3",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:49:48.0608073Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance4",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:49:49.7087504Z"
+      },
+      {
+        "NewName": "TopBar (Container).Res1",
+        "OldName": "TopBar (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-11T20:51:08.5497025Z"
+      },
+      {
+        "NewName": "TopBar (Container).res2",
+        "OldName": "TopBar (Container).TextInstance1",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-11T20:51:11.7999681Z"
+      },
+      {
+        "NewName": "TopBar (Container).res1",
+        "OldName": "TopBar (Container).Res1",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-11T20:51:19.5838402Z"
+      },
+      {
+        "NewName": "TopBar (Container).res3",
+        "OldName": "TopBar (Container).TextInstance2",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-11T20:51:25.0484707Z"
+      },
+      {
+        "NewName": "TopBar (Container).res4",
+        "OldName": "TopBar (Container).TextInstance3",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-11T20:51:28.800155Z"
+      },
+      {
+        "NewName": "TopBar (Container).res5",
+        "OldName": "TopBar (Container).TextInstance4",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-11T20:51:33.7120298Z"
+      },
+      {
+        "NewName": "s1.TopBarInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T20:57:08.2049364Z"
+      },
+      {
+        "NewName": "Main",
+        "OldName": "s1",
+        "ElementType": "Screens",
+        "EventType": 2,
+        "TimestampUtc": "2024-02-11T20:57:25.8454363Z"
+      },
+      {
+        "NewName": "TopBar (Container).GameSpeed",
+        "OldName": "TopBar (Container).res5",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-11T20:58:41.7975323Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T21:04:23.9064248Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text res4 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-11T21:04:29.1208052Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text TextInstance in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-11T21:04:30.2416716Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text res3 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-11T21:04:33.2149026Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text res2 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-11T21:04:33.216406Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text res1 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-11T21:04:33.216406Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-11T21:04:35.5673543Z"
+      },
+      {
+        "NewName": "TopBar (Container).GameDate",
+        "OldName": "TopBar (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-11T21:12:30.2819197Z"
+      },
+      {
+        "NewName": "TopBar (Container).ContainerInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T14:19:40.3957529Z"
+      },
+      {
+        "NewName": "TopBar (Container).GameDateContainer",
+        "OldName": "TopBar (Container).ContainerInstance1",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T14:19:52.26012Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text GameDate in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T14:19:58.5246087Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T14:21:17.6599425Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T14:21:20.8331626Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance2",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T14:21:23.078751Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance3",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T14:21:24.8216969Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text TextInstance1 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T14:21:40.4126698Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text TextInstance2 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T14:21:43.3218063Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text TextInstance3 in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T14:21:43.3228047Z"
+      },
+      {
+        "NewName": "TopBar (Container).Year",
+        "OldName": "TopBar (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T14:22:06.4519485Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T14:22:11.1477528Z"
+      },
+      {
+        "NewName": "TopBar (Container).Day",
+        "OldName": "TopBar (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T14:23:12.5656725Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T14:24:55.6535445Z"
+      },
+      {
+        "NewName": "TopBar (Container).Time",
+        "OldName": "TopBar (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T14:24:59.968076Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).Text Time in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T14:26:43.2190249Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T14:26:50.8238687Z"
+      },
+      {
+        "NewName": "TopBar (Container).Time",
+        "OldName": "TopBar (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T14:33:48.5343456Z"
+      },
+      {
+        "NewName": "TopBar (Container).RectangleInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T14:46:35.8385955Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.TopBar TopBarInstance in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T15:44:05.8878971Z"
+      },
+      {
+        "NewName": "shipDesigner.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T15:44:42.5410608Z"
+      },
+      {
+        "NewName": "shipDesigner.RectangleInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T15:45:03.4949077Z"
+      },
+      {
+        "NewName": "shipDesigner.ColoredRectangleInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T15:45:16.4888198Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.Rectangle RectangleInstance in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T15:45:29.1706231Z"
+      },
+      {
+        "NewName": "shipDesigner.Left",
+        "OldName": "shipDesigner.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T15:45:39.4410997Z"
+      },
+      {
+        "NewName": "shipDesigner.RectangleInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T15:49:12.1103081Z"
+      },
+      {
+        "NewName": "shipDesigner.Left1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T15:53:41.7579189Z"
+      },
+      {
+        "NewName": "shipDesigner.RectangleInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T15:53:41.7589261Z"
+      },
+      {
+        "NewName": "shipDesigner.Right",
+        "OldName": "shipDesigner.Left1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T15:53:52.6053291Z"
+      },
+      {
+        "NewName": "shipDesigner.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T15:58:58.1372456Z"
+      },
+      {
+        "NewName": "shipDesigner.Top",
+        "OldName": "shipDesigner.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T15:59:02.837809Z"
+      },
+      {
+        "NewName": "shipDesigner.RectangleInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:00:57.1316881Z"
+      },
+      {
+        "NewName": "shipDesigner.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:02:45.1335482Z"
+      },
+      {
+        "NewName": "shipDesigner.TextInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:02:51.909566Z"
+      },
+      {
+        "NewName": "shipDesigner.ContainerInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:03:38.4426733Z"
+      },
+      {
+        "NewName": "shipDesigner.TextInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:04:34.5473396Z"
+      },
+      {
+        "NewName": "shipDesigner.Class",
+        "OldName": "shipDesigner.TextInstance1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T16:05:21.0884459Z"
+      },
+      {
+        "NewName": "shipDesigner.Name",
+        "OldName": "shipDesigner.TextInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T16:05:25.6631817Z"
+      },
+      {
+        "NewName": "shipDesigner.TextInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:05:30.2147001Z"
+      },
+      {
+        "NewName": "shipDesigner.FullName",
+        "OldName": "shipDesigner.TextInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T16:05:39.120341Z"
+      },
+      {
+        "NewName": "shipDesigner.ContainerInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:08:22.8544764Z"
+      },
+      {
+        "NewName": "shipDesigner.DesignContainer",
+        "OldName": "shipDesigner.ContainerInstance2",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T16:08:48.7177465Z"
+      },
+      {
+        "NewName": "shipDesigner.RectangleInstance3",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:11:21.6930603Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.Container ContainerInstance1 in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T16:13:01.9019391Z"
+      },
+      {
+        "NewName": "shipDesigner.ContainerInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:13:15.413598Z"
+      },
+      {
+        "NewName": "shipDesigner.ContainerInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:19:21.6097925Z"
+      },
+      {
+        "NewName": "shipDesigner.Center",
+        "OldName": "shipDesigner.ContainerInstance2",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T16:19:28.1423592Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.Container Center in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T16:19:48.7613541Z"
+      },
+      {
+        "NewName": "shipDesigner.Class1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:20:29.3628758Z"
+      },
+      {
+        "NewName": "shipDesigner.Name1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:20:29.366391Z"
+      },
+      {
+        "NewName": "shipDesigner.ContainerInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:20:29.3759974Z"
+      },
+      {
+        "NewName": "shipDesigner.FullName1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:20:29.387868Z"
+      },
+      {
+        "NewName": "shipDesigner.RectangleInstance4",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:20:29.3903786Z"
+      },
+      {
+        "NewName": "shipDesigner.ContainerInstance3",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:20:29.3965529Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.Rectangle RectangleInstance4 in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T16:20:58.258672Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.Container ContainerInstance3 in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T16:21:02.419642Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.Text Class in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T16:22:57.2377479Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.Text Name in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T16:22:57.2389275Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.Text FullName in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T16:22:57.2399342Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.Container ContainerInstance1 in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T16:23:21.6740227Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "shipDesigner.Rectangle RectangleInstance3 in shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T16:23:21.6750239Z"
+      },
+      {
+        "NewName": "ShipDesigner",
+        "OldName": "shipDesigner",
+        "ElementType": "Screens",
+        "EventType": 2,
+        "TimestampUtc": "2024-02-12T16:25:34.3013489Z"
+      },
+      {
+        "NewName": "TopBar (Container).RectangleInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:28:12.9029101Z"
+      },
+      {
+        "NewName": "TopBar (Container).Button1",
+        "OldName": "TopBar (Container).RectangleInstance1",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-12T16:31:29.3371342Z"
+      },
+      {
+        "NewName": "ShipDesigner.TopBarInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T16:57:15.4740275Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).ColoredRectangle ColoredRectangleInstance in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T17:00:45.3382152Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "TopBar (Container).ColoredRectangle ColoredRectangleInstance in TopBar (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T17:01:50.9792442Z"
+      },
+      {
+        "NewName": "Main.ColoredRectangleInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-12T17:02:06.0167113Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.TopBar TopBarInstance in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-12T17:16:02.4878118Z"
       }
     ]
   }

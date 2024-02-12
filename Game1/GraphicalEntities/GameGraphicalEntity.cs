@@ -39,6 +39,22 @@ namespace Game1.GraphicalEntities
 
         public override string Label => GameEntity.Name;
 
+        public override bool IsInView 
+        {
+            get
+            {
+                if (GameEntity is Orbital)
+                    return _isInView;
+
+                return InView();
+            }
+            set
+            {
+                _isInView = value;
+            }
+        }
+        private bool _isInView;
+
         protected GameGraphicalEntity() : base((0,0), 0f, Color.Black, true)
         {
             _camera = Game.Services.GetService<Camera>();

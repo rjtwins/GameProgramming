@@ -1,14 +1,9 @@
 ﻿using Game1.GameEntities;
 using Game1.GraphicalEntities;
-using Game1.Input;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Game1
@@ -21,7 +16,7 @@ namespace Game1
 
         public static GameEntity Focus { get; set; }
 
-        public static double TotalSeconds { get; set; } = 0;
+        public static double TotalSeconds { get; set; } = 0d;
         public static double TotalMinutes => TotalSeconds / 60;
         public static double TotalHours => TotalSeconds / 3600;
 
@@ -34,22 +29,94 @@ namespace Game1
             set
             {
                 _gameSpeed = value;
-                _gameSpeed = Math.Min(_gameSpeed, 3.156e+7f);
+                _gameSpeed = Math.Min(_gameSpeed, (float)Math.Pow(2, 25));
             }
         }
         private static float _gameSpeed = 1f;
 
-        public static void Update(double deltaSeconds)
+        public static bool Paused = false;
+
+        public static void UpdateGameTime(double deltaTime)
         {
-            deltaSeconds = Math.Round(deltaSeconds);
-            var gameSeconds = deltaSeconds * GameSpeed;
+            if (Paused)
+                return;
+
+            var gameSeconds = deltaTime * (double)GameSpeed;
             TotalSeconds += gameSeconds;
 
-            //Main update loop.
-            for (int i = 0; i < GameEntities.Count; i++)
+            //var minTime = 0.25f;
+            //var maxTime = Math.Pow(2, 25);
+
+            //int minSubsteps = 1;
+            //int maxSubsteps = 10;
+
+            //double substepsRatio = Math.Log(GameSpeed) / Math.Log(Math.Pow(2, 25)); // Scale based on the range [0.25, 86400]
+
+            //var subSteps = Math.Max(1, Math.Ceiling(maxSubsteps * substepsRatio));
+
+            //var gameSeconds = 1 * (double)GameSpeed;
+            //TotalSeconds += gameSeconds;
+
+            //var stepTime = gameSeconds / subSteps;
+
+            ////var updateEntities = GameEntities.Where(x => !(x is Orbital)).ToList();
+
+            ////Main update loop for non orbital entities:
+            //for (int h = 0; h < subSteps; h++)
+            //{
+            //    for (int i = 0; i < GameEntities.Count; i++)
+            //    {
+            //        GameEntities[i].Update((decimal)stepTime);
+            //    }
+            //}
+        }
+
+        public static void StartUpdateProcesses()
+        {
+            var Oribitals = new Task(() =>
             {
-                GameEntities[i].Update((decimal)gameSeconds);
-            }
+                GameEntities.Where(x => x is Orbital).Cast<Orbital>().ToList().ForEach(x => x.Init());
+
+                while (true)
+                {
+                    var time = TotalSeconds;
+
+                    while (TotalSeconds - time < 1)
+                    {
+                        Thread.Yield();
+                    }
+
+                    var orbitals = GameEntities.Where(x => x is Orbital).Cast<Orbital>().ToList();
+                    orbitals.ForEach(x =>
+                    {
+                        x.CalcPos();
+                        x.UpdateInView();
+                    });
+                }
+            });
+
+            Oribitals.Start();
+
+            var Fleets = new Task(() =>
+            {
+                while (true)
+                {
+                    var time = TotalSeconds;
+
+                    while(TotalSeconds - time < 1)
+                    {
+                        Thread.Yield();
+                    }
+
+                    var fleets = GameEntities.Where(x => x is Fleet).Cast<Fleet>().ToList();
+                    fleets.ForEach(x =>
+                    {
+                        x.Update((decimal)(TotalSeconds - time));
+                    });
+                }
+            });
+
+            Fleets.Start();
         }
     }
 }

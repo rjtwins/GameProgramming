@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.Tracing;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Timers;
@@ -12,7 +13,7 @@ namespace Game1.Input
     public sealed class FlatMouse
     {
         public static FlatMouse Instance { get; private set; }
-        
+
 
         private Game _game;
         private Camera _camera;
@@ -105,60 +106,107 @@ namespace Game1.Input
 
         public bool IsLeftButtonDown()
         {
+            if (!IsActive()) return false;
+
             return currMouseState.LeftButton == ButtonState.Pressed;
         }
 
         public bool IsRightButtonDown()
         {
+            if (!IsActive()) return false;
+
             return currMouseState.RightButton == ButtonState.Pressed;
         }
 
         public bool IsMiddleButtonDown()
         {
+            if (!IsActive()) return false;
+
             return currMouseState.MiddleButton == ButtonState.Pressed;
         }
 
         public bool ScrolledUp()
         {
+            if (!IsActive()) return false;
+
             return currMouseState.ScrollWheelValue > prevMouseState.ScrollWheelValue;
         }
 
         public bool ScrolledDown()
         {
+            if (!IsActive()) return false;
+
             return currMouseState.ScrollWheelValue < prevMouseState.ScrollWheelValue;
         }
 
 
         public bool IsLeftButtonClicked()
         {
+            if (!IsActive()) return false;
+
             return currMouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released;
         }
 
         public bool IsRightButtonClicked()
         {
+            if (!IsActive()) return false;
+
             return currMouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton == ButtonState.Released;
         }
 
         public bool IsMiddleButtonClicked()
         {
+            if (!IsActive()) return false;
+
             return currMouseState.MiddleButton == ButtonState.Pressed && prevMouseState.MiddleButton == ButtonState.Released;
         }
 
         public bool IsLeftButtonDoubleCLicked()
         {
-            return leftClickCount >= 2;
+            if (!IsActive()) return false;
+
+            if (leftClickCount >= 2)
+            {
+                leftClickCount = 0;
+                return true;
+            }
+            return false;
         }
 
         public bool IsRightButtonDoubleCLicked()
         {
-            return rightClickCount >= 2;
+            if (!IsActive()) return false;
+
+            if (rightClickCount >= 2)
+            {
+                rightClickCount = 0;
+                return true;
+            }
+            return false;
         }
 
         public Vector2 MouseMovement()
         {
+            if (!IsActive()) return Vector2.Zero;
+
             var x = (currMouseState.X - prevMouseState.X) * -1;
             var y = currMouseState.Y - prevMouseState.Y;
             return new Vector2(x, y);
+        }
+
+        private bool IsActive()
+        {
+            if (!_game.GraphicsDevice.Viewport.Bounds.Contains(WindowPosition))
+            {
+                return false;
+            }
+
+            if (!_game.IsActive)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

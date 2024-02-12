@@ -32,10 +32,10 @@ namespace Game1.GameEntities
         private Game Game = GlobalStatic.Game;
 
         public Vector2 Velocity { get; set; } = Vector2.Zero;
+        public Vector2 Tail { get; set; } = Vector2.Zero;
 
         public long Fuel => Members.Select(x => x.Fuel).Sum();
         public long MaxFuel => Members.Select(x => x.MaxFuel).Sum();
-        public long MaxAcceleration => GetMaxAcceleration();
 
         //public long MaxThrust => GetMaxThrust();
         public long CurrentThrust { get; set; } = 0;
@@ -51,7 +51,7 @@ namespace Game1.GameEntities
             }
         }
 
-        private long GetMaxThrust()
+        public long GetMaxThrust()
         {
             //Something is wrong we cannot have an empty fleet :(
             if (this.Members.Count() == 0)
@@ -67,22 +67,17 @@ namespace Game1.GameEntities
                 .Max();
         }
 
-        private long GetMaxAcceleration()
-        {
-            return this.Members.Where(x => x is Ship)
-                .Cast<Ship>()
-                .Select(x => x.Mass / x.Thrust)
-                .Min();
-        }
-
         public override void Update(decimal deltaTime)
         {
-            UpdateOrders();
+            UpdateOrders(deltaTime);
 
             UpdateMovement(deltaTime);
+
+            if (GameState.Focus == this)
+                Game.Services.GetService<Camera>().Position = (X, Y);
         }
 
-        private void UpdateOrders()
+        private void UpdateOrders(decimal deltaTime)
         {
             if (CurrentOrder == null && Orders.Count() == 0)
                 return;
@@ -104,7 +99,7 @@ namespace Game1.GameEntities
                 case OrderType.Dock:
                     break;
                 case OrderType.MoveTo:
-                    MoveToPosition(CurrentOrder);
+                    MoveToPosition(CurrentOrder, deltaTime);
                     break;
                 default:
                     break;
@@ -113,21 +108,33 @@ namespace Game1.GameEntities
 
         private void UpdateMovement(decimal timePassed)
         {
+            //var vx =(float)(this.GetMaxThrust() * Math.Sin(Direction));
+            //var vy =(float)(this.GetMaxThrust() * Math.Cos(Direction));
+
+            //this.Velocity += new Vector2(vx, vy);
+
             this.X += (decimal)Velocity.X * timePassed;
             this.Y += (decimal)Velocity.Y * timePassed;
+
+            Tail = GameState.GameSpeed / (float)timePassed * -1 * Velocity;
         }
 
-        private void MoveToPosition(Order order)
+        private void MoveToPosition(Order order, decimal deltaTime)
         {
             var pos = order.Position;
             var divx = pos.x - this.X;
             var divy = pos.y - this.Y;
             var div = (decimal)Math.Sqrt((double)((double)divx * (double)divx + (double)divy * (double)divy));
 
+            bool orderCompleted = false;
+            orderCompleted = div < 100;
+            orderCompleted = div - GetMaxThrust() * deltaTime < 100;
             //Order completed
-            if (div < 1000)
+            if (orderCompleted)
             {
                 CurrentOrder = null;
+                Velocity = Vector2.Zero;
+                X = pos.x; Y = pos.y;
 
                 if (Orders.Count() == 0)
                     return;
@@ -203,7 +210,7 @@ namespace Game1.GameEntities
             var color = Color.Green;
             color.A = 150;
             var windowPos = Util.WindowPosition((X, Y));
-            var vector = windowPos + (Velocity * -1) * (float)camera.Zoom;
+            var vector = windowPos + (Tail) * (float)camera.Zoom;
             spriteBatch.DrawLine(windowPos, vector, color, 1f);
         }
 
@@ -246,8 +253,9 @@ namespace Game1.GameEntities
 
             var rect = _container.Children[0] as GraphicalUiElement;
             rect.Children.Clear();
-            rect.Children.Add(Util.GetTextRuntime($"({Name}) ", 255, 0, 0, 150));
-            rect.Children.Add(Util.GetTextRuntime($"({X}, {Y}) ", 255, 0, 0, 150));
+            rect.Children.Add(Util.GetTextRuntime($"ID: {Name} ", 255, 0, 0, 200));
+            rect.Children.Add(Util.GetTextRuntime($"~{Velocity.Length()} km/s ", 255, 0, 0, 200));
+            //rect.Children.Add(Util.GetTextRuntime($"({X}, {Y}) ", 255, 0, 0, 150));
         }
     }
 }

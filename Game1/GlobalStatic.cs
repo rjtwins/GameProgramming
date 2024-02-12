@@ -23,8 +23,8 @@ namespace Game1
         public const double MEARTH = 6e25d;
         public const double MLUNA = 7.34e22d;
 
-        public const decimal RSOLL = 696000;
-        public const decimal REARTH = 6378;
+        public const decimal RSOLL = 7e5M;
+        public const decimal REARTH = 6371;
         public const decimal RLUNA = 1740;
     }
 }

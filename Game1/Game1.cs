@@ -5,6 +5,7 @@ using Game1.GameLogic;
 using Game1.GraphicalEntities;
 using Game1.Graphics;
 using Game1.Input;
+using Game1.ScreenModels;
 using Gum.DataTypes;
 using Gum.Managers;
 using Gum.Wireframe;
@@ -50,9 +51,9 @@ namespace Game1
         private Vector2 _pointerVector = new Vector2();
         Vector2[] _cross1, _cross2;
 
-        private Stopwatch _stopwatch = new();
+        private Main _main;
 
-        GraphicalUiElement _currentScreen { get; set; }
+        private Stopwatch _stopwatch = new();
 
         SmoothFramerate framerate = new(20);
 
@@ -157,7 +158,7 @@ namespace Game1
             */
 
             var generator = new SpaceGenerator();
-            var systems = generator.Generate(1000);
+            var systems = generator.Generate(500);
 
             systems.ForEach(s =>
             {
@@ -205,6 +206,8 @@ namespace Game1
             //this.IsMouseVisible = false;
 
             base.Initialize();
+
+            GameState.StartUpdateProcesses();
         }
 
         protected override void LoadContent()
@@ -225,18 +228,16 @@ namespace Game1
 
             _pointerVector = Mouse.GetState().Position.ToVector2();
 
-            if (timeSinceLastTick >= 1)
-            {
-                GameState.Update(timeSinceLastTick);
-                timeSinceLastTick = 0;
-                //Debug.WriteLine(framerate.framerate);
-            }
+            GameState.UpdateGameTime(gameTime.ElapsedGameTime.TotalSeconds);
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             _flatKeyboard.Update();
             _flatMouse.Update();
+
+            if (_flatKeyboard.IsKeyClicked(Keys.Space))
+                GameState.Paused = !GameState.Paused;
 
             if (_flatMouse.IsLeftButtonDoubleCLicked())
                 HandleLeftMouseDoubleClick();
@@ -319,7 +320,7 @@ namespace Game1
             _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
             var inView = GameState.GraphicalEntities
-                .Where(x => x.InView())
+                .Where(x => x.IsInView)
                 .ToList();
 
             var shouldDraw = inView
@@ -330,17 +331,50 @@ namespace Game1
                 .Where(x => x.DrawLabel())
                 .ToList();
 
+            var hideInfo = GameState.GraphicalEntities
+                .Except(drawInfo)
+                .ToList();
+
             var drawDot = inView.Except(shouldDraw).ToList();
 
+            foreach (var item in hideInfo)
+            {
+                if(item.LabelRuntime != null)
+                    item.LabelRuntime.Visible = false;
+            }
 
             foreach (var item in shouldDraw)
             {
                 item.Draw(_spriteBatch);
+                if (item is CircleEntity c)
+                {
+                    if (c.GameEntity is SolarSystem s)
+                        s.Planets.Select(x => x.GraphicalEntity)
+                            .Where(x => x is CircleEntity)
+                            .Cast<CircleEntity>()
+                            .ToList()
+                            .ForEach(x => x.DrawOrbit(_spriteBatch));
+
+                    if (c.GameEntity is SolarSystem s1)
+                        s1.Planets.SelectMany(x => x.Moons).Select(x => x.GraphicalEntity)
+                            .Where(x => x is CircleEntity)
+                            .Cast<CircleEntity>()
+                            .ToList()
+                            .ForEach(x => x.DrawOrbit(_spriteBatch));
+                }
+
+                    
             }
 
             foreach (var item in drawDot)
             {
                 _spriteBatch.DrawPoint(Util.WindowPosition(item.Position), item.Color, 2f);
+
+                //This is conditional
+                if (item is CircleEntity c)
+                    if (c.GameEntity?.Parent?.GraphicalEntity?.IsInView == true)
+                        c.DrawOrbit(_spriteBatch);
+                    
             }
 
             foreach (var item in GameState.SelectedEntities)
@@ -367,28 +401,28 @@ namespace Game1
             DrawMeasuring();
             DrawMiscUI();
 
-#if DEBUG
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Mouse World: {Util.WorldPosition(_flatMouse.WindowPosition.ToVector2())}", new Vector2(10, 0), Color.White);
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Mouse Win: {_flatMouse.WindowPosition}", new Vector2(10, 20), Color.White);
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"GameSpeed :{GameState.GameSpeed}", new Vector2(10, 40), Color.White);
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"GameTime: {GameState.TotalSeconds}", new Vector2(10, 60), Color.White);
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Draw Ticks: {_stopwatch.ElapsedTicks - ticks}", new Vector2(10, 80), Color.White);
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"In View: {inView.Count}", new Vector2(10, 100), Color.White);
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Draw Dot: {drawDot.Count}", new Vector2(10, 120), Color.White);
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Draw Full: {shouldDraw.Count}", new Vector2(10, 140), Color.White);
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"Zoom: {_camera.Zoom}", new Vector2(10, 160), Color.White);
-#endif
-
-
-            _spriteBatch.End();
-
             DrawGum();
+
+            DrawMousePointer();
+#if DEBUG
+            //string gameSpeed = GameState.GameSpeed.ToString() + (GameState.Paused ? " PAUSED" : "");
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"Mouse World: {Util.WorldPosition(_flatMouse.WindowPosition.ToVector2())}", new Vector2(10, 0), Color.White);
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"Mouse Win: {_flatMouse.WindowPosition}", new Vector2(10, 20), Color.White);
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"GameSpeed :{gameSpeed}", new Vector2(10, 40), Color.White);
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"GameTime: {GameState.TotalSeconds}", new Vector2(10, 60), Color.White);
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"Draw Ticks: {_stopwatch.ElapsedTicks - ticks}", new Vector2(10, 80), Color.White);
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"In View: {inView.Count}", new Vector2(10, 100), Color.White);
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"Draw Dot: {drawDot.Count}", new Vector2(10, 120), Color.White);
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"Draw Full: {shouldDraw.Count}", new Vector2(10, 140), Color.White);
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"Zoom: {_camera.Zoom}", new Vector2(10, 160), Color.White);
+            //_spriteBatch.DrawString(GlobalStatic.MainFont, $"FPS: {framerate.framerate}", new Vector2(10, 180), Color.White);
+
+#endif
+            _spriteBatch.End();
 
             base.Draw(gameTime);
 
             firstFrame = false;
-
-
         }
 
         private void DrawMiscUI()
@@ -409,20 +443,11 @@ namespace Game1
             var textLenght = GlobalStatic.MainFont.MeasureString(text);
 
             _spriteBatch.DrawString(GlobalStatic.MainFont, text, new Vector2(start.X + (lineLenght / 2) - (textLenght.X / 2), height - 30), Color.Red);
-
-            DrawMousePointer();
         }
 
         private void HandleLeftMouseDoubleClick()
         {
-            var mousePos = _flatMouse.WindowPosition.ToVector2();
-            RectangleF rect = new RectangleF(mousePos.X - 10f, mousePos.Y - 10f, 20, 20);
-
-            var entity = GameState.GameEntities.Where(x =>
-            {
-                var winPos = Util.WindowPosition(x.GraphicalEntity.Position);
-                return rect.Contains(new Point2(winPos.X, winPos.Y));
-            }).MaxBy(x => x.GraphicalEntity.GetWorldDim().Length());
+            var entity = Util.FindUnderCursor();
 
             if (entity == null)
                 return;
@@ -461,13 +486,17 @@ namespace Game1
             ObjectFinder.Self.GumProjectSave = GlobalStatic.GumProject;
             GlobalStatic.GumProject.Initialize();
 
-            // This assumes that your project has at least 1 screen
-            _currentScreen = GlobalStatic.GumProject.Screens.First().ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
+            _main = new();
+            var debug = new ShipDesign();
         }
 
         private void UpdateGum(GameTime gameTime)
         {
             SystemManagers.Default.Activity(gameTime.TotalGameTime.TotalSeconds);
+            
+            //For clicks on GUM ui elements
+            UIClickEventHandler.Instance.Update();
+            _main.Update();
         }
 
         private void DrawGum()
@@ -568,7 +597,7 @@ namespace Game1
                 _measureStart = _flatMouse.WindowPosition.ToVector2();
             }
 
-            Debug.WriteLine($"Start: {_measureStart} End:{_measureEnd}");
+            //Debug.WriteLine($"Start: {_measureStart} End:{_measureEnd}");
         }
 
         private void DrawMeasuring()
@@ -581,12 +610,14 @@ namespace Game1
 
             var length = (decimal)Util.Distance(start, end);
             
-            var angle = Util.AngleBetweenPoints(new decimal[] { (decimal)start.X, (decimal)start.Y }, new decimal[] { (decimal)end.X, (decimal)end.Y });
+            //var angle = Util.AngleBetweenPoints(new decimal[] { (decimal)start.X, (decimal)start.Y }, new decimal[] { (decimal)end.X, (decimal)end.Y });
             var worldLength = Math.Round(length * 1 / _camera.Zoom);
+            string lengthString = worldLength.ToString("e");
+
 
             _spriteBatch.DrawCircle(start, 5f, 250, Color.Red, 1f);
             _spriteBatch.DrawLine(start, end, Color.Green, 1f);
-            _spriteBatch.DrawString(GlobalStatic.MainFont, $"{worldLength} km", new Vector2(end.X + 10, end.Y + 10), Color.Red);
+            _spriteBatch.DrawString(GlobalStatic.MainFont, $"{lengthString} km", new Vector2(end.X + 10, end.Y + 10), Color.Red);
             //_spriteBatch.DrawString(GlobalStatic.MainFont, $"{worldLength} km", new Vector2(start.X, start.Y), Color.Green, (float)angle, new Vector2((float)length/-2, 20), 1f, SpriteEffects.None, 0f);
         }
 
@@ -682,7 +713,7 @@ namespace Game1
             var selectionRectangle = GetSelectionRectangle();
 
             var inSelectionRectangle = GameState.GraphicalEntities
-                .Where(x => x.InView())
+                .Where(x => x.IsInView)
                 .Where(x => selectionRectangle.Contains((Rectangle)x.GetWindowRect()))
                 .ToList();
 

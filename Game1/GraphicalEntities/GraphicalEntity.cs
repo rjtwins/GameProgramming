@@ -6,6 +6,7 @@ using Game1.Graphics;
 using MonoGame.Extended;
 using Game1.Extensions;
 using System.Net.Http.Headers;
+using MonoGameGum.GueDeriving;
 
 namespace Game1.GraphicalEntities
 {
@@ -14,9 +15,7 @@ namespace Game1.GraphicalEntities
         public Guid Guid { get; set; } = Guid.NewGuid();
         public Game Game { get; set; }
         private Camera _camera { get; set; }
-
         public virtual (decimal x, decimal y) Position { get; set; }
-
         public virtual decimal _zoom { get; set; }
         public virtual float MinSize { get; set; } = 0.0001f;
         public virtual float Angle { get; set; }
@@ -25,9 +24,19 @@ namespace Game1.GraphicalEntities
         //public List<SubPoly> SubEntities { get; set; } = new();
         public bool WorldSpace = true;
         public bool IsDrawn { get; set; }
+        public virtual bool IsInView { get
+            {
+                return InView();
+            }
+            set
+            {
+
+            }
+        }
+
         public virtual string Label { get; set; }
         public virtual bool ShouldDrawLabel {  get; set; } = true;
-
+        public virtual TextRuntime LabelRuntime { get; set; }
 
         protected GraphicalEntity((double x, double y) position, float angle, Color color, bool worldSpace = true)
         {
@@ -78,7 +87,6 @@ namespace Game1.GraphicalEntities
             var windowDim = GetWindowDim();
             var width = windowDim.X;
             var height = windowDim.Y;
-
             
             if (windowPos.X + width < 0)
                 return false;

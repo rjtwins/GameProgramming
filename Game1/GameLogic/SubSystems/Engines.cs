@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.GameEntities.SubSystems
+namespace Game1.GameLogic.SubSystems
 {
-    public class Thrusters : SubSystemBase
+    public class Engines : SubSystemBase
     {
+
     }
 }
