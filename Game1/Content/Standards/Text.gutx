@@ -36,7 +36,7 @@
       <IsFont>true</IsFont>
       <Type>string</Type>
       <Name>Font</Name>
-      <Value xsi:type="xsd:string">Calibri Light</Value>
+      <Value xsi:type="xsd:string">SimSun</Value>
       <Category>Font</Category>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -165,7 +165,7 @@
     <Variable>
       <Type>string</Type>
       <Name>Text</Name>
-      <Value xsi:type="xsd:string">Hello</Value>
+      <Value xsi:type="xsd:string">Hello ABCDE abcde 12340</Value>
       <Category>Text</Category>
       <SetsValue>true</SetsValue>
     </Variable>

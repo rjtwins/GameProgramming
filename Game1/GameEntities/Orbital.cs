@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Pipes;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace Game1.GameEntities
         public double SemiMajorAxis { get; set; }
         public double AngularVelocity { get; set; }
 
-        public Vector2[] OrbitalPoints;
+        public Vector2[] OrbitalPoints = new Vector2[0];
 
         public Orbital()
         {
@@ -99,24 +100,50 @@ namespace Game1.GameEntities
             return null;
         }
 
+        //public (double x, double y) LocalCoordinatesAtTime(double time)
+        //{
+        //    // Calculate the current angle
+        //    double currentAngle = AngularVelocity * time;
+        //    currentAngle %= 2 * Math.PI;
+
+        //    double r = SemiMajorAxis * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * Math.Cos(currentAngle));
+        //    // Calculate the x and y coordinates of object A
+        //    //double x = r * Math.Cos(currentAngle);
+        //    //double y = r * Math.Sin(currentAngle);
+
+        //    double x = r * Math.Cos(currentAngle + AngleSeed); // Offset by AngleSeed degrees to shift the orbit
+        //    double y = r * Math.Sin(currentAngle + AngleSeed); // Offset by AngleSeed degrees to shift the orbit
+
+        //    return (x / 1000, y / 1000);
+        //}
+
         public (double x, double y) LocalCoordinatesAtTime(double time)
         {
-            // Calculate the current angle
+            // Calculate the current angle using the initial angle and angular velocity
             double currentAngle = AngularVelocity * time;
             currentAngle %= 2 * Math.PI;
 
-            // Calculate the distance from object B to object A at the current angle
-            //double r = SemiMajorAxis * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * Math.Cos(currentAngle));
-
+            // Compute the distance from the center (r) based on the semi-major axis
             double r = SemiMajorAxis * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * Math.Cos(currentAngle));
-            // Calculate the x and y coordinates of object A
-            //double x = r * Math.Cos(currentAngle);
-            //double y = r * Math.Sin(currentAngle);
 
-            double x = r * Math.Cos(currentAngle + AngleSeed); // Offset by AngleSeed degrees to shift the orbit
-            double y = r * Math.Sin(currentAngle + AngleSeed); // Offset by AngleSeed degrees to shift the orbit
+            // Calculate the x and y coordinates
+            double x = r * Math.Cos(currentAngle + AngleSeed);
+            double y = r * Math.Sin(currentAngle + AngleSeed);
 
+            x += Math.Cos(AngleSeed) * (SemiMajorAxis + Distance * 500) * Eccentricity;
+            y += Math.Sin(AngleSeed) * (SemiMajorAxis + Distance * 500) * Eccentricity;
+
+            // Convert coordinates to kilometers (assuming SemiMajorAxis is in meters)
             return (x / 1000, y / 1000);
+        }
+
+        public (double x, double y) LocalCircularCoordinatesAtTime(double time)
+        {
+            double currentAngle = AngularVelocity * time;
+            double x = Distance * 1000 * Math.Cos(currentAngle + AngleSeed);
+            double y = Distance * 1000 * Math.Sin(currentAngle + AngleSeed);
+
+            return (x, y);
         }
 
         public (decimal x, decimal y) GlobalCoordinatesAtTime(double time)
@@ -127,7 +154,7 @@ namespace Game1.GameEntities
             return (parentGlobal.Item1 + (decimal)local.x, parentGlobal.Item2 + (decimal)local.y);
         }
 
-        private void CalculateOrbitPoints(int numSegments = 250)
+        public void CalculateOrbitPoints(int numSegments = 250)
         {
             OrbitalPoints = new Vector2[numSegments];
 

@@ -8,11 +8,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGameGum.GueDeriving;
+using RenderingLibrary.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-//using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1
 {
@@ -38,9 +36,11 @@ namespace Game1
 
             graphics.PreferredBackBufferWidth = GlobalStatic.Width;
             graphics.PreferredBackBufferHeight = GlobalStatic.Height;
+
             graphics.ApplyChanges();
 
             Main.Instance.UpdateResolution();
+            ShipDesign.Instance.UpdateResolution();
         }
 
         public static int Clamp(int value, int min, int max)
@@ -307,6 +307,11 @@ namespace Game1
                 }).MaxBy(x => x.GraphicalEntity.GetWorldDim().Length());
 
             return entity;
+        }
+
+        public static void Save()
+        {
+
         }
     }
 }

@@ -11,14 +11,10 @@ using System.Threading.Tasks;
 
 namespace Game1.ScreenModels
 {
-    public class Main
+    public class Main : ScreenBase
     {
         public static Main Instance { get; private set; }
         public GraphicalUiElement Speed, Year, Day, Time, TopBar, ShipDesignButton;
-
-        public bool Active = true;
-
-        public GraphicalUiElement Screen { get; set; }
 
         public Main()
         {
@@ -55,13 +51,7 @@ namespace Game1.ScreenModels
             });
 
             Instance = this;
-        }
-
-        public void UpdateResolution()
-        {
-            GraphicalUiElement.CanvasWidth = GlobalStatic.Width;
-            GraphicalUiElement.CanvasHeight = GlobalStatic.Height;
-            Screen.UpdateLayout();
+            Main.Instance.Active = true;
         }
 
         public void Update()
@@ -75,5 +65,14 @@ namespace Game1.ScreenModels
             Time.SetProperty("Text", $"{dateSpan.Hours.ToString("00")}:{dateSpan.Minutes.ToString("00")}:{dateSpan.Seconds.ToString("00")}");
             Speed.SetProperty("Text", speedString);
         }
+
+        public override void UpdateResolution()
+        {
+            base.UpdateResolution();
+            //TopBar.Width = GlobalStatic.Width;
+            TopBar.UpdateLayout();
+            //TopBar.UpdateWidth(GlobalStatic.Width, false);
+        }
+
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game1.GameLogic
 {
-    internal class Ship : Station
+    public class Ship : Station
     {
         //In KN
         public long MaxThrust { get; set; }

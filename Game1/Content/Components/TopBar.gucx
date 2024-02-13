@@ -205,7 +205,7 @@
     <Variable>
       <Type>float</Type>
       <Name>GameDateContainer.Width</Name>
-      <Value xsi:type="xsd:float">150</Value>
+      <Value xsi:type="xsd:float">190</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -456,19 +456,19 @@
     <Variable>
       <Type>float</Type>
       <Name>X</Name>
-      <Value xsi:type="xsd:float">100</Value>
+      <Value xsi:type="xsd:float">0</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>HorizontalAlignment</Type>
       <Name>X Origin</Name>
-      <Value xsi:type="xsd:int">2</Value>
+      <Value xsi:type="xsd:int">1</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>PositionUnitType</Type>
       <Name>X Units</Name>
-      <Value xsi:type="xsd:int">2</Value>
+      <Value xsi:type="xsd:int">6</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>

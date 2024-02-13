@@ -51,8 +51,6 @@ namespace Game1
         private Vector2 _pointerVector = new Vector2();
         Vector2[] _cross1, _cross2;
 
-        private Main _main;
-
         private Stopwatch _stopwatch = new();
 
         SmoothFramerate framerate = new(20);
@@ -76,8 +74,12 @@ namespace Game1
 
             DisplayMode dm = _graphics.GraphicsDevice.DisplayMode;
 
-            GlobalStatic.Width = (int)(dm.Width * 0.9f);
-            GlobalStatic.Height = (int)(dm.Height * 0.9f);
+
+            //GlobalStatic.Width = (int)(dm.Width * 0.9f);
+            //GlobalStatic.Height = (int)(dm.Height * 0.9f);
+
+            GlobalStatic.Width = 1920;
+            GlobalStatic.Height = 1080;
 
             _graphics.PreferredBackBufferWidth = GlobalStatic.Width;
             _graphics.PreferredBackBufferHeight = GlobalStatic.Height;
@@ -193,7 +195,7 @@ namespace Game1
             };
 
             fleet.Members.Add(ship);
-            var location = GameState.GameEntities[5];
+            var location = GameState.GameEntities[0];
 
             fleet.X = 0;
             fleet.Y = 0;
@@ -208,6 +210,8 @@ namespace Game1
             base.Initialize();
 
             GameState.StartUpdateProcesses();
+
+            ShipDesign.Instance.ActiveDesign = ship;
         }
 
         protected override void LoadContent()
@@ -320,6 +324,7 @@ namespace Game1
             _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
             var inView = GameState.GraphicalEntities
+                .Where(x => Main.Instance.Active)
                 .Where(x => x.IsInView)
                 .ToList();
 
@@ -355,8 +360,8 @@ namespace Game1
                             .ToList()
                             .ForEach(x => x.DrawOrbit(_spriteBatch));
 
-                    if (c.GameEntity is SolarSystem s1)
-                        s1.Planets.SelectMany(x => x.Moons).Select(x => x.GraphicalEntity)
+                    if (c.GameEntity is Planet p)
+                        p.Moons.Select(x => x.GraphicalEntity)
                             .Where(x => x is CircleEntity)
                             .Cast<CircleEntity>()
                             .ToList()
@@ -486,8 +491,10 @@ namespace Game1
             ObjectFinder.Self.GumProjectSave = GlobalStatic.GumProject;
             GlobalStatic.GumProject.Initialize();
 
-            _main = new();
-            var debug = new ShipDesign();
+            new UIScrollEventHandler();
+            new Main();
+            new ShipDesign();
+
         }
 
         private void UpdateGum(GameTime gameTime)
@@ -496,7 +503,8 @@ namespace Game1
             
             //For clicks on GUM ui elements
             UIClickEventHandler.Instance.Update();
-            _main.Update();
+            UIScrollEventHandler.Instance.Update();
+            Main.Instance.Update();
         }
 
         private void DrawGum()

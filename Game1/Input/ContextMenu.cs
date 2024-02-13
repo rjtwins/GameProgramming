@@ -18,11 +18,9 @@ namespace Game1.Input
     public class ContextMenu
     {
         private Game _game { get; set; }
-
         public Vector2 Position { get; set; }
         public List<ContextMenuItem> Items { get; set; } = new();
         public GameEntity TargetEntity { get; set; }
-
         private FlatMouse _flatMouse => FlatMouse.Instance;
         private FlatKeyboard _flatKeyboard => FlatKeyboard.Instance;
 

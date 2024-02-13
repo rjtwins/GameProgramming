@@ -1,4 +1,5 @@
 ﻿using Game1.GameEntities;
+using Game1.GameLogic;
 using Game1.GraphicalEntities;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace Game1
         public static List<GameGraphicalEntity> GraphicalEntities { get; set; } = new();
         public static List<GameEntity> GameEntities { get; set; } = new();
         public static List<GameEntity> SelectedEntities { get; set; } = new();
+
+        public static List<Ship> ShipDesigns { get; set; } = new();
 
         public static GameEntity Focus { get; set; }
 
@@ -81,17 +84,20 @@ namespace Game1
                 {
                     var time = TotalSeconds;
 
-                    while (TotalSeconds - time < 1)
-                    {
-                        Thread.Yield();
-                    }
+                    //while (TotalSeconds - time < 5)
+                    //{
+                    //    Thread.Yield();
+                    //}
 
                     var orbitals = GameEntities.Where(x => x is Orbital).Cast<Orbital>().ToList();
                     orbitals.ForEach(x =>
                     {
                         x.CalcPos();
                         x.UpdateInView();
+                        //x.CalculateOrbitPoints();
                     });
+
+
                 }
             });
 

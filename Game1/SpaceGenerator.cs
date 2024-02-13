@@ -35,7 +35,7 @@ namespace Game1
             var nrStars = 1;
             var star = GenerateStar(x, y);
             //For now the planets orbit around the system center, this may change later.
-            var nrPlanets = 20;
+            var nrPlanets = 7;
 
             var system = new SolarSystem()
             {
@@ -80,7 +80,7 @@ namespace Game1
 
         public Planet GeneratePlanet()
         {
-            var nrMoons = 10;
+            var nrMoons = 4;
             var planet = new Planet()
             {
                 Name = "Planet",

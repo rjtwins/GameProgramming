@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RenderingLibrary.Graphics;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,5 +22,17 @@ namespace Game1.GameLogic
         //in kilo liters
         public long Fuel { get; set; }
         public long MaxFuel { get; set; }
+
+        public virtual string ToJson()
+        {
+            var text = System.Text.Json.JsonSerializer.Serialize(this);
+            Debug.WriteLine(text);
+            return text;
+        }
+
+        public static T FromJson<T>(string json)
+        {
+            return System.Text.Json.JsonSerializer.Deserialize<T>(json);
+        }
     }
 }

@@ -22,9 +22,8 @@ namespace Game1.Graphics
                 _zoom = Math.Clamp(value, _minZoomNumber, 2);
             }
         }
+
         private decimal _zoom = 1;
-
-
 
         public (decimal x, decimal y) Position
         {

@@ -43,6 +43,9 @@ namespace Game1.GraphicalEntities
             if (!(GameEntity is Orbital orbital))
                 return;
 
+            if (orbital.OrbitalPoints == null)
+                return;
+
             var points = orbital.OrbitalPoints;
             var windowPoints = points.ToList().Select(x =>
             {
