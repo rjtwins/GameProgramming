@@ -38,7 +38,11 @@ namespace Game1.GameLogic.SubSystems
 
         public virtual string Report()
         {
-            return System.Text.Json.JsonSerializer.Serialize(this);
+            var reportString = string.Empty;
+            reportString += $"MASS: {Mass}\n";
+            //reportString += $"ENERGY CONSUMPTION: {EnergyRequired}\n";
+
+            return reportString;
         }
 
         public virtual object Clone()

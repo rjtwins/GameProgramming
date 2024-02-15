@@ -17,5 +17,16 @@ namespace Game1.GameLogic.SubSystems
 
         //Dept in m
         public double Depth { get; set; } = 0.001;
+
+        public override string Report()
+        {
+            var reportString = string.Empty;
+
+            reportString += $"TYPE: {ArmorType}\n";
+            reportString += $"WEIGHT: {(Weight/1000).ToString("0.000")} KG/CM3\n";
+            reportString += $"AMOUNT: {(Depth/1000).ToString("00000")} CM\n";
+
+            return reportString;
+        }
     }
 }

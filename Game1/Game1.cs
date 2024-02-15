@@ -72,6 +72,7 @@ namespace Game1
 
         protected override void Initialize()
         {
+            Window.Title = "Totally realistic space empire manager";
             DisplayMode dm = _graphics.GraphicsDevice.DisplayMode;
             //GlobalStatic.Width = (int)(dm.Width * 0.9f);
             //GlobalStatic.Height = (int)(dm.Height * 0.9f);

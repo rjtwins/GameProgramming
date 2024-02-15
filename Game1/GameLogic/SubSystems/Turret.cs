@@ -13,7 +13,7 @@ namespace Game1.GameLogic.SubSystems
         public double TraverseSpeed { get; set; } = 0;
         public double Precision { get; set; } = 0f;
 
-        public List<SubSystemBase> MountedSystems { get; set; }
+        public List<SubSystemBase> MountedSystems { get; set; } = new();
 
         public override object Clone()
         {
@@ -21,6 +21,15 @@ namespace Game1.GameLogic.SubSystems
             clone.MountedSystems = this.MountedSystems.Select(x => x.Clone() as SubSystemBase).ToList();
 
             return clone;
+        }
+
+        public override string Report()
+        {
+            var reportString = base.Report();
+
+            reportString += $"....";
+
+            return reportString;
         }
     }
 }

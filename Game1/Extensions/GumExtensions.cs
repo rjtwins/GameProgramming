@@ -92,7 +92,7 @@ namespace Game1.Extensions
             HandleClicks();
         }
 
-        //TODO:
+        //TODO: Handle Scroll event here
         private void HandleScroll()
         {
 

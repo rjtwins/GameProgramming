@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace Game1.GameLogic
 {
+    public enum SensorType
+    {
+        Active,
+        Optical,
+        EM,
+        IR
+    }
+
     public enum ArmorType
     {
         Passive,
@@ -23,7 +31,8 @@ namespace Game1.GameLogic
         Engine,
         Reactor,
         Turret,
-        Armor
+        Armor,
+        CrewBerths
     }
 
     public enum OrderType

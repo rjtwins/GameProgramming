@@ -15,5 +15,16 @@ namespace Game1.GameLogic.SubSystems
 
         //kg/s
         public double FuelConsumption { get; set; } = 10;
+
+        public override string Report()
+        {
+            var reportString = base.Report();
+
+            reportString += $"THRUST: {Thrust} KN\n";
+            reportString += $"FUEL CONSUMPTION: {FuelConsumption} TON\\s\n";
+
+
+            return reportString;
+        }
     }
 }

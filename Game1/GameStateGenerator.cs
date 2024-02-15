@@ -130,7 +130,7 @@ namespace Game1
                 Name = "Dummy Sensor",
                 Mass = 100,
                 Resolution = 1080,
-                Range = 1e6,
+                Range = 99e7,
                 Cost1 = 1,
                 Cost2 = 2,
                 Cost3 = 3,

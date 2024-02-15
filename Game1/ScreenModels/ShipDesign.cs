@@ -63,19 +63,18 @@ namespace Game1.ScreenModels
             Instance = this;
             Screen = GlobalStatic.GumProject.Screens.First(x => x.Name == "ShipDesigner").ToGraphicalUiElement(SystemManagers.Default, addToManagers: true);
             ShipStatsScrollView = Screen
-                .GetGraphicalUiElementByName("Right.ContainerInstance2")
+                .GetGraphicalUiElementByName("ShipStats.ContainerInstance2")
                 .GetGraphicalUiElementByName("ScrollView");
 
-            ComponentsScrollView = Screen
-                .GetGraphicalUiElementByName("Center.ComponentListScrollContainer");
+            ComponentsScrollView = Screen.GetGraphicalUiElementByName("Components", "CenterMainContainer", "CenterInfoContainer", "ComponentListOutline", "ComponentListScrollContainer");
             ComponentList = ComponentsScrollView.GetGraphicalUiElementByName("ComponentList");
 
             DesignListContainer = Screen.GetGraphicalUiElementByName("Top", "DesignListContainer");
             DesignList = Screen.GetGraphicalUiElementByName("Top", "DesignListContainer", "DesignList");
             //.GetGraphicalUiElementByName("DesignList");
 
-            InstalledComponentsScrollView = Screen.GetGraphicalUiElementByName("Left", "InstalledComponentsScrollView");
-            InstalledComponentsList = Screen.GetGraphicalUiElementByName("Left", "InstalledComponentsScrollView", "InstalledComponentsList");
+            InstalledComponentsScrollView = Screen.GetGraphicalUiElementByName("Installed", "InstalledComponentsScrollView");
+            InstalledComponentsList = Screen.GetGraphicalUiElementByName("Installed", "InstalledComponentsScrollView", "InstalledComponentsList");
 
             UIScrollEventHandler.Instance.ScrollElements.Add((ShipStatsScrollView, false));
             UIScrollEventHandler.Instance.ScrollElements.Add((ComponentsScrollView, false));
@@ -92,6 +91,7 @@ namespace Game1.ScreenModels
 
             GetShipDesigns();
             GetComponents();
+            SubSystemChanged();
         }
 
         public override void Hide()
@@ -171,12 +171,12 @@ namespace Game1.ScreenModels
 
                 InteractiveGUE interactiveGUE = new InteractiveGUE(element);
 
-                interactiveGUE.OnClick = () =>
-                {
-                    ActiveSubSystem = subSystem;
-                };
+                //interactiveGUE.OnClick = () =>
+                //{
+                //    ActiveSubSystem = subSystem;
+                //};
 
-                interactiveGUE.OnDoubleClick = () =>
+                interactiveGUE.OnClick = () =>
                 {
                     AddSubSystemToDesign(subSystem);
                     SubSystemChanged();
@@ -231,7 +231,7 @@ namespace Game1.ScreenModels
                     ActiveSubSystem = subSystem.instance;
                 };
 
-                interactiveGUE.OnDoubleClick = () =>
+                interactiveGUE.OnRightClick = () =>
                 {
                     RemoveSubSystemFromDesign(subSystem.instance);
                     SubSystemChanged();
@@ -287,11 +287,23 @@ namespace Game1.ScreenModels
                 .ToList()
                 .ForEach(x =>
                 {
-                    sensorString += $"SENSOR: {x.Resolution} M3 @ {x.Range} KM";
+                    sensorString += $"SENSOR: {x.Resolution} M3 @ {x.Range} KM\n\n";
+
+                    var t = x.GetResolutionTable();
+                    //var top =    "10KM " + string.Join("---", t.Select(x => $"{x.d.ToString("0.0E+0")}")) + "\n";
+                    var top =    "10K KM " + string.Join("---", t.Select(x => $"{(x.d / 10000).ToString("000000")}")) + "\n";
+                    var middle = "++++++ " + string.Join("|-----", t.Select(x => $"---")) + "\n";
+                    var bot =    "M3     " + string.Join("---", t.Select(x => $"{x.r.ToString("000000")}")) + "\n\n";
+
+                    sensorString += top;
+                    sensorString += middle;
+                    sensorString += bot;
                 });
 
 
             Screen.SetProperty("SensorText", sensorString);
+
+            SubSystemChanged();
         }
 
         public void AddSubSystemToDesign(SubSystemBase subSystem)
