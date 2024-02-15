@@ -16,9 +16,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.BitmapFonts;
-// using GeonBit UI elements
-using GeonBit.UI;
-using GeonBit.UI.Entities;
+
+using Myra;
+using Myra.Graphics2D.UI;
 
 using MonoGame.Extended.Timers;
 using MonoGame.Extended.ViewportAdapters;
@@ -30,6 +30,7 @@ using System.ComponentModel.Design.Serialization;
 using System.Diagnostics;
 using System.Linq;
 using Camera = Game1.Graphics.Camera;
+using System.Threading.Tasks;
 
 namespace Game1
 {
@@ -61,6 +62,9 @@ namespace Game1
 
         SmoothFramerate framerate = new(20);
 
+        Desktop _desktop;
+        Dialog _messageBox;
+
         public Game1()
         {
             _stopwatch.Start();
@@ -77,12 +81,12 @@ namespace Game1
 
         protected override void Initialize()
         {
-            // GeonBit.UI: Init the UI manager using the "hd" built-in theme
-            UserInterface.Initialize(Content);
             Window.Title = "Totally realistic space empire manager";
             DisplayMode dm = _graphics.GraphicsDevice.DisplayMode;
             //GlobalStatic.Width = (int)(dm.Width * 0.9f);
             //GlobalStatic.Height = (int)(dm.Height * 0.9f);
+
+            IsMouseVisible = false;
 
             GlobalStatic.Width = 1920;
             GlobalStatic.Height = 1080;
@@ -177,6 +181,23 @@ namespace Game1
             GlobalStatic.MainFont = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
             GameState.GraphicalEntities.AddRange(GameState.GameEntities.Select(x => x.GenerateGraphicalEntity()));
             _contextMenu = new(this);
+
+            MyraEnvironment.Game = this;
+
+            var content = new TextBox();
+            _messageBox = Dialog.CreateMessageBox("test", content);
+
+            _desktop = new Desktop();
+
+            // Inform Myra that external text input is available
+            // So it stops translating Keys to chars
+            _desktop.HasExternalTextInput = true;
+
+            // Provide that text input
+            Window.TextInput += (s, a) =>
+            {
+                _desktop.OnChar(a.Character);
+            };
         }
 
         protected override void Update(GameTime gameTime)
@@ -198,7 +219,10 @@ namespace Game1
                 Exit();
 
             if (_flatKeyboard.IsKeyClicked(Keys.Space))
+            {
+                _messageBox.ShowModal(_desktop);
                 GameState.Paused = !GameState.Paused;
+            }
 
             if (_flatMouse.IsLeftButtonDoubleCLicked())
                 HandleLeftMouseDoubleClick();
@@ -342,6 +366,7 @@ namespace Game1
 
             DrawUI();
             DrawMousePointer();
+            _desktop.Render();
 #if DEBUG
             //string gameSpeed = GameState.GameSpeed.ToString() + (GameState.Paused ? " PAUSED" : "");
             //_spriteBatch.DrawString(GlobalStatic.MainFont, $"Mouse World: {Util.WorldPosition(_flatMouse.WindowPosition.ToVector2())}", new Vector2(10, 0), Color.White);
@@ -427,7 +452,6 @@ namespace Game1
             new UIScrollEventHandler();
             new Main();
             new ShipDesign();
-
         }
 
         private void UpdateUI(GameTime gameTime)
@@ -436,7 +460,6 @@ namespace Game1
             InteractiveGUE.Update();
 
             SystemManagers.Default.Activity(gameTime.TotalGameTime.TotalSeconds);
-            UserInterface.Active.Update(gameTime);
 
             UIScrollEventHandler.Instance.Update();
             Main.Instance.Update();
@@ -445,8 +468,6 @@ namespace Game1
         private void DrawUI()
         {
             SystemManagers.Default.Draw();
-            // GeonBit.UI: draw UI using the spriteBatch you created above
-            UserInterface.Active.Draw(_spriteBatch);
         }
 
         private void DrawMousePointer()
@@ -478,7 +499,7 @@ namespace Game1
             }
             else
             {
-                IsMouseVisible = false; 
+                IsMouseVisible = false;
                 _spriteBatch.DrawCircle(_pointerVector, 5f, 255, pointerColor);
             }
         }
