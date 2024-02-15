@@ -15,6 +15,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using MonoGame.Extended.BitmapFonts;
+// using GeonBit UI elements
+using GeonBit.UI;
+using GeonBit.UI.Entities;
+
 using MonoGame.Extended.Timers;
 using MonoGame.Extended.ViewportAdapters;
 using MonoGameGum.GueDeriving;
@@ -72,6 +77,8 @@ namespace Game1
 
         protected override void Initialize()
         {
+            // GeonBit.UI: Init the UI manager using the "hd" built-in theme
+            UserInterface.Initialize(Content);
             Window.Title = "Totally realistic space empire manager";
             DisplayMode dm = _graphics.GraphicsDevice.DisplayMode;
             //GlobalStatic.Width = (int)(dm.Width * 0.9f);
@@ -161,6 +168,7 @@ namespace Game1
             base.Initialize();
 
             GameState.StartUpdateProcesses();
+
         }
 
         protected override void LoadContent()
@@ -176,7 +184,7 @@ namespace Game1
             _flatKeyboard.Update();
             _flatMouse.Update();
 
-            UpdateGum(gameTime);
+            UpdateUI(gameTime);
 
             _contextMenu.Update();
 
@@ -332,8 +340,7 @@ namespace Game1
             DrawMeasuring();
             DrawMiscUI();
 
-            DrawGum();
-
+            DrawUI();
             DrawMousePointer();
 #if DEBUG
             //string gameSpeed = GameState.GameSpeed.ToString() + (GameState.Paused ? " PAUSED" : "");
@@ -423,20 +430,23 @@ namespace Game1
 
         }
 
-        private void UpdateGum(GameTime gameTime)
+        private void UpdateUI(GameTime gameTime)
         {
             //For clicks on GUM ui elements
             InteractiveGUE.Update();
 
             SystemManagers.Default.Activity(gameTime.TotalGameTime.TotalSeconds);
-            
+            UserInterface.Active.Update(gameTime);
+
             UIScrollEventHandler.Instance.Update();
             Main.Instance.Update();
         }
 
-        private void DrawGum()
+        private void DrawUI()
         {
             SystemManagers.Default.Draw();
+            // GeonBit.UI: draw UI using the spriteBatch you created above
+            UserInterface.Active.Draw(_spriteBatch);
         }
 
         private void DrawMousePointer()
