@@ -9,28 +9,12 @@ namespace Game1.Input
     {
         public static UIScrollEventHandler Instance { get; private set; }
 
-        private int myVar;
-
-        public int getMyvar()
-        {
-            return myVar;
-        }
-
-        public void setMyvar(int value)
-        {
-            myVar = value;
-        }
-
-
-
-
-        public List<GraphicalUiElement> ScrollElements = new List<GraphicalUiElement>();
+        public List<(GraphicalUiElement, bool horizontal)> ScrollElements = new();
 
         public UIScrollEventHandler()
         {
             Instance = this;
         }
-
 
         public void Update()
         {
@@ -50,35 +34,45 @@ namespace Game1.Input
 
             var element = FindActiveElement();
 
-            if (element == null)
+            if (element.Item1 == null)
                 return;
 
-            if (element?.Children.Count() == 0)
+            if (element.Item1?.Children.Count() == 0)
                 return;
 
-            if (!(element.Children.FirstOrDefault() is GraphicalUiElement))
+            if (!(element.Item1.Children.FirstOrDefault() is GraphicalUiElement))
                 return;
 
-            var child = (element.Children.First() as GraphicalUiElement);
+            var child = (element.Item1.Children.First() as GraphicalUiElement);
 
-            var debug1 = child.GetAbsoluteBottom();
-            var debug2 = element.GetAbsoluteBottom();
+            if (element.Item2)
+            {
+                //if (child.GetAbsoluteRight() < element.Item1.GetAbsoluteRight() && div < 0)
+                //    return;
 
-            if (child.GetAbsoluteBottom() < element.GetAbsoluteBottom() && div < 0)
-                return;
+                child.X += (div * 2);
 
-            child.Y += div;
+                //if (child.GetAbsoluteLeft() - 20 >= element.Item1.GetAbsoluteLeft())
+                //    child.X -= div;
+            }
+            else
+            {
+                if (child.GetAbsoluteBottom() < element.Item1.GetAbsoluteBottom() && div < 0)
+                    return;
 
-            if(child.GetAbsoluteTop() - 20 >= element.GetAbsoluteTop())
-                child.Y -= div;
+                child.Y += div;
+
+                if (child.GetAbsoluteTop() - 20 >= element.Item1.GetAbsoluteTop())
+                    child.Y -= div;
+            }
         }
 
-        private GraphicalUiElement FindActiveElement()
+        private (GraphicalUiElement, bool) FindActiveElement()
         {
             return ScrollElements
-                .Where(x => x.Visible)
-                .Where(x => x.IsPointInside(FlatMouse.Instance.WindowPosition.X, FlatMouse.Instance.WindowPosition.Y))
-                .OrderBy(x => x.Z)
+                .Where(x => x.Item1.Visible)
+                .Where(x => x.Item1.IsPointInside(FlatMouse.Instance.WindowPosition.X, FlatMouse.Instance.WindowPosition.Y))
+                .OrderBy(x => x.Item1.Z)
                 .FirstOrDefault();
         }
     }

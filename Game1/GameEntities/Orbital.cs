@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -166,7 +167,8 @@ namespace Game1.GameEntities
                 double time = i * timeIncrement;
                 (double x, double y) = LocalCoordinatesAtTime(time);
                 OrbitalPoints[i] = new Vector2((float)x, (float)y);
-            }
+            }           
+            
         }
     }
 }

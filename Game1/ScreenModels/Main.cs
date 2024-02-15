@@ -1,4 +1,5 @@
-﻿using Game1.Input;
+﻿using Game1.Extensions;
+using Game1.Input;
 using Gum.Managers;
 using Gum.Wireframe;
 using GumRuntime;
@@ -28,27 +29,21 @@ namespace Game1.ScreenModels
             Time = gameDateContainer.GetGraphicalUiElementByName("Time");
             ShipDesignButton = TopBar.GetGraphicalUiElementByName("ContainerInstance.Button1");
 
-            //Speed.AddToManagers(SystemManagers.Default, null);
-            //Year.AddToManagers(SystemManagers.Default, null);
-            //Day.AddToManagers(SystemManagers.Default, null);
-            //Time.AddToManagers(SystemManagers.Default, null);
-
-            UIClickEventHandler.Instance.AddElement(ShipDesignButton, () => {
+            var interactable = new InteractiveGUE(ShipDesignButton);
+            
+            interactable.OnClick = () =>
+            {
                 if (Main.Instance.Active)
                 {
-                    Main.Instance.Active = false;
-                    Main.Instance.Screen.RemoveFromManagers();
-                    ShipDesign.Instance.Screen.AddToManagers(SystemManagers.Default, null);
-                    ShipDesign.Instance.Screen.Visible = true;
+                    Main.Instance.Hide();
+                    ShipDesign.Instance.Show();
                 }
                 else
                 {
-                    Main.Instance.Active = true;
-                    Main.Instance.Screen.AddToManagers(SystemManagers.Default, null);
-                    ShipDesign.Instance.Screen.RemoveFromManagers();
-                    ShipDesign.Instance.Screen.Visible = false;
+                    Main.Instance.Show();
+                    ShipDesign.Instance.Hide();
                 }
-            });
+            };
 
             Instance = this;
             Main.Instance.Active = true;

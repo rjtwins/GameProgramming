@@ -30,8 +30,8 @@ namespace Game1
             }
             else
             {
-                GlobalStatic.Width = (int)(dm.Width * 0.8f);
-                GlobalStatic.Height = (int)(dm.Height * 0.8f);
+                GlobalStatic.Width = 1920;// (int)(dm.Width * 0.8f);
+                GlobalStatic.Height = 1080;// (int)(dm.Height * 0.8f);
             }
 
             graphics.PreferredBackBufferWidth = GlobalStatic.Width;
@@ -196,7 +196,7 @@ namespace Game1
             runtime.Width = 10;
             runtime.Height = 5;
             runtime.UseCustomFont = false;
-            runtime.Font = "Calibri Light";
+            runtime.Font = "SimSun";
             runtime.FontSize = 14;
             runtime.UseFontSmoothing = false;
             runtime.SetProperty("Red", r);
@@ -229,11 +229,11 @@ namespace Game1
         public static ((decimal x, decimal y) pos, double time) FindIntercept(Fleet f, Orbital o)
         {
             decimal distance = Distance((f.X, f.Y), (o.X, o.Y));
-            double time = (double)(distance / f.GetMaxThrust());
+            double time = (double)(distance / (decimal)f.GetMaxThrust());
 
             var posTime = o.GlobalCoordinatesAtTime(GameState.TotalSeconds + time);
             distance = Distance((f.X, f.Y), posTime);
-            time = (double)(distance / f.GetMaxThrust());
+            time = (double)(distance / (decimal)f.GetMaxThrust());
 
             double t0 = 0.0;
             double error = double.MaxValue;

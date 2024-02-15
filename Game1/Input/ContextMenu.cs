@@ -136,7 +136,7 @@ namespace Game1.Input
                 //HandleLeftButtonClicked();
                 _contextMenu.Children.Cast<GraphicalUiElement>().ToList().ForEach(x =>
                 {
-                    UIClickEventHandler.Instance.RemoveElement(x);
+                    InteractiveGUE.UnRegister(x);
                 });
 
                 _contextMenu.Children.Clear();
@@ -213,7 +213,9 @@ namespace Game1.Input
                     text.Tag = x.Guid;
                     text.AddToManagers();
                     _contextMenu.Children.Add(text);
-                    UIClickEventHandler.Instance.AddElement(text, x.OnClick);
+
+                    var interactable = new InteractiveGUE(text);
+                    interactable.OnClick = x.OnClick;
                 });
         }
     }

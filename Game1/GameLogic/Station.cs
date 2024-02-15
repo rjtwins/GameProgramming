@@ -10,8 +10,8 @@ namespace Game1.GameLogic
     public class Station : SubGameEntity
     {
         //Class
-        public string ShipClass { get; set; }
+        public string ShipClass { get; set; } = string.Empty;
 
-        public List<SubSystemBase> SubSystems { get; set; }
+        public List<SubSystemBase> SubSystems { get; set; } = new();
     }
 }

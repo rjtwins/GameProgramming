@@ -7,13 +7,19 @@
     <Variable>
       <Type>float</Type>
       <Name>BodyText.Height</Name>
-      <Value xsi:type="xsd:float">0</Value>
+      <Value xsi:type="xsd:float">1</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>DimensionUnitType</Type>
       <Name>BodyText.Height Units</Name>
-      <Value xsi:type="xsd:int">8</Value>
+      <Value xsi:type="xsd:int">4</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>HorizontalAlignment</Type>
+      <Name>BodyText.HorizontalAlignment</Name>
+      <Value xsi:type="xsd:int">0</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -29,6 +35,13 @@ Structure: 13501u
  -Test1
  -Test2
  -Test3</Value>
+      <ExposedAsName>BodyTextText</ExposedAsName>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>VerticalAlignment</Type>
+      <Name>BodyText.VerticalAlignment</Name>
+      <Value xsi:type="xsd:int">1</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -201,7 +214,7 @@ Structure: 13501u
     <Variable>
       <Type>float</Type>
       <Name>HeaderText.Font Scale</Name>
-      <Value xsi:type="xsd:float">1.25</Value>
+      <Value xsi:type="xsd:float">1</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>

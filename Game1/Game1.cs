@@ -2,6 +2,7 @@
 using Game1.Extensions;
 using Game1.GameEntities;
 using Game1.GameLogic;
+using Game1.GameLogic.SubSystems;
 using Game1.GraphicalEntities;
 using Game1.Graphics;
 using Game1.Input;
@@ -71,10 +72,7 @@ namespace Game1
 
         protected override void Initialize()
         {
-
             DisplayMode dm = _graphics.GraphicsDevice.DisplayMode;
-
-
             //GlobalStatic.Width = (int)(dm.Width * 0.9f);
             //GlobalStatic.Height = (int)(dm.Height * 0.9f);
 
@@ -98,10 +96,6 @@ namespace Game1
             _cross2 = new Vector2[2];
             _cross2[0] = new(0, 10);
             _cross2[1] = new(0, -10);
-
-            //var subShp = new SubPoly(this, ship, new Vector2(5f, 5f), vertices, 0f, Color.Red);
-            //subShp.Scale(ship.ScaleFactor / 2);
-            //ship.SubEntities.Add(subShp);
 
             _pointerVector = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -159,59 +153,13 @@ namespace Game1
             //GameState.GameEntities.AddRange(new List<GameEntity>() { earth, sun, solarSystem, proxima });
             */
 
-            var generator = new SpaceGenerator();
-            var systems = generator.Generate(500);
+            InitGum();
 
-            systems.ForEach(s =>
-            {
-                s.Planets.ForEach(p =>
-                {
-                    GameState.GameEntities.Add(p);
-                    p.Moons.ForEach(m =>
-                    {
-                        GameState.GameEntities.Add(m);
-                    });
-                });
-
-                s.Stars.ForEach(st =>
-                {
-                    GameState.GameEntities.Add(st);
-                });
-
-                GameState.GameEntities.Add(s);
-            });
-
-            var fleet = new Fleet()
-            {
-                Name = "Fleet 1",
-            };
-
-            var ship = new Ship()
-            {
-                Mass = 100,
-                Fuel = 100,
-                Crew = 100,
-                MaxThrust = 100
-            };
-
-            fleet.Members.Add(ship);
-            var location = GameState.GameEntities[0];
-
-            fleet.X = 0;
-            fleet.Y = 0;
-
-            GameState.GameEntities.Add(fleet);
-
-            _camera.Position = (fleet.X, fleet.Y);
-
-            InitGum();            
-            //this.IsMouseVisible = false;
+            GameStateGenerator.Generate();
 
             base.Initialize();
 
             GameState.StartUpdateProcesses();
-
-            ShipDesign.Instance.ActiveDesign = ship;
         }
 
         protected override void LoadContent()
@@ -224,6 +172,9 @@ namespace Game1
 
         protected override void Update(GameTime gameTime)
         {
+            _flatKeyboard.Update();
+            _flatMouse.Update();
+
             UpdateGum(gameTime);
 
             _contextMenu.Update();
@@ -236,9 +187,6 @@ namespace Game1
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            _flatKeyboard.Update();
-            _flatMouse.Update();
 
             if (_flatKeyboard.IsKeyClicked(Keys.Space))
                 GameState.Paused = !GameState.Paused;
@@ -276,35 +224,6 @@ namespace Game1
             if(GameState.Focus != null)
                 _camera.Position = (GameState.Focus.X, GameState.Focus.Y);
 
-            /*
-            //float playerRotAmount = MathHelper.Pi * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            //if (_flatKeyboard.IsKeyDown(Keys.Left))
-            //{
-            //    this.ship.Rotate(+playerRotAmount);
-            //}
-
-            //if (_flatKeyboard.IsKeyDown(Keys.Right))
-            //{
-            //    this.ship.Rotate(-playerRotAmount);
-            //}
-
-            //if(_flatKeyboard.IsKeyDown(Keys.Space))
-            //{
-            //    this.ship.ApplyForce(1);
-            //}
-
-            //if(_flatKeyboard.IsKeyDown(Keys.A))
-            //{
-            //    this.ship.ApplyForce(1, MathHelper.ToRadians(-90), true);
-            //}
-
-            //if (_flatKeyboard.IsKeyDown(Keys.D))
-            //{
-            //    this.ship.ApplyForce(1, MathHelper.ToRadians(90), true);
-            //}
-            */
-
             if(_flatKeyboard.IsKeyDown(Keys.LeftAlt) && _flatKeyboard.IsKeyClicked(Keys.Enter))
             {
                 Util.ToggleFullScreen(_graphics);
@@ -313,6 +232,12 @@ namespace Game1
             base.Update(gameTime);
 
             framerate.Update(gameTime.GetElapsedSeconds());
+
+            if(_flatMouse.IsLeftButtonDoubleCLicked())
+                _flatMouse.ResetLeftDoubleClick();
+
+            if (_flatMouse.IsRightButtonDoubleCLicked())
+                _flatMouse.ResetRightDoubleClick();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -499,10 +424,11 @@ namespace Game1
 
         private void UpdateGum(GameTime gameTime)
         {
+            //For clicks on GUM ui elements
+            InteractiveGUE.Update();
+
             SystemManagers.Default.Activity(gameTime.TotalGameTime.TotalSeconds);
             
-            //For clicks on GUM ui elements
-            UIClickEventHandler.Instance.Update();
             UIScrollEventHandler.Instance.Update();
             Main.Instance.Update();
         }

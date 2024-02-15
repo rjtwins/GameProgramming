@@ -167,7 +167,6 @@ namespace Game1.Input
 
             if (leftClickCount >= 2)
             {
-                leftClickCount = 0;
                 return true;
             }
             return false;
@@ -179,10 +178,19 @@ namespace Game1.Input
 
             if (rightClickCount >= 2)
             {
-                rightClickCount = 0;
                 return true;
             }
             return false;
+        }
+
+        public void ResetLeftDoubleClick()
+        {
+            leftClickCount = 0;
+        }
+
+        public void ResetRightDoubleClick()
+        {
+            rightClickCount = 0;
         }
 
         public Vector2 MouseMovement()

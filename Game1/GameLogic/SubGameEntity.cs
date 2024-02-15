@@ -11,17 +11,29 @@ namespace Game1.GameLogic
     //Entities that are not on the map directly.
     public abstract class SubGameEntity
     {
+        public virtual string Name { get; set; }
+
         public Guid Guid { get; set; }
 
         //Crew in men
-        public int Crew { get; set; }
+        public virtual int CrewRequired { get; set; }
+        public virtual int CrewCapacity { get; set; }
+        public virtual int Crew { get; set; }
 
         //In metric ton
-        public long Mass { get; set; }
+        public virtual double Mass { get; set; }
 
         //in kilo liters
-        public long Fuel { get; set; }
-        public long MaxFuel { get; set; }
+        public double Fuel { get; set; }
+        public virtual double MaxFuel { get; set; }
+
+        //kW
+        public virtual double EnergyRequired { get; set; }
+        public virtual double EnergyGeneration { get; set; }
+        public virtual double EnergyMaxStorage { get; set; }
+
+        //kJ
+        public virtual double EnergyStorage { get; set; }
 
         public virtual string ToJson()
         {
@@ -33,6 +45,11 @@ namespace Game1.GameLogic
         public static T FromJson<T>(string json)
         {
             return System.Text.Json.JsonSerializer.Deserialize<T>(json);
+        }
+
+        public virtual string Report()
+        {
+            return System.Text.Json.JsonSerializer.Serialize(this);
         }
     }
 }

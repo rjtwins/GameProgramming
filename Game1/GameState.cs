@@ -1,8 +1,10 @@
 ﻿using Game1.GameEntities;
 using Game1.GameLogic;
+using Game1.GameLogic.SubSystems;
 using Game1.GraphicalEntities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ namespace Game1
         public static List<GameEntity> SelectedEntities { get; set; } = new();
 
         public static List<Ship> ShipDesigns { get; set; } = new();
+        public static List<SubSystemBase> SubSystems { get; set; } = new();
 
         public static GameEntity Focus { get; set; }
 
@@ -84,10 +87,10 @@ namespace Game1
                 {
                     var time = TotalSeconds;
 
-                    //while (TotalSeconds - time < 5)
-                    //{
-                    //    Thread.Yield();
-                    //}
+                    while (TotalSeconds - time < 0.25)
+                    {
+                        Thread.Yield();
+                    }
 
                     var orbitals = GameEntities.Where(x => x is Orbital).Cast<Orbital>().ToList();
                     orbitals.ForEach(x =>
@@ -118,6 +121,7 @@ namespace Game1
                     fleets.ForEach(x =>
                     {
                         x.Update((decimal)(TotalSeconds - time));
+                        x.CreateGhost();
                     });
                 }
             });

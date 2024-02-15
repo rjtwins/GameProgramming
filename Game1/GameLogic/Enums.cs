@@ -7,6 +7,25 @@ using System.Threading.Tasks;
 
 namespace Game1.GameLogic
 {
+    public enum ArmorType
+    {
+        Passive,
+        Reactive,
+        Reflective,
+    }
+
+    public enum SubSystemType
+    {
+        Cargo,
+        CargoHuman,
+        Weapon,
+        Sensor,
+        Engine,
+        Reactor,
+        Turret,
+        Armor
+    }
+
     public enum OrderType
     {
         Stop,

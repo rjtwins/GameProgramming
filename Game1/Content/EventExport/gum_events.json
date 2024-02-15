@@ -1974,6 +1974,279 @@
         "ElementType": "Screens",
         "EventType": 5,
         "TimestampUtc": "2024-02-13T17:38:56.85305Z"
+      },
+      {
+        "NewName": "MainMenu",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-14T08:46:02.1737833Z"
+      },
+      {
+        "NewName": "ShipDesigner.TextInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T08:51:25.2466437Z"
+      },
+      {
+        "NewName": "ShipDesigner.StatBlockComponentInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T09:18:01.3144429Z"
+      },
+      {
+        "NewName": "DesignItem",
+        "OldName": "DeisgnListItem",
+        "ElementType": "Components",
+        "EventType": 2,
+        "TimestampUtc": "2024-02-14T09:42:56.4981018Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DeisgnListItemInstance1 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T09:43:10.3048364Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DeisgnListItemInstance in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T09:51:07.3465534Z"
+      },
+      {
+        "NewName": "ShipDesigner.ContainerInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:29:30.95653Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignListContainer",
+        "OldName": "ShipDesigner.ContainerInstance1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-14T10:30:11.5778294Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:33:34.956802Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:33:39.8787289Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:33:41.7097837Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance3",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:33:43.9175278Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance4",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:33:45.4727018Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance5",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:33:47.1067758Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance6",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:33:48.8280657Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance7",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:33:51.0212927Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance8",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:33:59.5514365Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance9",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:34:01.7971947Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance10",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:34:03.3621324Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance11",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:34:05.6199241Z"
+      },
+      {
+        "NewName": "ShipDesigner.DesignItemInstance12",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T10:34:08.2764546Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance12 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:53.9768411Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance11 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:53.9778416Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance10 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:53.9915443Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance9 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:54.0025876Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance8 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:54.0145977Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance7 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:54.0273246Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance6 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:54.0389672Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance5 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:54.05254Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance4 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:54.064444Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance3 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:54.076044Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance2 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:54.0883105Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance1 in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:54.1003424Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.DesignItem DesignItemInstance in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:04:54.1122403Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.StatBlockComponent StatBlockComponentInstance in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T14:05:01.0055316Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ShipDesigner.Text TextInstance in ShipDesigner",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-14T16:29:34.4297749Z"
+      },
+      {
+        "NewName": "ShipDesigner.InstalledComponentsScrollView",
+        "OldName": "ShipDesigner.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-14T16:29:43.5219683Z"
+      },
+      {
+        "NewName": "ShipDesigner.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-14T16:29:47.2888736Z"
+      },
+      {
+        "NewName": "ShipDesigner.InstalledComponentsList",
+        "OldName": "ShipDesigner.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-14T16:29:56.050524Z"
       }
     ]
   }

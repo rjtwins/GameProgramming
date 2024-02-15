@@ -22,7 +22,7 @@ using Camera = Game1.Graphics.Camera;
 namespace Game1.GameEntities
 {
     //Can have stations or ships in it.
-    public class Fleet : GameEntity
+    public class Fleet : GameEntity, ICloneable
     {
         public GameEntity SOIEntity = null;
         public List<SubGameEntity> Members { get; set; } = new List<SubGameEntity>();
@@ -31,11 +31,13 @@ namespace Game1.GameEntities
 
         private Game Game = GlobalStatic.Game;
 
+        public List<(decimal x, decimal y, int time, FleetGhost)> FleetGhosts { get; set; } = new();
+
         public Vector2 Velocity { get; set; } = Vector2.Zero;
         public Vector2 Tail { get; set; } = Vector2.Zero;
 
-        public long Fuel => Members.Select(x => x.Fuel).Sum();
-        public long MaxFuel => Members.Select(x => x.MaxFuel).Sum();
+        public double Fuel => Members.Select(x => x.Fuel).Sum();
+        public double MaxFuel => Members.Select(x => x.MaxFuel).Sum();
 
         //public long MaxThrust => GetMaxThrust();
         public long CurrentThrust { get; set; } = 0;
@@ -51,7 +53,7 @@ namespace Game1.GameEntities
             }
         }
 
-        public long GetMaxThrust()
+        public double GetMaxThrust()
         {
             //Something is wrong we cannot have an empty fleet :(
             if (this.Members.Count() == 0)
@@ -61,8 +63,7 @@ namespace Game1.GameEntities
             //    return 0;
 
             return this.Members
-                .Where(x => x is Ship)
-                .Cast<Ship>()
+                .OfType<Ship>()
                 .Select(x => x.MaxThrust)
                 .Max();
         }
@@ -75,6 +76,16 @@ namespace Game1.GameEntities
 
             if (GameState.Focus == this)
                 Game.Services.GetService<Camera>().Position = (X, Y);
+        }
+
+        public void CreateGhost()
+        {
+            var ghost = this.Clone() as FleetGhost;
+            FleetGhosts.Add((X, Y, (int)GameState.TotalSeconds, ghost));
+
+            //Keep record of last 120 sec;
+            if (FleetGhosts.Count > 60000)
+                FleetGhosts.RemoveAt(0);
         }
 
         private void UpdateOrders(decimal deltaTime)
@@ -128,7 +139,7 @@ namespace Game1.GameEntities
 
             bool orderCompleted = false;
             orderCompleted = div < 100;
-            orderCompleted = div - GetMaxThrust() * deltaTime < 100;
+            orderCompleted = div - (decimal)GetMaxThrust() * deltaTime < 100;
             //Order completed
             if (orderCompleted)
             {
@@ -180,6 +191,9 @@ namespace Game1.GameEntities
             var color = Color.Red;
             if (!GameState.SelectedEntities.Contains(this))
             {
+                if (_container == null)
+                    return;
+
                 _container.Visible = false;
                 color = Color.Red * 0.5f;
             }
@@ -256,6 +270,24 @@ namespace Game1.GameEntities
             rect.Children.Add(Util.GetTextRuntime($"ID: {Name} ", 255, 0, 0, 200));
             rect.Children.Add(Util.GetTextRuntime($"~{Velocity.Length()} km/s ", 255, 0, 0, 200));
             //rect.Children.Add(Util.GetTextRuntime($"({X}, {Y}) ", 255, 0, 0, 150));
+        }
+
+        public object Clone()
+        {
+            var clone = new FleetGhost()
+            {
+                Name = Name,
+                X = X,
+                Y = Y,
+                Velocity = Velocity
+            };
+
+            clone.Members = Members.OfType<Ship>().
+                Select(x => x.Clone())
+                .OfType<SubGameEntity>()
+                .ToList();
+
+            return clone;
         }
     }
 }
