@@ -14,6 +14,13 @@ namespace Game1.GameEntities
         public Planet() 
         {
             Color = Color.Blue;
+            GameState.Planets.Add(this);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            GameState.Planets.Remove(this);
+            base.Dispose(disposing);
         }
     }
 }

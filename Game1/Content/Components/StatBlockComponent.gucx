@@ -111,6 +111,12 @@ Structure: 13501u
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
+      <Type>Blend</Type>
+      <Name>HeaderColor.Blend</Name>
+      <Value xsi:type="xsd:int">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
       <Type>int</Type>
       <Name>HeaderColor.Blue</Name>
       <Value xsi:type="xsd:int">0</Value>
@@ -183,42 +189,6 @@ Structure: 13501u
     </Variable>
     <Variable>
       <Type>float</Type>
-      <Name>HeaderSprite.Height</Name>
-      <Value xsi:type="xsd:float">15</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>DimensionUnitType</Type>
-      <Name>HeaderSprite.Height Units</Name>
-      <Value xsi:type="xsd:int">0</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>string</Type>
-      <Name>HeaderSprite.Parent</Name>
-      <Value xsi:type="xsd:string">HeaderContainer</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>HeaderSprite.Width</Name>
-      <Value xsi:type="xsd:float">15</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>DimensionUnitType</Type>
-      <Name>HeaderSprite.Width Units</Name>
-      <Value xsi:type="xsd:int">0</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>HeaderText.Font Scale</Name>
-      <Value xsi:type="xsd:float">1</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
       <Name>HeaderText.Height</Name>
       <Value xsi:type="xsd:float">15</Value>
       <SetsValue>true</SetsValue>
@@ -227,12 +197,6 @@ Structure: 13501u
       <Type>HorizontalAlignment</Type>
       <Name>HeaderText.HorizontalAlignment</Name>
       <Value xsi:type="xsd:int">1</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>bool</Type>
-      <Name>HeaderText.IsBold</Name>
-      <Value xsi:type="xsd:boolean">false</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -339,11 +303,6 @@ Structure: 13501u
   <Instance>
     <Name>BodyText</Name>
     <BaseType>Text</BaseType>
-    <DefinedByBase>false</DefinedByBase>
-  </Instance>
-  <Instance>
-    <Name>HeaderSprite</Name>
-    <BaseType>Sprite</BaseType>
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Instance>

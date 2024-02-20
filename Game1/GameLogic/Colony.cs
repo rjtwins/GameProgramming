@@ -8,7 +8,7 @@ namespace Game1.GameLogic
 {
     public class Colony
     {
-        public string Faction {  get; set; }
+        public Faction Faction {  get; set; }
         public int Population {  get; set; }
         public string Name { get; set; }
     }

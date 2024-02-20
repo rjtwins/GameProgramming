@@ -7,6 +7,36 @@ using System.Threading.Tasks;
 
 namespace Game1.GameLogic
 {
+    //For easy checks after calc
+    public enum AtmosType
+    {
+        None,
+        TraceGas,
+        Gas,
+        Liquid,
+        HighPressure
+    }
+
+
+    public enum Resource
+    {
+        Water,
+        Fissiles,
+        Fusibles,
+        Volatiles,
+        Metals,
+        RareMetals
+    }
+
+    public enum SatelliteType
+    {
+        Terrestrial,
+        SuperTerrestrial,
+        Gas,
+        SuperGas,
+        Solar
+    }
+
     public enum SensorType
     {
         Active,
@@ -32,7 +62,8 @@ namespace Game1.GameLogic
         Reactor,
         Turret,
         Armor,
-        CrewBerths
+        CrewBerths,
+        Shields
     }
 
     public enum OrderType

@@ -60,7 +60,7 @@
     <Variable>
       <Type>float</Type>
       <Name>Height</Name>
-      <Value xsi:type="xsd:float">64</Value>
+      <Value xsi:type="xsd:float">49</Value>
       <Category>Dimensions</Category>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -102,7 +102,7 @@
       <IsFile>true</IsFile>
       <Type>string</Type>
       <Name>SourceFile</Name>
-      <Value xsi:type="xsd:string"></Value>
+      <Value xsi:type="xsd:string">2d/200506.png</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -114,7 +114,7 @@
     <Variable>
       <Type>TextureAddress</Type>
       <Name>Texture Address</Name>
-      <Value xsi:type="xsd:int">0</Value>
+      <Value xsi:type="xsd:int">1</Value>
       <Category>Source</Category>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -123,6 +123,12 @@
       <Name>Texture Height</Name>
       <Value xsi:type="xsd:int">0</Value>
       <Category>Source</Category>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>Texture Height Scale</Name>
+      <Value xsi:type="xsd:float">1</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -147,6 +153,12 @@
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
+      <Type>float</Type>
+      <Name>Texture Width Scale</Name>
+      <Value xsi:type="xsd:float">1</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
       <Type>bool</Type>
       <Name>Visible</Name>
       <Value xsi:type="xsd:boolean">true</Value>
@@ -155,7 +167,7 @@
     <Variable>
       <Type>float</Type>
       <Name>Width</Name>
-      <Value xsi:type="xsd:float">64</Value>
+      <Value xsi:type="xsd:float">84</Value>
       <Category>Dimensions</Category>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -212,6 +224,13 @@
       <Type>string</Type>
       <Name>VariableReferences</Name>
       <Category>References</Category>
+      <IsFile>false</IsFile>
+      <IsHiddenInPropertyGrid>false</IsHiddenInPropertyGrid>
+      <Value />
+    </VariableList>
+    <VariableList xsi:type="VariableListSaveOfString">
+      <Type>string</Type>
+      <Name>AnimationFrames</Name>
       <IsFile>false</IsFile>
       <IsHiddenInPropertyGrid>false</IsHiddenInPropertyGrid>
       <Value />

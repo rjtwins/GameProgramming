@@ -1,14 +1,12 @@
 ﻿using Game1.Input;
-using Gum.DataTypes;
+using Game1.ScreenModels;
 using Gum.Wireframe;
-using GumRuntime;
 using Microsoft.Xna.Framework;
 using RenderingLibrary;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace Game1.Extensions
 {
@@ -103,6 +101,19 @@ namespace Game1.Extensions
             if (_graphicalUiElement == null)
                 return;
 
+            var topParent = _graphicalUiElement.GetTopParent();
+
+            if (!_graphicalUiElement.GetTopParent().Visible)
+                return;
+
+            var screen = ScreenManager.Screens.FirstOrDefault(x => x.Screen.ContainedElements.Contains(topParent));
+
+            if (screen != null && !screen.Active)
+                return;
+
+            if (!_graphicalUiElement.GetTopParent().Visible)
+                return;
+
             if (!_graphicalUiElement.Visible)
                 return;
 
@@ -139,7 +150,7 @@ namespace Game1.Extensions
 
         private bool ContainsMouse()
         {
-            var pos = FlatMouse.Instance.WindowPosition;
+            var pos = FlatMouse.Instance.GumPos;
             var over = _graphicalUiElement.HasCursorOver(pos.X, pos.Y);
             return over;
         }

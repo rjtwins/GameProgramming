@@ -1,35 +1,34 @@
-﻿using Game1.GraphicalEntities;
+﻿using Game1.GameLogic;
+using Game1.GraphicalEntities;
 using Game1.Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.Pipes;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
     public abstract class Orbital : GameEntity
     {
-        //public virtual decimal CurrentTime { get; set; }
         public virtual float Distance { get; set; }
         public virtual float Eccentricity { get; set; } = 0f;
         public virtual float Period { get; set; } = 0f;
-        public double TimeSeed = 0f;// (double)new Random().NextInt64(0, long.MaxValue);
+        public double TimeSeed = (double)new Random().NextInt64(0, long.MaxValue);
         public double AngleSeed = (2 * Math.PI) / new Random().NextDouble();
 
         public double SemiMajorAxis { get; set; }
         public double AngularVelocity { get; set; }
 
+        public Atmos Atmosphere { get; set; }
+        public Dictionary<Resource, (int amount, double access)> Resources = new();
+
+
+        public SatelliteType SatelliteType { get; set; }
+
         public Vector2[] OrbitalPoints = new Vector2[0];
 
         public Orbital()
         {
-
+            Atmosphere = new();
         }
 
         public void Init()
@@ -64,7 +63,7 @@ namespace Game1.GameEntities
                 GraphicalEntity.Game.Services.GetService<Camera>().Position = (X, Y);
         }
 
-        public override void Update(decimal deltaTime)
+        public override void Update(double deltaTime)
         {
             
         }

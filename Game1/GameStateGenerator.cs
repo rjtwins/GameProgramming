@@ -15,7 +15,17 @@ namespace Game1
         public static void Generate()
         {
             var generator = new SpaceGenerator();
-            var systems = generator.Generate(500);
+            var systems = generator.Generate(250);
+
+            var faction1 = new Faction()
+            {
+                Name = "one"
+            };
+
+            var faction2 = new Faction()
+            {
+                Name = "one"
+            };
 
             systems.ForEach(s =>
             {
@@ -41,7 +51,14 @@ namespace Game1
                 Name = "Fleet 1",
             };
 
-            var ship = new Ship()
+            var fleet2 = new Fleet()
+            {
+                Name = "Fleet 2",
+                X = 1000,
+                Y = 1000
+            };
+
+            var ship = new ShipInstance()
             {
                 Name = "New Orleans",
                 ShipClass = "Heavy Cruiser",
@@ -50,7 +67,25 @@ namespace Game1
                 Crew = 200,
             };
 
-            var ship2 = new Ship()
+            var ship2 = new ShipInstance()
+            {
+                Name = "Indianapolis",
+                ShipClass = "Light Cruiser",
+                Mass = 100,
+                Fuel = 100,
+                Crew = 100,
+            };
+
+            var ship3 = new GameLogic.ShipDesign()
+            {
+                Name = "New Orleans",
+                ShipClass = "Heavy Cruiser",
+                Mass = 200,
+                Fuel = 200,
+                Crew = 200,
+            };
+
+            var ship4 = new GameLogic.ShipDesign()
             {
                 Name = "Indianapolis",
                 ShipClass = "Light Cruiser",
@@ -60,16 +95,35 @@ namespace Game1
             };
 
             fleet.Members.Add(ship);
+            fleet.Faction = faction1;
+
+            fleet2.Members.Add(ship2);
+            fleet2.Faction = faction2;
 
             GameState.GameEntities.Add(fleet);
-            ShipDesign.Instance.ActiveDesign = ship;
-            GameState.ShipDesigns.Add(ship);
-            GameState.ShipDesigns.Add(ship2);
+            GameState.GameEntities.Add(fleet2);
+
+            GameState.Factions.Add(faction1);
+            GameState.Factions.Add(faction2);
+
+            var system = systems.First();
+            fleet.X = system.X + 1000000;
+            fleet.Y = system.Y;
+
+            fleet2.X = system.X + 1000000;
+            fleet2.Y = system.Y + 1000;
+
+            fleet.SOIEntity = system;
+            fleet2.SOIEntity = system;
+            
+            ScreenModels.ShipDesign.Instance.ActiveDesign = ship3;
+            GameState.ShipDesigns.Add(ship3);
+            GameState.ShipDesigns.Add(ship4);
 
             var engine = new Engine()
             {
                 Name = "Dummy Engine",
-                Mass = 100,
+                Mass = 1000,
                 Thrust = 1000,
                 Cost1 = 1,
                 Cost2 = 2,
@@ -129,11 +183,48 @@ namespace Game1
             {
                 Name = "Dummy Sensor",
                 Mass = 100,
-                Resolution = 1080,
+                Resolution = 1,
                 Range = 99e7,
                 Cost1 = 1,
                 Cost2 = 2,
                 Cost3 = 3,
+                SensorType = SensorType.Active
+            };
+
+            var sensor2 = new Sensor()
+            {
+                Name = "Dummy Sensor2",
+                Mass = 100,
+                Resolution = 50,
+                Range = 99e4,
+                Cost1 = 1,
+                Cost2 = 2,
+                Cost3 = 3,
+                SensorType = SensorType.Optical
+            };
+
+            var sensor3 = new Sensor()
+            {
+                Name = "Dummy Sensor2",
+                Mass = 100,
+                Resolution = 50,
+                Range = 99e4,
+                Cost1 = 1,
+                Cost2 = 2,
+                Cost3 = 3,
+                SensorType = SensorType.IR
+            };
+
+            var sensor4 = new Sensor()
+            {
+                Name = "Dummy Sensor2",
+                Mass = 100,
+                Resolution = 50,
+                Range = 99e4,
+                Cost1 = 1,
+                Cost2 = 2,
+                Cost3 = 3,
+                SensorType = SensorType.EM
             };
 
             var thruster = new Thruster()
@@ -148,21 +239,40 @@ namespace Game1
 
             var turret = new Turret()
             {
-                Name = "Dummy Berths",
+                Name = "Dummy Turret",
                 Mass = 100,
                 Cost1 = 1,
                 Cost2 = 2,
                 Cost3 = 3,
             };
 
+            ship.SubSystems.Add((SubSystemBase)sensor.Clone());
+            ship.SubSystems.Add((SubSystemBase)sensor2.Clone());
+            ship.SubSystems.Add((SubSystemBase)sensor3.Clone());
+            ship.SubSystems.Add((SubSystemBase)sensor4.Clone());
+            ship2.SubSystems.Add((SubSystemBase)engine.Clone());
+
             GameState.SubSystems.Add(engine);
             GameState.SubSystems.Add(cargo);
             GameState.SubSystems.Add(armor);
             GameState.SubSystems.Add(sensor);
+            GameState.SubSystems.Add(sensor2);
+            GameState.SubSystems.Add(sensor3);
+            GameState.SubSystems.Add(sensor4);
             GameState.SubSystems.Add(crewBerths);
             GameState.SubSystems.Add(fuelTank);
             GameState.SubSystems.Add(thruster);
             GameState.SubSystems.Add(turret);
+
+            PlanetScreen.Instance.ListedPlanets = GameState.Planets;
+            PlanetScreen.Instance.ListedSystems = GameState.SolarSystems;
+
+            //Refine planets:
+
+            GameState.Planets.ForEach(planet =>
+            {
+                generator.RefinePlanet(planet);
+            });
         }
     }
 }

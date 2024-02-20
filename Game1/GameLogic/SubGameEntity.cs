@@ -15,6 +15,8 @@ namespace Game1.GameLogic
 
         public Guid Guid { get; set; }
 
+        public Faction Faction { get; set; }
+
         //Crew in men
         public virtual int CrewRequired { get; set; }
         public virtual int CrewCapacity { get; set; }

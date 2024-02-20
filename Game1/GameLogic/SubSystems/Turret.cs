@@ -27,7 +27,7 @@ namespace Game1.GameLogic.SubSystems
         {
             var reportString = base.Report();
 
-            reportString += $"....";
+            reportString += $"This is [Color=orange]orange[/Color] text.";
 
             return reportString;
         }

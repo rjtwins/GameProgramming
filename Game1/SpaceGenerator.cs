@@ -1,12 +1,10 @@
-﻿using Autofac;
-using Game1.GameEntities;
+﻿using Game1.GameEntities;
+using Game1.GameLogic;
+using MonoGame.Extended.Collections;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
 namespace Game1
 {
@@ -88,7 +86,7 @@ namespace Game1
                 Radius = GlobalStatic.REARTH,
                 Moons = GenerateMoons(nrMoons),
                 Mass = GlobalStatic.MEARTH,
-                Eccentricity = (float)Math.Clamp(Rand.NextDouble(), 0.1, 0.8)
+                Eccentricity = (float)Math.Clamp(Rand.NextDouble(), 0.01, 0.2)
             };
             planet.Moons.ForEach(x => x.Parent = planet);
             return planet;
@@ -117,6 +115,51 @@ namespace Game1
                 Mass = GlobalStatic.MLUNA,
                 Eccentricity = (float)Math.Clamp(Rand.NextDouble(), 0.1, 0.8)
             };
+        }
+
+
+        public void RefinePlanet(Planet planet)
+        {
+            bool isHZ = false;
+            isHZ = planet.Distance > 0.4f * (float)GlobalStatic.AU && planet.Distance < 5f * (float)GlobalStatic.AU;
+            isHZ = planet.Mass > 0.01 * (float)GlobalStatic.MEARTH && planet.Mass < 5 * (float)GlobalStatic.MEARTH;
+
+            //In HZ?
+            //Generate HZ planet
+            if (isHZ)
+                RefineHabitable(planet);
+            //Generate non HZ planet
+            else
+                RefineOther(planet);
+        }
+
+        public void RefineHabitable(Planet planet)
+        {
+            planet.SatelliteType = SatelliteType.Terrestrial;
+            planet.Atmosphere = new Atmos()
+            {
+                AtmosType = AtmosType.Liquid,
+                LiquidWater = 5e15f,
+                Oxygen = 0.21f,
+                Nitrogen = 0.79f                
+            };
+            planet.Resources = Enum.GetValues<Resource>().ToDictionary(x => x, x => (Rand.Next(0, int.MaxValue / 2), Rand.NextDouble()));
+        }
+
+        public void RefineOther(Planet planet)
+        {
+            var satTypes = Enum.GetValues<SatelliteType>();
+            planet.SatelliteType = satTypes[Rand.Next(satTypes.Length)];
+
+            //planet.Atmosphere = new Atmos()
+            //{
+            //    AtmosType = AtmosType.Liquid,
+            //    LiquidWater = 5e15f,
+            //    Oxygen = 0.21f,
+            //    Nitrogen = 0.79f
+            //};
+
+            planet.Resources = Enum.GetValues<Resource>().ToDictionary(x => x, x => (Rand.Next(0, int.MaxValue / 2), Rand.NextDouble()));
         }
     }
 

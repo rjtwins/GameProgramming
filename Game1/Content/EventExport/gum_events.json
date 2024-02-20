@@ -126,6 +126,748 @@
         "ElementType": "Screens",
         "EventType": 5,
         "TimestampUtc": "2024-02-15T17:30:40.252548Z"
+      },
+      {
+        "NewName": "FleetInfo",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-17T09:06:21.1243101Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).RectangleInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:06:38.3503138Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).ContainerInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:06:41.9065282Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:07:40.0402079Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).TextInstance",
+        "OldName": "FleetInfo (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:07:52.6185243Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Text_Name",
+        "OldName": "FleetInfo (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:07:59.5940588Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:08:03.0751008Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "FleetInfo (Container).Text TextInstance in FleetInfo (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-17T09:08:28.8271954Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Text_Name1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:08:34.0156324Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "FleetInfo (Container).Text Text_Name1 in FleetInfo (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-17T09:09:22.8619446Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:09:46.6315611Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Text_CivMill",
+        "OldName": "FleetInfo (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:11:18.5434152Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:11:33.2344151Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Text_Speed",
+        "OldName": "FleetInfo (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:12:00.3921458Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:12:06.1092052Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Text_Cargo",
+        "OldName": "FleetInfo (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:12:23.9763031Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:12:48.6473512Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).TextInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:12:50.8813753Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Text_Order",
+        "OldName": "FleetInfo (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:12:56.9220949Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Text_Stores",
+        "OldName": "FleetInfo (Container).TextInstance1",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:13:02.6176739Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:20:36.4154717Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Text_Fuel",
+        "OldName": "FleetInfo (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:21:25.4301613Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).ColoredRectangleInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:23:28.6392928Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).CivMill",
+        "OldName": "FleetInfo (Container).Text_CivMill",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:25:36.0754611Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Name",
+        "OldName": "FleetInfo (Container).Text_Name",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:25:41.0276915Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Speed",
+        "OldName": "FleetInfo (Container).Text_Speed",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:25:45.1078908Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Cargo",
+        "OldName": "FleetInfo (Container).Text_Cargo",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:25:50.6593306Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Order",
+        "OldName": "FleetInfo (Container).Text_Order",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:25:55.8117307Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Stores",
+        "OldName": "FleetInfo (Container).Text_Stores",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:26:02.7475842Z"
+      },
+      {
+        "NewName": "FleetInfo (Container).Fuel",
+        "OldName": "FleetInfo (Container).Text_Fuel",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:26:09.2278516Z"
+      },
+      {
+        "NewName": "TopBar (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-17T09:40:25.0355349Z"
+      },
+      {
+        "NewName": "TopBar (Container).SimRes",
+        "OldName": "TopBar (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-17T09:42:24.8904469Z"
+      },
+      {
+        "NewName": "SensorLabel",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-18T10:18:46.7086776Z"
+      },
+      {
+        "NewName": "SensorLabel (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-18T10:18:49.2571003Z"
+      },
+      {
+        "NewName": "SensorLabel (Container).Sensor",
+        "OldName": "SensorLabel (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-18T10:19:12.9285403Z"
+      },
+      {
+        "NewName": "Main.SpriteInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T14:40:57.5791296Z"
+      },
+      {
+        "NewName": "MainMenu.SpriteInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T14:41:00.990967Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Main.Sprite SpriteInstance in Main",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-19T14:41:03.6162871Z"
+      },
+      {
+        "NewName": "MainMenu.TextInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T15:22:19.1756694Z"
+      },
+      {
+        "NewName": "MainMenu.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T15:22:27.2017686Z"
+      },
+      {
+        "NewName": "MainMenu.TextInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T15:24:49.3102757Z"
+      },
+      {
+        "NewName": "MainMenu.TextInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T15:27:23.0524931Z"
+      },
+      {
+        "NewName": "MainMenu.NewGameButton",
+        "OldName": "MainMenu.TextInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-19T16:26:35.6475687Z"
+      },
+      {
+        "NewName": "MainMenu.LoadButton",
+        "OldName": "MainMenu.TextInstance1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-19T16:26:42.7379859Z"
+      },
+      {
+        "NewName": "MainMenu.ButtonContainer",
+        "OldName": "MainMenu.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-19T16:26:52.2983149Z"
+      },
+      {
+        "NewName": "MainMenu.TextInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T16:27:22.8092927Z"
+      },
+      {
+        "NewName": "MainMenu.VersionText",
+        "OldName": "MainMenu.TextInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-19T16:28:41.5342698Z"
+      },
+      {
+        "NewName": "MainMenu.Version",
+        "OldName": "MainMenu.VersionText",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-19T16:28:53.5725237Z"
+      },
+      {
+        "NewName": "Planets",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-19T20:53:37.093809Z"
+      },
+      {
+        "NewName": "Planets.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T20:57:38.8805945Z"
+      },
+      {
+        "NewName": "Planets.ContainerInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T20:57:41.2760066Z"
+      },
+      {
+        "NewName": "Planets.ContainerInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T20:57:45.6218818Z"
+      },
+      {
+        "NewName": "Planets.RectangleInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T20:59:15.1311001Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Planets.Container ContainerInstance1 in Planets",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-19T20:59:30.6791259Z"
+      },
+      {
+        "NewName": "Planets.CircleInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T21:03:29.2675121Z"
+      },
+      {
+        "NewName": "Planets.CircleInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T21:05:39.9981534Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Planets.Circle CircleInstance1 in Planets",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-19T21:06:14.630997Z"
+      },
+      {
+        "NewName": "Planets.PolygonInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T21:08:52.4995668Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Planets.Polygon PolygonInstance in Planets",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-19T21:13:08.7545769Z"
+      },
+      {
+        "NewName": "Planets.SpriteInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T21:19:26.1828172Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Planets.Circle CircleInstance in Planets",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-19T21:20:25.6731338Z"
+      },
+      {
+        "NewName": "Planets.CircleInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T21:44:59.4965527Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Planets.Circle CircleInstance in Planets",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-19T21:45:04.3248001Z"
+      },
+      {
+        "NewName": "Planets.SpriteInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T21:48:38.4481534Z"
+      },
+      {
+        "NewName": "Planets.TextInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T21:50:24.0677265Z"
+      },
+      {
+        "NewName": "Planets.PolygonInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T21:54:25.5959217Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Planets.Polygon PolygonInstance in Planets",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-19T21:55:11.7432535Z"
+      },
+      {
+        "NewName": "Planets.TextInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T22:01:12.8456082Z"
+      },
+      {
+        "NewName": "Planets.ContainerInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T22:02:46.6985353Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Planets.Container ContainerInstance1 in Planets",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-19T22:02:53.2211879Z"
+      },
+      {
+        "NewName": "Planets.TextInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-19T22:02:59.8096972Z"
+      },
+      {
+        "NewName": "Planets.PlanetName",
+        "OldName": "Planets.TextInstance2",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T07:57:53.1184234Z"
+      },
+      {
+        "NewName": "Planets.PlanetDistance",
+        "OldName": "Planets.TextInstance1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T07:58:00.9360586Z"
+      },
+      {
+        "NewName": "Planets.StickPlaceholder",
+        "OldName": "Planets.TextInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T07:58:13.3518839Z"
+      },
+      {
+        "NewName": "Planets.ColoredRectangleInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-20T08:08:02.163241Z"
+      },
+      {
+        "NewName": "Planets.RectangleInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-20T08:25:58.656588Z"
+      },
+      {
+        "NewName": "Planets.RectangleInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-20T08:26:30.2423455Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Planets.Rectangle RectangleInstance2 in Planets",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-20T08:27:38.6364828Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Planets.Container ContainerInstance in Planets",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-20T13:04:52.9079058Z"
+      },
+      {
+        "NewName": "Planets.RectangleInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-20T13:24:23.8112958Z"
+      },
+      {
+        "NewName": "Planets.Planet",
+        "OldName": "Planets.SpriteInstance1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:28:53.9038677Z"
+      },
+      {
+        "NewName": "Planets.Parent",
+        "OldName": "Planets.SpriteInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:28:59.1950624Z"
+      },
+      {
+        "NewName": "StatBlockParent",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-20T15:33:39.0025959Z"
+      },
+      {
+        "NewName": "StatBlockComponent2",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-20T15:33:50.9256196Z"
+      },
+      {
+        "NewName": "StatBlockParentCopy",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-20T15:33:56.8759578Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "StatBlockParent",
+        "ElementType": "Components",
+        "EventType": 1,
+        "TimestampUtc": "2024-02-20T15:34:01.3564735Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "StatBlockParentCopy",
+        "ElementType": "Components",
+        "EventType": 1,
+        "TimestampUtc": "2024-02-20T15:34:04.4684685Z"
+      },
+      {
+        "NewName": "StatBlockComponent2 (Container).StatBlockComponentInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-20T15:34:42.190899Z"
+      },
+      {
+        "NewName": "StatBlockComponent2 (Container).SubStatBlock",
+        "OldName": "StatBlockComponent2 (Container).BodyText",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:34:57.7322608Z"
+      },
+      {
+        "NewName": "StatBlockComponent2 (Container).SubStatBlocks",
+        "OldName": "StatBlockComponent2 (Container).SubStatBlock",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:35:04.6589815Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "StatBlockComponent2 (Container).StatBlockComponent StatBlockComponentInstance in StatBlockComponent2 (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-20T15:36:13.6778289Z"
+      },
+      {
+        "NewName": "Planets.PlanetsContainer",
+        "OldName": "Planets.RectangleInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:36:58.9268523Z"
+      },
+      {
+        "NewName": "Planets.PlanetsOutline",
+        "OldName": "Planets.PlanetsContainer",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:37:45.5439206Z"
+      },
+      {
+        "NewName": "Planets.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-20T15:37:59.8529941Z"
+      },
+      {
+        "NewName": "Planets.PlanetsScrollContainer",
+        "OldName": "Planets.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:38:26.0489626Z"
+      },
+      {
+        "NewName": "Planets.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-20T15:38:57.5838685Z"
+      },
+      {
+        "NewName": "Planets.PlanetsList",
+        "OldName": "Planets.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:39:14.7932647Z"
+      },
+      {
+        "NewName": "Planets.StartsList",
+        "OldName": "Planets.PlanetsList",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:39:25.3382458Z"
+      },
+      {
+        "NewName": "Planets.StarScrollContainer",
+        "OldName": "Planets.PlanetsScrollContainer",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:46:47.1657885Z"
+      },
+      {
+        "NewName": "Planets.SystemScrollContainer",
+        "OldName": "Planets.StarScrollContainer",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:46:53.227173Z"
+      },
+      {
+        "NewName": "Planets.SystemList",
+        "OldName": "Planets.StartsList",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T15:58:30.285958Z"
+      },
+      {
+        "NewName": "TopBar (Container).RectangleInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-20T16:21:02.9006226Z"
+      },
+      {
+        "NewName": "TopBar (Container).Botton2",
+        "OldName": "TopBar (Container).RectangleInstance1",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T16:21:10.7085128Z"
+      },
+      {
+        "NewName": "TopBar (Container).Button2",
+        "OldName": "TopBar (Container).Botton2",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-20T16:35:21.5347241Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "StatBlockComponent2 (Container).Sprite HeaderSprite in StatBlockComponent2 (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-20T16:35:34.6746831Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "StatBlockComponent (Container).Sprite HeaderSprite in StatBlockComponent (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-20T16:35:42.0809012Z"
       }
     ]
   }

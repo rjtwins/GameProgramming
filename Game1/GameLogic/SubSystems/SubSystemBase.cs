@@ -9,6 +9,16 @@ namespace Game1.GameLogic.SubSystems
     public abstract class SubSystemBase : ICloneable
     {
         public Guid Guid {  get; set; }
+        public Guid DesignGuid { get; set; }
+
+        public Faction Faction { get; set; }
+
+        public double Damage { get; set; } = 0;
+
+        public bool Disabled = false;
+
+        public bool IsOn { get; set; } = true;
+
         public virtual SubSystemType SubsystemType { get; set; }
 
         public string Name { get; set; }
@@ -18,6 +28,9 @@ namespace Game1.GameLogic.SubSystems
         public double EnergyGeneration { get; set; }
         public double EnergyStorage { get; set; }
         public double EnergyRequired { get; set; }
+
+        public double ThermalOutput { get; set; }
+        public double EMOutput { get; set; }
 
         public int CrewRequired { get; set; } = 1;
         public int CrewPriority { get; set; } = 0;
@@ -34,6 +47,7 @@ namespace Game1.GameLogic.SubSystems
         public SubSystemBase()
         {
             Guid = Guid.NewGuid();
+            DesignGuid = Guid.NewGuid();
         }
 
         public virtual string Report()

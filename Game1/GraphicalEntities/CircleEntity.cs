@@ -33,7 +33,7 @@ namespace Game1.GraphicalEntities
 
             var pos = WorldSpace ? Util.WindowPosition(Position) : new Vector2((float)Position.x, (float)Position.y);
 
-            spriteBatch.DrawCircle(pos, (float)(radius), 256, Color, ActualLineWidth);
+            spriteBatch.DrawCircle(pos, (float)(radius), 256, Color, 1f);
 
             //DrawLabel(spriteBatch);
         }
@@ -70,8 +70,10 @@ namespace Game1.GraphicalEntities
 
             if (!ShouldDrawLabel)
                 return;
-
+            
             var windowPos = WorldSpace ? Util.WindowPosition(Position) : new Vector2((float)Position.x, (float)Position.y);
+            windowPos = Util.WindowPosToGumPos(windowPos);
+
             var x = windowPos.X - GetLabelWidth().X / 2;
 
             var radius = Radius;

@@ -5,7 +5,11 @@ using Game1.Input;
 using Gum.Managers;
 using Gum.Wireframe;
 using GumRuntime;
+using Microsoft.VisualBasic;
+using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
+using Myra.Graphics2D.Brushes;
+using Myra.Graphics2D.UI;
 using RenderingLibrary;
 using System;
 using System.Collections.Generic;
@@ -21,7 +25,7 @@ namespace Game1.ScreenModels
     {
         public static ShipDesign Instance { get; private set; }
 
-        public Ship ActiveDesign
+        public GameLogic.ShipDesign ActiveDesign
         {
             get
             {
@@ -33,22 +37,7 @@ namespace Game1.ScreenModels
                 ShipChanged();
             }
         }
-        private Ship _activeDesign { get; set; }
-
-        public SubSystemBase ActiveSubSystem
-        {
-            get
-            {
-                return _activeSubSystem;
-            }
-            set
-            {
-                _activeSubSystem = value;
-                SubSystemChanged();
-            }
-        }
-        private SubSystemBase _activeSubSystem { get; set; }
-
+        private GameLogic.ShipDesign _activeDesign { get; set; }
 
         private GraphicalUiElement ShipStatsScrollView,
             ComponentsScrollView,
@@ -89,6 +78,15 @@ namespace Game1.ScreenModels
         {
             base.Show();
 
+            //var textbox = new TextBox();
+            //textbox.Top = 250;
+            //textbox.Left = 1500;
+            //textbox.Width = 200;
+            //textbox.Background = new SolidBrush(new Color(15, 15, 15) * 0);
+            //textbox.Text = "HERE";
+            //GlobalStatic.MyraPanel.Widgets.Add(textbox);
+
+
             GetShipDesigns();
             GetComponents();
             SubSystemChanged();
@@ -122,8 +120,13 @@ namespace Game1.ScreenModels
         public void GetShipDesigns()
         {
             DesignList.Children.Clear();
+            var orderedDesigns = GameState.ShipDesigns
+                .OrderByDescending(x => x.ShipClass != "-")
+                .ThenBy(x => x.ShipClass)
+                .ThenBy(x => x.Name)
+                .ThenByDescending(x => x.WettMass);
 
-            foreach (Ship design in GameState.ShipDesigns)
+            foreach (GameLogic.ShipDesign design in orderedDesigns)
             {
                 var element = ObjectFinder
                     .Self
@@ -146,6 +149,33 @@ namespace Game1.ScreenModels
 
                 element.UpdateLayout();
             }
+
+            var newButton = ObjectFinder
+                .Self
+                .GumProjectSave
+                .Components
+                .First(item => item.Name == "DesignItem")
+                .ToGraphicalUiElement(SystemManagers.Default, false);
+
+            newButton.SetProperty("DesignText", $"NEW DESIGN");
+
+            DesignList.Children.Add(newButton);
+
+            new InteractiveGUE(newButton)
+            {
+                OnClick = () =>
+                {
+                    GameLogic.ShipDesign ship = new();
+                    ship.Name = $"Design {GameState.ShipDesigns.Count + 1}";
+                    ship.ShipClass = "-";
+                    GameState.ShipDesigns.Add(ship);
+                    ActiveDesign = ship;
+                    GetShipDesigns();
+                    InteractiveGUE.UnRegister(newButton);
+                }
+            };
+
+            newButton.UpdateLayout();
 
             DesignList.UpdateLayout();
         }
@@ -171,11 +201,6 @@ namespace Game1.ScreenModels
 
                 InteractiveGUE interactiveGUE = new InteractiveGUE(element);
 
-                //interactiveGUE.OnClick = () =>
-                //{
-                //    ActiveSubSystem = subSystem;
-                //};
-
                 interactiveGUE.OnClick = () =>
                 {
                     AddSubSystemToDesign(subSystem);
@@ -189,7 +214,7 @@ namespace Game1.ScreenModels
         public void SubSystemChanged()
         {
             var addedSystems = ActiveDesign.SubSystems
-                .GroupBy(x => x.GetType())
+                .GroupBy(x => x.DesignGuid)
                 .Select(x => new
                 {
                     count = x.ToList().Count,
@@ -225,11 +250,6 @@ namespace Game1.ScreenModels
                 element.UpdateLayout();
 
                 InteractiveGUE interactiveGUE = new InteractiveGUE(element);
-
-                interactiveGUE.OnClick = () =>
-                {
-                    ActiveSubSystem = subSystem.instance;
-                };
 
                 interactiveGUE.OnRightClick = () =>
                 {
@@ -287,19 +307,9 @@ namespace Game1.ScreenModels
                 .ToList()
                 .ForEach(x =>
                 {
-                    sensorString += $"SENSOR: {x.Resolution} M3 @ {x.Range} KM\n\n";
-
-                    var t = x.GetResolutionTable();
-                    //var top =    "10KM " + string.Join("---", t.Select(x => $"{x.d.ToString("0.0E+0")}")) + "\n";
-                    var top =    "10K KM " + string.Join("---", t.Select(x => $"{(x.d / 10000).ToString("000000")}")) + "\n";
-                    var middle = "++++++ " + string.Join("|-----", t.Select(x => $"---")) + "\n";
-                    var bot =    "M3     " + string.Join("---", t.Select(x => $"{x.r.ToString("000000")}")) + "\n\n";
-
-                    sensorString += top;
-                    sensorString += middle;
-                    sensorString += bot;
+                    //sensorString += $"SENSOR: {x.Resolution} M3 @ {x.Range} KM\n\n";
+                    sensorString += x.GetRangeTable();
                 });
-
 
             Screen.SetProperty("SensorText", sensorString);
 

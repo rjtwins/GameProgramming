@@ -29,6 +29,11 @@ namespace Game1.ScreenModels
             Screen.UpdateLayout();
         }
 
+        public ScreenBase()
+        {
+            ScreenManager.Screens.Add(this);
+        }
+
         public virtual void Hide()
         {
             Active = false;
@@ -42,5 +47,10 @@ namespace Game1.ScreenModels
             Screen.Visible = true;
             this.Active = true;
         }
+    }
+
+    public static class ScreenManager
+    {
+        public static List<ScreenBase> Screens = new List<ScreenBase>();
     }
 }

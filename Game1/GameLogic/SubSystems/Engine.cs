@@ -16,6 +16,9 @@ namespace Game1.GameLogic.SubSystems
         //kg/s
         public double FuelConsumption { get; set; } = 10;
 
+        //Thermal sig, engines directly adding to thermal sig apart from their internal thermal output.
+        public double ThermalFlare { get; set; } = 10;
+
         public override string Report()
         {
             var reportString = base.Report();

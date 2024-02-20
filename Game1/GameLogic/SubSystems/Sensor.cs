@@ -46,14 +46,33 @@ namespace Game1.GameLogic.SubSystems
             string sensorString = $"SENSOR: {Resolution} M3 @ {Range} KM\n\n";
 
             var t = GetResolutionTable();
-            //var top =    "10KM " + string.Join("---", t.Select(x => $"{x.d.ToString("0.0E+0")}")) + "\n";
-            var top = "10K KM " + string.Join("---", t.Select(x => $"{(x.d / 10000).ToString("000000")}")) + "\n";
+            var top =    "10K KM " + string.Join("---", t.Select(x => $"{(x.d / 10000).ToString("000000")}")) + "\n";
             var middle = "++++++ " + string.Join("|-----", t.Select(x => $"---")) + "\n";
-            var bot = "M3     " + string.Join("---", t.Select(x => $"{x.r.ToString("000000")}")) + "\n\n";
+            var bot = "{0}" + string.Join("---", t.Select(x => $"{x.r.ToString("000000")}")) + "\n\n";
 
             sensorString += top;
             sensorString += middle;
             sensorString += bot;
+
+            switch (SensorType)
+            {
+                case SensorType.Active:
+                    break;
+                case SensorType.Optical:
+                    sensorString = $"[Color=yellow]{sensorString}[/Color]";
+                    sensorString = string.Format(sensorString, "M3     ");
+                    break;
+                case SensorType.EM:
+                    sensorString = $"[Color=cyan]{sensorString}[/Color]";
+                    sensorString = string.Format(sensorString, "KW     ");
+                    break;
+                case SensorType.IR:
+                    sensorString = $"[Color=red]{sensorString}[/Color]";
+                    sensorString = string.Format(sensorString, "KW     ");
+                    break;
+                default:
+                    break;
+            }
 
             return sensorString;
         }

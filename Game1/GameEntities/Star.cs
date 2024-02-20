@@ -25,7 +25,7 @@ namespace Game1.GameEntities
             return entity;
         }
 
-        public override void Update(decimal deltaTime)
+        public override void Update(double deltaTime)
         {
             
         }

@@ -8,9 +8,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGameGum.GueDeriving;
+using RenderingLibrary;
 using RenderingLibrary.Graphics;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Camera = Game1.Graphics.Camera;
 
 namespace Game1
 {
@@ -36,11 +39,9 @@ namespace Game1
 
             graphics.PreferredBackBufferWidth = GlobalStatic.Width;
             graphics.PreferredBackBufferHeight = GlobalStatic.Height;
-
             graphics.ApplyChanges();
 
-            Main.Instance.UpdateResolution();
-            ShipDesign.Instance.UpdateResolution();
+            ScreenManager.Screens.ForEach(x => x.UpdateResolution());
         }
 
         public static int Clamp(int value, int min, int max)
@@ -156,6 +157,12 @@ namespace Game1
             var pos = new Vector2((float)x, (float)y);
 
             return pos;
+        }
+
+        public static Vector2 WindowPosToGumPos(Vector2 windowPos)
+        {
+            var camera = SystemManagers.Default.Renderer.Camera;
+            return windowPos / camera.Zoom;
         }
 
         public static double DotProduct(double[] v1, double[] v2)
@@ -307,6 +314,69 @@ namespace Game1
                 }).MaxBy(x => x.GraphicalEntity.GetWorldDim().Length());
 
             return entity;
+        }
+
+        public static string ConvertSpeed(double speedInSeconds)
+        {
+            if (speedInSeconds < 60)
+            {
+                return $"{speedInSeconds} SEC";
+            }
+            else if (speedInSeconds < 3600) // Less than 1 hour
+            {
+                double minutes = speedInSeconds / 60;
+                return $"{minutes:F2} MIN";
+            }
+            else if (speedInSeconds < 86400)
+            {
+                double hours = speedInSeconds / 3600;
+                return $"{hours:F2} HOUR";
+            }
+            else
+            {
+                double days = speedInSeconds / 86400;
+                return $"{days:F2} DAY";
+            }
+        }
+
+        public static double FindClosestInteger(List<double> numbers, double target)
+        {
+            // Sort the list of integers
+            numbers.Sort();
+
+            // Initialize variables to keep track of closest integer
+            int left = 0;
+            int right = numbers.Count - 1;
+            double closest = 0;
+
+            // Binary search to find the closest integer
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+
+                if (numbers[mid] == target)
+                {
+                    return numbers[mid];
+                }
+                else if (numbers[mid] < target)
+                {
+                    closest = numbers[mid];
+                    left = mid + 1;
+                }
+                else
+                {
+                    closest = numbers[mid];
+                    right = mid - 1;
+                }
+            }
+
+            // Compare the closest found with the next element if it exists
+            if (left < numbers.Count && Math.Abs(target - numbers[left]) < Math.Abs(target - closest))
+            {
+                closest = numbers[left];
+            }
+
+            return closest;
         }
 
         public static void Save()

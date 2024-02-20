@@ -737,7 +737,7 @@
     <Variable>
       <Type>float</Type>
       <Name>Components.X</Name>
-      <Value xsi:type="xsd:float">10</Value>
+      <Value xsi:type="xsd:float">3</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -749,7 +749,7 @@
     <Variable>
       <Type>PositionUnitType</Type>
       <Name>Components.X Units</Name>
-      <Value xsi:type="xsd:int">0</Value>
+      <Value xsi:type="xsd:int">2</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -2113,19 +2113,19 @@
     <Variable>
       <Type>float</Type>
       <Name>ShipStats.X</Name>
-      <Value xsi:type="xsd:float">-15</Value>
+      <Value xsi:type="xsd:float">66</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>HorizontalAlignment</Type>
       <Name>ShipStats.X Origin</Name>
-      <Value xsi:type="xsd:int">2</Value>
+      <Value xsi:type="xsd:int">0</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>PositionUnitType</Type>
       <Name>ShipStats.X Units</Name>
-      <Value xsi:type="xsd:int">4</Value>
+      <Value xsi:type="xsd:int">2</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>

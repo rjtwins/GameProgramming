@@ -1,22 +1,18 @@
-﻿using Autofac.Features.Metadata;
-using Game1.GameLogic;
+﻿using Game1.GameLogic;
+using Game1.GameLogic.SubSystems;
 using Game1.GraphicalEntities;
-using Game1.Graphics;
-using Gum.DataTypes;
 using Gum.Managers;
-using Gum.Wireframe;
 using GumRuntime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using MonoGameGum.GueDeriving;
-using Newtonsoft.Json;
 using RenderingLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using static Game1.Extensions.SpriteBatchExtensions;
 using Camera = Game1.Graphics.Camera;
 
 namespace Game1.GameEntities
@@ -24,20 +20,39 @@ namespace Game1.GameEntities
     //Can have stations or ships in it.
     public class Fleet : GameEntity, ICloneable
     {
-        public GameEntity SOIEntity = null;
+        public GameEntity SOIEntity { get; set; } = null;
+        public virtual Guid SOIGuid
+        {
+            get => SOIEntity.Guid;
+            set
+            {
+
+            }
+        }
+
         public List<SubGameEntity> Members { get; set; } = new List<SubGameEntity>();
         public List<Order> Orders { get; set; } = new List<Order>();
+
         public Order CurrentOrder { get; set; }
 
         private Game Game = GlobalStatic.Game;
+        private Camera _camera;
 
-        public List<(decimal x, decimal y, int time, FleetGhost)> FleetGhosts { get; set; } = new();
+        public bool Military { get; set; } = false;
+
+        public List<(decimal x, decimal y, double time, FleetGhost)> FleetGhosts { get; set; } = new();
+        public HashSet<double> FleetGhostTimes { get; set; } = new();
+
+        //For drawing sensor circles.
+        public List<(string label, double radius, Sensor sensor)> ActiveSensors { get; set; } = new();
+        public List<(string label, double radius, Sensor sensor)> OffSensors { get; set; } = new();
+        public List<Sensor> AllSensors => Members.OfType<ShipInstance>().SelectMany(x => x.SubSystems.OfType<Sensor>()).ToList();
 
         public Vector2 Velocity { get; set; } = Vector2.Zero;
         public Vector2 Tail { get; set; } = Vector2.Zero;
 
-        public double Fuel => Members.Select(x => x.Fuel).Sum();
-        public double MaxFuel => Members.Select(x => x.MaxFuel).Sum();
+        public double Fuel => Members.Sum(x => x.Fuel);
+        public double MaxFuel => Members.Sum(x => x.MaxFuel);
 
         //public long MaxThrust => GetMaxThrust();
         public long CurrentThrust { get; set; } = 0;
@@ -63,32 +78,70 @@ namespace Game1.GameEntities
             //    return 0;
 
             return this.Members
-                .OfType<Ship>()
+                .OfType<ShipDesign>()
                 .Select(x => x.MaxThrust)
                 .Max();
         }
 
-        public override void Update(decimal deltaTime)
+        public void Animate()
         {
+            Task.Factory.StartNew(() =>
+            {
+                var id = Guid.NewGuid();
+                GameEngine.Workers[id] = false;
+
+                while (IsActiveEntity)
+                {
+                    while (!GameEngine.Synced)
+                    {
+                        Thread.Yield();
+                    }
+
+                    this.Update(GameEngine.TimeSenseLastUpdate);
+
+                    GameEngine.Workers[id] = true;
+                }
+            });
+        }
+
+        public override void Update(double deltaTime)
+        {
+            //Debug.WriteLine($"{this.Name} updating DT {deltaTime}");
+            UpdateSensor();
+
             UpdateOrders(deltaTime);
 
             UpdateMovement(deltaTime);
 
+            this.Members.OfType<ShipInstance>().ToList().ForEach(x => x.Update(deltaTime));
+
             if (GameState.Focus == this)
                 Game.Services.GetService<Camera>().Position = (X, Y);
+
+            if (GameState.SelectedEntities.Contains(this))
+                UpdateInfo();
+            else
+                _infoContainer.Visible = false;
         }
 
         public void CreateGhost()
         {
             var ghost = this.Clone() as FleetGhost;
-            FleetGhosts.Add((X, Y, (int)GameState.TotalSeconds, ghost));
+            ghost.SOIGuid = SOIGuid;
+            var time = (int)GameState.TotalSeconds;
+            FleetGhosts.Add((X, Y, time, ghost));
+            FleetGhostTimes.Add(time);
 
             //Keep record of last 120 sec;
             if (FleetGhosts.Count > 60000)
+            {
+                var toRemove = FleetGhosts[0];
                 FleetGhosts.RemoveAt(0);
+                FleetGhostTimes.Remove(toRemove.time);
+            }
         }
 
-        private void UpdateOrders(decimal deltaTime)
+        private void UpdateOrders(double deltaTime)
         {
             if (CurrentOrder == null && Orders.Count() == 0)
                 return;
@@ -117,29 +170,29 @@ namespace Game1.GameEntities
             }
         }
 
-        private void UpdateMovement(decimal timePassed)
+        private void UpdateMovement(double timePassed)
         {
             //var vx =(float)(this.GetMaxThrust() * Math.Sin(Direction));
             //var vy =(float)(this.GetMaxThrust() * Math.Cos(Direction));
 
             //this.Velocity += new Vector2(vx, vy);
 
-            this.X += (decimal)Velocity.X * timePassed;
-            this.Y += (decimal)Velocity.Y * timePassed;
+            this.X += (decimal)(Velocity.X * timePassed);
+            this.Y += (decimal)(Velocity.Y * timePassed);
 
             Tail = GameState.GameSpeed / (float)timePassed * -1 * Velocity;
         }
 
-        private void MoveToPosition(Order order, decimal deltaTime)
+        private void MoveToPosition(Order order, double deltaTime)
         {
             var pos = order.Position;
             var divx = pos.x - this.X;
             var divy = pos.y - this.Y;
-            var div = (decimal)Math.Sqrt((double)((double)divx * (double)divx + (double)divy * (double)divy));
+            var div = Math.Sqrt((double)((double)divx * (double)divx + (double)divy * (double)divy));
 
             bool orderCompleted = false;
             orderCompleted = div < 100;
-            orderCompleted = div - (decimal)GetMaxThrust() * deltaTime < 100;
+            orderCompleted = div - GetMaxThrust() * deltaTime < 100;
             //Order completed
             if (orderCompleted)
             {
@@ -182,24 +235,25 @@ namespace Game1.GameEntities
             entity.GameEntity = this;
             entity.FixedSize = true;
             this.GraphicalEntity = entity;
+            _camera = Game.Services.GetService<Camera>();
 
             return entity;
         }
 
         public void DrawTargetLine(SpriteBatch spriteBatch)
         {
+            var pos = Util.WindowPosToGumPos(Util.WindowPosition((X, Y)));
+            _infoContainer.X = pos.X;
+            _infoContainer.Y = pos.Y + 20;
+
             var color = Color.Red;
             if (!GameState.SelectedEntities.Contains(this))
             {
-                if (_container == null)
+                if (_infoContainer == null)
                     return;
 
-                _container.Visible = false;
+                _infoContainer.Visible = false;
                 color = Color.Red * 0.5f;
-            }
-            else
-            {
-                UpdateInfo();
             }
 
             if (CurrentOrder == null || (CurrentOrder?.Position.x == 0 && this.CurrentOrder?.Position.y == 0))
@@ -228,48 +282,63 @@ namespace Game1.GameEntities
             spriteBatch.DrawLine(windowPos, vector, color, 1f);
         }
 
+        public void DrawSensors(SpriteBatch spriteBatch)
+        {            
+            ActiveSensors.ForEach(x =>
+            {
+                var pos = Util.WindowPosition((X, Y));
+                spriteBatch.DrawString(GlobalStatic.MainFont, x.label, new Vector2(pos.X, pos.Y - (float)x.radius * (float)_camera.Zoom - 30), Color.White);
+                spriteBatch.DrawDashedCircle(pos, x.radius * (double)_camera.Zoom, 100, Color.Red);
+            });
+
+            OffSensors.ForEach(x =>
+            {
+                var pos = Util.WindowPosition((X, Y));
+                spriteBatch.DrawDottedCircle(pos, x.radius * (double)_camera.Zoom, 100, Color.Red);
+            });
+        }
+
         private void InitInfo()
         {
-
-            _container = new RectangleRuntime();
-            _container.Color = Color.Red * 0.5f;
-            //_container.SetProperty("Red", 255);
-            //_container.SetProperty("Green", 255);
-            //_container.SetProperty("Blue", 255);
-            //_container.SetProperty("Alpha", 150);
-
-            _container.Visible = false;
-            _container.Width = 1f;
-            _container.Height = 1f;
-            _container.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
-            _container.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
-            _container.ChildrenLayout = Gum.Managers.ChildrenLayout.TopToBottomStack;
-
-            _container.AddToManagers(SystemManagers.Default, null);
-
-            var _subContainer = new ContainerRuntime();
-            _subContainer.Width = 1f;
-            _subContainer.Height = 1f;
-            _subContainer.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
-            _subContainer.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
-            _subContainer.ChildrenLayout = Gum.Managers.ChildrenLayout.TopToBottomStack;
-
-            _container.Children.Add(_subContainer);
+            _infoContainer = ObjectFinder.Self.GumProjectSave.Components.First(x => x.Name == "FleetInfo").ToGraphicalUiElement(SystemManagers.Default, true);
+            _infoContainer.Visible = false;
         }
 
         private void UpdateInfo()
         {
-            var pos = Util.WindowPosition((X, Y));
+            var orderText = CurrentOrder?.Label ?? CurrentOrder?.OrderType.ToString();
+            _infoContainer.Visible = true;
+            _infoContainer.SetProperty("CivMillText", "");
+            _infoContainer.SetProperty("NameText", $"{Name}");
+            _infoContainer.SetProperty("SpeedText", $"{Velocity.Length()}km/s");
+            _infoContainer.SetProperty("CargoText", $"0t");
+            _infoContainer.SetProperty("FuelText", $"FUEL: {(int)(Fuel/MaxFuel * 100)}% ... todo burn time.");
+            _infoContainer.SetProperty("OrderText", $"{orderText}");
+            _infoContainer.SetProperty("StoresText", $"TODO");
+        }
 
-            _container.X = pos.X;
-            _container.Y = pos.Y + 20;
-            _container.Visible = true;
+        private void UpdateSensor()
+        {
+            //Get all unique sensor instances that are on.
+            var sensors = this.Members
+                .OfType<ShipInstance>()
+                .SelectMany(x => x.SubSystems.OfType<Sensor>().Where(x => x.IsOn).ToList())
+                .GroupBy(x => x.DesignGuid)
+                .Select(x => x.FirstOrDefault())
+                .Where(x => x != null)
+                .ToList();
 
-            var rect = _container.Children[0] as GraphicalUiElement;
-            rect.Children.Clear();
-            rect.Children.Add(Util.GetTextRuntime($"ID: {Name} ", 255, 0, 0, 200));
-            rect.Children.Add(Util.GetTextRuntime($"~{Velocity.Length()} km/s ", 255, 0, 0, 200));
-            //rect.Children.Add(Util.GetTextRuntime($"({X}, {Y}) ", 255, 0, 0, 150));
+            var sensors2 = this.Members
+                .OfType<ShipInstance>()
+                .SelectMany(x => x.SubSystems.OfType<Sensor>().Where(x => !x.IsOn).ToList())
+                .GroupBy(x => x.DesignGuid)
+                .Select(x => x.FirstOrDefault())
+                .Where(x => x != null)
+                .ToList();
+
+
+            ActiveSensors = sensors.Select(x => ($"{x.Name}:{x.Resolution}@{x.Range}", x.Range, x)).ToList();
+            OffSensors = sensors2.Select(x => ($"{x.Name}:{x.Resolution}@{x.Range}", x.Range, x)).ToList();
         }
 
         public object Clone()
@@ -282,12 +351,37 @@ namespace Game1.GameEntities
                 Velocity = Velocity
             };
 
-            clone.Members = Members.OfType<Ship>().
+            clone.Members = Members.OfType<ShipDesign>().
                 Select(x => x.Clone())
                 .OfType<SubGameEntity>()
                 .ToList();
 
             return clone;
+        }
+
+        public FleetGhost GetClosestGhost(double time)
+        {
+            lock (FleetGhosts)
+            {
+                lock (FleetGhostTimes)
+                {
+                    var fleetGhosts = FleetGhosts.ToArray();
+                    var stop = FleetGhostTimes.Count;
+                    double[] ghostTimes = new double[stop];
+                    FleetGhostTimes.CopyTo(ghostTimes, 0, stop);
+
+                    if (fleetGhosts.Length == 0 || ghostTimes.Length == 0)
+                        return null;
+
+                    if (ghostTimes.Contains(time))
+                        return fleetGhosts.First(x => x.time == time).Item4;
+
+                    time = Util.FindClosestInteger(ghostTimes.ToList(), time);
+                    var fleetGhost = fleetGhosts.FirstOrDefault(x => x.time == time);
+
+                    return fleetGhost.Item4;
+                }
+            }
         }
     }
 }

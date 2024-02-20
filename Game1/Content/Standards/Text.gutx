@@ -165,7 +165,7 @@
     <Variable>
       <Type>string</Type>
       <Name>Text</Name>
-      <Value xsi:type="xsd:string">Hello ABCDE abcde 12340</Value>
+      <Value xsi:type="xsd:string">This is [Color=orange]orange[/Color] text.</Value>
       <Category>Text</Category>
       <SetsValue>true</SetsValue>
     </Variable>

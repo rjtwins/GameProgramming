@@ -16,6 +16,7 @@ namespace Game1.GameEntities
         public SolarSystem()
         {
             Color = Color.FloralWhite;
+            GameState.SolarSystems.Add(this);
         }
 
         public override GameGraphicalEntity GenerateGraphicalEntity()
@@ -34,6 +35,12 @@ namespace Game1.GameEntities
                 return false;
 
             return true;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            GameState.SolarSystems.Remove(this);
+            base.Dispose(disposing);
         }
     }
 }

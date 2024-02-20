@@ -32,6 +32,8 @@ namespace Game1.Input
             get { return currMouseState.Position; }
         }
 
+        public Vector2 GumPos => Util.WindowPosToGumPos(WindowPosition.ToVector2());
+
         //public (double x, double y) WorldPosition()
         //{
 

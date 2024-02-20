@@ -1,18 +1,14 @@
 ﻿using Game1.GraphicalEntities;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
     public class Moon : Orbital
     {
-        public Moon() 
+        public Moon()
         {
             Color = Color.Gray;
+            GameState.Moons.Add(this);
         }
 
         public override GameGraphicalEntity GenerateGraphicalEntity()
@@ -20,6 +16,12 @@ namespace Game1.GameEntities
             var entity = base.GenerateGraphicalEntity();
             entity.MinSize = 0.1f;
             return entity;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            GameState.Moons.Remove(this);
+            base.Dispose(disposing);
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Game1.GraphicalEntities
         {
             LineWidth = 5f;
         }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             var radius = Radius;

@@ -69,6 +69,9 @@ namespace Game1.Input
 
         private (GraphicalUiElement, bool) FindActiveElement()
         {
+            if (ScrollElements.Count == 0)
+                return (null, false);
+
             return ScrollElements
                 .Where(x => x.Item1.Visible)
                 .Where(x => x.Item1.IsPointInside(FlatMouse.Instance.WindowPosition.X, FlatMouse.Instance.WindowPosition.Y))

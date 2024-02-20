@@ -3,6 +3,7 @@ using Game1.Graphics;
 using Gum.DataTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Myra.Graphics2D.UI;
 using System;
 
 namespace Game1
@@ -14,6 +15,8 @@ namespace Game1
         public static int Width { get; set; } = 0;
         public static Game Game { get; set; } = null;
         public static GumProjectSave GumProject { get; set; } = null;
+        public static Container MyraPanel { get; set; } = null;
+        public static Desktop MyraDesktop { get; set; } = null;
 
         public const decimal AU = 1.5e8M;
         public const decimal SYSTEMSIZE = AU * 100;
