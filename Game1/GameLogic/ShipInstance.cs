@@ -1,20 +1,14 @@
 ﻿using Game1.GameEntities;
 using Game1.GameLogic.SubSystems;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Game1.GameLogic
 {
     public class ShipInstance : ShipDesign
     {
         //TODO: Overwrite some of the max methods used for calc if component can be turned off and that impacts calc.
-
         public bool IsActiveEntity { get; set; }
 
         public Fleet Fleet { get; set; }

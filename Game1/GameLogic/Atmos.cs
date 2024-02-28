@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.GameLogic
 {
@@ -11,34 +8,31 @@ namespace Game1.GameLogic
     {
         public AtmosType AtmosType {  get; set; }
 
-        //Pressure in atmospheres.
-        public float Nitrogen { get; set; } = 0f;
-        public float Oxygen { get; set; } = 0f;
-        public float Argon { get; set; } = 0f;
-        public float CarbonDioxide { get; set; } = 0f;
-        public float CarbonMonoxide { get; set; } = 0f;
-        public float Helium { get; set; } = 0f;
-        public float Hydrogen { get; set; } = 0f;
-        public float Neon { get; set; } = 0f;
-        public float Methane { get; set; } = 0f;
-        public float HydrogenSulfide { get; set; } = 0f;
-        public float WaterVapor { get; set; } = 0f;
-        public float NitricAcid { get; set; } = 0f;
+        public Dictionary<Gas, float> Gases = new();
         
-        //In tons
+        //In surface coverage.
         public float LiquidWater { get; set; } = 0f;
+        public bool Frozen = false;
 
-        public float AtmosPressure => Nitrogen + 
-            Oxygen + 
-            Argon + 
-            CarbonDioxide + 
-            CarbonMonoxide + 
-            Helium + 
-            Hydrogen + 
-            Neon + 
-            Methane + 
-            HydrogenSulfide + 
-            WaterVapor + 
-            NitricAcid;
+        public float AtmosPressure => Gases.Sum(x => x.Value);
+
+        public Atmos()
+        {
+            //Setup
+            Enum.GetValues<Gas>().ToList().ForEach(x => Gases[x] = 0f);
+        }
+
+        internal string Report()
+        {
+            if (Gases.Sum(x => x.Value) == 0)
+                return string.Empty;
+
+            var gases = Gases.Where(x => x.Value > 0f).ToList();
+            string part1 = string.Join(",", gases.Select(x => x.Key.ToString()));
+            //string part2 = string.Join(",", gases.Select(x => x.Value.ToString("00.0")));
+            string part3 = AtmosPressure.ToString("000.0");
+
+            return $"{part1} - {part3}";
+        }
     }
 }

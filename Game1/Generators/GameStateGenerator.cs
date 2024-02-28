@@ -8,42 +8,61 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1
+namespace Game1.Generators
 {
     public static class GameStateGenerator
     {
         public static void Generate()
         {
+            SetupGasInfo();
+            SetupBuildingInf();
+
             var generator = new SpaceGenerator();
-            var systems = generator.Generate(250);
+            var systems = generator.Generate(1);
+            var species = new Species();
+            species.MinGrav = 0.2;
+            species.MaxGrav = 1.2;
+            species.MaxGrav = 1.5;
+            species.MinAtmos = 0.5;
 
             var faction1 = new Faction()
             {
-                Name = "one"
+                Name = "one",
+                Species = species,
             };
 
             var faction2 = new Faction()
             {
-                Name = "one"
+                Name = "two",
+                Species = species
             };
 
+
+            //TODO: Make this recursive.
             systems.ForEach(s =>
             {
-                s.Planets.ForEach(p =>
+                s.Children.ForEach(st =>
                 {
-                    GameState.GameEntities.Add(p);
-                    p.Moons.ForEach(m =>
+                    GameState.GameEntities.Add(st);
+                    st.Children.ForEach(p =>
                     {
-                        GameState.GameEntities.Add(m);
+                        GameState.GameEntities.Add(p);
+                        p.Children.ForEach(m =>
+                        {
+                            GameState.GameEntities.Add(m);
+                        });
                     });
                 });
 
-                s.Stars.ForEach(st =>
-                {
-                    GameState.GameEntities.Add(st);
-                });
-
                 GameState.GameEntities.Add(s);
+            });
+
+            GameState.GameEntities.OfType<Planet>().ToList().ForEach(x =>
+            {
+                x.Colony = new();
+                x.Colony.HostBody = x;
+                x.Colony.Faction = faction1;
+                x.Colony.Name = x.Name + " Colony";
             });
 
             var fleet = new Fleet()
@@ -115,7 +134,7 @@ namespace Game1
 
             fleet.SOIEntity = system;
             fleet2.SOIEntity = system;
-            
+
             ScreenModels.ShipDesign.Instance.ActiveDesign = ship3;
             GameState.ShipDesigns.Add(ship3);
             GameState.ShipDesigns.Add(ship4);
@@ -264,14 +283,41 @@ namespace Game1
             GameState.SubSystems.Add(thruster);
             GameState.SubSystems.Add(turret);
 
-            PlanetScreen.Instance.ListedPlanets = GameState.Planets;
-            PlanetScreen.Instance.ListedSystems = GameState.SolarSystems;
+            //PlanetScreen.Instance.ListedPlanets = GameState.Planets;
+            //PlanetScreen.Instance.ListedSystems = GameState.SolarSystems;
 
             //Refine planets:
 
             GameState.Planets.ForEach(planet =>
             {
                 generator.RefinePlanet(planet);
+            });
+
+            GameState.Planets.SelectMany(x => x.Children).OfType<Orbital>().ToList().ForEach(x => generator.RefinePlanet(x)); 
+        }
+
+        public static void SetupGasInfo()
+        {
+            Enum.GetValues<Gas>().ToList().ForEach(x =>
+            {
+                GameState.GasInfo[x] = new GasInfo()
+                {
+                    GHF = 0,
+                    AGHF = 0
+                };
+            });
+
+            GameState.GasInfo[Gas.H2Ov].AGHF = 0;
+            GameState.GasInfo[Gas.H2Ov].GHF = 16;
+            GameState.GasInfo[Gas.CO2].AGHF = 0;
+            GameState.GasInfo[Gas.CO2].GHF = 17;
+        }
+
+        public static void SetupBuildingInf()
+        {
+            Enum.GetValues<ColonyBuilding>().ToList().ForEach(x =>
+            {
+                GameState.BuildingInfo[x] = (100, 100);
             });
         }
     }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1
+namespace Game1.Extensions
 {
     public static class PositionExtensions
     {
@@ -53,7 +53,7 @@ namespace Game1
 
         public static (double x, double y) ToDoubleTuple(this Vector2 vector)
         {
-            return ((double)vector.X, (double)vector.Y);
+            return (vector.X, vector.Y);
         }
     }
 }

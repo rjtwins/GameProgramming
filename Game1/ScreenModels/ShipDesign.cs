@@ -40,12 +40,15 @@ namespace Game1.ScreenModels
         private GameLogic.ShipDesign _activeDesign { get; set; }
 
         private GraphicalUiElement ShipStatsScrollView,
+            ShipStatsList,
             ComponentsScrollView,
             ComponentList,
             DesignListContainer,
             DesignList,
             InstalledComponentsScrollView,
             InstalledComponentsList;
+
+        private ScrollView _shipStatsScrollView, _designListContainer, _componentsScrollView, _installedComponentsScrollView;
 
         public ShipDesign()
         {
@@ -54,6 +57,8 @@ namespace Game1.ScreenModels
             ShipStatsScrollView = Screen
                 .GetGraphicalUiElementByName("ShipStats.ContainerInstance2")
                 .GetGraphicalUiElementByName("ScrollView");
+
+            ShipStatsList = Screen.GetGraphicalUiElementByName("ShipStats", "ContainerInstance2", "ScrollView", "ShipStatBlock");
 
             ComponentsScrollView = Screen.GetGraphicalUiElementByName("Components", "CenterMainContainer", "CenterInfoContainer", "ComponentListOutline", "ComponentListScrollContainer");
             ComponentList = ComponentsScrollView.GetGraphicalUiElementByName("ComponentList");
@@ -65,10 +70,15 @@ namespace Game1.ScreenModels
             InstalledComponentsScrollView = Screen.GetGraphicalUiElementByName("Installed", "InstalledComponentsScrollView");
             InstalledComponentsList = Screen.GetGraphicalUiElementByName("Installed", "InstalledComponentsScrollView", "InstalledComponentsList");
 
-            UIScrollEventHandler.Instance.ScrollElements.Add((ShipStatsScrollView, false));
-            UIScrollEventHandler.Instance.ScrollElements.Add((ComponentsScrollView, false));
-            UIScrollEventHandler.Instance.ScrollElements.Add((DesignListContainer, true));
-            UIScrollEventHandler.Instance.ScrollElements.Add((InstalledComponentsScrollView, false));
+            //_shipStatsScrollView = new(ShipStatsScrollView, InstalledComponentsList);
+            //_componentsScrollView = new(ComponentsScrollView, ComponentList);
+            //_designListContainer = new(DesignListContainer, DesignList, true);
+            //_installedComponentsScrollView = new(ShipStatsScrollView, ShipStatsList);
+
+            //UIScrollEventHandler.Instance.ScrollViews.Add(_shipStatsScrollView);
+            //UIScrollEventHandler.Instance.ScrollViews.Add(_componentsScrollView);
+            //UIScrollEventHandler.Instance.ScrollViews.Add(_designListContainer);
+            //UIScrollEventHandler.Instance.ScrollViews.Add(_installedComponentsScrollView);
 
             Screen.UpdateLayout();
             Screen.RemoveFromManagers();
@@ -206,6 +216,8 @@ namespace Game1.ScreenModels
                     AddSubSystemToDesign(subSystem);
                     SubSystemChanged();
                 };
+
+                element.Tag = _componentsScrollView;
             }
 
             ComponentList.UpdateLayout();

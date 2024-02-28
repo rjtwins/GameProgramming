@@ -14,11 +14,20 @@ namespace Game1.Extensions
     {
         public static bool Contains(this GraphicalUiElement element, Vector2 point)
         {
-            return 
+            return
                 point.X > element.GetAbsoluteLeft() &&
                 point.X < element.GetAbsoluteRight() &&
                 point.Y > element.GetAbsoluteTop() &&
                 point.Y < element.GetAbsoluteBottom();
+        }
+
+        public static bool IsInside(this GraphicalUiElement child, GraphicalUiElement master)
+        {
+            return
+                master.GetAbsoluteTop() <= child.GetAbsoluteTop() &&
+                master.GetAbsoluteLeft() <= child.GetAbsoluteLeft() &&
+                master.GetAbsoluteRight() >= child.GetAbsoluteRight() &&
+                master.GetAbsoluteBottom() >= child.GetAbsoluteBottom();
         }
 
         //public static void OnClick(this GraphicalUiElement element, Action action)
@@ -52,11 +61,11 @@ namespace Game1.Extensions
         public Action OnRightDoubleClick;
         public Action OnMiddleClick;
 
-        GraphicalUiElement _graphicalUiElement;
+        public GraphicalUiElement GraphicalUiElement;
 
         public InteractiveGUE(GraphicalUiElement graphicalUiElement)
         {
-            _graphicalUiElement = graphicalUiElement;
+            GraphicalUiElement = graphicalUiElement;
             Registered.Add(this);
         }
 
@@ -67,91 +76,80 @@ namespace Game1.Extensions
 
         public static void UnRegister(GraphicalUiElement graphicalUiElement)
         {
-            Registered.RemoveAll(x => x._graphicalUiElement == graphicalUiElement);
+            Registered.RemoveAll(x => x.GraphicalUiElement == graphicalUiElement);
         }
 
         public static void Update()
         {
-            var collection = Registered.ToArray();
-            for (int i = 0; i < collection.Length; i++)
-            {
-                collection[i].UpdateMember();
-            }
+            var clicked =
+                FlatMouse.Instance.IsLeftButtonClicked() ||
+                FlatMouse.Instance.IsLeftButtonDoubleCLicked() ||
+                FlatMouse.Instance.IsRightButtonClicked() ||
+                FlatMouse.Instance.IsRightButtonDoubleCLicked() ||
+                FlatMouse.Instance.IsMiddleButtonClicked();
+
+            if (!clicked)
+                return;
+
+            var collection = Registered.ToArray();            
+
+            if (FlatMouse.Instance.IsLeftButtonClicked())
+                collection.Where(x => x.OnClick != null).Where(x => x.IsClickable()).Where(x => x.ContainsMouse()).ToList().ForEach(x => x.OnClick());
+
+            if (FlatMouse.Instance.IsLeftButtonDoubleCLicked())
+                collection.Where(x => x.OnDoubleClick != null).Where(x => x.IsClickable()).Where(x => x.ContainsMouse()).ToList().ForEach(x => x.OnDoubleClick());
+
+            if (FlatMouse.Instance.IsRightButtonClicked())
+                collection.Where(x => x.OnRightClick != null).Where(x => x.IsClickable()).Where(x => x.ContainsMouse()).ToList().ForEach(x => x.OnRightClick());
+
+            if (FlatMouse.Instance.IsRightButtonDoubleCLicked())
+                collection.Where(x => x.OnRightDoubleClick != null).Where(x => x.IsClickable()).Where(x => x.ContainsMouse()).ToList().ForEach(x => x.OnRightDoubleClick());
+
+            if (FlatMouse.Instance.IsMiddleButtonClicked())
+                collection.Where(x => x.OnMiddleClick != null).Where(x => x.IsClickable()).Where(x => x.ContainsMouse()).ToList().ForEach(x => x.OnMiddleClick());
         }
 
         public void UnRegister()
         {
             Registered.Remove(this);
-            this._graphicalUiElement = null;
+            this.GraphicalUiElement = null;
         }
 
-        public void UpdateMember()
+        private bool IsClickable()
         {
-            HandleClicks();
-        }
+            if (GraphicalUiElement == null)
+                return false;
 
-        //TODO: Handle Scroll event here
-        private void HandleScroll()
-        {
+            if (!GraphicalUiElement.Visible)
+                return false;
 
-        }
+            var topParent = GraphicalUiElement.GetTopParent();
 
-        private void HandleClicks()
-        {
-            if (_graphicalUiElement == null)
-                return;
-
-            var topParent = _graphicalUiElement.GetTopParent();
-
-            if (!_graphicalUiElement.GetTopParent().Visible)
-                return;
+            if (!topParent.Visible)
+                return false;
 
             var screen = ScreenManager.Screens.FirstOrDefault(x => x.Screen.ContainedElements.Contains(topParent));
 
             if (screen != null && !screen.Active)
-                return;
+                return false;
 
-            if (!_graphicalUiElement.GetTopParent().Visible)
-                return;
+            if(GraphicalUiElement.Tag is ScrollView scrollView)
+                if (!GraphicalUiElement.IsInside(scrollView.Container))
+                    return false;
 
-            if (!_graphicalUiElement.Visible)
-                return;
-
-            if (OnDoubleClick != null && FlatMouse.Instance.IsLeftButtonDoubleCLicked() && ContainsMouse())
-            {
-                OnDoubleClick?.Invoke();
-                return;
-            }
-
-            if (OnRightDoubleClick != null && FlatMouse.Instance.IsRightButtonDoubleCLicked() && ContainsMouse())
-            {
-                OnDoubleClick?.Invoke();
-                return;
-            }
-
-            if (OnClick != null && FlatMouse.Instance.IsLeftButtonClicked() && ContainsMouse())
-            {
-                OnClick?.Invoke();
-                return;
-            }
-
-            if (OnRightClick != null && FlatMouse.Instance.IsRightButtonClicked() && ContainsMouse())
-            {
-                OnRightClick?.Invoke();
-                return;
-            }
-
-            if (OnMiddleClick != null && FlatMouse.Instance.IsMiddleButtonClicked() && ContainsMouse())
-            {
-                OnRightClick?.Invoke();
-                return;
-            }
+            return true;
         }
 
         private bool ContainsMouse()
         {
             var pos = FlatMouse.Instance.GumPos;
-            var over = _graphicalUiElement.HasCursorOver(pos.X, pos.Y);
+            //var over = 
+            //    GraphicalUiElement.GetAbsoluteBottom() > pos.Y && 
+            //    GraphicalUiElement.GetAbsoluteLeft() < pos.X &&
+            //    GraphicalUiElement.GetAbsoluteRight() > pos.X &&
+            //    GraphicalUiElement.GetAbsoluteTop() < pos.Y;
+            
+            var over = GraphicalUiElement.HasCursorOver(pos.X, pos.Y);
             return over;
         }
 

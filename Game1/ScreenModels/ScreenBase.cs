@@ -34,6 +34,11 @@ namespace Game1.ScreenModels
             ScreenManager.Screens.Add(this);
         }
 
+        public virtual void Update(double deltaTime)
+        {
+
+        }
+
         public virtual void Hide()
         {
             Active = false;
@@ -52,5 +57,21 @@ namespace Game1.ScreenModels
     public static class ScreenManager
     {
         public static List<ScreenBase> Screens = new List<ScreenBase>();
+
+        public static void HideAll()
+        {
+            Screens.ForEach(x => x.Hide());
+        }
+
+        public static void Show(ScreenBase screen)
+        {
+            HideAll();
+            screen.Show();
+        }
+
+        public static ScreenBase GetContainingThis(GraphicalUiElement element)
+        {
+            return Screens.FirstOrDefault(x => x.Screen.ContainedElements.Contains(element));
+        }
     }
 }

@@ -293,61 +293,61 @@
     </Variable>
     <Variable>
       <Type>float</Type>
-      <Name>TextInstance2.Height</Name>
+      <Name>TitleText.Height</Name>
       <Value xsi:type="xsd:float">0</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>DimensionUnitType</Type>
-      <Name>TextInstance2.Height Units</Name>
+      <Name>TitleText.Height Units</Name>
       <Value xsi:type="xsd:int">8</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>HorizontalAlignment</Type>
-      <Name>TextInstance2.HorizontalAlignment</Name>
+      <Name>TitleText.HorizontalAlignment</Name>
       <Value xsi:type="xsd:int">1</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>string</Type>
-      <Name>TextInstance2.Text</Name>
+      <Name>TitleText.Text</Name>
       <Value xsi:type="xsd:string">TOTALLY REALISTIC SPACE EMPIRE MANAGER</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>TextOverflowVerticalMode</Type>
-      <Name>TextInstance2.TextOverflowVerticalMode</Name>
+      <Name>TitleText.TextOverflowVerticalMode</Name>
       <Value xsi:type="xsd:int">0</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>VerticalAlignment</Type>
-      <Name>TextInstance2.VerticalAlignment</Name>
+      <Name>TitleText.VerticalAlignment</Name>
       <Value xsi:type="xsd:int">1</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>float</Type>
-      <Name>TextInstance2.Width</Name>
+      <Name>TitleText.Width</Name>
       <Value xsi:type="xsd:float">0</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>DimensionUnitType</Type>
-      <Name>TextInstance2.Width Units</Name>
+      <Name>TitleText.Width Units</Name>
       <Value xsi:type="xsd:int">8</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>float</Type>
-      <Name>TextInstance2.X</Name>
+      <Name>TitleText.X</Name>
       <Value xsi:type="xsd:float">10</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>float</Type>
-      <Name>TextInstance2.Y</Name>
+      <Name>TitleText.Y</Name>
       <Value xsi:type="xsd:float">10</Value>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -459,7 +459,7 @@
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Instance>
-    <Name>TextInstance2</Name>
+    <Name>TitleText</Name>
     <BaseType>Text</BaseType>
     <DefinedByBase>false</DefinedByBase>
   </Instance>

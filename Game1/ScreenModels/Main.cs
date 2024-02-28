@@ -11,7 +11,7 @@ namespace Game1.ScreenModels
     public class Main : ScreenBase
     {
         public static Main Instance { get; private set; }
-        public GraphicalUiElement Speed, Year, Day, Time, TopBar, ShipDesignButton, SystemListButton;
+        public GraphicalUiElement Speed, Year, Day, Time, TopBar, ShipDesignButton, SystemListButton, ColonyManagerButton;
 
         public Main()
         {
@@ -25,20 +25,19 @@ namespace Game1.ScreenModels
             Time = gameDateContainer.GetGraphicalUiElementByName("Time");
             ShipDesignButton = TopBar.GetGraphicalUiElementByName("ContainerInstance.Button1");
             SystemListButton = TopBar.GetGraphicalUiElementByName("ContainerInstance.Button2");
-
+            ColonyManagerButton = TopBar.GetGraphicalUiElementByName("ContainerInstance.Button3");
 
             new InteractiveGUE(ShipDesignButton).OnClick = () =>
             {
-                if (Main.Instance.Active)
+                if (ShipDesign.Instance.Active)
                 {
-                    Main.Instance.Hide();
-                    ShipDesign.Instance.Show();
-                }
-                else
-                {
+                    ScreenManager.Screens.ForEach(x => x.Hide());
                     Main.Instance.Show();
-                    ShipDesign.Instance.Hide();
+                    return;
                 }
+
+                ScreenManager.Screens.ForEach(x => x.Hide());
+                ShipDesign.Instance.Show();
             };
 
             new InteractiveGUE(SystemListButton).OnClick = () =>
@@ -55,11 +54,24 @@ namespace Game1.ScreenModels
 
             };
 
+            new InteractiveGUE(ColonyManagerButton).OnClick = () =>
+            {
+                if (ColonyManager.Instance.Active)
+                {
+                    ScreenManager.Screens.ForEach(x => x.Hide());
+                    Main.Instance.Show();
+                    return;
+                }
+
+                ScreenManager.Screens.ForEach(x => x.Hide());
+                ColonyManager.Instance.Show();
+
+            };
             Instance = this;
             Main.Instance.Active = true;
         }
 
-        public void Update()
+        public override void Update(double deltaTime)
         {
             var dateSpan = TimeSpan.FromSeconds(GameState.TotalSeconds);
             var speedSpan = TimeSpan.FromSeconds(GameState.GameSpeed);

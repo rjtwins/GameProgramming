@@ -21,7 +21,7 @@ namespace Game1
     {
         public static void ToggleFullScreen(GraphicsDeviceManager graphics)
         {
-            graphics.HardwareModeSwitch = false;
+            //graphics.HardwareModeSwitch = false;
             graphics.ToggleFullScreen();
 
             DisplayMode dm = graphics.GraphicsDevice.DisplayMode;
@@ -215,8 +215,6 @@ namespace Game1
 
             return runtime;
         }
-
-        public const double G = 6.67430e-11; // Gravitational constant in m^3/kg/s^2
         
         //This works WAY to well i have to say. (only if ships have enough thrust!!
         public static ((decimal x, decimal y) pos, double time) AproxIntercept(Fleet f, Orbital o)
@@ -382,6 +380,23 @@ namespace Game1
         public static void Save()
         {
 
+        }
+
+        public static string GetLetter(int n)
+        {
+            string result = "";
+            while (n > 0)
+            {
+                int remainder = (n - 1) % 26;
+                result = (char)(65 + remainder) + result; // A is 65 in ASCII
+                n = (n - 1) / 26;
+            }
+            return result;
+        }
+
+        public static double GetBaseSurfaceTemp(double starSurfaceTemp, double starRadius, double distanceToStar)
+        {
+            return starSurfaceTemp * Math.Sqrt(starRadius / (2 * distanceToStar));
         }
     }
 }

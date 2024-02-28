@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace Game1.GameEntities
 {
-    public class Star : GameEntity
+    public class Star : Orbital
     {
-        public List<Orbital> stars = new();
         public Star()
         {
             Color = Color.Yellow;

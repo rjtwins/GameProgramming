@@ -83,27 +83,6 @@ namespace Game1.GameEntities
                 .Max();
         }
 
-        public void Animate()
-        {
-            Task.Factory.StartNew(() =>
-            {
-                var id = Guid.NewGuid();
-                GameEngine.Workers[id] = false;
-
-                while (IsActiveEntity)
-                {
-                    while (!GameEngine.Synced)
-                    {
-                        Thread.Yield();
-                    }
-
-                    this.Update(GameEngine.TimeSenseLastUpdate);
-
-                    GameEngine.Workers[id] = true;
-                }
-            });
-        }
-
         public override void Update(double deltaTime)
         {
             //Debug.WriteLine($"{this.Name} updating DT {deltaTime}");
@@ -374,7 +353,7 @@ namespace Game1.GameEntities
                         return null;
 
                     if (ghostTimes.Contains(time))
-                        return fleetGhosts.First(x => x.time == time).Item4;
+                        return fleetGhosts.FirstOrDefault(x => x.time == time).Item4;
 
                     time = Util.FindClosestInteger(ghostTimes.ToList(), time);
                     var fleetGhost = fleetGhosts.FirstOrDefault(x => x.time == time);

@@ -4,27 +4,28 @@ using Game1.Graphics;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Game1.GameEntities
 {
     public abstract class Orbital : GameEntity
     {
-        public virtual float Distance { get; set; }
+        public virtual float Distance { get; set; } = 0f;
         public virtual float Eccentricity { get; set; } = 0f;
         public virtual float Period { get; set; } = 0f;
+        public virtual double BaseSurfaceTemp { get; set; } = 0f;
+        public BodyCoreType CoreType { get; set; } = BodyCoreType.Inactive;
+
         public double TimeSeed = (double)new Random().NextInt64(0, long.MaxValue);
         public double AngleSeed = (2 * Math.PI) / new Random().NextDouble();
 
         public double SemiMajorAxis { get; set; }
         public double AngularVelocity { get; set; }
-
         public Atmos Atmosphere { get; set; }
-        public Dictionary<Resource, (int amount, double access)> Resources = new();
-
-
-        public SatelliteType SatelliteType { get; set; }
-
-        public Vector2[] OrbitalPoints = new Vector2[0];
+        public Dictionary<Resource, (int amount, double access)> Resources { get; set; } = new();
+        public BodyType SatelliteType { get; set; }
+        public Vector2[] OrbitalPoints { get; set; } = new Vector2[0];
+        public Colony Colony { get; set; }
 
         public Orbital()
         {
@@ -33,10 +34,13 @@ namespace Game1.GameEntities
 
         public void Init()
         {
+            if (Parent == null)
+                return;
+
             SemiMajorAxis = (Distance * 1000) / (1 + Eccentricity);
 
             // Calculate the gravitational parameter (μ)
-            double mu = Util.G * (Mass + Parent.Mass);
+            double mu = GlobalStatic.G * (Mass + Parent.Mass);
 
             // Calculate the period of the orbit
             Period = (float)(2 * Math.PI * Math.Sqrt(Math.Pow(SemiMajorAxis, 3d) / mu));
@@ -48,6 +52,9 @@ namespace Game1.GameEntities
 
         public void CalcPos()
         {
+            if (this is Star)
+                return;
+
             SolarSystem system = GetParentSystem();
             if (!system.GraphicalEntity.InView())
             {
@@ -92,7 +99,7 @@ namespace Game1.GameEntities
         {
             GameEntity current = this;
             while (!(current is SolarSystem) && current != null)
-                current = current.Parent as GameEntity;
+                current = current.Parent;
 
             if(current is SolarSystem solarSystem)
                 return solarSystem;
@@ -100,25 +107,12 @@ namespace Game1.GameEntities
             return null;
         }
 
-        //public (double x, double y) LocalCoordinatesAtTime(double time)
-        //{
-        //    // Calculate the current angle
-        //    double currentAngle = AngularVelocity * time;
-        //    currentAngle %= 2 * Math.PI;
-
-        //    double r = SemiMajorAxis * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * Math.Cos(currentAngle));
-        //    // Calculate the x and y coordinates of object A
-        //    //double x = r * Math.Cos(currentAngle);
-        //    //double y = r * Math.Sin(currentAngle);
-
-        //    double x = r * Math.Cos(currentAngle + AngleSeed); // Offset by AngleSeed degrees to shift the orbit
-        //    double y = r * Math.Sin(currentAngle + AngleSeed); // Offset by AngleSeed degrees to shift the orbit
-
-        //    return (x / 1000, y / 1000);
-        //}
-
         public (double x, double y) LocalCoordinatesAtTime(double time)
         {
+            //Placeholder
+            if (this is Star)
+                return (0, 0);
+
             // Calculate the current angle using the initial angle and angular velocity
             double currentAngle = AngularVelocity * time;
             currentAngle %= 2 * Math.PI;
@@ -166,8 +160,63 @@ namespace Game1.GameEntities
                 double time = i * timeIncrement;
                 (double x, double y) = LocalCoordinatesAtTime(time);
                 OrbitalPoints[i] = new Vector2((float)x, (float)y);
-            }           
-            
+            }            
+        }
+
+        //TODO: Reflection based.
+        public double GetActualTemp()
+        {
+            if (this.SatelliteType != BodyType.Terrestrial)
+                return this.BaseSurfaceTemp;
+
+            if (this.Atmosphere.AtmosPressure <= 0.1)
+                return this.BaseSurfaceTemp;
+
+            var addedTemp = this.Atmosphere.Gases.ToList().Select(x =>
+            {
+                var GHF = GameState.GasInfo[x.Key].GHF * x.Value;
+                var AGH = GameState.GasInfo[x.Key].AGHF * x.Value;
+                var temp = (BaseSurfaceTemp - 273.15) * GHF - BaseSurfaceTemp * AGH;
+
+                return temp;
+            }).Sum();
+
+            return BaseSurfaceTemp + addedTemp;
+        }
+
+        public double GetAverageTemp()
+        {
+            return GetActualTemp() -273.15;
+        }
+
+        public bool BadAtmosCheck(Species species)
+        {
+            return true;
+        }
+
+        public bool NeedHab(Species species)
+        {
+            return PressureCheck(species) && BreathableCheck(species);
+        }
+
+        public bool BreathableCheck(Species species)
+        {
+            return false;
+        }
+
+        public bool GravCheck(Species species)
+        {
+            return SurfaceGravity > species.MinGrav || SurfaceGravity < species.MaxGrav; 
+        }
+
+        public bool PressureCheck(Species species)
+        {
+            if(Atmosphere.AtmosPressure > species.MaxAtmos)
+                return false;
+            if (Atmosphere.AtmosPressure < species.MinAtmos)
+                return false;
+
+            return true;
         }
     }
 }

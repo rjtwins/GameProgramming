@@ -1,82 +1,113 @@
-﻿using Gum.Wireframe;
-using RenderingLibrary;
-using System.Collections.Generic;
-using System.Linq;
+﻿//using Game1.Extensions;
+//using Game1.ScreenModels;
+//using Gum.Wireframe;
+//using RenderingLibrary;
+//using System.Collections.Generic;
+//using System.Linq;
 
-namespace Game1.Input
-{
-    public class UIScrollEventHandler
-    {
-        public static UIScrollEventHandler Instance { get; private set; }
+//namespace Game1.Input
+//{
+//    public class UIScrollEventHandler
+//    {
+//        public static UIScrollEventHandler Instance { get; private set; }
 
-        public List<(GraphicalUiElement, bool horizontal)> ScrollElements = new();
+//        public GraphicalUiElement ElementsInScrollView { get; set; }
 
-        public UIScrollEventHandler()
-        {
-            Instance = this;
-        }
+//        public List<ScrollView> ScrollViews = new();
 
-        public void Update()
-        {
-            int div = 0;
-            if (FlatMouse.Instance.ScrolledUp())
-            {
-                div += 25;
-            }
+//        public UIScrollEventHandler()
+//        {
+//            Instance = this;
+//        }
 
-            if(FlatMouse.Instance.ScrolledDown())
-            {
-                div -= 25;
-            }
+//        public void Update()
+//        {
+//            int div = 0;
+//            if (FlatMouse.Instance.ScrolledUp())
+//            {
+//                div += 25;
+//            }
 
-            if (div == 00)
-                return;
+//            if(FlatMouse.Instance.ScrolledDown())
+//            {
+//                div -= 25;
+//            }
 
-            var element = FindActiveElement();
+//            if (div == 00)
+//                return;
 
-            if (element.Item1 == null)
-                return;
+//            var scrollView = FindActiveElement();
 
-            if (element.Item1?.Children.Count() == 0)
-                return;
+//            if (scrollView == null)
+//                return;
 
-            if (!(element.Item1.Children.FirstOrDefault() is GraphicalUiElement))
-                return;
+//            if (scrollView.InternalList?.Children.Count() == 0)
+//                return;
 
-            var child = (element.Item1.Children.First() as GraphicalUiElement);
+//            if(FlatKeyboard.Instance.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+//            {
+//                div *= 5;
+//            }
 
-            if (element.Item2)
-            {
-                //if (child.GetAbsoluteRight() < element.Item1.GetAbsoluteRight() && div < 0)
-                //    return;
+//            if (scrollView.Horizontal)
+//            {
+//                //if (child.GetAbsoluteRight() < element.Item1.GetAbsoluteRight() && div < 0)
+//                //    return;
 
-                child.X += (div * 2);
+//                scrollView.InternalList.X += (div * 2);
 
-                //if (child.GetAbsoluteLeft() - 20 >= element.Item1.GetAbsoluteLeft())
-                //    child.X -= div;
-            }
-            else
-            {
-                if (child.GetAbsoluteBottom() < element.Item1.GetAbsoluteBottom() && div < 0)
-                    return;
+//                //if (child.GetAbsoluteLeft() - 20 >= element.Item1.GetAbsoluteLeft())
+//                //    child.X -= div;
+//            }
+//            else
+//            {
+//                if (scrollView.InternalList.GetAbsoluteBottom() < scrollView.Container.GetAbsoluteBottom() && div < 0)
+//                    return;
 
-                child.Y += div;
+//                scrollView.InternalList.Y += div;
 
-                if (child.GetAbsoluteTop() - 20 >= element.Item1.GetAbsoluteTop())
-                    child.Y -= div;
-            }
-        }
+//                if (scrollView.InternalList.GetAbsoluteTop() - 20 >= scrollView.Container.GetAbsoluteTop())
+//                    scrollView.InternalList.Y -= div;
+//            }
 
-        private (GraphicalUiElement, bool) FindActiveElement()
-        {
-            if (ScrollElements.Count == 0)
-                return (null, false);
+//            //if (scrollView.InternalList.Children.Count == 0)
+//            //    return;
 
-            return ScrollElements
-                .Where(x => x.Item1.Visible)
-                .Where(x => x.Item1.IsPointInside(FlatMouse.Instance.WindowPosition.X, FlatMouse.Instance.WindowPosition.Y))
-                .OrderBy(x => x.Item1.Z)
-                .FirstOrDefault();
-        }
-    }
-}
+//            //var scrollContainer = element.Item1;
+//            //var parentTop = scrollContainer.GetAbsoluteTop();
+//            //var parentBottom = scrollContainer.GetAbsoluteBottom();
+
+//            //child.Children
+//            //    .OfType<GraphicalUiElement>()
+//            //    .ToList()
+//            //    .ForEach(x =>
+//            //    {
+//            //        var childTop = x.GetAbsoluteTop();
+//            //        var childBottom = x.GetAbsoluteBottom();
+
+//            //        if (childBottom < parentTop)
+//            //            x.Z = -1;
+//            //        else if (childTop > parentBottom)
+//            //            x.Z = -1;
+
+//            //        x.Z = 1;
+//            //    });
+//        }
+
+//        private ScrollView FindActiveElement()
+//        {
+//            if (ScrollViews.Count == 0)
+//                return null;
+
+//            var mousePos = Util.WindowPosToGumPos(FlatMouse.Instance.WindowPosition.ToVector2());
+            
+//            return ScrollViews
+//                .Where(x => x.Container.Visible)
+//                .Where(x => x.Container.GetTopParent().Visible)
+//                .Where(x => ScreenManager.Screens.FirstOrDefault(y => y.Screen.ContainedElements.Contains(x.Container.GetTopParent()))?.Active ?? true)
+//                .Where(x => x.Container.IsPointInside(mousePos.X, mousePos.Y))
+//                .OrderBy(x => x.Container.Z)
+//                .FirstOrDefault();
+//        }
+//    }
+//}

@@ -10,7 +10,6 @@ namespace Game1.GameEntities
 {
     public class Planet : Orbital
     {
-        public List<Moon> Moons = new();
         public Planet() 
         {
             Color = Color.Blue;

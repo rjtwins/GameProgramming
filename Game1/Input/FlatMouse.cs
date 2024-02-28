@@ -218,5 +218,10 @@ namespace Game1.Input
 
             return true;
         }
+
+        public bool AnyButtonClicked()
+        {
+            return IsLeftButtonClicked() || IsRightButtonClicked() || IsMiddleButtonClicked() || IsLeftButtonDoubleCLicked() || IsRightButtonDoubleCLicked();
+        }
     }
 }

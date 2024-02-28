@@ -43,6 +43,9 @@ namespace Game1.GraphicalEntities
         {
             get
             {
+                if(GameEntity is Star)
+                    return InView();
+
                 if (GameEntity is Orbital)
                     return _isInView;
 

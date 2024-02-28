@@ -11,8 +11,6 @@ namespace Game1.GameEntities
 {
     public class SolarSystem : GameEntity
     {
-        public List<Planet> Planets { get; set; } = new();
-        public List<Star> Stars { get; set; } = new();
         public SolarSystem()
         {
             Color = Color.FloralWhite;

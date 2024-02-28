@@ -21,6 +21,7 @@ namespace Game1
 
         public static void Start()
         {
+            //for setting this vis/invis on map
             ThreadPool.QueueUserWorkItem((state) =>
             {
                 GameState.GameEntities.Where(x => x is Orbital).Cast<Orbital>().ToList().ForEach(x => x.Init());
@@ -34,7 +35,7 @@ namespace Game1
                         Thread.Yield();
                     }
 
-                    var orbitals = GameState.GameEntities.Where(x => x is Orbital).Cast<Orbital>().ToList();
+                    var orbitals = GameState.GameEntities.Where(x => x is Orbital).Where(x => !(x is Star)).Cast<Orbital>().ToList();
                     orbitals.ForEach(x =>
                     {
                         x.CalcPos();
@@ -45,7 +46,9 @@ namespace Game1
             });
 
             GameState.GameEntities.OfType<Fleet>().ToList().ForEach(x => x.Animate());
+            GameState.GameEntities.OfType<Planet>().Select(x => x.Colony).Where(x => x != null).ToList().ForEach(x => x.Animate());
 
+            //Keeping track of fleet ghosts.
             ThreadPool.QueueUserWorkItem((state) =>
             {
                 while (true)
@@ -65,6 +68,7 @@ namespace Game1
                 }
             });
 
+            //Detection updates
             ThreadPool.QueueUserWorkItem((state) =>
             {
                 while (true)
@@ -80,6 +84,7 @@ namespace Game1
                 }
             });
 
+            //Synced animated entities loop:
             ThreadPool.QueueUserWorkItem((state) =>
             {
                 while (true)
@@ -93,15 +98,15 @@ namespace Game1
         {
             var time = GameState.TotalSeconds;
 
-            while (Workers.Values.Any(x => x == false) || (GameState.TotalSeconds - time) < 1)
+            while (Workers.Count != 0 && (
+                Workers.Values.Any(x => x == false) || 
+                (GameState.TotalSeconds - time) < 1))
             {
                 Synced = false;
                 Thread.Yield();
             }
 
             TimeSenseLastUpdate = GameState.TotalSeconds - time;
-
-
 
             Synced = true;
         }

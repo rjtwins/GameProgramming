@@ -1,22 +1,34 @@
 ﻿using Game1.GameEntities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.GameLogic
 {
+    public enum Gas
+    {
+        N2,
+        O2,
+        Ar,
+        CO2,
+        CO,
+        He,
+        H,
+        Ne,
+        CH4,
+        H2S,
+        H2Ov,
+        NHO3,
+        GHG,
+        AGG
+    }
+    
     //For easy checks after calc
     public enum AtmosType
     {
         None,
-        TraceGas,
-        Gas,
-        Liquid,
-        HighPressure
+        Trace,
+        Normal,
+        HighPressure,
     }
-
 
     public enum Resource
     {
@@ -28,13 +40,27 @@ namespace Game1.GameLogic
         RareMetals
     }
 
-    public enum SatelliteType
+    public enum BodySubType
+    {
+        Frozen,
+        Normal,
+        Hot,
+        Molten
+    }
+
+    public enum BodySizeType
+    {
+        Dwarf,
+        Normal,
+        Giant
+    }
+
+    public enum BodyType
     {
         Terrestrial,
-        SuperTerrestrial,
+        Barren,
         Gas,
-        SuperGas,
-        Solar
+        Solar,
     }
 
     public enum SensorType
@@ -91,5 +117,36 @@ namespace Game1.GameLogic
         Ballistic,
         Missile,
         Particle
+    }
+
+    public enum ColonyBuilding
+    {
+        //IC and co:
+        Infrastructure,
+        HabInfrastructure,
+        ProductionFactory,
+        ResearchFacility,
+        ShipBuildingSupport,
+        Mine,
+        AutomatedMine,
+        FinancialCenter,
+        TerraformingFacility,
+        GeneticsFacility,
+        AgriCenter,
+        //Cargo handling:
+        SpacePort,
+        ShuttlePort,
+        //Orbital:
+        CivSlipway,
+        MilSlipway,
+        CivSlipwayCap,
+        MilSlipwayCap
+    }
+
+    public enum BodyCoreType
+    {
+        Inactive,
+        Molten,
+        Plasma
     }
 }

@@ -19,11 +19,15 @@ namespace Game1
         public static List<SolarSystem> SolarSystems { get; set; } = new();
         public static List<Planet> Planets { get; set; } = new();
         public static List<Moon> Moons { get; set; } = new();
+        public static List<Colony> Colonies { get; set; }
         public static List<ShipDesign> ShipDesigns { get; set; } = new();
         public static List<SubSystemBase> SubSystems { get; set; } = new();
         public static List<Faction> Factions { get; set; } = new();
+        public static Dictionary<ColonyBuilding, (int bp, int pop)> BuildingInfo { get; set; } = new();
+        public static Dictionary<Gas, GasInfo> GasInfo { get; set; } = new();
 
         public static GameEntity Focus { get; set; }
+
 
         public static double TotalSeconds { get; set; } = 0d;
         public static double TotalMinutes => TotalSeconds / 60;

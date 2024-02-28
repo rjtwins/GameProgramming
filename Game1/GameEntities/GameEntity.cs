@@ -2,21 +2,24 @@
 using Game1.GraphicalEntities;
 using Gum.Wireframe;
 using Microsoft.Xna.Framework;
-using MonoGameGum.GueDeriving;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
 
 namespace Game1.GameEntities
 {
-    public abstract class GameEntity : IDisposable
+    public abstract class GameEntity: AnimatableBase, IDisposable
     {
-        public bool IsActiveEntity { get; set; } = true;
         public GameGraphicalEntity GraphicalEntity { get; set; }
 
         protected GraphicalUiElement _infoContainer;
         private bool disposedValue;
 
         public GameEntity Parent { get; set; }
-        public Guid Guid { get; set; }
+        public List<GameEntity> Children { get; set; } = new();
+
+        public Guid Guid { get; set; } = Guid.NewGuid();
         public virtual decimal X { get; set; }
         public virtual decimal Y { get; set; }
 
@@ -29,18 +32,18 @@ namespace Game1.GameEntities
         //In 1kg
         public double Mass { get; set; } = 0;
 
-        //Radials against galaxtic plane x axis;
+        //Radials against galactic plane x axis;
         public float Angle { get; set; } = 0f;
 
         public decimal Radius { get; set; } = 0;
 
         public double SOI { get; set; } = 0d;
 
+        public double SurfaceGravity => (GlobalStatic.G * Mass) / (double)(Math.Pow((double)Radius * 1000d, 2d));
+
         public abstract GameGraphicalEntity GenerateGraphicalEntity();
 
-        
-
-        public virtual void Update(double deltaTime)
+        public override void Update(double deltaTime)
         {
 
         }
@@ -49,6 +52,12 @@ namespace Game1.GameEntities
         {
             return true;
         }
+
+        public List<GameEntity> GetAllChildren()
+        {
+            return Children.Union(Children.SelectMany(x => x.GetAllChildren())).ToList();
+        }
+
 
         protected virtual void Dispose(bool disposing)
         {

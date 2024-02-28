@@ -102,7 +102,7 @@
       <IsFile>true</IsFile>
       <Type>string</Type>
       <Name>SourceFile</Name>
-      <Value xsi:type="xsd:string">2d/200506.png</Value>
+      <Value xsi:type="xsd:string">FontCache/Font14SimSun_noSmooth_0.png</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -121,7 +121,7 @@
     <Variable>
       <Type>int</Type>
       <Name>Texture Height</Name>
-      <Value xsi:type="xsd:int">0</Value>
+      <Value xsi:type="xsd:int">3</Value>
       <Category>Source</Category>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -141,14 +141,14 @@
     <Variable>
       <Type>int</Type>
       <Name>Texture Top</Name>
-      <Value xsi:type="xsd:int">0</Value>
+      <Value xsi:type="xsd:int">33</Value>
       <Category>Source</Category>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>int</Type>
       <Name>Texture Width</Name>
-      <Value xsi:type="xsd:int">0</Value>
+      <Value xsi:type="xsd:int">3</Value>
       <Category>Source</Category>
       <SetsValue>true</SetsValue>
     </Variable>

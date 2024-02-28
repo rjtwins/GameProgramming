@@ -1,10 +1,13 @@
-﻿using Game1.Extensions;
+﻿using Game1.Components;
+using Game1.Extensions;
 using Game1.GameEntities;
+using Game1.Generators;
 using Game1.GraphicalEntities;
 using Game1.Input;
 using Game1.ScreenModels;
 using Gum.DataTypes;
 using Gum.Managers;
+using Gum.Wireframe;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -26,6 +29,7 @@ namespace Game1
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Camera _camera;
+        private RenderTarget2D _renderTarget;
 
         private FlatKeyboard _flatKeyboard => FlatKeyboard.Instance;
         private FlatMouse _flatMouse => FlatMouse.Instance;
@@ -41,8 +45,8 @@ namespace Game1
         private bool _selecting = false;
         private Vector2 _selectionStart = new Vector2();
         private Vector2 _selectionEnd = new Vector2();
-
         private Vector2 _pointerVector = new Vector2();
+
         Vector2[] _cross1, _cross2;
 
         private Stopwatch _stopwatch = new();
@@ -56,6 +60,8 @@ namespace Game1
 
         public Game1()
         {
+            GlobalStatic.UISemaphore = new System.Threading.Semaphore(0, 1);
+            GlobalStatic.UISemaphore.Release();
             _stopwatch.Start();
 
             GlobalStatic.Game = this;
@@ -116,10 +122,9 @@ namespace Game1
             GameState.GraphicalEntities.AddRange(GameState.GameEntities.Select(x => x.GenerateGraphicalEntity()));
             _contextMenu = new(this);
 
-            MyraEnvironment.Game = this;
+            _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
 
-            var content = new TextBox();
-            _messageBox = Dialog.CreateMessageBox("test", content);
+            MyraEnvironment.Game = this;
 
             _desktop = new Desktop();
 
@@ -144,27 +149,36 @@ namespace Game1
 
             var system = GameState.GameEntities.OfType<SolarSystem>().FirstOrDefault();
             _camera.Position = (system.X, system.Y);
+
+
+            //PlanetScreen.Instance.AddSystems(GameState.SolarSystems);
+
+            SystemList.Instance.AddSystems(GameState.SolarSystems);
+
+            ColonyManager.Instance.Show();
         }
 
         protected override void Update(GameTime gameTime)
         {
             timeSinceLastTick += gameTime.ElapsedGameTime.TotalSeconds;
-            if(timeSinceLastTick > 5)
+            if(timeSinceLastTick > 10)
             {
                 timeSinceLastTick = 0;
 
-                System.Diagnostics.Debug.WriteLine($"LastFrameDrawStates: {SystemManagers.Default.Renderer.SpriteRenderer.LastFrameDrawStates.Count()}");
+                //System.Diagnostics.Debug.WriteLine($"LastFrameDrawStates: {SystemManagers.Default.Renderer.SpriteRenderer.LastFrameDrawStates.Count()}");
 
-                foreach (var item in SystemManagers.Default.Renderer.SpriteRenderer.LastFrameDrawStates)
-                {
-                    System.Diagnostics.Debug.WriteLine($"\tChangeRecords: {item.ChangeRecord.Count}");
-                    foreach (var item2 in item.ChangeRecord)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"\t\t: {item2.Texture} by {item2.ObjectRequestingChange} ");
-                    }
-                }
+                //foreach (var item in SystemManagers.Default.Renderer.SpriteRenderer.LastFrameDrawStates)
+                //{
+                //    System.Diagnostics.Debug.WriteLine($"\tChangeRecords: {item.ChangeRecord.Count}");
+                //    foreach (var item2 in item.ChangeRecord)
+                //    {
+                //        System.Diagnostics.Debug.WriteLine($"\t\t: {item2.Texture} by {item2.ObjectRequestingChange} ");
+                //    }
+                //}
 
-                System.Diagnostics.Debug.Write("\n");
+                //System.Diagnostics.Debug.Write("\n");
+
+                //System.Diagnostics.Debug.WriteLine($"UpdateLayoutCallCount: {GraphicalUiElement.UpdateLayoutCallCount}");
             }
 
             _flatKeyboard.Update();
@@ -195,7 +209,6 @@ namespace Game1
             if (_flatMouse.IsRightButtonClicked())
                 HandleRightMouseClick();
             
-
             if (_flatMouse.IsLeftButtonClicked())
                 HandleLeftMouseClick();
 
@@ -227,6 +240,17 @@ namespace Game1
                 Util.ToggleFullScreen(_graphics);
             }
 
+            if (_flatKeyboard.IsKeyClicked(Keys.S))
+            {
+                if (PlanetScreen.Instance.Active)
+                    ScreenManager.Show(Main.Instance);
+                else
+                    ScreenManager.Show(PlanetScreen.Instance);
+            }
+
+            if (PlanetScreen.Instance.Active)
+                PlanetScreen.Instance.Update(gameTime.ElapsedGameTime.TotalSeconds);
+
             base.Update(gameTime);
 
             framerate.Update(gameTime.GetElapsedSeconds());
@@ -240,11 +264,15 @@ namespace Game1
 
         protected override void Draw(GameTime gameTime)
         {
+            GlobalStatic.UISemaphore.WaitOne();
+
             var ticks = _stopwatch.ElapsedTicks;
 
-            GraphicsDevice.Clear(new Color(15, 15, 15));
+            GraphicsDevice.Clear(new Color(0, 0, 25));
+            //GraphicsDevice.SetRenderTarget(_renderTarget);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(sortMode: SpriteSortMode.Texture, 
+                samplerState: SamplerState.PointClamp);
 
             var inView = GameState.GraphicalEntities
                 .Where(x => Main.Instance.Active)
@@ -277,21 +305,21 @@ namespace Game1
                 if (item is CircleEntity c)
                 {
                     if (c.GameEntity is SolarSystem s)
-                        s.Planets.Select(x => x.GraphicalEntity)
-                            .Where(x => x is CircleEntity)
-                            .Cast<CircleEntity>()
+                        s.Children
+                            .SelectMany(x => x.Children)
+                            .Select(x => x.GraphicalEntity)
+                            .OfType<CircleEntity>()
                             .ToList()
                             .ForEach(x => x.DrawOrbit(_spriteBatch));
 
                     if (c.GameEntity is Planet p)
-                        p.Moons.Select(x => x.GraphicalEntity)
+                        p.Children
+                            .Select(x => x.GraphicalEntity)
                             .Where(x => x is CircleEntity)
                             .Cast<CircleEntity>()
                             .ToList()
                             .ForEach(x => x.DrawOrbit(_spriteBatch));
-                }
-
-                    
+                }                    
             }
 
             foreach (var item in drawDot)
@@ -349,10 +377,19 @@ namespace Game1
 
             //_desktop.Render();
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(sortMode: SpriteSortMode.Texture,
+                samplerState: SamplerState.PointClamp);
             DrawMousePointer();
             _spriteBatch.End();
 
+            //GraphicsDevice.SetRenderTarget(null);
+
+            //_spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            //_spriteBatch.Draw(_renderTarget, Vector2.Zero, Color.White);
+            //_spriteBatch.End();
+
+            GlobalStatic.UISemaphore.Release();
+            
             base.Draw(gameTime);
         }
 
@@ -392,6 +429,7 @@ namespace Game1
             _camera.Zoom *= Math.Min(zoomx, zoomy);
 
             GameState.Focus = entity;
+            PlanetScreen.Instance.SelectedBody = entity;
         }
 
         private void HandleLeftMouseClick()
@@ -412,25 +450,28 @@ namespace Game1
         {
             SystemManagers.Default = new SystemManagers(); 
             SystemManagers.Default.Initialize(_graphics.GraphicsDevice, fullInstantiation: true);
-            SystemManagers.Default.Renderer.SinglePixelTexture = Texture2D.FromFile(_graphics.GraphicsDevice, "C:\\Users\\jorre\\source\\repos\\rjtwins\\GameProgramming\\Game1\\Content\\2d\\FontTest.png");
-            SystemManagers.Default.Renderer.SinglePixelSourceRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
+            //SystemManagers.Default.Renderer.SinglePixelTexture = Texture2D.FromFile(_graphics.GraphicsDevice, "C:\\Users\\jorre\\source\\repos\\rjtwins\\GameProgramming\\Game1\\Content\\2d\\FontTest.png");
+            //SystemManagers.Default.Renderer.SinglePixelSourceRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
 
             GlobalStatic.GumProject = GumProjectSave.Load("gum.gumx", out _);
             ObjectFinder.Self.GumProjectSave = GlobalStatic.GumProject;
             GlobalStatic.GumProject.Initialize();
 
+            new SystemList();
+
             new MainMenu();
-            new UIScrollEventHandler();
+            //new UIScrollEventHandler();
             new Main();
             new ShipDesign();
             new PlanetScreen();
+            new ColonyManager();
 
             Main.Instance.Hide();
             Main.Instance.HideTopBar();
-
             ShipDesign.Instance.Hide();
             MainMenu.Instance.Hide();
             PlanetScreen.Instance.Hide();
+            ColonyManager.Instance.Hide();
 
             //MainMenu.Instance.Show();
 
@@ -445,10 +486,9 @@ namespace Game1
 
             SystemManagers.Default.Activity(gameTime.TotalGameTime.TotalSeconds);
 
-            UIScrollEventHandler.Instance.Update();
-            Main.Instance.Update();
-
-            
+            ScrollView.ActiveListViews.ForEach(x => x.Update());
+            //UIScrollEventHandler.Instance.Update();
+            Main.Instance.Update(gameTime.TotalGameTime.TotalSeconds);            
         }
 
         private void DrawUI()

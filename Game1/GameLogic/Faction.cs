@@ -2,9 +2,6 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.GameLogic
 {
@@ -16,10 +13,14 @@ namespace Game1.GameLogic
         public Color color { get; set; }
 
         public List<Fleet> Fleets { get; set; } = new();
-        public List<Colony> Colonies { get; set; } = new();
+        //public List<Colony> Colonies { get; set; } = new();
 
         public List<SensorContact> SensorContacts { get; set; } = new ();
         public List<FleetGhost> DetectedFleets { get; set; }
+        public Species Species { get; set; }
+
+        //Tech
+        public double InfrastructureMod { get; set; } = 1d;
 
         public Faction()
         {

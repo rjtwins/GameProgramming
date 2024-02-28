@@ -18,10 +18,10 @@ namespace Game1.GameLogic
 
             sensingFleets.ForEach(x => HandleFleet(x));
 
-            GameState.Factions.ForEach(x =>
-            {
-                Debug.WriteLine($"Faction {x.Name} has contacts: {string.Join("-", x.SensorContacts.Select(y => y.ContactGhost.Name))}");
-            });
+            //GameState.Factions.ForEach(x =>
+            //{
+            //    Debug.WriteLine($"Faction {x.Name} has contacts: {string.Join("-", x.SensorContacts.Select(y => y.ContactGhost.Name))}");
+            //});
         }
 
         public static void HandleFleet(Fleet fleet)
