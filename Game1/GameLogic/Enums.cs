@@ -32,12 +32,14 @@ namespace Game1.GameLogic
 
     public enum Resource
     {
-        Water,
-        Fissiles,
-        Fusibles,
-        Volatiles,
-        Metals,
-        RareMetals
+        BasicMetals,
+        LowDensityElements,
+        NobelElements,
+        RareMetals,
+        HeavyMetals,
+        FissileElements,
+        FusibleElements,
+        ExoticMaterials
     }
 
     public enum BodySubType
@@ -125,7 +127,8 @@ namespace Game1.GameLogic
         Infrastructure,
         HabInfrastructure,
         ProductionFactory,
-        ResearchFacility,
+        ResearchAcademy,
+        ResearchOutpost,
         ShipBuildingSupport,
         Mine,
         AutomatedMine,
@@ -137,6 +140,8 @@ namespace Game1.GameLogic
         SpacePort,
         ShuttlePort,
         //Orbital:
+        CivShipyard,
+        MillShipyard,
         CivSlipway,
         MilSlipway,
         CivSlipwayCap,

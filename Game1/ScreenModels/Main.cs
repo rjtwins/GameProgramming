@@ -81,7 +81,7 @@ namespace Game1.ScreenModels
             Day.SetProperty("Text", $"DAY: {(dateSpan.Days % 365).ToString("000")}");
             Time.SetProperty("Text", $"{dateSpan.Hours.ToString("00")}:{dateSpan.Minutes.ToString("00")}:{dateSpan.Seconds.ToString("00")}");
             Speed.SetProperty("Text", $"{Util.ConvertSpeed(GameState.GameSpeed)}/S");
-            TopBar.SetProperty("SimResText", $"{Util.ConvertSpeed((int)GameEngine.TimeSenseLastUpdate)}");
+            TopBar.SetProperty("SimResText", $"{Util.ConvertSpeed((int)GameEngine.TimeSinceLastUpdate)}");
         }
 
         public override void UpdateResolution()

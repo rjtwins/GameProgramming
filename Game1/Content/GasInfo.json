@@ -1,0 +1,58 @@
+{
+  "N2": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "O2": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "Ar": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "CO2": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "CO": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "He": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "H": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "Ne": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "CH4": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "H2S": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "H2Ov": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "NHO3": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "GHG": {
+    "GHF": 0,
+    "AGHF": 0
+  },
+  "AGG": {
+    "GHF": 0,
+    "AGHF": 0
+  }
+}

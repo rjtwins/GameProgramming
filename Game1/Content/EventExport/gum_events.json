@@ -2,132 +2,6 @@
   "UserEvents": {
     "jorre": [
       {
-        "NewName": "ShipDesigner.RectangleInstance4",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-15T16:37:28.7771688Z"
-      },
-      {
-        "NewName": "ShipDesigner.TextInstance3",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-15T16:37:28.7821689Z"
-      },
-      {
-        "NewName": "ShipDesigner.RectangleInstance5",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-15T16:38:40.1410775Z"
-      },
-      {
-        "NewName": "ShipDesigner.TextInstance4",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-15T16:38:40.1450813Z"
-      },
-      {
-        "NewName": "ShipDesigner.ContainerInstance",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-15T16:38:51.9546715Z"
-      },
-      {
-        "NewName": "ShipDesigner.ContainerInstance1",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-15T16:39:25.2975524Z"
-      },
-      {
-        "NewName": "ShipDesigner.RectangleInstance6",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-15T16:45:14.7672346Z"
-      },
-      {
-        "NewName": "ShipDesigner.CenterMainContainer",
-        "OldName": "ShipDesigner.ContainerInstance",
-        "ElementType": "Screens",
-        "EventType": 7,
-        "TimestampUtc": "2024-02-15T16:51:15.3352435Z"
-      },
-      {
-        "NewName": "ShipDesigner.CenterInfoContainer",
-        "OldName": "ShipDesigner.ContainerInstance1",
-        "ElementType": "Screens",
-        "EventType": 7,
-        "TimestampUtc": "2024-02-15T16:51:25.5710529Z"
-      },
-      {
-        "NewName": "ShipDesigner.ComponentListOuterRect",
-        "OldName": "ShipDesigner.RectangleInstance2",
-        "ElementType": "Screens",
-        "EventType": 7,
-        "TimestampUtc": "2024-02-15T16:51:36.7562101Z"
-      },
-      {
-        "NewName": "ShipDesigner.ComponentListOutline",
-        "OldName": "ShipDesigner.ComponentListOuterRect",
-        "ElementType": "Screens",
-        "EventType": 7,
-        "TimestampUtc": "2024-02-15T16:51:40.8996255Z"
-      },
-      {
-        "NewName": "ShipDesigner.ComponentDetailOutline",
-        "OldName": "ShipDesigner.RectangleInstance6",
-        "ElementType": "Screens",
-        "EventType": 7,
-        "TimestampUtc": "2024-02-15T16:51:54.483867Z"
-      },
-      {
-        "NewName": "ShipDesigner.ComponentDetail",
-        "OldName": "ShipDesigner.TextInstance2",
-        "ElementType": "Screens",
-        "EventType": 7,
-        "TimestampUtc": "2024-02-15T16:52:01.9563906Z"
-      },
-      {
-        "NewName": "ShipDesigner.RectangleInstance2",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-15T16:58:24.1506254Z"
-      },
-      {
-        "NewName": "ShipDesigner.Installed",
-        "OldName": "ShipDesigner.Left",
-        "ElementType": "Screens",
-        "EventType": 7,
-        "TimestampUtc": "2024-02-15T17:17:24.8315167Z"
-      },
-      {
-        "NewName": "ShipDesigner.ShipStats",
-        "OldName": "ShipDesigner.Right",
-        "ElementType": "Screens",
-        "EventType": 7,
-        "TimestampUtc": "2024-02-15T17:17:31.8001411Z"
-      },
-      {
-        "NewName": "ShipDesigner.Components",
-        "OldName": "ShipDesigner.Center",
-        "ElementType": "Screens",
-        "EventType": 7,
-        "TimestampUtc": "2024-02-15T17:17:52.3600345Z"
-      },
-      {
-        "NewName": "ShipDesigner.DesignItemInstance",
-        "OldName": null,
-        "ElementType": "Screens",
-        "EventType": 5,
-        "TimestampUtc": "2024-02-15T17:30:40.252548Z"
-      },
-      {
         "NewName": "FleetInfo",
         "OldName": null,
         "ElementType": "Components",
@@ -4193,6 +4067,1623 @@
         "ElementType": "Screens",
         "EventType": 7,
         "TimestampUtc": "2024-02-28T15:03:22.5175343Z"
+      },
+      {
+        "NewName": "Planets.BasicMetalsYield",
+        "OldName": "Planets.WaterYield",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:22:44.1215973Z"
+      },
+      {
+        "NewName": "Planets.LowDensityElementsYield",
+        "OldName": "Planets.FissilesYield",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:22:49.4408779Z"
+      },
+      {
+        "NewName": "Planets.NobelElementsYield",
+        "OldName": "Planets.VolatilesYield",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:22:59.3853651Z"
+      },
+      {
+        "NewName": "Planets.FusiblesYield",
+        "OldName": "Planets.FusiblesYield",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:23:08.2299322Z"
+      },
+      {
+        "NewName": "Planets.1",
+        "OldName": "Planets.FusiblesYield",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:23:10.905735Z"
+      },
+      {
+        "NewName": "Planets.HeavyMetals",
+        "OldName": "Planets.MetalsYield",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:23:15.8818189Z"
+      },
+      {
+        "NewName": "Planets.ExoticMaterialsYield",
+        "OldName": "Planets.RareMetalsYield",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:23:26.3062576Z"
+      },
+      {
+        "NewName": "Planets.1",
+        "OldName": "Planets.1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:23:32.8494572Z"
+      },
+      {
+        "NewName": "Planets.HeavyMetalsYield",
+        "OldName": "Planets.1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:23:37.2749749Z"
+      },
+      {
+        "NewName": "Planets.BasicMetalsAmount",
+        "OldName": "Planets.WaterAmount",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:23:48.5950303Z"
+      },
+      {
+        "NewName": "Planets.LowDensityAmount",
+        "OldName": "Planets.FissilesAmount",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:23:57.4497785Z"
+      },
+      {
+        "NewName": "Planets.NobelElementsAmount",
+        "OldName": "Planets.VolatilesAmount",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:24:07.2344891Z"
+      },
+      {
+        "NewName": "Planets.1",
+        "OldName": "Planets.FusiblesAmount",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:24:10.5786591Z"
+      },
+      {
+        "NewName": "Planets.HeavyMetalsAmount",
+        "OldName": "Planets.MetalsAmount",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:24:15.9941263Z"
+      },
+      {
+        "NewName": "Planets.ExoticMaterialsAmount",
+        "OldName": "Planets.RareMetalsAmount",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:24:22.5241603Z"
+      },
+      {
+        "NewName": "Planets.RareMetals",
+        "OldName": "Planets.1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:24:27.4037151Z"
+      },
+      {
+        "NewName": "Planets.TextInstance36",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-28T19:27:56.2467877Z"
+      },
+      {
+        "NewName": "Planets.TextInstance37",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-28T19:28:00.4906619Z"
+      },
+      {
+        "NewName": "Planets.HeavyMetals1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-28T19:28:51.465686Z"
+      },
+      {
+        "NewName": "Planets.HeavyMetals2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-28T19:28:52.6436788Z"
+      },
+      {
+        "NewName": "Planets.FissileElementsYield",
+        "OldName": "Planets.HeavyMetals2",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:29:25.1309655Z"
+      },
+      {
+        "NewName": "Planets.FusibleElementsYield",
+        "OldName": "Planets.HeavyMetals1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:29:30.0815484Z"
+      },
+      {
+        "NewName": "Planets.FissileElementsYield1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-28T19:29:35.3888604Z"
+      },
+      {
+        "NewName": "Planets.FusibleElementsYield1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-28T19:29:35.39982Z"
+      },
+      {
+        "NewName": "Planets.FissileElementsAmount",
+        "OldName": "Planets.FissileElementsYield1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:29:44.2269204Z"
+      },
+      {
+        "NewName": "Planets.FusibleElementsAmount",
+        "OldName": "Planets.FusibleElementsYield1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:29:50.0023727Z"
+      },
+      {
+        "NewName": "Planets.HeavyMetals",
+        "OldName": "Planets.HeavyMetals",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:31:33.4628724Z"
+      },
+      {
+        "NewName": "Planets.RaREMetalsYield",
+        "OldName": "Planets.HeavyMetalsYield",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:31:40.5329708Z"
+      },
+      {
+        "NewName": "Planets.RareMetalsYield",
+        "OldName": "Planets.RaREMetalsYield",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:31:48.0452776Z"
+      },
+      {
+        "NewName": "Planets.HeavyMetalsYield",
+        "OldName": "Planets.HeavyMetals",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:31:54.3093521Z"
+      },
+      {
+        "NewName": "Planets.RareMetalsAmount",
+        "OldName": "Planets.RareMetals",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:35:03.3785775Z"
+      },
+      {
+        "NewName": "Planets.LowDensityElementsAmount",
+        "OldName": "Planets.LowDensityAmount",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-28T19:36:53.6530722Z"
+      },
+      {
+        "NewName": "ColonyManager.Details",
+        "OldName": "ColonyManager.RectangleInstance1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T14:11:50.3812376Z"
+      },
+      {
+        "NewName": "ColonyManager.NineSliceInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:11:59.239317Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:16:35.7217471Z"
+      },
+      {
+        "NewName": "ColonyManager.RectangleInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:28:29.3397129Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.NineSlice NineSliceInstance in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-29T14:28:35.046269Z"
+      },
+      {
+        "NewName": "BuildingQueueItem",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-29T14:51:41.4880455Z"
+      },
+      {
+        "NewName": "BuildingBuildItem",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-29T14:51:51.4134865Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:52:18.5584134Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).TextInstance1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:56:27.5137122Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).TextInstance2",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:56:29.1859857Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).TextInstance3",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:56:30.856078Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).TextInstance4",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:56:32.5934447Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).TextInstance5",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:56:41.3193809Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).TextInstance6",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:56:43.3514363Z"
+      },
+      {
+        "NewName": "ColonyManager.BuildingQueueItemInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T14:58:01.6101308Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).Allocation",
+        "OldName": "BuildingQueueItem (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:01:19.1919382Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).Amount",
+        "OldName": "BuildingQueueItem (Container).TextInstance1",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:01:23.8760986Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).IC",
+        "OldName": "BuildingQueueItem (Container).TextInstance2",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:01:30.0280015Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).ProgressCurrent",
+        "OldName": "BuildingQueueItem (Container).TextInstance3",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:01:36.844555Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).CompletionTime",
+        "OldName": "BuildingQueueItem (Container).TextInstance4",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:01:44.0690342Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).PausOnCompletion",
+        "OldName": "BuildingQueueItem (Container).TextInstance5",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:01:51.6131676Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).TextInstance6",
+        "OldName": "BuildingQueueItem (Container).TextInstance6",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:01:57.3173559Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).MISC",
+        "OldName": "BuildingQueueItem (Container).TextInstance6",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:02:01.7096901Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).Name",
+        "OldName": "BuildingQueueItem (Container).MISC",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:02:36.5489847Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).CheckBoxInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T15:02:56.3614984Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "BuildingQueueItem (Container).Text PausOnCompletion in BuildingQueueItem (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-29T15:02:59.5363204Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).PauseOnCompletion",
+        "OldName": "BuildingQueueItem (Container).CheckBoxInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:03:04.4463226Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.BuildingQueueItem BuildingQueueItemInstance in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-29T15:03:50.4703344Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance5",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T15:03:57.690676Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance11",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T15:04:26.831001Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance12",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T15:04:29.979209Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance13",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T15:04:31.5103978Z"
+      },
+      {
+        "NewName": "Main.TextInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T15:04:33.2908791Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance14",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T15:04:48.6396329Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "Main.Text TextInstance in Main",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-29T15:04:53.0486379Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance15",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T15:05:29.8738203Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance16",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T15:05:34.0548815Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance17",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T15:05:36.9045017Z"
+      },
+      {
+        "NewName": "ColonyManager.Allocation",
+        "OldName": "ColonyManager.TextInstance11",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:06:23.1871822Z"
+      },
+      {
+        "NewName": "ColonyManager.BuildQueueList",
+        "OldName": "ColonyManager.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T15:08:58.3989835Z"
+      },
+      {
+        "NewName": "ColonyManager.RectangleInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T17:07:25.6374101Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance11",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T17:07:55.9351029Z"
+      },
+      {
+        "NewName": "ColonyManager.Exocitcs",
+        "OldName": "ColonyManager.PopSupport1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:35:23.7534486Z"
+      },
+      {
+        "NewName": "ColonyManager.BasicMetals",
+        "OldName": "ColonyManager.Water",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:35:51.0352147Z"
+      },
+      {
+        "NewName": "ColonyManager.LowDensityElements",
+        "OldName": "ColonyManager.Fissiles",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:35:58.4306957Z"
+      },
+      {
+        "NewName": "ColonyManager.NobleMetals",
+        "OldName": "ColonyManager.Volitiles",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:36:05.95763Z"
+      },
+      {
+        "NewName": "ColonyManager.Fusables",
+        "OldName": "ColonyManager.Fusables",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:36:13.7293316Z"
+      },
+      {
+        "NewName": "ColonyManager.FusibleElements",
+        "OldName": "ColonyManager.RareMetals",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:37:25.5264721Z"
+      },
+      {
+        "NewName": "ColonyManager.Fissile Elements",
+        "OldName": "ColonyManager.FusibleElements",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:37:46.3094499Z"
+      },
+      {
+        "NewName": "ColonyManager.Fusible Elements",
+        "OldName": "ColonyManager.TextInstance41",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:37:55.9133267Z"
+      },
+      {
+        "NewName": "ColonyManager.RareMetals",
+        "OldName": "ColonyManager.Fusables",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:38:26.3704171Z"
+      },
+      {
+        "NewName": "ColonyManager.FissileElements",
+        "OldName": "ColonyManager.Fissile Elements",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:38:30.9479845Z"
+      },
+      {
+        "NewName": "ColonyManager.FusibleElements",
+        "OldName": "ColonyManager.Fusible Elements",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:38:34.86865Z"
+      },
+      {
+        "NewName": "ColonyManager.HeavyMetals",
+        "OldName": "ColonyManager.Metals",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:38:43.0254803Z"
+      },
+      {
+        "NewName": "ColonyManager.NobleElements",
+        "OldName": "ColonyManager.NobleMetals",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T20:54:16.9453859Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance18",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:06:07.3744649Z"
+      },
+      {
+        "NewName": "ColonyManager.SpriteInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:07:00.4629239Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:07:57.8727408Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance6",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:12:38.5830473Z"
+      },
+      {
+        "NewName": "ColonyManager.SpriteInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:12:38.6030396Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance44",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:12:38.6477764Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance20",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:13:15.8631677Z"
+      },
+      {
+        "NewName": "ColonyManager.SpriteInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:13:42.5974678Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance45",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:13:42.6211355Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance7",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:13:42.6457864Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance21",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:14:32.3545727Z"
+      },
+      {
+        "NewName": "ColonyManager.SpriteInstance3",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:14:52.3574703Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance46",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:14:52.3733037Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance8",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:14:52.4028221Z"
+      },
+      {
+        "NewName": "ColonyManager.SpriteInstance4",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:14:59.7393059Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance47",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:14:59.7560915Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance9",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:14:59.7980257Z"
+      },
+      {
+        "NewName": "ColonyManager.SpriteInstance5",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:15:24.1252498Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance48",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:15:24.1544461Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance10",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:15:24.1743864Z"
+      },
+      {
+        "NewName": "ColonyManager.SpriteInstance6",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:15:32.9727267Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance49",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:15:32.9926606Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance11",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:15:33.016844Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance32",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:16:10.1982374Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance33",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:16:38.1832617Z"
+      },
+      {
+        "NewName": "ColonyManager.BasicMetalsMining",
+        "OldName": "ColonyManager.TextInstance42",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:27:02.0390447Z"
+      },
+      {
+        "NewName": "ColonyManager.LowDensityElementsMining",
+        "OldName": "ColonyManager.TextInstance44",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:27:12.4373834Z"
+      },
+      {
+        "NewName": "ColonyManager.NobleElementsMining",
+        "OldName": "ColonyManager.SpriteInstance2",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:27:27.2970278Z"
+      },
+      {
+        "NewName": "ColonyManager.NobleElementsMining",
+        "OldName": "ColonyManager.TextInstance45",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:27:44.7270064Z"
+      },
+      {
+        "NewName": "ColonyManager.RareMetalsMining",
+        "OldName": "ColonyManager.SpriteInstance3",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:27:52.4258039Z"
+      },
+      {
+        "NewName": "ColonyManager.HeavyMetalsMining",
+        "OldName": "ColonyManager.TextInstance47",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:28:03.3241309Z"
+      },
+      {
+        "NewName": "ColonyManager.FissileElementsMining",
+        "OldName": "ColonyManager.TextInstance48",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:28:13.6942436Z"
+      },
+      {
+        "NewName": "ColonyManager.FusibleElementsMining",
+        "OldName": "ColonyManager.TextInstance49",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:28:22.9925476Z"
+      },
+      {
+        "NewName": "ColonyManager.RectangleInstance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:29:38.6686487Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance12",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:35:20.482133Z"
+      },
+      {
+        "NewName": "ColonyManager.ColonyBuildingContainer",
+        "OldName": "ColonyManager.ContainerInstance12",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:35:51.6335859Z"
+      },
+      {
+        "NewName": "ColonyManager.TextBorderInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:36:26.946417Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Text TextInstance11 in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-29T21:42:36.6098728Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance12",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:42:46.7814221Z"
+      },
+      {
+        "NewName": "ColonyManager.ColonyBuildingContainer",
+        "OldName": "ColonyManager.ColonyBuildingContainer",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:43:44.2272494Z"
+      },
+      {
+        "NewName": "ColonyManager.MiscList",
+        "OldName": "ColonyManager.ColonyBuildingContainer",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:43:47.9027799Z"
+      },
+      {
+        "NewName": "ColonyManager.ColonyBuildingOptions",
+        "OldName": "ColonyManager.ContainerInstance12",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:44:00.9182268Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance12",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:45:21.4099453Z"
+      },
+      {
+        "NewName": "ColonyManager.RectangleInstance3",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:45:59.6378005Z"
+      },
+      {
+        "NewName": "ColonyManager.ButtonInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:51:34.5625176Z"
+      },
+      {
+        "NewName": "ColonyManager.ButtonInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:51:39.5267335Z"
+      },
+      {
+        "NewName": "Button1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-29T21:53:31.4335301Z"
+      },
+      {
+        "NewName": "Button2",
+        "OldName": "Button1",
+        "ElementType": "Components",
+        "EventType": 2,
+        "TimestampUtc": "2024-02-29T21:54:22.7470675Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button ButtonInstance in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-29T21:54:29.7783313Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button ButtonInstance1 in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-29T21:54:33.379942Z"
+      },
+      {
+        "NewName": "ColonyManager.Button2Instance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:54:40.0709486Z"
+      },
+      {
+        "NewName": "ColonyManager.Button2Instance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:55:31.2539282Z"
+      },
+      {
+        "NewName": "ColonyManager.QeueUp",
+        "OldName": "ColonyManager.Button2Instance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:57:38.2623265Z"
+      },
+      {
+        "NewName": "ColonyManager.QeueUpButton",
+        "OldName": "ColonyManager.QeueUp",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:57:42.0699865Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueDownButton",
+        "OldName": "ColonyManager.Button2Instance1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:57:49.0818205Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance11",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T21:58:16.8437097Z"
+      },
+      {
+        "NewName": "ColonyManager.QeueUpButton",
+        "OldName": "ColonyManager.QeueUpButton",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:58:28.1942107Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueUpButton",
+        "OldName": "ColonyManager.QeueUpButton",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T21:58:35.8463358Z"
+      },
+      {
+        "NewName": "ColonyManager.ContainerInstance13",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:00:19.6495183Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance34",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:01:49.5524842Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance35",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:01:57.72946Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance36",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:01:59.7923876Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueMenuAoumt",
+        "OldName": "ColonyManager.TextInstance35",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T22:04:13.0773468Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueMenuAllocation",
+        "OldName": "ColonyManager.TextInstance11",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T22:04:23.616858Z"
+      },
+      {
+        "NewName": "ColonyManager.ButtonInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:05:10.5714253Z"
+      },
+      {
+        "NewName": "ColonyManager.ButtonInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:07:35.9046343Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button ButtonInstance in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-29T22:09:07.370439Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button ButtonInstance1 in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-02-29T22:09:14.3427318Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueUpButton1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:09:23.7501393Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueUpButton2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:10:27.7882033Z"
+      },
+      {
+        "NewName": "ColonyManager.AmountIncButton",
+        "OldName": "ColonyManager.QueueUpButton1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T22:11:05.5388778Z"
+      },
+      {
+        "NewName": "ColonyManager.AmountDecButton",
+        "OldName": "ColonyManager.QueueUpButton2",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T22:11:14.7059455Z"
+      },
+      {
+        "NewName": "ColonyManager.AmountIncButton1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:11:26.2489991Z"
+      },
+      {
+        "NewName": "ColonyManager.AmountDecButton1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:11:26.2646424Z"
+      },
+      {
+        "NewName": "ColonyManager.AllocationIncButton",
+        "OldName": "ColonyManager.AmountIncButton1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T22:11:54.7734282Z"
+      },
+      {
+        "NewName": "ColonyManager.AllocationDecButton",
+        "OldName": "ColonyManager.AmountDecButton1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T22:12:11.4987467Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueUpButton1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:14:22.6126666Z"
+      },
+      {
+        "NewName": "ColonyManager.Create",
+        "OldName": "ColonyManager.QueueUpButton1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-02-29T22:14:47.4079162Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueDownButton1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-02-29T22:15:13.4585271Z"
+      },
+      {
+        "NewName": "Button3",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-02-29T22:21:01.0004785Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button2 AmountIncButton in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T07:59:11.0410082Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button2 AllocationIncButton in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T07:59:11.0423193Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button2 AmountDecButton in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T07:59:11.0522854Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button2 AllocationDecButton in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T07:59:11.0594409Z"
+      },
+      {
+        "NewName": "ColonyManager.Button3Instance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T07:59:16.7542202Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button3 Button3Instance in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T07:59:57.6335222Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button2 QueueUpButton in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T12:37:13.2777004Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button2 QueueDownButton1 in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T12:37:15.3798381Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button2 Create in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T12:37:17.8990618Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Button2 QueueDownButton in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T12:37:21.1241805Z"
+      },
+      {
+        "NewName": "ColonyManager.Button3Instance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T12:38:24.7808239Z"
+      },
+      {
+        "NewName": "ColonyManager.Button3Instance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T12:39:18.2991979Z"
+      },
+      {
+        "NewName": "ColonyManager.Button3Instance2",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T12:40:00.5445327Z"
+      },
+      {
+        "NewName": "ColonyManager.Button3Instance3",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T12:40:31.4938287Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueUpButton",
+        "OldName": "ColonyManager.Button3Instance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:32:26.7175594Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueDownButton",
+        "OldName": "ColonyManager.Button3Instance1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:32:33.4248597Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueUpdateButton",
+        "OldName": "ColonyManager.Button3Instance2",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:32:40.5054353Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueCreateButton",
+        "OldName": "ColonyManager.Button3Instance3",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:32:51.1068067Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Container ContainerInstance13 in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T14:35:19.263092Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Text TextInstance34 in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T14:35:23.496106Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Text QueueMenuAoumt in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T14:35:27.7996679Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "ColonyManager.Text QueueMenuAllocation in ColonyManager",
+        "ElementType": "Screens",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T14:35:30.08859Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance37",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:36:20.0698428Z"
+      },
+      {
+        "NewName": "ColonyManager.Amount",
+        "OldName": "ColonyManager.TextInstance37",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:36:55.7683006Z"
+      },
+      {
+        "NewName": "ColonyManager.TextInstance36",
+        "OldName": "ColonyManager.TextInstance36",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:37:05.4156256Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAllocation",
+        "OldName": "ColonyManager.TextInstance36",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:37:14.016093Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAmount",
+        "OldName": "ColonyManager.Amount",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:37:21.4399039Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAllocation1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:37:44.0698853Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAmount1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:37:44.0834629Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAmountHeader",
+        "OldName": "ColonyManager.QueueAmount",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:38:34.9224899Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAllocationHeader",
+        "OldName": "ColonyManager.QueueAllocation",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:38:40.2666081Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAmount",
+        "OldName": "ColonyManager.QueueAmount1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:38:46.1059169Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAllocation",
+        "OldName": "ColonyManager.QueueAllocation1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:38:49.1467291Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueUpdateButton1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:41:01.4372644Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueCreateButton1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:41:01.4476828Z"
+      },
+      {
+        "NewName": "ColonyManager.QueuePauseButton",
+        "OldName": "ColonyManager.QueueUpdateButton1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:41:48.1509986Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueCancelButton1",
+        "OldName": "ColonyManager.QueueCreateButton1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:41:57.062716Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueCancelButton",
+        "OldName": "ColonyManager.QueueCancelButton1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:41:59.2785285Z"
+      },
+      {
+        "NewName": "ColonyManager.QueuePauseButton1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:48:25.283031Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueCancelButton1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:48:25.295546Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAmountPlus",
+        "OldName": "ColonyManager.QueuePauseButton1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:50:05.4098601Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAllocationPlus",
+        "OldName": "ColonyManager.QueueCancelButton1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:50:13.3469498Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAmountPlus1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:50:23.91444Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAllocationPlus1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:50:23.9264401Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAmountMinus",
+        "OldName": "ColonyManager.QueueAmountPlus1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:50:46.883638Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAllocationMinus",
+        "OldName": "ColonyManager.QueueAllocationPlus1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T14:50:52.9791051Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).NineSliceInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:53:56.7103271Z"
+      },
+      {
+        "NewName": "BuildingQueueItem (Container).ContainerInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T14:54:35.0214678Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAmountMinus1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-01T15:52:51.4573996Z"
+      },
+      {
+        "NewName": "ColonyManager.QueueAmountContinuous",
+        "OldName": "ColonyManager.QueueAmountMinus1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T16:20:21.5909249Z"
+      },
+      {
+        "NewName": "BuildingQueueItem1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-03-01T16:43:40.6369719Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "BuildingBuildItem",
+        "ElementType": "Components",
+        "EventType": 1,
+        "TimestampUtc": "2024-03-01T16:43:47.0407303Z"
+      },
+      {
+        "NewName": "BuildingBuildItem",
+        "OldName": "BuildingQueueItem1",
+        "ElementType": "Components",
+        "EventType": 2,
+        "TimestampUtc": "2024-03-01T16:43:51.1187387Z"
+      },
+      {
+        "NewName": "BuildingBuildItem (Container).Allocation",
+        "OldName": "BuildingBuildItem (Container).Allocation",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T16:44:01.7785073Z"
+      },
+      {
+        "NewName": "BuildingBuildItem (Container).Allocation",
+        "OldName": "BuildingBuildItem (Container).Allocation",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T16:44:01.783572Z"
+      },
+      {
+        "NewName": "BuildingBuildItem (Container).Allocation",
+        "OldName": "BuildingBuildItem (Container).Allocation",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T16:44:01.7941708Z"
+      },
+      {
+        "NewName": "BuildingBuildItem (Container).Allocation",
+        "OldName": "BuildingBuildItem (Container).Allocation",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T16:44:17.923168Z"
+      },
+      {
+        "NewName": "BuildingBuildItem (Container).Allocation",
+        "OldName": "BuildingBuildItem (Container).Allocation",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T16:44:17.9281696Z"
+      },
+      {
+        "NewName": "BuildingBuildItem (Container).Allocation",
+        "OldName": "BuildingBuildItem (Container).Allocation",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-01T16:44:17.9381538Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "BuildingBuildItem (Container).Text Allocation in BuildingBuildItem (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T16:44:22.7767849Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "BuildingBuildItem (Container).Text Amount in BuildingBuildItem (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T16:44:26.4882097Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "BuildingBuildItem (Container).Text ProgressCurrent in BuildingBuildItem (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T16:44:31.1629338Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "BuildingBuildItem (Container).Text CompletionTime in BuildingBuildItem (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T16:44:31.1689344Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "BuildingBuildItem (Container).CheckBox PauseOnCompletion in BuildingBuildItem (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-01T16:44:31.1784606Z"
       }
     ]
   }

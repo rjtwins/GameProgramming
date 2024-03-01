@@ -1,74 +1,11 @@
-﻿//using Gum.Wireframe;
-//using RenderingLibrary;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-
-//namespace Game1.Input
-//{
-//    public class ScrollView
-//    {
-//        public GraphicalUiElement Container { get; set; }
-//        public GraphicalUiElement InternalList {  get; set; }
-//        public bool Horizontal { get; set; } = false;
-
-
-//        //This is NOT the list of elements in the internal list!!!!
-//        public HashSet<GraphicalUiElement> ContainedElements { get; set; } = new ();
-
-//        public ScrollView(GraphicalUiElement container, GraphicalUiElement internalList, bool horizontal = false) 
-//        {
-//            Container = container;
-//            InternalList = internalList;
-//            Horizontal = horizontal;
-//        }
-
-//        public static void MoveIntoView(GraphicalUiElement element)
-//        {
-//            //TODO: make work for horizontal
-
-//            var scrollView = element.Tag as ScrollView;
-//            if (scrollView == null)
-//                return;
-
-//            var master = scrollView.Container;
-//            var innerList = scrollView.InternalList;
-
-//            var elementY = element.GetAbsoluteCenterY();
-//            var listBot = master.GetAbsoluteBottom();
-//            var listTop = master.GetAbsoluteTop() + 25;
-
-//            if (elementY > listTop && elementY < listBot)
-//                return;
-
-//            //Move down
-//            if (elementY < listTop)
-//                innerList.Y += listTop - (elementY - 12.5f);
-
-//            //Move Up
-//            if(elementY > listBot)
-//                innerList.Y -= (elementY + 12.5f) - listBot;
-//        }
-//    }
-//}
-
-
-using Game1.Extensions;
+﻿using Game1.Extensions;
 using Game1.ScreenModels;
 using Gum.Wireframe;
 using Microsoft.Xna.Framework;
 using RenderingLibrary;
-using RenderingLibrary.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.Input
 {
@@ -77,6 +14,9 @@ namespace Game1.Input
         public static List<ScrollView> ActiveListViews = new();
 
         public GraphicalUiElement Container { get; private set; }
+
+        public bool KeyboardEnabled { get; set; } = true;
+        public bool OnlyScrollWhenMouseInWindow { get; set; } = false;
 
         public float Top => Container.GetAbsoluteTop();
         public float Bottom => Container.GetAbsoluteBottom();
@@ -88,8 +28,8 @@ namespace Game1.Input
         public float CursorOffset = 0;
         public float MaxItemHeight => _children.Select(x => x.Height).Max();
 
-        public int KeyDownCount = 0;
-        public int KeyUpCount = 0;
+        private int _keyDownCount = 0;
+        private int _keyUpCount = 0;
 
         private GraphicalUiElement Selected
         {
@@ -110,12 +50,11 @@ namespace Game1.Input
 
         public GraphicalUiElement _selected;
 
-        public Action<GraphicalUiElement> OnClick { get; set; }
+        public delegate void OnClickEventHandler(GraphicalUiElement clickedEntity);
+        public event OnClickEventHandler OnClick;
 
-        /// <summary>
-        /// Old, New
-        /// </summary>
-        public Action<GraphicalUiElement, GraphicalUiElement> SelectionChanged { get; set; }
+        public delegate void SelectionChangedEventHandler(GraphicalUiElement oldSelection, GraphicalUiElement newSelection);
+        public event SelectionChangedEventHandler SelectionChanged;
 
         private List<GraphicalUiElement> _children { get; set; } = new();
         public List<ListItem> Items { get; private set; } = new();
@@ -192,12 +131,21 @@ namespace Game1.Input
 
         private void HandleKeyStrokes()
         {
+            if (!KeyboardEnabled)
+                return;
+
             if (FlatKeyboard.Instance.IsKeyClicked(Microsoft.Xna.Framework.Input.Keys.Up))
             {
+                if (OnlyScrollWhenMouseInWindow && !Container.Contains(FlatMouse.Instance.GumPos))
+                    return;
+
                 SetSelectedIndex(GetSelectedIndex() - 1);
             }
             else if (FlatKeyboard.Instance.IsKeyClicked(Microsoft.Xna.Framework.Input.Keys.Down))
             {
+                if (OnlyScrollWhenMouseInWindow && !Container.Contains(FlatMouse.Instance.GumPos))
+                    return;
+
                 SetSelectedIndex(GetSelectedIndex() + 1);
             }
             else if (FlatKeyboard.Instance.IsKeyClicked(Microsoft.Xna.Framework.Input.Keys.Enter))
@@ -206,20 +154,26 @@ namespace Game1.Input
             }
             else if (FlatKeyboard.Instance.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
             {
-                KeyUpCount++;
-                if (KeyUpCount > 5)
+                if (OnlyScrollWhenMouseInWindow && !Container.Contains(FlatMouse.Instance.GumPos))
+                    return;
+
+                _keyUpCount++;
+                if (_keyUpCount > 5)
                 {
                     SetSelectedIndex(GetSelectedIndex() - 1);
-                    KeyUpCount = 0;
+                    _keyUpCount = 0;
                 }
             }
             else if (FlatKeyboard.Instance.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
             {
-                KeyDownCount++;
-                if(KeyDownCount > 5)
+                if (OnlyScrollWhenMouseInWindow && !Container.Contains(FlatMouse.Instance.GumPos))
+                    return;
+
+                _keyDownCount++;
+                if(_keyDownCount > 5)
                 {
                     SetSelectedIndex(GetSelectedIndex() + 1);
-                    KeyDownCount = 0;
+                    _keyDownCount = 0;
                 }
             }
         }
@@ -269,6 +223,9 @@ namespace Game1.Input
 
         private void HandleScrolling()
         {
+            if (OnlyScrollWhenMouseInWindow && !Container.Contains(FlatMouse.Instance.GumPos))
+                return;
+
             if (FlatMouse.Instance.ScrolledUp())
             {
                 CursorOffset -= FlatKeyboard.Instance.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) ? 40 : 20;

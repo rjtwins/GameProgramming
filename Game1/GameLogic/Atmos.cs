@@ -12,7 +12,10 @@ namespace Game1.GameLogic
         
         //In surface coverage.
         public float LiquidWater { get; set; } = 0f;
-        public bool Frozen = false;
+        //In surface coverage.
+        public float Ice { get; set; } = 0f;
+        
+        public bool Frozen { get; set; } = false;
 
         public float AtmosPressure => Gases.Sum(x => x.Value);
 

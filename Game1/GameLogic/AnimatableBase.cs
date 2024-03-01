@@ -25,7 +25,9 @@ namespace Game1.GameLogic
                         Thread.Yield();
                     }
 
-                    this.Update(GameEngine.TimeSenseLastUpdate);
+                    GameEngine.Workers[id] = false;
+
+                    Update(GameEngine.TimeSinceLastUpdate);
 
                     GameEngine.Workers[id] = true;
                 }

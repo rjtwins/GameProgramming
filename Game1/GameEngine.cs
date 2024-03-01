@@ -17,7 +17,7 @@ namespace Game1
     {
         public static ConcurrentDictionary<Guid, bool> Workers = new();
         public static bool Synced = true;
-        public static double TimeSenseLastUpdate {  get; set; } = 0;
+        public static double TimeSinceLastUpdate {  get; set; } = 0;
 
         public static void Start()
         {
@@ -57,7 +57,7 @@ namespace Game1
 
                     while (GameState.TotalSeconds - time < 1)
                     {
-                        Thread.Yield();
+                        Thread.Sleep(10);
                     }
 
                     var fleets = GameState.GameEntities.Where(x => x is Fleet).Cast<Fleet>().ToList();
@@ -77,7 +77,7 @@ namespace Game1
 
                     while (GameState.TotalSeconds - time < 1)
                     {
-                        Thread.Yield();
+                        Thread.Sleep(10);
                     }
 
                     Detection.Update();
@@ -98,15 +98,15 @@ namespace Game1
         {
             var time = GameState.TotalSeconds;
 
-            while (Workers.Count != 0 && (
-                Workers.Values.Any(x => x == false) || 
+            while (Workers.Count != 0 && 
+                (Workers.Values.Any(x => x == false) || 
                 (GameState.TotalSeconds - time) < 1))
             {
                 Synced = false;
-                Thread.Yield();
+                Thread.Sleep(10);
             }
 
-            TimeSenseLastUpdate = GameState.TotalSeconds - time;
+            TimeSinceLastUpdate = GameState.TotalSeconds - time;
 
             Synced = true;
         }

@@ -13,7 +13,7 @@
     <Variable>
       <Type>float?</Type>
       <Name>Box.CustomFrameTextureCoordinateWidth</Name>
-      <Value xsi:type="xsd:float">1</Value>
+      <Value xsi:type="xsd:float">2</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>

@@ -14,6 +14,7 @@ namespace Game1.ScreenModels
     {
         public GraphicalUiElement Screen { get; set; }
         public bool Active { get; set; } = false;
+        protected double _timeSinceLastUpdate = 0d;
         public virtual void UpdateResolution()
         {
             var camera = SystemManagers.Default.Renderer.Camera;
@@ -36,7 +37,7 @@ namespace Game1.ScreenModels
 
         public virtual void Update(double deltaTime)
         {
-
+            _timeSinceLastUpdate += deltaTime;
         }
 
         public virtual void Hide()

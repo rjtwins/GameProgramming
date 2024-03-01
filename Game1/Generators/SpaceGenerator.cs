@@ -65,7 +65,7 @@ namespace Game1.Generators
                 CoreType = BodyCoreType.Plasma
             };
 
-            star.Children.AddRange(GeneratePlanets(7));
+            star.Children.AddRange(GeneratePlanets(1));
             star.Children.ForEach(x => x.Parent = star);
 
             var planets = star.Children.OfType<Planet>().ToList();
@@ -167,7 +167,7 @@ namespace Game1.Generators
             planet.SatelliteType = BodyType.Terrestrial;
             planet.Atmosphere = new Atmos()
             {
-                AtmosType = AtmosType.Normal,
+                //AtmosType = AtmosType.Normal,
                 LiquidWater = 0.75f,
             };
 

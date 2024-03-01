@@ -48,6 +48,12 @@ namespace Game1.Input
         public void Toggle()
         {
             this.Checked = !this.Checked;
+            if (this.Checked)
+                Element.ApplyState("Checked");
+            else
+                Element.ApplyState("UnChecked");
+
+            Element.UpdateLayout();
         }
 
         public static CheckBox CreateFrom(GraphicalUiElement Element, bool initial = false)

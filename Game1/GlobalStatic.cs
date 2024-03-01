@@ -29,7 +29,7 @@ namespace Game1
         public const decimal GALAXYSIZE = AU * 1e9M;
 
         public const double MSOLL = 2e30d;
-        public const double MEARTH = 6e25d;
+        public const double MEARTH = 6e24d;
         public const double MLUNA = 7.34e22d;
 
         public const decimal RSOLL = 7e5M;

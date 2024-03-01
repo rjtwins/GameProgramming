@@ -56,13 +56,29 @@ namespace Game1.Generators
 
                 GameState.GameEntities.Add(s);
             });
-
             GameState.GameEntities.OfType<Planet>().ToList().ForEach(x =>
             {
                 x.Colony = new();
                 x.Colony.HostBody = x;
                 x.Colony.Faction = faction1;
                 x.Colony.Name = x.Name + " Colony";
+                x.Colony.CurrentBuildings[ColonyBuilding.ProductionFactory] = 100;
+                x.Colony.BuildingQueue.Add(new BuildingQueueItem()
+                {
+                    Allocation = 0.5,
+                    ColonyBuilding = ColonyBuilding.ProductionFactory,
+                    Amount = 10,
+                    Progress = 0
+                });
+
+                x.Colony.BuildingQueue.Add(new BuildingQueueItem()
+                {
+                    Allocation = 0.5,
+                    ColonyBuilding = ColonyBuilding.Mine,
+                    Amount = 10,
+                    Progress = 0,
+                    Inf = true
+                });
             });
 
             var fleet = new Fleet()
@@ -298,27 +314,35 @@ namespace Game1.Generators
 
         public static void SetupGasInfo()
         {
-            Enum.GetValues<Gas>().ToList().ForEach(x =>
-            {
-                GameState.GasInfo[x] = new GasInfo()
-                {
-                    GHF = 0,
-                    AGHF = 0
-                };
-            });
+            var json = System.IO.File.ReadAllText("Content\\GasInfo.json");
+            GameState.GasInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<Gas, GasInfo>>(json);
 
-            GameState.GasInfo[Gas.H2Ov].AGHF = 0;
-            GameState.GasInfo[Gas.H2Ov].GHF = 16;
-            GameState.GasInfo[Gas.CO2].AGHF = 0;
-            GameState.GasInfo[Gas.CO2].GHF = 17;
-        }
+            //Enum.GetValues<Gas>().ToList().ForEach(x =>
+            //{
+            //    GameState.GasInfo[x] = new GasInfo();
+            //});
+
+            //GameState.GasInfo[Gas.H2Ov].AGHF = 0;
+            //GameState.GasInfo[Gas.H2Ov].GHF = 16;
+            //GameState.GasInfo[Gas.CO2].AGHF = 0;
+            //GameState.GasInfo[Gas.CO2].GHF = 17;
+
+            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(GameState.GasInfo);
+
+      }
 
         public static void SetupBuildingInf()
         {
-            Enum.GetValues<ColonyBuilding>().ToList().ForEach(x =>
-            {
-                GameState.BuildingInfo[x] = (100, 100);
-            });
+            //Enum.GetValues<ColonyBuilding>().ToList().ForEach(x =>
+            //{
+            //    GameState.BuildingInfo[x] = new BuildingInfo();
+            //});
+            
+            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(GameState.BuildingInfo);
+
+
+            var json = System.IO.File.ReadAllText("Content\\BuildingInfo.json");
+            GameState.BuildingInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<ColonyBuilding, BuildingInfo>>(json);
         }
     }
 }

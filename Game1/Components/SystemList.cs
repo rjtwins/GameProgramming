@@ -58,7 +58,7 @@ namespace Game1.Components
 
             ScrollView = new(Container);
 
-            ScrollView.OnClick = (clickedElement) =>
+            ScrollView.OnClick += (clickedElement) =>
             {
                 if (clickedElement == null)
                     return;
@@ -85,7 +85,7 @@ namespace Game1.Components
                 OnClick?.Invoke(entity);
             };
 
-            ScrollView.SelectionChanged = (oldSelection, newSelection) =>
+            ScrollView.SelectionChanged += (oldSelection, newSelection) =>
             {
                 if (newSelection == null)
                     return;

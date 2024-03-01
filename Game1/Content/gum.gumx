@@ -5,12 +5,12 @@
   <Version>1</Version>
   <DefaultCanvasWidth>1920</DefaultCanvasWidth>
   <DefaultCanvasHeight>1080</DefaultCanvasHeight>
-  <ShowOutlines>false</ShowOutlines>
+  <ShowOutlines>true</ShowOutlines>
   <ShowCanvasOutline>true</ShowCanvasOutline>
   <ShowRuler>true</ShowRuler>
   <ShowCheckerBackground>true</ShowCheckerBackground>
   <ConvertVariablesOnUnitTypeChange>false</ConvertVariablesOnUnitTypeChange>
-  <RestrictToUnitValues>true</RestrictToUnitValues>
+  <RestrictToUnitValues>false</RestrictToUnitValues>
   <RestrictFileNamesForAndroid>false</RestrictFileNamesForAndroid>
   <Guides />
   <ShowLocalizationInGum>false</ShowLocalizationInGum>
@@ -51,7 +51,27 @@
     <LinkType>ReferenceOriginal</LinkType>
   </ComponentReference>
   <ComponentReference>
+    <Name>BuildingQueueItem</Name>
+    <ElementType>Component</ElementType>
+    <LinkType>ReferenceOriginal</LinkType>
+  </ComponentReference>
+  <ComponentReference>
+    <Name>BuildingBuildItem</Name>
+    <ElementType>Component</ElementType>
+    <LinkType>ReferenceOriginal</LinkType>
+  </ComponentReference>
+  <ComponentReference>
     <Name>Button</Name>
+    <ElementType>Component</ElementType>
+    <LinkType>ReferenceOriginal</LinkType>
+  </ComponentReference>
+  <ComponentReference>
+    <Name>Button2</Name>
+    <ElementType>Component</ElementType>
+    <LinkType>ReferenceOriginal</LinkType>
+  </ComponentReference>
+  <ComponentReference>
+    <Name>Button3</Name>
     <ElementType>Component</ElementType>
     <LinkType>ReferenceOriginal</LinkType>
   </ComponentReference>
@@ -150,8 +170,9 @@
     <ElementType>Standard</ElementType>
     <LinkType>ReferenceOriginal</LinkType>
   </StandardElementReference>
-  <SinglePixelTextureTop xsi:nil="true" />
-  <SinglePixelTextureLeft xsi:nil="true" />
-  <SinglePixelTextureRight xsi:nil="true" />
-  <SinglePixelTextureBottom xsi:nil="true" />
+  <SinglePixelTextureFile>fontcache/font14simsun_nosmooth_0.png</SinglePixelTextureFile>
+  <SinglePixelTextureTop>33</SinglePixelTextureTop>
+  <SinglePixelTextureLeft>0</SinglePixelTextureLeft>
+  <SinglePixelTextureRight>3</SinglePixelTextureRight>
+  <SinglePixelTextureBottom>3</SinglePixelTextureBottom>
 </GumProjectSave>

@@ -23,7 +23,7 @@ namespace Game1
         public static List<ShipDesign> ShipDesigns { get; set; } = new();
         public static List<SubSystemBase> SubSystems { get; set; } = new();
         public static List<Faction> Factions { get; set; } = new();
-        public static Dictionary<ColonyBuilding, (int bp, int pop)> BuildingInfo { get; set; } = new();
+        public static Dictionary<ColonyBuilding, BuildingInfo> BuildingInfo { get; set; } = new();
         public static Dictionary<Gas, GasInfo> GasInfo { get; set; } = new();
 
         public static GameEntity Focus { get; set; }

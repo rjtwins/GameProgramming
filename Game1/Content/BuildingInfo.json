@@ -1,0 +1,142 @@
+{
+  "Infrastructure": {
+    "IC": 500,
+    "Pop": 0,
+    "ICGen": 0,
+    "FriendlyName": "Infrastructure",
+    "BuildCost": {}
+  },
+  "HabInfrastructure": {
+    "IC": 1000,
+    "Pop": 0,
+    "ICGen": 0,
+    "FriendlyName": "Hab Infrastructure",
+    "BuildCost": {}
+  },
+  "ProductionFactory": {
+    "IC": 3650,
+    "Pop": 50000,
+    "ICGen": 1,
+    "FriendlyName": "Production Factory",
+    "BuildCost": {}
+  },
+  "ResearchAcademy": {
+    "IC": 36500,
+    "Pop": 1000000,
+    "ICGen": 1,
+    "FriendlyName": "Research Academy",
+    "BuildCost": {}
+  },
+  "ResearchOutpost": {
+    "IC": 3650,
+    "Pop": 250000,
+    "ICGen": 0,
+    "FriendlyName": "Research Outpost",
+    "BuildCost": {}
+  },
+  "ShipBuildingSupport": {
+    "IC": 3650,
+    "Pop": 50000,
+    "ICGen": 0,
+    "FriendlyName": "Shipyard Support",
+    "BuildCost": {}
+  },
+  "Mine": {
+    "IC": 3650,
+    "Pop": 50000,
+    "ICGen": 0,
+    "FriendlyName": "Mining Complex",
+    "BuildCost": {}
+  },
+  "AutomatedMine": {
+    "IC": 3650,
+    "Pop": 0,
+    "ICGen": 0,
+    "FriendlyName": "Automated Mining Complex",
+    "BuildCost": {}
+  },
+  "FinancialCenter": {
+    "IC": 3650,
+    "Pop": 50000,
+    "ICGen": 0,
+    "FriendlyName": "Financial Center",
+    "BuildCost": {}
+  },
+  "TerraformingFacility": {
+    "IC": 18000,
+    "Pop": 250000,
+    "ICGen": 0,
+    "FriendlyName": "Terraforming Facility",
+    "BuildCost": {}
+  },
+  "GeneticsFacility": {
+    "IC": 0,
+    "Pop": 0,
+    "ICGen": 0,
+    "FriendlyName": "",
+    "BuildCost": {}
+  },
+  "AgriCenter": {
+    "IC": 3650,
+    "Pop": 50000,
+    "ICGen": 0,
+    "FriendlyName": "Agricultural Facility",
+    "BuildCost": {}
+  },
+  "SpacePort": {
+    "IC": 365000,
+    "Pop": 1000000,
+    "ICGen": 0,
+    "FriendlyName": "Space Port",
+    "BuildCost": {}
+  },
+  "ShuttlePort": {
+    "IC": 18000,
+    "Pop": 0,
+    "ICGen": 0,
+    "FriendlyName": "Shuttle Port",
+    "BuildCost": {}
+  },
+  "CivShipyard": {
+    "IC": 100000,
+    "Pop": 1000000,
+    "ICGen": 0,
+    "FriendlyName": "Civial Shipyard",
+    "BuildCost": {}
+  },
+  "MillShipyard": {
+    "IC": 180000,
+    "Pop": 1000000,
+    "ICGen": 0,
+    "FriendlyName": "Military Shipyard",
+    "BuildCost": {}
+  },
+  "CivSlipway": {
+    "IC": 3000,
+    "Pop": 0,
+    "ICGen": 0,
+    "FriendlyName": "Extra Civilian Slipway",
+    "BuildCost": {}
+  },
+  "MilSlipway": {
+    "IC": 4000,
+    "Pop": 0,
+    "ICGen": 0,
+    "FriendlyName": "Extra Military Slipway",
+    "BuildCost": {}
+  },
+  "CivSlipwayCap": {
+    "IC": 10,
+    "Pop": 25,
+    "ICGen": 0,
+    "FriendlyName": "Extra Civilian Slipway Capacity",
+    "BuildCost": {}
+  },
+  "MilSlipwayCap": {
+    "IC": 10,
+    "Pop": 50,
+    "ICGen": 0,
+    "FriendlyName": "Extra Military Slipway Capacity",
+    "BuildCost": {}
+  }
+}

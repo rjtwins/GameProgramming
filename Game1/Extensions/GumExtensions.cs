@@ -30,6 +30,22 @@ namespace Game1.Extensions
                 master.GetAbsoluteBottom() >= child.GetAbsoluteBottom();
         }
 
+        public static void Move<T>(this List<T> list, T item, int newIndex)
+        {
+            if (item != null)
+            {
+                var oldIndex = list.IndexOf(item);
+                if (oldIndex > -1)
+                {
+                    list.RemoveAt(oldIndex);
+
+                    //if (newIndex > oldIndex) newIndex--;
+
+                    list.Insert(newIndex, item);
+                }
+            }
+        }
+
         //public static void OnClick(this GraphicalUiElement element, Action action)
         //{
         //    UIClickEventHandler.Instance.AddElement(element, action);

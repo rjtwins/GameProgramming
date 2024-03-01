@@ -199,7 +199,7 @@ namespace Game1
 
             if (_flatKeyboard.IsKeyClicked(Keys.Space))
             {
-                _messageBox.ShowModal(_desktop);
+                //_messageBox.ShowModal(_desktop);
                 GameState.Paused = !GameState.Paused;
             }
 
@@ -250,6 +250,8 @@ namespace Game1
 
             if (PlanetScreen.Instance.Active)
                 PlanetScreen.Instance.Update(gameTime.ElapsedGameTime.TotalSeconds);
+            if (ColonyManager.Instance.Active)
+                ColonyManager.Instance.Update(gameTime.ElapsedGameTime.TotalSeconds);
 
             base.Update(gameTime);
 

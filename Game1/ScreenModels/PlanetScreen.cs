@@ -53,7 +53,7 @@ namespace Game1.ScreenModels
             _checkBoxStation,
             _checkBoxMillFleet;
 
-        private double _timeSinceLastUpdate = 0d;
+
 
         public PlanetScreen()
         {
@@ -125,7 +125,6 @@ namespace Game1.ScreenModels
 
         public override void Update(double deltaTime)
         {
-            _timeSinceLastUpdate += deltaTime;
             if ( _timeSinceLastUpdate > 5 ) 
             {
                 UpdateDetails();
