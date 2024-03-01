@@ -36,6 +36,7 @@ namespace Game1.ScreenModels
         private ScrollView _buildQueue { get; set; }
         private ScrollView _buildingList { get; set; }
         private BuildingQueueItem _selectedBuildQueueItem { get; set; }
+        private ColonyBuilding _selectedColonyBuildingType { get; set; }
 
         private GameEntity SelectedEntity
         {
@@ -78,17 +79,55 @@ namespace Game1.ScreenModels
             _buildingContainer = Screen.GetGraphicalUiElementByName("ColonyManagerTopContainer", "RectangleInstance", "RectangleInstance1", "ColonyBuildingOptions");
             _buildingList = new ScrollView(_buildingContainer);
             _buildingList.KeyboardEnabled = false;
+            _buildingList.OnlyScrollWhenMouseInWindow = true;
+            _buildingList.CanScroll = false;
+
+            _buildingList.OnClick += _buildingList_OnClick;
+            _buildingList.SelectionChanged += _buildingList_SelectionChanged;
 
             _buildQueueList = Screen.GetGraphicalUiElementByName("ColonyManagerTopContainer", "RectangleInstance", "BuildQueueList");
             _buildQueue = new ScrollView(_buildQueueList);
             _buildQueue.KeyboardEnabled = false;
+            _buildQueue.OnlyScrollWhenMouseInWindow = true;
 
             SystemList.Instance.SelectionChanged += SystemList_SelectionChanged;
             SystemList.Instance.OnClick += SystemList_OnClick;
-            _buildQueue.OnClick += _buildQueue_OnClick; ;
+            _buildQueue.OnClick += _buildQueue_OnClick;
             _buildQueue.SelectionChanged += _buildQueue_SelectionChanged;
 
             SetupEditor();
+        }
+
+        private void _buildingList_SelectionChanged(GraphicalUiElement oldSelection, GraphicalUiElement newSelection)
+        {
+            return;
+        }
+
+        private void _buildingList_OnClick(GraphicalUiElement clickedEntity)
+        {
+            if (!(clickedEntity?.Tag is ColonyBuilding buildingEnum))
+                return;
+
+            _selectedColonyBuildingType = buildingEnum;
+            _buildingList.SetSelected(clickedEntity);
+        }
+
+        private void _buildQueue_SelectionChanged(GraphicalUiElement oldSelection, GraphicalUiElement newSelection)
+        {
+            if (!(newSelection?.Tag is BuildingQueueItem item))
+                return;
+
+            _selectedBuildQueueItem = item;
+        }
+
+        private void _buildQueue_OnClick(GraphicalUiElement clickedEntity)
+        {
+            if (!(clickedEntity?.Tag is BuildingQueueItem item))
+                return;
+
+            _buildQueue.SetSelected(clickedEntity);
+
+            _selectedBuildQueueItem = item;
         }
 
         public void SetupEditor()
@@ -122,7 +161,7 @@ namespace Game1.ScreenModels
 
                 var oldIndex = o.Colony.BuildingQueue.IndexOf(_selectedBuildQueueItem);
 
-                if(oldIndex == 0) 
+                if (oldIndex == 0)
                     return;
 
                 o.Colony.BuildingQueue.Move(_selectedBuildQueueItem, oldIndex - 1);
@@ -144,6 +183,26 @@ namespace Game1.ScreenModels
 
                 o.Colony.BuildingQueue.Move(_selectedBuildQueueItem, oldIndex + 1);
                 _buildQueue.SetSelectedIndex(oldIndex + 1);
+                UpdateState();
+            };
+
+            new InteractiveGUE(_createButton).OnClick = () =>
+            {
+                if (!(SelectedEntity is Orbital o))
+                    return;
+                if (_selectedColonyBuildingType == null)
+                    return;
+
+                var newItem = new BuildingQueueItem()
+                {
+                    ColonyBuilding = _selectedColonyBuildingType,
+                    Allocation = ((float)_editorAllocation / 100f),
+                    Amount = Math.Max(1, _editorAmount),
+                    Inf = _continuous
+                };
+
+                o.Colony.BuildingQueue.Add(newItem);
+
                 UpdateState();
             };
 
@@ -184,14 +243,30 @@ namespace Game1.ScreenModels
             };
 
             new InteractiveGUE(_amountPlus).OnClick = () => {
-                _editorAmount += FlatKeyboard.Instance.IsKeyDown(Keys.LeftShift) ? 5 : 1; ;
+                var div = 1;
+                if (FlatKeyboard.Instance.IsKeyDown(Keys.LeftShift))
+                    div = 5;
+                else if (FlatKeyboard.Instance.IsKeyDown(Keys.LeftControl))
+                    div = 10;
+                else if (FlatKeyboard.Instance.IsKeyDown(Keys.LeftControl) && FlatKeyboard.Instance.IsKeyDown(Keys.LeftShift))
+                    div = 50;
+
+                _editorAmount += div;
                 _continuous = false;
 
                 Screen.SetProperty("QueueAmountText", _editorAmount.ToString());
             };
 
             new InteractiveGUE(_amountMinus).OnClick = () => {
-                _editorAmount -= FlatKeyboard.Instance.IsKeyDown(Keys.LeftShift) ? 5 : 1;
+                var div = 1;
+                if (FlatKeyboard.Instance.IsKeyDown(Keys.LeftShift))
+                    div = 5;
+                else if (FlatKeyboard.Instance.IsKeyDown(Keys.LeftControl))
+                    div = 10;
+                else if (FlatKeyboard.Instance.IsKeyDown(Keys.LeftControl) && FlatKeyboard.Instance.IsKeyDown(Keys.LeftShift))
+                    div = 50;
+
+                _editorAmount -= div;
                 _editorAmount = Math.Max(0, _editorAmount);
                 _continuous = false;
 
@@ -220,24 +295,6 @@ namespace Game1.ScreenModels
 
         }
 
-        private void _buildQueue_SelectionChanged(GraphicalUiElement oldSelection, GraphicalUiElement newSelection)
-        {
-            if (!(newSelection?.Tag is BuildingQueueItem item))
-                return;
-
-            _selectedBuildQueueItem = item;
-        }
-
-        private void _buildQueue_OnClick(GraphicalUiElement clickedEntity)
-        {
-            if (!(clickedEntity?.Tag is BuildingQueueItem item))
-                return;
-
-            _buildQueue.SetSelected(clickedEntity);
-
-            _selectedBuildQueueItem = item;
-        }
-
         private void SystemList_OnClick(GameEntity clickedEntity)
         {
             SelectedEntity = clickedEntity;
@@ -261,11 +318,12 @@ namespace Game1.ScreenModels
 
         private void UpdateState()
         {
+            UpdateBuildingList();
             //_buildQueue.Items.ForEach(x => x.Element.RemoveFromManagers());
             //_buildQueue.Items.Clear();
             //_buildQueue.Container.Visible = false;
 
-            UpdateBuildingList();
+            //UpdateBuildingList();
 
             if (SelectedEntity == null)
                 return;
@@ -306,6 +364,17 @@ namespace Game1.ScreenModels
             Screen.SetProperty("FusibleElementsText", c.ResourceStockpiles[GameLogic.Resource.FusibleElements].ToString("#.0"));
             Screen.SetProperty("ExoticMaterialsText", c.ResourceStockpiles[GameLogic.Resource.ExoticMaterials].ToString("#.0"));
 
+            var dailyMining = c.GetDailyMining();
+
+            Screen.SetProperty("BasicMetalsMiningText", dailyMining[GameLogic.Resource.BasicMetals].ToString("#.0"));
+            Screen.SetProperty("LowDensityElementsMiningText", dailyMining[GameLogic.Resource.LowDensityElements].ToString("#.0"));
+            Screen.SetProperty("RareMetalsMiningText", dailyMining[GameLogic.Resource.RareMetals].ToString("#.0"));
+            Screen.SetProperty("NobleElementsMiningText", dailyMining[GameLogic.Resource.NobelElements].ToString("#.0"));
+            Screen.SetProperty("HeavyMetalsMiningText", dailyMining[GameLogic.Resource.HeavyMetals].ToString("#.0"));
+            Screen.SetProperty("FissileElementsMiningText", dailyMining[GameLogic.Resource.FissileElements].ToString("#.0"));
+            Screen.SetProperty("FusibleElementsMiningText", dailyMining[GameLogic.Resource.FusibleElements].ToString("#.0"));
+            Screen.SetProperty("ExoticMaterialsMiningText", dailyMining[GameLogic.Resource.ExoticMaterials].ToString("#.0"));
+
             //Build Queue:
             _buildQueue.Container.Visible = true;
             int selectedIndex = _buildQueue.GetSelectedIndex();
@@ -323,7 +392,11 @@ namespace Game1.ScreenModels
                 var ic = GameState.BuildingInfo[x.ColonyBuilding].IC;
                 var totalIc = ic * x.Amount;
 
-                element.SetProperty("ICText", $"{ic} - {totalIc}");
+                if(x.Inf)
+                    element.SetProperty("ICText", $"{ic}");
+                else
+                    element.SetProperty("ICText", $"{ic} - {totalIc}");
+
                 element.SetProperty("ProgressCurrentText", $"{(x.Progress / ic * 100).ToString("#.0")}%");
 
                 var completionText = x.Inf ? "-" : $"{x.TimeToCompletion(c.ICGenerationDay).ToString("#.0")} days";
@@ -344,6 +417,7 @@ namespace Game1.ScreenModels
 
         public void UpdateBuildingList()
         {
+            var selected = _buildingList.GetSelectedIndex();
             _buildingList.SetItems(new());
             _buildingList.Container.Visible = true;
 
@@ -352,26 +426,33 @@ namespace Game1.ScreenModels
                 var element = _BuildInfoItem.ToGraphicalUiElement(SystemManagers.Default, false);
                 element.SetProperty("NameText", x.Value.FriendlyName);
                 element.SetProperty("ICText", x.Value.IC);
-
+                element.Tag = x.Key;
                 return element;
             }).ToList();
 
             _buildingList.SetItems(elements);
+            _buildingList.SetSelectedIndex(selected);
         }
 
         public override void Show()
         {
+            SystemList.Instance.OnClick += SystemList_OnClick;
+            SystemList.Instance.SelectionChanged += SystemList_SelectionChanged;
             _systemListContainer.Children.Add(SystemList.Instance.Container);
             SystemList.Instance.SetSimple();
             SystemList.Instance.FilterNonColonies();
             SystemList.Instance.Show();
+            SystemList.Instance.ScrollView.OnlyScrollWhenMouseInWindow = true;
             base.Show();
         }
 
         public override void Hide()
         {
+            SystemList.Instance.OnClick -= SystemList_OnClick;
+            SystemList.Instance.SelectionChanged -= SystemList_SelectionChanged;
             _systemListContainer.Children.Clear();
             SystemList.Instance.Hide();
+            SystemList.Instance.ScrollView.OnlyScrollWhenMouseInWindow = false;
             base.Hide();
         }
     }

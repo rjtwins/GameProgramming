@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using RenderingLibrary;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Game1.Input
@@ -17,6 +18,7 @@ namespace Game1.Input
 
         public bool KeyboardEnabled { get; set; } = true;
         public bool OnlyScrollWhenMouseInWindow { get; set; } = false;
+        public bool CanScroll { get; set; } = true;
 
         public float Top => Container.GetAbsoluteTop();
         public float Bottom => Container.GetAbsoluteBottom();
@@ -223,6 +225,9 @@ namespace Game1.Input
 
         private void HandleScrolling()
         {
+            if (!CanScroll)
+                return;
+
             if (OnlyScrollWhenMouseInWindow && !Container.Contains(FlatMouse.Instance.GumPos))
                 return;
 

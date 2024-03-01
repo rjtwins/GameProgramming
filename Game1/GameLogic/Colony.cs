@@ -37,7 +37,8 @@ namespace Game1.GameLogic
         public Dictionary<ColonyBuilding, double> CurrentBuildings { get; set; } = new ();
         public List<BuildingQueueItem> BuildingQueue { get; set; } = new ();
         public Dictionary<Resource, double> ResourceStockpiles { get; set; } = new ();
-        private double _timeSinceStockpileLog = 0d;
+        public Dictionary<Resource, List<(double time, double value)>> ResourceStockpileChangeLog { get; set;} = new ();
+
         //public Dictionary<Resource, double> PreviousResourceStockpiles { get; set; } = new();
 
         public Colony()
@@ -51,6 +52,11 @@ namespace Game1.GameLogic
             Enum.GetValues<Resource>().ToList().ForEach(x =>
             {
                 ResourceStockpiles[x] = 0;
+            });
+
+            Enum.GetValues<Resource>().ToList().ForEach(x =>
+            {
+                ResourceStockpileChangeLog[x] = new();
             });
         }
 
@@ -74,11 +80,21 @@ namespace Game1.GameLogic
             var popNeeded = CurrentBuildings.Select(x => x.Value * GameState.BuildingInfo[x.Key].Pop).Sum();
             var efficiency = Math.Min(avialPop / popNeeded, 1);
 
+            UpdateBuilding(deltaTime, efficiency);
+
+            UpdateMining(deltaTime, efficiency);
+
+            //if(_timeSinceStockpileLog >= 2.628e6)
+            //    ResourceStockpiles.ToList().ForEach(x => PreviousResourceStockpiles)
+        }
+
+        private void UpdateBuilding(double deltaTime, double efficiency)
+        {
             //How many build points where generated over the delta time.
             ICGeneration = CurrentBuildings[ColonyBuilding.ProductionFactory] * GameState.BuildingInfo[ColonyBuilding.ProductionFactory].ICGen * efficiency;
 
             var ic = (ICGeneration * deltaTime) / 86400;
-
+            var icRemaining = ic;
             //Process building:
             BuildingQueue
                 .Where(x => x.Allocation > 0)
@@ -91,8 +107,16 @@ namespace Game1.GameLogic
                     if (x.Allocation <= 0 && x.Inf == false)
                         return;
 
+                    if (icRemaining <= 0)
+                        return;
+
                     var icCost = GameState.BuildingInfo[x.ColonyBuilding].IC;
                     var icUsed = ic * x.Allocation;
+
+                    icRemaining -= icUsed;
+
+                    if (icRemaining < 0)
+                        icUsed = Math.Max(0, icUsed + icRemaining);
 
                     x.Progress += icUsed;
                     var build = Math.Floor(x.Progress / icCost);
@@ -113,9 +137,42 @@ namespace Game1.GameLogic
             });
 
             BuildingQueue.RemoveAll(x => done.Contains(x));
+        }
 
-            //if(_timeSinceStockpileLog >= 2.628e6)
-            //    ResourceStockpiles.ToList().ForEach(x => PreviousResourceStockpiles)
+        private void UpdateMining(double deltaTime, double efficiency)
+        {
+            //Automated:
+            var mine = CurrentBuildings[ColonyBuilding.AutomatedMine] * deltaTime / 86400;
+            mine +=  CurrentBuildings[ColonyBuilding.Mine] * efficiency * deltaTime / 86400;
+
+            HostBody.Resources.ToList().ForEach(x =>
+            {
+                if (x.Value.amount <= 0)
+                    return;
+
+                var mined = x.Value.access * mine;
+                var newAmount = (int)Math.Floor(x.Value.amount - mined);
+
+                if(newAmount < 0)
+                    mined += newAmount;
+
+                mine = Math.Max(0, mined);
+                newAmount = Math.Max(0, newAmount);
+
+                HostBody.Resources[x.Key] = (newAmount, x.Value.access);
+                ResourceStockpiles[x.Key] += mined;
+
+                //Keeping track of past values;
+                ResourceStockpileChangeLog[x.Key].Add((GameState.TotalSeconds, ResourceStockpiles[x.Key]));
+                var toRemove = ResourceStockpileChangeLog[x.Key].Where(y => GameState.TotalSeconds - y.time > 100000);
+                toRemove.ToList().ForEach(y => ResourceStockpileChangeLog[x.Key].Remove(y));
+            });
+        }
+
+        public Dictionary<Resource, double> GetDailyMining()
+        {
+            var record = Enum.GetValues<Resource>().ToDictionary(x => x, x => ResourceStockpileChangeLog[x].FirstOrDefault(y => GameState.TotalSeconds - y.time >= 86400).value);
+            return record.ToDictionary(x => x.Key, x => ResourceStockpiles[x.Key] - x.Value);
         }
 
         public double PopInBuilding(ColonyBuilding colonyBuilding)

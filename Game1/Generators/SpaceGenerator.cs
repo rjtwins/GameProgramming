@@ -65,7 +65,7 @@ namespace Game1.Generators
                 CoreType = BodyCoreType.Plasma
             };
 
-            star.Children.AddRange(GeneratePlanets(1));
+            star.Children.AddRange(GeneratePlanets(7));
             star.Children.ForEach(x => x.Parent = star);
 
             var planets = star.Children.OfType<Planet>().ToList();
@@ -101,7 +101,7 @@ namespace Game1.Generators
                 Eccentricity = (float)Math.Clamp(Rand.NextDouble(), 0.01, 0.2),
                 CoreType = Enum.GetValues<BodyCoreType>().Shuffle(Rand).First()                
             };
-            planet.Children.AddRange(GenerateMoons(3));
+            planet.Children.AddRange(GenerateMoons(1));
             planet.Children.ForEach(x => x.Parent = planet);
             return planet;
         }

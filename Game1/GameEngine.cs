@@ -17,7 +17,7 @@ namespace Game1
     {
         public static ConcurrentDictionary<Guid, bool> Workers = new();
         public static bool Synced = true;
-        public static double TimeSinceLastUpdate {  get; set; } = 0;
+        public static double TimeSinceLastUpdate {  get; set; } = 1;
 
         public static void Start()
         {
@@ -46,7 +46,7 @@ namespace Game1
             });
 
             GameState.GameEntities.OfType<Fleet>().ToList().ForEach(x => x.Animate());
-            GameState.GameEntities.OfType<Planet>().Select(x => x.Colony).Where(x => x != null).ToList().ForEach(x => x.Animate());
+            //GameState.GameEntities.OfType<Planet>().Select(x => x.Colony).Where(x => x != null).ToList().ForEach(x => x.Animate());
 
             //Keeping track of fleet ghosts.
             ThreadPool.QueueUserWorkItem((state) =>
@@ -57,7 +57,7 @@ namespace Game1
 
                     while (GameState.TotalSeconds - time < 1)
                     {
-                        Thread.Sleep(10);
+                        Thread.Yield();
                     }
 
                     var fleets = GameState.GameEntities.Where(x => x is Fleet).Cast<Fleet>().ToList();
@@ -77,7 +77,7 @@ namespace Game1
 
                     while (GameState.TotalSeconds - time < 1)
                     {
-                        Thread.Sleep(10);
+                        Thread.Yield();
                     }
 
                     Detection.Update();
@@ -89,26 +89,30 @@ namespace Game1
             {
                 while (true)
                 {
-                    Update();
+                    Update2();
                 }
             });
         }
 
-        public static void Update()
+        public static void Update2()
         {
             var time = GameState.TotalSeconds;
 
-            while (Workers.Count != 0 && 
-                (Workers.Values.Any(x => x == false) || 
-                (GameState.TotalSeconds - time) < 1))
+            var tasks = GameState.GameEntities.OfType<Planet>()
+                .Select(x => x.Colony)
+                .Where(x => x != null)
+                .Select(x => Task.Factory.StartNew(() =>
+                {
+                    x.Update(TimeSinceLastUpdate);
+                })).ToArray();
+
+            Task.WaitAll(tasks);
+
+            while (GameState.TotalSeconds - time < 1)
             {
-                Synced = false;
-                Thread.Sleep(10);
+                Thread.Yield();
             }
-
             TimeSinceLastUpdate = GameState.TotalSeconds - time;
-
-            Synced = true;
         }
     }
 }
