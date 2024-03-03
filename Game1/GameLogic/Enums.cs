@@ -3,6 +3,13 @@ using System;
 
 namespace Game1.GameLogic
 {
+    public enum ResearchType
+    {
+        Engine,
+        Power,
+        Sensors
+    }
+
     public enum Gas
     {
         N2,

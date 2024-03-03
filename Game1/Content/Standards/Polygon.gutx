@@ -111,18 +111,6 @@
           <X>32</X>
           <Y>-32</Y>
         </Vector2>
-        <Vector2>
-          <X>32</X>
-          <Y>32</Y>
-        </Vector2>
-        <Vector2>
-          <X>-32</X>
-          <Y>32</Y>
-        </Vector2>
-        <Vector2>
-          <X>-32</X>
-          <Y>-32</Y>
-        </Vector2>
       </Value>
     </VariableList>
     <VariableList xsi:type="VariableListSaveOfString">

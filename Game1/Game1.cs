@@ -152,10 +152,9 @@ namespace Game1
 
 
             //PlanetScreen.Instance.AddSystems(GameState.SolarSystems);
-
             SystemList.Instance.AddSystems(GameState.SolarSystems);
 
-            ColonyManager.Instance.Show();
+            Research.Instance.Show();
         }
 
         protected override void Update(GameTime gameTime)
@@ -467,6 +466,7 @@ namespace Game1
             new ShipDesign();
             new PlanetScreen();
             new ColonyManager();
+            new Research();
 
             Main.Instance.Hide();
             Main.Instance.HideTopBar();
@@ -474,6 +474,7 @@ namespace Game1
             MainMenu.Instance.Hide();
             PlanetScreen.Instance.Hide();
             ColonyManager.Instance.Hide();
+            Research.Instance.Hide();
 
             //MainMenu.Instance.Show();
 

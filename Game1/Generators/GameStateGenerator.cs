@@ -1,12 +1,9 @@
 ﻿using Game1.GameEntities;
 using Game1.GameLogic;
+using Game1.GameLogic.Research;
 using Game1.GameLogic.SubSystems;
-using Game1.ScreenModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.Generators
 {
@@ -14,11 +11,13 @@ namespace Game1.Generators
     {
         public static void Generate()
         {
+            SetupResearchNodes();
             SetupGasInfo();
             SetupBuildingInf();
 
             var generator = new SpaceGenerator();
-            var systems = generator.Generate(250);
+            var systems = generator.Generate(1);
+
             var species = new Species();
             species.MinGrav = 0.2;
             species.MaxGrav = 1.2;
@@ -310,6 +309,12 @@ namespace Game1.Generators
             });
 
             GameState.Planets.SelectMany(x => x.Children).OfType<Orbital>().ToList().ForEach(x => generator.RefinePlanet(x)); 
+        }
+
+        private static void SetupResearchNodes()
+        {
+            var json = System.IO.File.ReadAllText("Content\\ResearchNodes.json");
+            GameState.ResearchNodes = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ResearchNode>>(json);
         }
 
         public static void SetupGasInfo()

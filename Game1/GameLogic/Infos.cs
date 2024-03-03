@@ -17,5 +17,6 @@ namespace Game1.GameLogic
         public double ICGen { get; set; } = 0f;
         public string FriendlyName { get; set; } = "";
         public Dictionary<Resource, double> BuildCost { get; set; } = new Dictionary<Resource, double>();
+        public string Description { get; set; } = "";
     }
 }

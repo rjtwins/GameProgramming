@@ -5467,6 +5467,139 @@
         "ElementType": "Screens",
         "EventType": 7,
         "TimestampUtc": "2024-03-01T22:21:15.7095127Z"
+      },
+      {
+        "NewName": "Research",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 0,
+        "TimestampUtc": "2024-03-03T11:44:41.9609913Z"
+      },
+      {
+        "NewName": "ResearchNode",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-03-03T12:04:00.753013Z"
+      },
+      {
+        "NewName": "ResearchNode (Container).NineSliceInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-03T12:04:40.06584Z"
+      },
+      {
+        "NewName": "ResearchNode (Container).TextInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-03T12:06:19.7475021Z"
+      },
+      {
+        "NewName": "ResearchNode (Container).Border",
+        "OldName": "ResearchNode (Container).NineSliceInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-03T12:07:10.3428464Z"
+      },
+      {
+        "NewName": "ResearchNode (Container).ResearchName",
+        "OldName": "ResearchNode (Container).TextInstance",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-03T12:07:24.5795417Z"
+      },
+      {
+        "NewName": "ResearchNode (Container).Border1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-03T12:08:07.8725883Z"
+      },
+      {
+        "NewName": "ResearchNode (Container).ResearchName1",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-03T12:08:07.87659Z"
+      },
+      {
+        "NewName": "ResearchNode (Container).ContainerInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-03T12:08:12.9331578Z"
+      },
+      {
+        "NewName": "ResearchNode (Container).ResearchDescription",
+        "OldName": "ResearchNode (Container).ResearchName1",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-03T12:08:30.3812652Z"
+      },
+      {
+        "NewName": "ResearchNode (Container).NameBorder",
+        "OldName": "ResearchNode (Container).Border",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-03T12:08:37.8290951Z"
+      },
+      {
+        "NewName": "ResearchNode (Container).DescriptionBorder",
+        "OldName": "ResearchNode (Container).Border1",
+        "ElementType": "Components",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-03T12:08:43.9654792Z"
+      },
+      {
+        "NewName": "Research.ScreenBackground",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-03T12:14:07.1733686Z"
+      },
+      {
+        "NewName": "Research.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-03T12:14:17.6414374Z"
+      },
+      {
+        "NewName": "Research.ResearchContainer",
+        "OldName": "Research.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2024-03-03T12:14:48.1342405Z"
+      },
+      {
+        "NewName": "PolygonComponent",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 0,
+        "TimestampUtc": "2024-03-03T14:51:37.2535025Z"
+      },
+      {
+        "NewName": "StatBlockComponent (Container).PolygonInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-03T14:51:39.7893779Z"
+      },
+      {
+        "NewName": "PolygonComponent (Container).PolygonInstance",
+        "OldName": null,
+        "ElementType": "Components",
+        "EventType": 5,
+        "TimestampUtc": "2024-03-03T14:51:42.2629575Z"
+      },
+      {
+        "NewName": null,
+        "OldName": "StatBlockComponent (Container).Polygon PolygonInstance in StatBlockComponent (Container)",
+        "ElementType": "Components",
+        "EventType": 6,
+        "TimestampUtc": "2024-03-03T14:58:52.0591687Z"
       }
     ]
   }

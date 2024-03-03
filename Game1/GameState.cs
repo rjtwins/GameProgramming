@@ -1,5 +1,6 @@
 ﻿using Game1.GameEntities;
 using Game1.GameLogic;
+using Game1.GameLogic.Research;
 using Game1.GameLogic.SubSystems;
 using Game1.GraphicalEntities;
 using System;
@@ -25,6 +26,8 @@ namespace Game1
         public static List<Faction> Factions { get; set; } = new();
         public static Dictionary<ColonyBuilding, BuildingInfo> BuildingInfo { get; set; } = new();
         public static Dictionary<Gas, GasInfo> GasInfo { get; set; } = new();
+
+        public static List<ResearchNode> ResearchNodes { get; set; } = new();
 
         public static GameEntity Focus { get; set; }
 

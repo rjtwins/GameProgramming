@@ -194,6 +194,25 @@ namespace Game1
             return (decimal)angleRad;
         }
 
+        public static float AngleBetweenPoints(Vector2 A, Vector2 B)
+        {
+            // Calculate the differences in coordinates
+            float deltaX = B.X - A.X;
+            float deltaY = B.Y - A.Y;
+
+            // Calculate the angle using arctan
+            double angleRad = Math.Atan2(deltaY, deltaX);
+            //double angleDeg = angleRad * (180.0 / Math.PI);
+
+            //// Ensure the angle is positive
+            //if (angleDeg < 0)
+            //{
+            //    angleDeg += 360.0;
+            //}
+
+            return (float)angleRad;
+        }
+
         public static TextRuntime GetTextRuntime(string text, int r, int g, int b, int a = 255)
         {
             var runtime = new TextRuntime();

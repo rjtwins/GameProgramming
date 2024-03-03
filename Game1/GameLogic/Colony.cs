@@ -65,9 +65,6 @@ namespace Game1.GameLogic
             if (HostBody == null)
                 return;
 
-            //_timeSinceStockpileLog += deltaTime;
-
-            //Todo calc agri pop.
             AgriMod = (GlobalStatic.BasicAgri - CurrentBuildings[ColonyBuilding.AgriCenter] * 0.01 * GlobalStatic.BasicAgri);
 
             if (HostBody.NeedHab(Faction.Species))
@@ -83,6 +80,7 @@ namespace Game1.GameLogic
             //Get ic generated since last update:
             ICGeneration = CurrentBuildings[ColonyBuilding.ProductionFactory] * GameState.BuildingInfo[ColonyBuilding.ProductionFactory].ICGen * efficiency;
             var ic = (ICGeneration * deltaTime) / 86400;
+
             //Update build queue
             UpdateBuilding(deltaTime, ic);
 
