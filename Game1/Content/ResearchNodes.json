@@ -9,6 +9,15 @@
     "progress": 0.0
   },
   {
+    "researchId": "ThermalFissionEngines2",
+    "friendlyName": "Thermal Fission Engines 2",
+    "description": "Test description",
+    "RequisiteIds": [ "ThermalFissionEngines" ],
+    "researchType": "PropulsionSystems",
+    "researched": false,
+    "progress": 0.0
+  },
+  {
     "researchId": "TraditionalNuclearFissionReactors",
     "friendlyName": "TraditionalNuclearFissionReactors",
     "description": "test desription2",
@@ -21,7 +30,7 @@
     "researchId": "Sensor1",
     "friendlyName": "test sensor1",
     "description": "test desription",
-    "RequisiteIds": [],
+    "RequisiteIds": [ "ThermalFissionEngines2" ],
     "researchType": "Sensors",
     "researched": false,
     "progress": 0.0
@@ -76,9 +85,8 @@
     "friendlyName": "test friendly name",
     "description": "test desription",
     "RequisiteIds": [],
-    "researchType": "OffensiveTechnologies1",
+    "researchType": "OffensiveTechnologies",
     "researched": false,
     "progress": 0.0
   }
-
 ]

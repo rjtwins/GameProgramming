@@ -79,19 +79,21 @@ namespace Game1.ScreenModels
                 var requisiteElements = this.ResearchNodeElements.Where(x => requisites.Contains(x.Tag)).ToList();
                 requisiteElements.ForEach(requisiteElement =>
                 {
-                    var divx = element.GetAbsoluteCenterX() - requisiteElement.GetAbsoluteCenterX();
-                    var divy = element.GetAbsoluteCenterY() - requisiteElement.GetAbsoluteCenterY();
+                    var left = (new List<GraphicalUiElement>() { element, requisiteElement }).MinBy(x => x.X);
+                    var right = (new List<GraphicalUiElement>() { element, requisiteElement }).MaxBy(x => x.X);
 
+                    var divx = right.GetAbsoluteCenterX() - left.GetAbsoluteCenterX();
+                    var divy = right.GetAbsoluteCenterY() - left.GetAbsoluteCenterY();
 
-                    var pos1 = new Vector2(element.GetAbsoluteCenterX(), element.GetAbsoluteCenterY());
-                    var pos2 = new Vector2(requisiteElement.GetAbsoluteCenterX(), requisiteElement.GetAbsoluteCenterY());
+                    var pos1 = new Vector2(left.GetAbsoluteCenterX(), left.GetAbsoluteCenterY());
+                    var pos2 = new Vector2(right.GetAbsoluteCenterX(), right.GetAbsoluteCenterY());
 
-                    float angle = Util.AngleBetweenPoints(pos1, pos2);
+                    float angle = Util.AngleBetweenPoints(pos1, pos2) * -1;
                     float angleDeg = (float)(angle * (180.0f / (float)Math.PI));
                     var rect = new ColoredRectangleRuntime();
 
-                    rect.X = element.GetAbsoluteCenterX();
-                    rect.Y = element.GetAbsoluteCenterY();
+                    rect.X = left.X + (left.GetAbsoluteWidth() / 2);
+                    rect.Y = left.Y + (left.GetAbsoluteHeight() / 2) + 1;
 
                     rect.Width = divx;
                     rect.Height = 2;
