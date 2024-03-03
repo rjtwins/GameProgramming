@@ -5,10 +5,15 @@ namespace Game1.GameLogic
 {
     public enum ResearchType
     {
-        Engine,
+        PropulsionSystems,
         Power,
         Sensors,
-        MaterialScience
+        MaterialScience,
+        AstroNavigation,
+        Biology,
+        RoboticsAutomation,
+        DefensiveTechnologies,
+        OffensiveTechnologies
     }
 
     public enum Gas
