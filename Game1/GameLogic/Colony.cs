@@ -80,7 +80,11 @@ namespace Game1.GameLogic
             var popNeeded = CurrentBuildings.Select(x => x.Value * GameState.BuildingInfo[x.Key].Pop).Sum();
             var efficiency = Math.Min(avialPop / popNeeded, 1);
 
-            UpdateBuilding(deltaTime, efficiency);
+            //Get ic generated since last update:
+            ICGeneration = CurrentBuildings[ColonyBuilding.ProductionFactory] * GameState.BuildingInfo[ColonyBuilding.ProductionFactory].ICGen * efficiency;
+            var ic = (ICGeneration * deltaTime) / 86400;
+            //Update build queue
+            UpdateBuilding(deltaTime, ic);
 
             UpdateMining(deltaTime, efficiency);
 
@@ -88,16 +92,13 @@ namespace Game1.GameLogic
             //    ResourceStockpiles.ToList().ForEach(x => PreviousResourceStockpiles)
         }
 
-        private void UpdateBuilding(double deltaTime, double efficiency)
+        private void UpdateBuilding(double deltaTime, double ic)
         {
-            //How many build points where generated over the delta time.
-            ICGeneration = CurrentBuildings[ColonyBuilding.ProductionFactory] * GameState.BuildingInfo[ColonyBuilding.ProductionFactory].ICGen * efficiency;
-
-            var ic = (ICGeneration * deltaTime) / 86400;
             var icRemaining = ic;
             //Process building:
             BuildingQueue
                 .Where(x => x.Allocation > 0)
+                .Where(x => x.Status != Status.Paused)
                 .ToList()
                 .ForEach(x =>
                 {
@@ -111,7 +112,20 @@ namespace Game1.GameLogic
                         return;
 
                     var icCost = GameState.BuildingInfo[x.ColonyBuilding].IC;
-                    var icUsed = ic * x.Allocation;
+                    var icUsed = Math.Min(ic * x.Allocation, icCost);
+                    var progressFraction = icUsed / icCost;
+
+                    var resourceCost = GameState.BuildingInfo[x.ColonyBuilding].BuildCost.ToDictionary(x => x.Key, x => x.Value * progressFraction);
+
+                    //Check if we have the resources for this step:
+                    if (resourceCost.ToList().Any(x => ResourceStockpiles[x.Key] < x.Value))
+                    {
+                        x.Status = Status.WaitingForResources;
+                        return;
+                    }
+
+                    //Subtract resources.
+                    resourceCost.ToList().ForEach(x => ResourceStockpiles[x.Key] = ResourceStockpiles[x.Key] - x.Value);
 
                     icRemaining -= icUsed;
 

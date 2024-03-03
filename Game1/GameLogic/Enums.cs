@@ -30,8 +30,16 @@ namespace Game1.GameLogic
         HighPressure,
     }
 
+    public enum Status
+    {
+        Building,
+        Paused,
+        WaitingForResources
+    }
+
     public enum Resource
     {
+        Volatiles,
         BasicMetals,
         LowDensityElements,
         NobelElements,
@@ -39,7 +47,8 @@ namespace Game1.GameLogic
         HeavyMetals,
         FissileElements,
         FusibleElements,
-        ExoticMaterials
+        ExoticMaterials,
+        Antimatter
     }
 
     public enum BodySubType
@@ -133,6 +142,7 @@ namespace Game1.GameLogic
         Mine,
         AutomatedMine,
         FinancialCenter,
+        MassDriver,
         TerraformingFacility,
         GeneticsFacility,
         AgriCenter,

@@ -4,7 +4,9 @@
     "Pop": 0,
     "ICGen": 0,
     "FriendlyName": "Infrastructure",
-    "BuildCost": {}
+    "BuildCost": {
+      "BasicMetals": 100
+    }
   },
   "HabInfrastructure": {
     "IC": 1000,
@@ -53,6 +55,13 @@
     "Pop": 0,
     "ICGen": 0,
     "FriendlyName": "Automated Mining Complex",
+    "BuildCost": {}
+  },
+  "MassDriver": {
+    "IC": 3650,
+    "Pop": 0,
+    "ICGen": 0,
+    "FriendlyName": "Mass Driver",
     "BuildCost": {}
   },
   "FinancialCenter": {

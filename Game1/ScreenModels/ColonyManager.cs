@@ -227,7 +227,7 @@ namespace Game1.ScreenModels
                 if (_selectedBuildQueueItem == null)
                     return;
 
-                _selectedBuildQueueItem.Paused = !_selectedBuildQueueItem.Paused;
+                _selectedBuildQueueItem.Status = _selectedBuildQueueItem.Status == Status.Paused ? Status.Building : Status.Paused;
                 UpdateState();
             };
 
@@ -382,8 +382,13 @@ namespace Game1.ScreenModels
             var buildQueueElements = c.BuildingQueue.Select(x =>
             {
                 var element = _BuildQueueItem.ToGraphicalUiElement(SystemManagers.Default, false);
+                var allocationText = $"{(x.Allocation * 100).ToString("#.0")}%";
+                if (x.Status == Status.Paused)
+                    allocationText = "PAUSED";
+                if (x.Status == Status.WaitingForResources)
+                    allocationText = "OUT OF RESOURCE";
 
-                element.SetProperty("AllocationText", $"{(x.Allocation * 100).ToString("#.0")}%");
+                element.SetProperty("AllocationText", allocationText);
                 element.SetProperty("NameText", GameState.BuildingInfo[x.ColonyBuilding].FriendlyName);
 
                 var amountText = x.Inf ? "Continues" : x.Amount.ToString();
