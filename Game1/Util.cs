@@ -202,7 +202,7 @@ namespace Game1
 
             // Calculate the angle using arctan
             double angleRad = Math.Atan2(deltaY, deltaX);
-            //double angleDeg = angleRad * (180.0 / Math.PI);
+            
 
             //// Ensure the angle is positive
             //if (angleDeg < 0)

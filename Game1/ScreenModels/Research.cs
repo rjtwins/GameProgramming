@@ -67,6 +67,7 @@ namespace Game1.ScreenModels
                     ResearchNodeElements.Add(element);
                 });
 
+                cursorX = CursorStart.X;
                 cursorY += 100;
             });
 
@@ -81,18 +82,24 @@ namespace Game1.ScreenModels
                     var divx = element.GetAbsoluteCenterX() - requisiteElement.GetAbsoluteCenterX();
                     var divy = element.GetAbsoluteCenterY() - requisiteElement.GetAbsoluteCenterY();
 
-                    var angle = Util.AngleBetweenPoints(element.GetPosition(), requisiteElement.GetPosition());
+
+                    var pos1 = new Vector2(element.GetAbsoluteCenterX(), element.GetAbsoluteCenterY());
+                    var pos2 = new Vector2(requisiteElement.GetAbsoluteCenterX(), requisiteElement.GetAbsoluteCenterY());
+
+                    float angle = Util.AngleBetweenPoints(pos1, pos2);
+                    float angleDeg = (float)(angle * (180.0f / (float)Math.PI));
                     var rect = new ColoredRectangleRuntime();
 
                     rect.X = element.GetAbsoluteCenterX();
                     rect.Y = element.GetAbsoluteCenterY();
 
                     rect.Width = divx;
-                    rect.Height = 1;
+                    rect.Height = 2;
 
                     rect.Color = Color.Red;
 
-                    rect.SetProperty("Rotation", angle);
+                    rect.SetProperty("Rotation", angleDeg);
+                    _researchContainer.Children.Add(rect);
                 });
             });
 
