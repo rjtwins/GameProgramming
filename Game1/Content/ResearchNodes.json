@@ -1,74 +1,84 @@
 [
   {
-    "researchId": "Engine1",
-    "friendlyName": "Conventional Engines",
-    "description": "",
+    "researchId": "ThermalFissionEngines",
+    "friendlyName": "Thermal Fission Engines",
+    "description": "Test description",
     "RequisiteIds": [],
-    "researchType": "Engine",
+    "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0
   },
   {
-    "researchId": "Engine2",
-    "friendlyName": "Conventional Engines 2",
-    "description": "",
-    "RequisiteIds": ["Engine1"],
-    "researchType": "Engine",
+    "researchId": "TraditionalNuclearFissionReactors",
+    "friendlyName": "TraditionalNuclearFissionReactors",
+    "description": "test desription2",
+    "RequisiteIds": [],
+    "researchType": "Power",
     "researched": false,
     "progress": 0.0
   },
   {
-    "researchId": "Engine3",
-    "friendlyName": "Conventional Engines 3",
-    "description": "",
+    "researchId": "Sensor1",
+    "friendlyName": "test sensor1",
+    "description": "test desription",
     "RequisiteIds": [],
-    "researchType": "Engine",
+    "researchType": "Sensors",
     "researched": false,
     "progress": 0.0
   },
   {
-    "researchId": "Engine4",
-    "friendlyName": "Conventional Engines 4",
-    "description": "",
+    "researchId": "MaterialScience1",
+    "friendlyName": "test friendly name",
+    "description": "test desription",
     "RequisiteIds": [],
-    "researchType": "Engine",
+    "researchType": "MaterialScience",
     "researched": false,
     "progress": 0.0
   },
   {
-    "researchId": "Engine5",
-    "friendlyName": "Conventional Engines 5",
-    "description": "",
+    "researchId": "AstroNavigation1",
+    "friendlyName": "test friendly name",
+    "description": "test desription",
     "RequisiteIds": [],
-    "researchType": "Engine",
+    "researchType": "AstroNavigation",
     "researched": false,
     "progress": 0.0
   },
   {
-    "researchId": "Engine6",
-    "friendlyName": "Conventional Engines 6",
-    "description": "",
+    "researchId": "Biology1",
+    "friendlyName": "test friendly name",
+    "description": "test desription",
     "RequisiteIds": [],
-    "researchType": "Engine",
+    "researchType": "Biology",
     "researched": false,
     "progress": 0.0
   },
   {
-    "researchId": "Engine7",
-    "friendlyName": "Conventional Engines 7",
-    "description": "",
+    "researchId": "RoboticsAutomation1",
+    "friendlyName": "test friendly name",
+    "description": "test desription",
     "RequisiteIds": [],
-    "researchType": "Engine",
+    "researchType": "RoboticsAutomation",
     "researched": false,
     "progress": 0.0
   },
   {
-    "researchId": "Engine8",
-    "friendlyName": "Conventional Engines 8",
-    "description": "",
+    "researchId": "DefensiveTechnologies1",
+    "friendlyName": "test friendly name",
+    "description": "test desription",
     "RequisiteIds": [],
-    "researchType": "Engine",
+    "researchType": "DefensiveTechnologies",
     "researched": false,
     "progress": 0.0
   }
+  {
+    "researchId": "OffensiveTechnologies",
+    "friendlyName": "test friendly name",
+    "description": "test desription",
+    "RequisiteIds": [],
+    "researchType": "OffensiveTechnologies1",
+    "researched": false,
+    "progress": 0.0
+  }
+
 ]
