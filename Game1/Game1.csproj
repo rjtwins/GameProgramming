@@ -2496,9 +2496,6 @@
     <None Update="Content\Standards\Text.gutx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\TestFont\TestFont.fnt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Content\TestFont\Font12Calibri_Light_noSmooth_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

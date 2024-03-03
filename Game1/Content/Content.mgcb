@@ -97,18 +97,6 @@
 /processorParam:TextureFormat=Color
 /build:2d/Background.jpg
 
-#begin 2d/FontTest.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:2d/FontTest.png
-
 #begin 2d/Ships/Medium/body_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
