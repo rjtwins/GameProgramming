@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Game1.GameLogic.Research
 {
@@ -9,7 +11,10 @@ namespace Game1.GameLogic.Research
         public string FriendlyName { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public List<ResearchNode> Requisites { get; set; } = new ();
+        [JsonIgnore]
+        public List<ResearchNode> Requisites => GameState.ResearchNodes.Where(x => RequisiteIds.Contains(x.ResearchId)).ToList();
+
+        public List<string> RequisiteIds { get; set; } = new ();
         public ResearchType ResearchType { get; set; }
 
         //Instance variables

@@ -3,7 +3,7 @@
     "researchId": "Engine1",
     "friendlyName": "Conventional Engines",
     "description": "",
-    "requisites": "",
+    "RequisiteIds": [],
     "researchType": "Engine",
     "researched": false,
     "progress": 0.0
@@ -12,7 +12,7 @@
     "researchId": "Engine2",
     "friendlyName": "Conventional Engines 2",
     "description": "",
-    "requisites": "",
+    "RequisiteIds": ["Engine1"],
     "researchType": "Engine",
     "researched": false,
     "progress": 0.0
@@ -21,7 +21,7 @@
     "researchId": "Engine3",
     "friendlyName": "Conventional Engines 3",
     "description": "",
-    "requisites": "",
+    "RequisiteIds": [],
     "researchType": "Engine",
     "researched": false,
     "progress": 0.0
@@ -30,7 +30,7 @@
     "researchId": "Engine4",
     "friendlyName": "Conventional Engines 4",
     "description": "",
-    "requisites": "",
+    "RequisiteIds": [],
     "researchType": "Engine",
     "researched": false,
     "progress": 0.0
@@ -39,7 +39,7 @@
     "researchId": "Engine5",
     "friendlyName": "Conventional Engines 5",
     "description": "",
-    "requisites": "",
+    "RequisiteIds": [],
     "researchType": "Engine",
     "researched": false,
     "progress": 0.0
@@ -48,7 +48,7 @@
     "researchId": "Engine6",
     "friendlyName": "Conventional Engines 6",
     "description": "",
-    "requisites": "",
+    "RequisiteIds": [],
     "researchType": "Engine",
     "researched": false,
     "progress": 0.0
@@ -57,7 +57,7 @@
     "researchId": "Engine7",
     "friendlyName": "Conventional Engines 7",
     "description": "",
-    "requisites": "",
+    "RequisiteIds": [],
     "researchType": "Engine",
     "researched": false,
     "progress": 0.0
@@ -66,7 +66,7 @@
     "researchId": "Engine8",
     "friendlyName": "Conventional Engines 8",
     "description": "",
-    "requisites": "",
+    "RequisiteIds": [],
     "researchType": "Engine",
     "researched": false,
     "progress": 0.0

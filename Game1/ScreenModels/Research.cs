@@ -90,7 +90,9 @@ namespace Game1.ScreenModels
                     rect.Width = divx;
                     rect.Height = 1;
 
+                    rect.Color = Color.Red;
 
+                    rect.SetProperty("Rotation", angle);
                 });
             });
 
