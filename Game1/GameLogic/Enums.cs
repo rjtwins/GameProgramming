@@ -7,7 +7,8 @@ namespace Game1.GameLogic
     {
         Engine,
         Power,
-        Sensors
+        Sensors,
+        MaterialScience
     }
 
     public enum Gas
