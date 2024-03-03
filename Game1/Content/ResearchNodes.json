@@ -70,7 +70,7 @@
     "researchType": "DefensiveTechnologies",
     "researched": false,
     "progress": 0.0
-  }
+  },
   {
     "researchId": "OffensiveTechnologies",
     "friendlyName": "test friendly name",
