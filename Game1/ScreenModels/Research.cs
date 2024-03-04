@@ -164,7 +164,7 @@ namespace Game1.ScreenModels
                     });
 
                     polygon.Color = Color.Red;
-                    polygon.IsDotted = true;
+                    polygon.IsDotted = false;
 
                     _researchContainer.Children.Add(polygon);
                     requisiteLines.Add(polygon);
