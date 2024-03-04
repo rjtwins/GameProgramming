@@ -11,7 +11,11 @@ namespace Game1.ScreenModels
     public class Main : ScreenBase
     {
         public static Main Instance { get; private set; }
-        public GraphicalUiElement Speed, Year, Day, Time, TopBar, ShipDesignButton, SystemListButton, ColonyManagerButton;
+        public GraphicalUiElement Speed, Year, Day, Time, TopBar,
+            ShipDesignButton,
+            SystemListButton,
+            ColonyManagerButton,
+            ResearchButton;
 
         public Main()
         {
@@ -29,6 +33,7 @@ namespace Game1.ScreenModels
             ShipDesignButton = TopBar.GetGraphicalUiElementByName("ContainerInstance.Button1");
             SystemListButton = TopBar.GetGraphicalUiElementByName("ContainerInstance.Button2");
             ColonyManagerButton = TopBar.GetGraphicalUiElementByName("ContainerInstance.Button3");
+            ResearchButton = TopBar.GetGraphicalUiElementByName("ContainerInstance.Button4");
 
             new InteractiveGUE(ShipDesignButton).OnClick = () =>
             {
@@ -70,6 +75,21 @@ namespace Game1.ScreenModels
                 ColonyManager.Instance.Show();
 
             };
+
+            new InteractiveGUE(ResearchButton).OnClick = () =>
+            {
+                if (Research.Instance.Active)
+                {
+                    ScreenManager.Screens.ForEach(x => x.Hide());
+                    Main.Instance.Show();
+                    return;
+                }
+
+                ScreenManager.Screens.ForEach(x => x.Hide());
+                Research.Instance.Show();
+            };
+
+
             Instance = this;
             Main.Instance.Active = true;
         }

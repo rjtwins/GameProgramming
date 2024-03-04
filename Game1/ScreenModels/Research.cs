@@ -7,7 +7,6 @@ using Gum.Managers;
 using Gum.Wireframe;
 using GumRuntime;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using MonoGameGum.GueDeriving;
 using RenderingLibrary;
 using RenderingLibrary.Graphics;
@@ -15,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace Game1.ScreenModels
 {
@@ -33,7 +31,7 @@ namespace Game1.ScreenModels
         public List<GraphicalUiElement> ResearchNodeElements { get; private set; } = new();
         public Dictionary<ResearchNode, List<GraphicalUiElement>> RequisiteLines { get; private set; } = new();
         GraphicalUiElement _researchContainer { get; set; }
-        Layer _layer { get; set; }
+        Layer _layer { get; set; } 
 
         public Research()
         {
@@ -54,10 +52,20 @@ namespace Game1.ScreenModels
         {
             base.Show();
             UpdateState();
+            _researchContainer.Visible = true;
+        }
+
+        public override void Hide()
+        {
+            _researchContainer.Visible = false;
+            base.Hide();
         }
 
         public override void Update(double deltaTime)
         {
+            if (!Active)
+                return;
+
             if (FlatMouse.Instance.IsMiddleButtonDown())
             {
                 GameState.Focus = null;
@@ -72,6 +80,7 @@ namespace Game1.ScreenModels
                 var y = (divy * (1f / camera.Zoom));
 
                 Pan(x, y);
+
                 //_camera.Position = (_camera.Position.x + x, _camera.Position.y + y);
 
                 //Debug.WriteLine((divx, divy));
