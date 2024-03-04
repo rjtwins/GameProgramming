@@ -153,31 +153,47 @@ namespace Game1.ScreenModels
 
                 requisiteElements.ForEach(requisiteElement =>
                 {
-                    var left = (new List<GraphicalUiElement>() { element, requisiteElement }).MinBy(x => x.GetAbsoluteCenterX());
-                    var right = (new List<GraphicalUiElement>() { element, requisiteElement }).Where(x => x != left).First();
+                    var pos1 = new System.Numerics.Vector2(element.X + (element.GetAbsoluteWidth() / 2), element.Y + (element.GetAbsoluteHeight() / 2));
+                    var pos2 = new System.Numerics.Vector2(requisiteElement.X + (requisiteElement.GetAbsoluteWidth() / 2), requisiteElement.Y + (requisiteElement.GetAbsoluteHeight() / 2));
 
-                    var divx = right.GetAbsoluteCenterX() - left.GetAbsoluteCenterX();
-                    var divy = right.GetAbsoluteCenterY() - left.GetAbsoluteCenterY();
+                    var polygon = new PolygonRuntime();
+                    polygon.SetPoints(new System.Numerics.Vector2[]
+                    {
+                        pos1,
+                        pos2,
+                    });
 
-                    var pos1 = new Vector2(left.GetAbsoluteCenterX(), left.GetAbsoluteCenterY());
-                    var pos2 = new Vector2(right.GetAbsoluteCenterX(), right.GetAbsoluteCenterY());
+                    polygon.Color = Color.Red;
+                    polygon.IsDotted = true;
 
-                    float angle = Util.AngleBetweenPoints(pos1, pos2) * -1;
-                    float angleDeg = (float)(angle * (180.0f / (float)Math.PI));
-                    var rect = new ColoredRectangleRuntime();
+                    _researchContainer.Children.Add(polygon);
+                    requisiteLines.Add(polygon);
 
-                    rect.X = left.X + (left.GetAbsoluteWidth() / 2);
-                    rect.Y = left.Y + (left.GetAbsoluteHeight() / 2) + 1;
+                    //var left = (new List<GraphicalUiElement>() { element, requisiteElement }).MinBy(x => x.GetAbsoluteCenterX());
+                    //var right = (new List<GraphicalUiElement>() { element, requisiteElement }).Where(x => x != left).First();
 
-                    rect.Width = Math.Max(Math.Abs(divx), Math.Abs(divy));
-                    rect.Height = 2;
+                    //var divx = right.GetAbsoluteCenterX() - left.GetAbsoluteCenterX();
+                    //var divy = right.GetAbsoluteCenterY() - left.GetAbsoluteCenterY();
 
-                    rect.Color = Color.Red;
+                    //var pos1 = new Vector2(left.GetAbsoluteCenterX(), left.GetAbsoluteCenterY());
+                    //var pos2 = new Vector2(right.GetAbsoluteCenterX(), right.GetAbsoluteCenterY());
 
-                    rect.SetProperty("Rotation", angleDeg);
-                    _researchContainer.Children.Add(rect);
+                    //float angle = Util.AngleBetweenPoints(pos1, pos2) * -1;
+                    //float angleDeg = (float)(angle * (180.0f / (float)Math.PI));
+                    //var rect = new ColoredRectangleRuntime();
 
-                    requisiteLines.Add(rect);
+                    //rect.X = left.X + (left.GetAbsoluteWidth() / 2);
+                    //rect.Y = left.Y + (left.GetAbsoluteHeight() / 2) + 1;
+
+                    //rect.Width = Math.Max(Math.Abs(divx), Math.Abs(divy));
+                    //rect.Height = 2;
+
+                    //rect.Color = Color.Red;
+
+                    //rect.SetProperty("Rotation", angleDeg);
+                    //_researchContainer.Children.Add(rect);
+
+                    //requisiteLines.Add(rect);
                 });
 
                 RequisiteLines[node] = requisiteLines;
