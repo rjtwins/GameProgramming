@@ -15,7 +15,10 @@ namespace Game1.ScreenModels
 
         public Main()
         {
+            var topBarLayer = SystemManagers.Default.Renderer.MainLayer;
             TopBar = ObjectFinder.Self.GumProjectSave.Components.First(x => x.Name == "TopBar").ToGraphicalUiElement(SystemManagers.Default, true);
+            //TopBar.AddToManagers(SystemManagers.Default, topBarLayer);
+            TopBar.Z = float.MaxValue;
 
             Screen = GlobalStatic.GumProject.Screens.First(x => x.Name == "Main").ToGraphicalUiElement(SystemManagers.Default, true);
             Speed = TopBar.GetGraphicalUiElementByName("ContainerInstance.GameSpeed");

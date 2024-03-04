@@ -3,7 +3,7 @@
     "researchId": "ThermalFissionEngines",
     "friendlyName": "Thermal Fission Engines",
     "description": "Test description",
-    "RequisiteIds": [],
+    "RequisiteIds": [ "TraditionalNuclearFissionReactors", "MaterialScience1" ],
     "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0
@@ -30,14 +30,14 @@
     "researchId": "Sensor1",
     "friendlyName": "test sensor1",
     "description": "test desription",
-    "RequisiteIds": [ "ThermalFissionEngines2" ],
+    "RequisiteIds": [],
     "researchType": "Sensors",
     "researched": false,
     "progress": 0.0
   },
   {
     "researchId": "MaterialScience1",
-    "friendlyName": "test friendly name",
+    "friendlyName": "Material Science 1",
     "description": "test desription",
     "RequisiteIds": [],
     "researchType": "MaterialScience",

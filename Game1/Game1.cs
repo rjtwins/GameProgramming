@@ -491,7 +491,8 @@ namespace Game1
 
             ScrollView.ActiveListViews.ForEach(x => x.Update());
             //UIScrollEventHandler.Instance.Update();
-            Main.Instance.Update(gameTime.TotalGameTime.TotalSeconds);            
+            Main.Instance.Update(gameTime.TotalGameTime.TotalSeconds);
+            Research.Instance.Update(gameTime.TotalGameTime.TotalSeconds);
         }
 
         private void DrawUI()
