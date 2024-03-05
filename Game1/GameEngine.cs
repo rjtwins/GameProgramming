@@ -102,12 +102,12 @@ namespace Game1
             var taskList = GameState.GameEntities.OfType<Planet>()
                 .Select(x => x.Colony)
                 .Where(x => x != null)
-                .Select(x => Task.Factory.StartNew(() =>
+                .Select(x => Task.Run(() =>
                 {
                     x.Update(TimeSinceLastUpdate);
                 })).ToList();
 
-            taskList.Add(Task.Factory.StartNew(() => { ResearchManager.Instance.Update(TimeSinceLastUpdate); }));
+            taskList.Add(Task.Run(() => { ResearchManager.Instance.Update(TimeSinceLastUpdate); }));
 
             Task.WaitAll(taskList.ToArray());
 
@@ -115,7 +115,9 @@ namespace Game1
             {
                 Thread.Yield();
             }
+
             TimeSinceLastUpdate = GameState.TotalSeconds - time;
         }
+
     }
 }

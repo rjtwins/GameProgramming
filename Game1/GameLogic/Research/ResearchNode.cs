@@ -10,7 +10,7 @@ namespace Game1.GameLogic.Research
         public string ResearchId { get; set; } = string.Empty;
         public string FriendlyName { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public double Cost { get; set; } = 0;
+        public float Cost { get; set; } = 0;
 
         [JsonIgnore]
         public List<ResearchNode> Requisites => GameState.ResearchNodes.Where(x => RequisiteIds.Contains(x.ResearchId)).ToList();

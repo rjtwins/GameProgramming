@@ -36,6 +36,10 @@ namespace Game1.GameLogic.Research
         /// <param name="deltaTime">The time interval since the last update.</param>
         public void UpdateFaction(Faction faction, double deltaTime)
         {
+            var current = faction.ResearchQueue.FirstOrDefault();
+            if (current == null)
+                return;
+
             // Get colonies belonging to the faction
             var colonies = GameState.Colonies.Where(x => x.Faction.Guid == faction.Guid).ToList();
 
@@ -48,6 +52,25 @@ namespace Game1.GameLogic.Research
 
             // Calculate the points generated based on the number of research outposts and time passed
             var pointsGenerated = (colonies.Sum(x => x.CurrentBuildings[ColonyBuilding.ResearchOutpost]) + 10) * daysPassed;
+
+            while(pointsGenerated > 0 && current != null)
+            {
+                var remaining = current.Cost - current.Progress;
+                if(remaining < pointsGenerated)
+                {
+                    current.Progress = current.Cost;
+                    current.Researched = true;
+                    pointsGenerated -= remaining;
+
+                    faction.ResearchQueue.Remove(current);
+                    current = faction.ResearchQueue.FirstOrDefault();
+                }
+                else
+                {
+                    current.Progress += (float)pointsGenerated;
+                    pointsGenerated = 0;
+                }
+            }
         }
     }
 }

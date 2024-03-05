@@ -69,7 +69,6 @@ namespace Game1.GameEntities
                 }
 
                 this.Parent = null;
-                this.GraphicalEntity.GameEntity = null;
                 this.GraphicalEntity = null;
                 _infoContainer = null;
 

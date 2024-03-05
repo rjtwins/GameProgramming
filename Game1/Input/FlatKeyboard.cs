@@ -49,7 +49,13 @@ namespace Game1.Input
         /// <returns>True if conversion was successful</returns>
         public bool TryConvertKeyboardInput(out char key)
         {
+            key = default;
+
             Keys[] keys = currKeyboardState.GetPressedKeys();
+            
+            if (keys.Length == 0)
+                return false;
+
             bool shift = IsKeyDown(Keys.LeftShift) || IsKeyDown(Keys.RightShift);
 
             if (keys.Length > 0 & !prevKeyboardState.IsKeyDown(keys[0]))

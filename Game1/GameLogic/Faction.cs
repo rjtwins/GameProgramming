@@ -20,7 +20,7 @@ namespace Game1.GameLogic
         public List<FleetGhost> DetectedFleets { get; set; }
         public Species Species { get; set; }
         public List<ResearchNode> ResearchNodes { get; set; } = new();
-        public List<ResearchNode> CurrentNode { get; set; } = new();
+        public List<ResearchNode> ResearchQueue { get; set; } = new();
 
         //Tech mods:
         public double InfrastructureMod { get; set; } = 1d;

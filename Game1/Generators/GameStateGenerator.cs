@@ -28,12 +28,14 @@ namespace Game1.Generators
             {
                 Name = "one",
                 Species = species,
+                ResearchNodes = GetResearchNodes()
             };
 
             var faction2 = new Faction()
             {
                 Name = "two",
-                Species = species
+                Species = species,
+                ResearchNodes = GetResearchNodes()
             };
 
 
@@ -312,9 +314,14 @@ namespace Game1.Generators
         }
 
         private static void SetupResearchNodes()
+        {            
+            GameState.ResearchNodes = GetResearchNodes();
+        }
+
+        private static List<ResearchNode> GetResearchNodes()
         {
             var json = System.IO.File.ReadAllText("Content\\ResearchNodes.json");
-            GameState.ResearchNodes = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ResearchNode>>(json);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<ResearchNode>>(json);
         }
 
         public static void SetupGasInfo()
