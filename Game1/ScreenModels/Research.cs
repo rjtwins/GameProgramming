@@ -7,7 +7,6 @@ using Gum.Managers;
 using Gum.Wireframe;
 using GumRuntime;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended.Shapes;
 using MonoGameGum.GueDeriving;
 using RenderingLibrary;
 using RenderingLibrary.Graphics;
@@ -84,7 +83,7 @@ namespace Game1.ScreenModels
                 var divy = FlatMouse.Instance.MouseMovement().Y;
 
                 var x = (divx * -1f * (1f / camera.Zoom));
-                var y = (divy * (1f / camera.Zoom));
+                var y = (divy * (1f / camera.Zoom)); 
 
                 Pan(x, y);
             }
