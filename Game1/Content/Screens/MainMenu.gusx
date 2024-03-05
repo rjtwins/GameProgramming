@@ -293,6 +293,18 @@
     </Variable>
     <Variable>
       <Type>float</Type>
+      <Name>TestTextBox.X</Name>
+      <Value xsi:type="xsd:float">114</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>TestTextBox.Y</Name>
+      <Value xsi:type="xsd:float">78</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
       <Name>TitleText.Height</Name>
       <Value xsi:type="xsd:float">0</Value>
       <SetsValue>true</SetsValue>
@@ -300,7 +312,7 @@
     <Variable>
       <Type>DimensionUnitType</Type>
       <Name>TitleText.Height Units</Name>
-      <Value xsi:type="xsd:int">8</Value>
+      <Value xsi:type="xsd:int">4</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -336,7 +348,7 @@
     <Variable>
       <Type>DimensionUnitType</Type>
       <Name>TitleText.Width Units</Name>
-      <Value xsi:type="xsd:int">8</Value>
+      <Value xsi:type="xsd:int">4</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -466,6 +478,11 @@
   <Instance>
     <Name>Version</Name>
     <BaseType>Text</BaseType>
+    <DefinedByBase>false</DefinedByBase>
+  </Instance>
+  <Instance>
+    <Name>TestTextBox</Name>
+    <BaseType>TextInputBox</BaseType>
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Behaviors />

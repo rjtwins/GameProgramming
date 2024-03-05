@@ -1,4 +1,5 @@
 ﻿using Game1.Extensions;
+using Game1.Input;
 using Gum.Wireframe;
 using GumRuntime;
 using RenderingLibrary;
@@ -17,12 +18,17 @@ namespace Game1.ScreenModels
         public GraphicalUiElement NewGameButton { get; private set; }
         public GraphicalUiElement LoadButton { get; private set; }
 
+        public GraphicalUiElement TestTextBox { get; private set; }
+
         public MainMenu()
         {
             Screen = GlobalStatic.GumProject.Screens.First(x => x.Name == "MainMenu").ToGraphicalUiElement(SystemManagers.Default, true);
 
             NewGameButton = Screen.GetGraphicalUiElementByName("ButtonContainer", "NewGameButton");
             LoadButton = Screen.GetGraphicalUiElementByName("ButtonContainer", "LoadButton");
+            TestTextBox = Screen.GetGraphicalUiElementByName("TestTextBox");
+
+            var TextBox = new TextBox(TestTextBox);
 
             new InteractiveGUE(NewGameButton).OnClick = () => 
             {

@@ -7,7 +7,7 @@ using Gum.Managers;
 using Gum.Wireframe;
 using GumRuntime;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended.Shapes;
 using MonoGameGum.GueDeriving;
 using RenderingLibrary;
 using RenderingLibrary.Graphics;
@@ -15,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace Game1.ScreenModels
 {
@@ -35,6 +34,8 @@ namespace Game1.ScreenModels
         GraphicalUiElement _researchContainer { get; set; }
         Layer _layer { get; set; }
 
+        public bool Init { get; set; } = false;
+
         public Research()
         {
             Instance = this;
@@ -42,22 +43,36 @@ namespace Game1.ScreenModels
             _layer = SystemManagers.Default.Renderer.AddLayer();
             var layerCameraSettings = new LayerCameraSettings();
             layerCameraSettings.Zoom = 1;
-            layerCameraSettings.IsInScreenSpace = true;
 
             _layer.LayerCameraSettings = layerCameraSettings;
             Screen = GlobalStatic.GumProject.Screens.First(x => x.Name == "Research").ToGraphicalUiElement(SystemManagers.Default, true);
+
             _researchContainer = Screen.GetGraphicalUiElementByName("ResearchContainer");
-            _researchContainer.MoveToLayer(_layer);
         }
 
         public override void Show()
         {
             base.Show();
-            UpdateState();
+
+            if (!Init) 
+            { 
+                Init = true;
+                UpdateState();
+            }
+            _researchContainer.Visible = true;
+        }
+
+        public override void Hide()
+        {
+            _researchContainer.Visible = false;
+            base.Hide();
         }
 
         public override void Update(double deltaTime)
         {
+            if (!Active)
+                return;
+
             if (FlatMouse.Instance.IsMiddleButtonDown())
             {
                 GameState.Focus = null;
@@ -72,13 +87,9 @@ namespace Game1.ScreenModels
                 var y = (divy * (1f / camera.Zoom));
 
                 Pan(x, y);
-                //_camera.Position = (_camera.Position.x + x, _camera.Position.y + y);
-
-                //Debug.WriteLine((divx, divy));
-                //Debug.WriteLine($"init: {initPos}\nNew:{_camera.Position}");
             }
 
-            Zoom();
+            //Zoom();
 
             base.Update(deltaTime);
         }
@@ -87,6 +98,10 @@ namespace Game1.ScreenModels
         {
             var newx = Math.Max(_researchContainer.X + divx, -1920);
             var newy = Math.Max(_researchContainer.Y + divy, -1080);
+
+            //SystemManagers.Default.Renderer.Camera.X = newx;
+            //SystemManagers.Default.Renderer.Camera.Y = newy;
+
             _researchContainer.X = newx;
             _researchContainer.Y = newy;
         }
@@ -120,20 +135,22 @@ namespace Game1.ScreenModels
             float cursorX = CursorStart.X;
             float cursorY = CursorStart.Y;
 
-            Screen.SuspendLayout(true);
+            //Screen.SuspendLayout(true);
 
             lines.ForEach(line =>
             {
                 var lineNodes = nodes.Where(x => x.ResearchType == line).ToList();
                 lineNodes.ForEach(lineNode =>
                 {
-                    var element = _researchNodeSave.ToGraphicalUiElement(SystemManagers.Default, true);
+                    var element = _researchNodeSave.ToGraphicalUiElement(SystemManagers.Default, false);
                     //element.MoveToLayer(_layer);
                     element.SetProperty("ResearchNameText", lineNode.FriendlyName);
                     element.Tag = lineNode;
                     element.X = cursorX;
                     element.Y = cursorY;
-                    _researchContainer.Children.Add(element);
+                    element.Z = float.MaxValue - 10;
+                    //_researchContainer.Children.Add(element);
+
                     cursorX += element.GetAbsoluteWidth() + 20;
                     ResearchNodeElements.Add(element);
                 });
@@ -163,10 +180,13 @@ namespace Game1.ScreenModels
                         pos2,
                     });
 
+                    polygon.Z = float.MinValue;
+
                     polygon.Color = Color.Red;
                     polygon.IsDotted = false;
 
-                    _researchContainer.Children.Add(polygon);
+                    //_researchContainer.Children.Add(polygon);
+
                     requisiteLines.Add(polygon);
 
                     //var left = (new List<GraphicalUiElement>() { element, requisiteElement }).MinBy(x => x.GetAbsoluteCenterX());
@@ -223,8 +243,24 @@ namespace Game1.ScreenModels
                 };
             });
 
+            Screen.SuspendLayout();
+
+            _researchContainer.MoveToLayer(_layer);
+
+            RequisiteLines.SelectMany(x => x.Value).ToList().ForEach(x => 
+            {
+                _researchContainer.Children.Add(x);
+                //_layer.Add(x);
+            });
+
+            ResearchNodeElements.ForEach(x =>
+            {
+                _researchContainer.Children.Add(x);
+            });
+
+
             Screen.ResumeLayout(true);
-            Screen.UpdateLayout();
+            //Screen.UpdateLayout();
         }
     }
 }

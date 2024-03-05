@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Game1.GameEntities;
 using Game1.GameLogic;
+using Game1.GameLogic.Research;
 using MonoGame.Extended.Tiled.Serialization;
 using RenderingLibrary;
 using System;
@@ -98,21 +99,25 @@ namespace Game1
         {
             var time = GameState.TotalSeconds;
 
-            var tasks = GameState.GameEntities.OfType<Planet>()
+            var taskList = GameState.GameEntities.OfType<Planet>()
                 .Select(x => x.Colony)
                 .Where(x => x != null)
-                .Select(x => Task.Factory.StartNew(() =>
+                .Select(x => Task.Run(() =>
                 {
                     x.Update(TimeSinceLastUpdate);
-                })).ToArray();
+                })).ToList();
 
-            Task.WaitAll(tasks);
+            taskList.Add(Task.Run(() => { ResearchManager.Instance.Update(TimeSinceLastUpdate); }));
+
+            Task.WaitAll(taskList.ToArray());
 
             while (GameState.TotalSeconds - time < 1)
             {
                 Thread.Yield();
             }
+
             TimeSinceLastUpdate = GameState.TotalSeconds - time;
         }
+
     }
 }

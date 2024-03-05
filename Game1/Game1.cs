@@ -56,7 +56,6 @@ namespace Game1
         SmoothFramerate framerate = new(20);
 
         Desktop _desktop;
-        Dialog _messageBox;
 
         public Game1()
         {
@@ -239,13 +238,13 @@ namespace Game1
                 Util.ToggleFullScreen(_graphics);
             }
 
-            if (_flatKeyboard.IsKeyClicked(Keys.S))
-            {
-                if (PlanetScreen.Instance.Active)
-                    ScreenManager.Show(Main.Instance);
-                else
-                    ScreenManager.Show(PlanetScreen.Instance);
-            }
+            //if (_flatKeyboard.IsKeyClicked(Keys.S))
+            //{
+            //    if (PlanetScreen.Instance.Active)
+            //        ScreenManager.Show(Main.Instance);
+            //    else
+            //        ScreenManager.Show(PlanetScreen.Instance);
+            //}
 
             if (PlanetScreen.Instance.Active)
                 PlanetScreen.Instance.Update(gameTime.ElapsedGameTime.TotalSeconds);
@@ -458,6 +457,15 @@ namespace Game1
             ObjectFinder.Self.GumProjectSave = GlobalStatic.GumProject;
             GlobalStatic.GumProject.Initialize();
 
+            SystemManagers.Default.Renderer.Camera.CameraCenterOnScreen = CameraCenterOnScreen.Center;
+            //SystemManagers.Default.Renderer.Camera.X = GlobalStatic.Width / 2;
+            //SystemManagers.Default.Renderer.Camera.Y = GlobalStatic.Height / 2;
+            SystemManagers.Default.Renderer.MainLayer.LayerCameraSettings = new LayerCameraSettings()
+            {
+                IsInScreenSpace = true,
+                Zoom = 1
+            };
+
             new SystemList();
 
             new MainMenu();
@@ -467,6 +475,7 @@ namespace Game1
             new PlanetScreen();
             new ColonyManager();
             new Research();
+            //new ZoomTestScreen();
 
             Main.Instance.Hide();
             Main.Instance.HideTopBar();
@@ -474,18 +483,18 @@ namespace Game1
             MainMenu.Instance.Hide();
             PlanetScreen.Instance.Hide();
             ColonyManager.Instance.Hide();
-            Research.Instance.Hide();
+            //Research.Instance.Hide();
 
             //MainMenu.Instance.Show();
-
-            Main.Instance.ShowTopBar();
-            //Main.Instance.Show();
+            //ZoomTestScreen.Instance.Show();
+            //Main.Instance.ShowTopBar();
         }
 
         private void UpdateUI(GameTime gameTime)
         {
             //For clicks on GUM ui elements
             InteractiveGUE.Update();
+            TextBoxManager.Update();
 
             SystemManagers.Default.Activity(gameTime.TotalGameTime.TotalSeconds);
 

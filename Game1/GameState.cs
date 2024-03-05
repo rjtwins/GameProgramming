@@ -20,17 +20,14 @@ namespace Game1
         public static List<SolarSystem> SolarSystems { get; set; } = new();
         public static List<Planet> Planets { get; set; } = new();
         public static List<Moon> Moons { get; set; } = new();
-        public static List<Colony> Colonies { get; set; }
+        public static List<Colony> Colonies { get; set; } = new();
         public static List<ShipDesign> ShipDesigns { get; set; } = new();
         public static List<SubSystemBase> SubSystems { get; set; } = new();
         public static List<Faction> Factions { get; set; } = new();
         public static Dictionary<ColonyBuilding, BuildingInfo> BuildingInfo { get; set; } = new();
         public static Dictionary<Gas, GasInfo> GasInfo { get; set; } = new();
-
         public static List<ResearchNode> ResearchNodes { get; set; } = new();
-
         public static GameEntity Focus { get; set; }
-
 
         public static double TotalSeconds { get; set; } = 0d;
         public static double TotalMinutes => TotalSeconds / 60;
@@ -60,6 +57,11 @@ namespace Game1
 
             var gameSeconds = deltaTime * (double)GameSpeed;
             TotalSeconds += gameSeconds;
+        }
+
+        public static void UpdateResearch(double deltaTime)
+        {
+
         }
     }
 }
