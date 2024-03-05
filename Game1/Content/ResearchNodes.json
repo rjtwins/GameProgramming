@@ -7,7 +7,9 @@
     "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "Closedcyclefisionthursters",
@@ -17,7 +19,9 @@
     "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "ThermalThursters",
@@ -26,7 +30,10 @@
     "RequisiteIds": [ "Closedcyclefisionthursters", "TraditionalNuclearFissionReactors" ],
     "researchType": "PropulsionSystems",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "FissionFusionThermalThursters",
@@ -35,7 +42,10 @@
     "RequisiteIds": [ "ThermalThursters" ],
     "researchType": "PropulsionSystems",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "Opencyclefisionthursters",
@@ -45,7 +55,9 @@
     "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "NuclearLightbulpEngine",
@@ -55,7 +67,9 @@
     "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "PulsedNuclear",
@@ -65,7 +79,9 @@
     "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "PowerSystems",
@@ -75,7 +91,9 @@
     "researchType": "Power",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "TraditionalNuclearFissionReactors",
@@ -85,7 +103,9 @@
     "researchType": "Power",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "Sensor1",
@@ -94,7 +114,9 @@
     "RequisiteIds": [],
     "researchType": "Sensors",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "MaterialScience1",
@@ -104,7 +126,9 @@
     "researchType": "MaterialScience",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "AdvancedRadiatonShielding",
@@ -113,7 +137,10 @@
     "RequisiteIds": [],
     "researchType": "MaterialScience",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "AstroNavigation1",
@@ -123,7 +150,9 @@
     "researchType": "AstroNavigation",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "Biology1",
@@ -133,7 +162,9 @@
     "researchType": "Biology",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "RoboticsAutomation1",
@@ -143,7 +174,9 @@
     "researchType": "RoboticsAutomation",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "DefensiveTechnologies1",
@@ -153,7 +186,9 @@
     "researchType": "DefensiveTechnologies",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "OffensiveTechnologies",
@@ -163,7 +198,9 @@
     "researchType": "OffensiveTechnologies",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   },
   {
     "researchId": "MinaturisedNuclearWarheads",
@@ -173,6 +210,8 @@
     "researchType": "OffensiveTechnologies",
     "researched": false,
     "progress": 0.0,
-    "cost": 0.0
+    "cost": 0.0,
+    "x": 0,
+    "y": 0
   }
 ]
