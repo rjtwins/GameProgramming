@@ -13,6 +13,14 @@ namespace Game1.Input
 {
     public class TextBox
     {
+        private double _timeSinceLastLeft, _timeSinceLastRight, _timeSinceLastDelete, _timeSinceLastBackspace;
+
+        public delegate void TextChangedEventHandler(string newText);
+        public event TextChangedEventHandler OnTextChanged;
+
+        public delegate void TextBoxEnterEventHandler(string newText);
+        public event TextBoxEnterEventHandler OnTextBoxEnterPressed;
+
         public GraphicalUiElement Container { get; set; }
         public int CaretIndex = 0;
         public string Content
@@ -24,6 +32,8 @@ namespace Game1.Input
             set
             {
                 _content = value;
+
+                OnTextChanged?.Invoke(_content);
             }
         }
         private string _content { get; set; } = string.Empty;
@@ -36,7 +46,7 @@ namespace Game1.Input
             new InteractiveGUE(container).OnClick = () =>
             {
                 IsFocused = true;
-                //Content = string.Empty;
+                CaretIndex = 0;
             };
 
             TextBoxManager.Textboxes.Add(this);
@@ -46,11 +56,10 @@ namespace Game1.Input
         {
             if (!IsFocused)
             {
+                Container.SetProperty("Text", Content);
                 Container.SetProperty("TextBoxText", Content);
                 return;
             }
-
-            Debug.WriteLine(IsFocused);
 
             if (FlatKeyboard.Instance.TryConvertKeyboardInput(out char key))
             {
@@ -58,28 +67,71 @@ namespace Game1.Input
             }
             else if (FlatKeyboard.Instance.IsKeyClicked(Keys.Back))
             {
+                _timeSinceLastBackspace = 0;
                 HandleBackspace();
             }
             else if (FlatKeyboard.Instance.IsKeyClicked(Keys.Left))
             {
+                _timeSinceLastLeft = 0;
                 CaretIndex = Math.Max(CaretIndex - 1, 0);
             }
             else if (FlatKeyboard.Instance.IsKeyClicked(Keys.Right))
             {
+                _timeSinceLastRight = 0;
                 CaretIndex = Math.Min(CaretIndex + 1, Content.Length);
             }
-            else if (FlatKeyboard.Instance.IsKeyClicked(Keys.Delete) || FlatKeyboard.Instance.IsKeyDown(Keys.Delete))
+            else if (FlatKeyboard.Instance.IsKeyClicked(Keys.Delete))
             {
+                _timeSinceLastDelete = 0;
                 HandleDelete();
+            }
+            else if (FlatKeyboard.Instance.IsKeyDown(Keys.Back))
+            {
+                _timeSinceLastBackspace++;
+                if (_timeSinceLastBackspace > 4)
+                {
+                    HandleBackspace();
+                    _timeSinceLastBackspace = 0;
+                }
+            }
+            else if (FlatKeyboard.Instance.IsKeyDown(Keys.Left))
+            {
+                _timeSinceLastLeft++;
+                if (_timeSinceLastLeft > 4)
+                {
+                    CaretIndex = Math.Max(CaretIndex - 1, 0);
+                    _timeSinceLastLeft = 0;
+                }
+            }
+            else if (FlatKeyboard.Instance.IsKeyDown(Keys.Right))
+            {
+                _timeSinceLastRight++;
+                if (_timeSinceLastRight > 4)
+                {
+                    CaretIndex = Math.Min(CaretIndex + 1, Content.Length);
+                    _timeSinceLastRight = 0;
+                }
+            }
+            else if (FlatKeyboard.Instance.IsKeyDown(Keys.Delete))
+            {
+                _timeSinceLastDelete++;
+                if (_timeSinceLastDelete > 4)
+                {
+                    HandleDelete();
+                    _timeSinceLastDelete = 0;
+                }
             }
             else if (FlatKeyboard.Instance.IsKeyClicked(Keys.Enter))
             {
                 IsFocused = false;
+                OnTextBoxEnterPressed?.Invoke(Content);
             }
             
             if (IsFocused)
             {
+                CaretIndex = Math.Clamp(CaretIndex, 0, Math.Max(0, Content.Length));
                 var caretedContent = Content.Insert(CaretIndex, "|");
+                Container.SetProperty("Text", caretedContent);
                 Container.SetProperty("TextBoxText", caretedContent);
             }
         }
@@ -114,6 +166,14 @@ namespace Game1.Input
 
             Content = Content.Remove(CaretIndex, 1);
         }
+
+        public void SetText(string text, bool preventEvents = false)
+        {
+            if (preventEvents)
+                _content = text;
+            else
+                Content = text;
+        }
     }
 
     public static class TextBoxManager
@@ -121,13 +181,6 @@ namespace Game1.Input
         public static List<TextBox> Textboxes = new List<TextBox>();
         public static void Update()
         {
-            if (FlatMouse.Instance.AnyButtonClicked())
-                Textboxes.ForEach(x =>
-                {
-                    
-                    x.IsFocused = x.Container.Contains(FlatMouse.Instance.GumPos);
-                });
-
             Textboxes.ForEach(x => x.Update());
         }
     }

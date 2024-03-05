@@ -16,7 +16,7 @@ namespace Game1.Generators
             SetupBuildingInf();
 
             var generator = new SpaceGenerator();
-            var systems = generator.Generate(1);
+            var systems = generator.Generate(50);
 
             var species = new Species();
             species.MinGrav = 0.2;

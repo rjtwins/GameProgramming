@@ -42,7 +42,8 @@ namespace Game1.ScreenModels
         private GraphicalUiElement
             _expandButton,
             _collapseButton,
-            _systemListContainer;
+            _systemListContainer,
+            _bodyTextBoxFilter;
 
         private CheckBox _checkBoxAsteroid,
             _checkTerrestrial,
@@ -53,7 +54,7 @@ namespace Game1.ScreenModels
             _checkBoxStation,
             _checkBoxMillFleet;
 
-
+        private TextBox _bodyFilterTextBox;
 
         public PlanetScreen()
         {
@@ -76,6 +77,7 @@ namespace Game1.ScreenModels
 
             _expandButton = Screen.GetGraphicalUiElementByName("ExpandButton");
             _collapseButton = Screen.GetGraphicalUiElementByName("CollapseButton");
+            _bodyTextBoxFilter = Screen.GetGraphicalUiElementByName("FilterPanel", "Container", "BodyNameFilter");
 
             new InteractiveGUE(_expandButton).OnClick = () =>
             {
@@ -85,6 +87,9 @@ namespace Game1.ScreenModels
             {
                 SystemList.CollapseAll();
             };
+
+            _bodyFilterTextBox = new TextBox(_bodyTextBoxFilter);
+            _bodyFilterTextBox.OnTextChanged += _bodyFilterTextBox_OnTextChanged;
 
             #region Checkboxes
             var element = Screen.GetGraphicalUiElementByName("FilterPanel", "Container", "CheckBoxAsteroid");
@@ -121,6 +126,11 @@ namespace Game1.ScreenModels
             #endregion
 
             Screen.RemoveFromManagers();
+        }
+
+        private void _bodyFilterTextBox_OnTextChanged(string newText)
+        {
+            SystemList.FilterBodyByText(newText);
         }
 
         public override void Update(double deltaTime)

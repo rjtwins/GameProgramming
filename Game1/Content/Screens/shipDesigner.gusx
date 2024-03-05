@@ -973,7 +973,7 @@
       <Type>string</Type>
       <Name>FullName1.Text</Name>
       <Value xsi:type="xsd:string">New Orleans Class Heavy Cruiser</Value>
-      <ExposedAsName>SelecedFullName</ExposedAsName>
+      <ExposedAsName>SelectedFullName</ExposedAsName>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>

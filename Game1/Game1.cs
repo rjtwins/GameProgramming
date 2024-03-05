@@ -457,7 +457,7 @@ namespace Game1
             ObjectFinder.Self.GumProjectSave = GlobalStatic.GumProject;
             GlobalStatic.GumProject.Initialize();
 
-            SystemManagers.Default.Renderer.Camera.CameraCenterOnScreen = CameraCenterOnScreen.Center;
+            //SystemManagers.Default.Renderer.Camera.CameraCenterOnScreen = CameraCenterOnScreen.Center;
             //SystemManagers.Default.Renderer.Camera.X = GlobalStatic.Width / 2;
             //SystemManagers.Default.Renderer.Camera.Y = GlobalStatic.Height / 2;
             SystemManagers.Default.Renderer.MainLayer.LayerCameraSettings = new LayerCameraSettings()

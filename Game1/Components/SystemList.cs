@@ -273,6 +273,15 @@ namespace Game1.Components
             UpdateState();
         }
 
+        public void FilterBodyByText(string text)
+        {
+            FilteredEntities.Clear();
+            FilteredEntities.AddRange(AllEntities.Where(x => !x.Name.ToLower().StartsWith(text.ToLower())));
+            FilteredEntities = FilteredEntities.DistinctBy(x => x.Guid).ToList();
+
+            UpdateState();
+        }
+
         internal void Hide()
         {
             Container.Visible = false;

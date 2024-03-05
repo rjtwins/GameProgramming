@@ -1,23 +1,11 @@
 ﻿using Game1.Extensions;
-using Game1.GameLogic;
 using Game1.GameLogic.SubSystems;
 using Game1.Input;
 using Gum.Managers;
 using Gum.Wireframe;
 using GumRuntime;
-using Microsoft.VisualBasic;
-using Microsoft.Xna.Framework;
-using MonoGame.Extended.Screens;
-using Myra.Graphics2D.Brushes;
-using Myra.Graphics2D.UI;
 using RenderingLibrary;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.ScreenModels
 {
@@ -46,7 +34,10 @@ namespace Game1.ScreenModels
             DesignListContainer,
             DesignList,
             InstalledComponentsScrollView,
-            InstalledComponentsList;
+            InstalledComponentsList,
+            ShipName;
+
+        private TextBox _shipNameTextBox { get; set; }
 
         private ScrollView _shipStatsScrollView, _designListContainer, _componentsScrollView, _installedComponentsScrollView;
 
@@ -69,6 +60,9 @@ namespace Game1.ScreenModels
 
             InstalledComponentsScrollView = Screen.GetGraphicalUiElementByName("Installed", "InstalledComponentsScrollView");
             InstalledComponentsList = Screen.GetGraphicalUiElementByName("Installed", "InstalledComponentsScrollView", "InstalledComponentsList");
+            ShipName = Screen.GetGraphicalUiElementByName("ShipStats", "ContainerInstance2", "Name1");
+            _shipNameTextBox = new TextBox(ShipName);
+            _shipNameTextBox.OnTextChanged += _shipNameTextBox_OnTextChanged;
 
             //_shipStatsScrollView = new(ShipStatsScrollView, InstalledComponentsList);
             //_componentsScrollView = new(ComponentsScrollView, ComponentList);
@@ -82,6 +76,13 @@ namespace Game1.ScreenModels
 
             Screen.UpdateLayout();
             Screen.RemoveFromManagers();
+        }
+
+        private void _shipNameTextBox_OnTextChanged(string newText)
+        {
+            ActiveDesign.Name = newText;
+            GetShipDesigns();
+            ShipChanged();
         }
 
         public override void Show()
@@ -129,6 +130,11 @@ namespace Game1.ScreenModels
 
         public void GetShipDesigns()
         {
+            DesignList.Children.OfType<GraphicalUiElement>().ToList().ForEach(x =>
+            {
+                InteractiveGUE.UnRegister(x);
+            });
+
             DesignList.Children.Clear();
             var orderedDesigns = GameState.ShipDesigns
                 .OrderByDescending(x => x.ShipClass != "-")
@@ -278,7 +284,8 @@ namespace Game1.ScreenModels
         public void ShipChanged()
         {
             Screen.SetProperty("SelectedClass", ActiveDesign.ShipClass);
-            Screen.SetProperty("SelectedName", ActiveDesign.Name);
+            _shipNameTextBox.SetText(ActiveDesign.Name, true);
+            //Screen.SetProperty("SelectedName", ActiveDesign.Name);
             Screen.SetProperty("SelectedFullName", $"{ActiveDesign.Name} Class {ActiveDesign.ShipClass}");
 
             string basicString = string.Empty;
