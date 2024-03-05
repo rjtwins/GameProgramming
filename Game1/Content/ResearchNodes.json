@@ -6,7 +6,8 @@
     "RequisiteIds": [ "TraditionalNuclearFissionReactors", "MaterialScience1" ],
     "researchType": "PropulsionSystems",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0
   },
   {
     "researchId": "ThermalFissionEngines2",
@@ -15,7 +16,8 @@
     "RequisiteIds": [ "ThermalFissionEngines" ],
     "researchType": "PropulsionSystems",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0
   },
   {
     "researchId": "TraditionalNuclearFissionReactors",
@@ -24,7 +26,8 @@
     "RequisiteIds": [],
     "researchType": "Power",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0
   },
   {
     "researchId": "Sensor1",
@@ -42,7 +45,8 @@
     "RequisiteIds": [],
     "researchType": "MaterialScience",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0
   },
   {
     "researchId": "AstroNavigation1",
@@ -51,7 +55,8 @@
     "RequisiteIds": [],
     "researchType": "AstroNavigation",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0
   },
   {
     "researchId": "Biology1",
@@ -60,7 +65,8 @@
     "RequisiteIds": [],
     "researchType": "Biology",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0
   },
   {
     "researchId": "RoboticsAutomation1",
@@ -69,7 +75,8 @@
     "RequisiteIds": [],
     "researchType": "RoboticsAutomation",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0
   },
   {
     "researchId": "DefensiveTechnologies1",
@@ -78,7 +85,8 @@
     "RequisiteIds": [],
     "researchType": "DefensiveTechnologies",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0
   },
   {
     "researchId": "OffensiveTechnologies",
@@ -87,6 +95,7 @@
     "RequisiteIds": [],
     "researchType": "OffensiveTechnologies",
     "researched": false,
-    "progress": 0.0
+    "progress": 0.0,
+    "cost": 0.0
   }
 ]

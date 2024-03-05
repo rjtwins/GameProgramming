@@ -58,6 +58,8 @@ namespace Game1.GameLogic
             {
                 ResourceStockpileChangeLog[x] = new();
             });
+
+            GameState.Colonies.Add(this);
         }
 
         public override void Update(double deltaTime)

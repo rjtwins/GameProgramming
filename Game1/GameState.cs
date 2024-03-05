@@ -26,11 +26,8 @@ namespace Game1
         public static List<Faction> Factions { get; set; } = new();
         public static Dictionary<ColonyBuilding, BuildingInfo> BuildingInfo { get; set; } = new();
         public static Dictionary<Gas, GasInfo> GasInfo { get; set; } = new();
-
         public static List<ResearchNode> ResearchNodes { get; set; } = new();
-
         public static GameEntity Focus { get; set; }
-
 
         public static double TotalSeconds { get; set; } = 0d;
         public static double TotalMinutes => TotalSeconds / 60;
@@ -60,6 +57,11 @@ namespace Game1
 
             var gameSeconds = deltaTime * (double)GameSpeed;
             TotalSeconds += gameSeconds;
+        }
+
+        public static void UpdateResearch(double deltaTime)
+        {
+
         }
     }
 }
