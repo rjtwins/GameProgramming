@@ -1,18 +1,36 @@
 [
   {
-    "researchId": "ThermalFissionEngines",
-    "friendlyName": "Thermal Fission Engines",
+    "researchId": "Closedcyclefisionthursters",
+    "friendlyName": "Closed cycle fision thursters",
     "description": "Test description",
-    "RequisiteIds": [ "TraditionalNuclearFissionReactors", "MaterialScience1" ],
+    "RequisiteIds": [],
     "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0
   },
   {
-    "researchId": "ThermalFissionEngines2",
-    "friendlyName": "Thermal Fission Engines 2",
+    "researchId": "ThermalThursters",
+    "friendlyName": "Thermal Thursters (NTR)",
     "description": "Test description",
-    "RequisiteIds": [ "ThermalFissionEngines" ],
+    "RequisiteIds": [ "Closedcyclefisionthursters, TraditionalNuclearFissionReactors" ],
+    "researchType": "PropulsionSystems",
+    "researched": false,
+    "progress": 0.0
+  },
+  {
+    "researchId": "FissionFusionThermalThursters",
+    "friendlyName": "Fission/Fusion Hybrid Thermal Thurster",
+    "description": "Test description",
+    "RequisiteIds": ["ThermalThursters"],
+    "researchType": "PropulsionSystems",
+    "researched": false,
+    "progress": 0.0
+  },
+  {
+    "researchId": "Opencyclefisionthursters",
+    "friendlyName": "Open cycle fision thursters",
+    "description": "Test description",
+    "RequisiteIds": [ "AdvancedRadiatonShielding" ],
     "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0
@@ -41,6 +59,15 @@
     "description": "test desription",
     "RequisiteIds": [],
     "researchType": "MaterialScience",
+    "researched": false,
+    "progress": 0.0
+  },
+  {
+    "researchId": "AdvancedRadiatonShielding",
+    "friendlyName": "Advanced Radiaton Shielding Materials",
+    "description": "Test description",
+    "RequisiteIds": [],
+    "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0
   },
