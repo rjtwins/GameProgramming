@@ -487,7 +487,7 @@ namespace Game1
 
             //MainMenu.Instance.Show();
             //ZoomTestScreen.Instance.Show();
-            //Main.Instance.ShowTopBar();
+            Main.Instance.ShowTopBar();
         }
 
         private void UpdateUI(GameTime gameTime)

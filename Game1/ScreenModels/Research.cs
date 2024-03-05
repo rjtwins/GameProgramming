@@ -95,8 +95,8 @@ namespace Game1.ScreenModels
 
         public void Pan(float divx, float divy)
         {
-            var newx = Math.Max(_researchContainer.X + divx, -1920);
-            var newy = Math.Max(_researchContainer.Y + divy, -1080);
+            var newx = _researchContainer.X + divx;
+            var newy = _researchContainer.Y + divy;
 
             //SystemManagers.Default.Renderer.Camera.X = newx;
             //SystemManagers.Default.Renderer.Camera.Y = newy;
