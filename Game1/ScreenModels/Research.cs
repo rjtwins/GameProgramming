@@ -134,29 +134,32 @@ namespace Game1.ScreenModels
             float cursorX = CursorStart.X;
             float cursorY = CursorStart.Y;
 
+            var maxX = nodes.MaxBy(x => x.X).X;
+            var maxY = nodes.MaxBy(x => x.Y).Y;
+
             //Screen.SuspendLayout(true);
 
-            lines.ForEach(line =>
+            for (int y = 1; y < maxY; y++)
             {
-                var lineNodes = nodes.Where(x => x.ResearchType == line).ToList();
-                lineNodes.ForEach(lineNode =>
+                for (int x = 1; x < maxX; x++)
                 {
+                    var node = nodes.FirstOrDefault(n => n.X == x && n.Y == y);
+                    if (node == null)
+                        continue;
+
                     var element = _researchNodeSave.ToGraphicalUiElement(SystemManagers.Default, false);
-                    //element.MoveToLayer(_layer);
-                    element.SetProperty("ResearchNameText", lineNode.FriendlyName);
-                    element.Tag = lineNode;
+                    element.SetProperty("ResearchNameText", node.FriendlyName);
+                    element.Tag = node;
                     element.X = cursorX;
                     element.Y = cursorY;
                     element.Z = float.MaxValue - 10;
-                    //_researchContainer.Children.Add(element);
-
-                    cursorX += element.GetAbsoluteWidth() + 20;
+                    cursorX += 600;
                     ResearchNodeElements.Add(element);
-                });
+                }
 
                 cursorX = CursorStart.X;
                 cursorY += 100;
-            });
+            }
 
             //Draw dependency lines:
             ResearchNodeElements.ForEach(element =>
