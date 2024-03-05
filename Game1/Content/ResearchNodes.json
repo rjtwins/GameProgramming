@@ -8,8 +8,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 1
   },
   {
     "researchId": "Closedcyclefisionthursters",
@@ -20,8 +20,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 2,
+    "y": 1
   },
   {
     "researchId": "ThermalThursters",
@@ -32,8 +32,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 3,
+    "y": 1
   },
   {
     "researchId": "FissionFusionThermalThursters",
@@ -44,8 +44,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 4,
+    "y": 1
   },
   {
     "researchId": "Opencyclefisionthursters",
@@ -56,8 +56,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 5,
+    "y": 1
   },
   {
     "researchId": "NuclearLightbulpEngine",
@@ -68,8 +68,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 6,
+    "y": 1
   },
   {
     "researchId": "PulsedNuclear",
@@ -80,8 +80,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 7,
+    "y": 1
   },
   {
     "researchId": "PowerSystems",
@@ -92,8 +92,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 2
   },
   {
     "researchId": "TraditionalNuclearFissionReactors",
@@ -104,8 +104,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 2,
+    "y": 2
   },
   {
     "researchId": "Sensor1",
@@ -115,8 +115,8 @@
     "researchType": "Sensors",
     "researched": false,
     "progress": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 3
   },
   {
     "researchId": "MaterialScience1",
@@ -127,8 +127,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 4
   },
   {
     "researchId": "AdvancedRadiatonShielding",
@@ -139,8 +139,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 5
   },
   {
     "researchId": "AstroNavigation1",
@@ -151,8 +151,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 5
   },
   {
     "researchId": "Biology1",
@@ -163,8 +163,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 6
   },
   {
     "researchId": "RoboticsAutomation1",
@@ -175,8 +175,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 7
   },
   {
     "researchId": "DefensiveTechnologies1",
@@ -187,8 +187,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 8
   },
   {
     "researchId": "OffensiveTechnologies",
@@ -199,8 +199,8 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 9
   },
   {
     "researchId": "MinaturisedNuclearWarheads",
@@ -211,7 +211,7 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0,
-    "x": 0,
-    "y": 0
+    "x": 1,
+    "y": 10
   }
 ]
