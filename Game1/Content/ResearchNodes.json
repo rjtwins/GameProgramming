@@ -1,27 +1,85 @@
 [
   {
-    "researchId": "ThermalFissionEngines",
-    "friendlyName": "Thermal Fission Engines",
+    "researchId": "PropulstonSystems",
+    "friendlyName": "Propulsion Systems",
     "description": "Test description",
-    "RequisiteIds": [ "TraditionalNuclearFissionReactors", "MaterialScience1" ],
+    "RequisiteIds": [],
     "researchType": "PropulsionSystems",
     "researched": false,
     "progress": 0.0,
     "cost": 0.0
   },
   {
-    "researchId": "ThermalFissionEngines2",
-    "friendlyName": "Thermal Fission Engines 2",
+    "researchId": "Closedcyclefisionthursters",
+    "friendlyName": "Closed Cycle Fision Thursters",
     "description": "Test description",
-    "RequisiteIds": [ "ThermalFissionEngines" ],
+    "RequisiteIds": [],
     "researchType": "PropulsionSystems",
+    "researched": false,
+    "progress": 0.0,
+    "cost": 0.0
+  },
+  {
+    "researchId": "ThermalThursters",
+    "friendlyName": "Thermal Thursters (NTR)",
+    "description": "Test description",
+    "RequisiteIds": [ "Closedcyclefisionthursters", "TraditionalNuclearFissionReactors" ],
+    "researchType": "PropulsionSystems",
+    "researched": false,
+    "progress": 0.0
+  },
+  {
+    "researchId": "FissionFusionThermalThursters",
+    "friendlyName": "Fission/Fusion Hybrid Thermal Thurster",
+    "description": "Test description",
+    "RequisiteIds": [ "ThermalThursters" ],
+    "researchType": "PropulsionSystems",
+    "researched": false,
+    "progress": 0.0
+  },
+  {
+    "researchId": "Opencyclefisionthursters",
+    "friendlyName": "Open cycle fision thursters",
+    "description": "Test description",
+    "RequisiteIds": [ "AdvancedRadiatonShielding" ],
+    "researchType": "PropulsionSystems",
+    "researched": false,
+    "progress": 0.0,
+    "cost": 0.0
+  },
+  {
+    "researchId": "NuclearLightbulpEngine",
+    "friendlyName": "Nuclear Lightbulp Engine",
+    "description": "Test description",
+    "RequisiteIds": [ "Opencyclefisionthursters" ],
+    "researchType": "PropulsionSystems",
+    "researched": false,
+    "progress": 0.0,
+    "cost": 0.0
+  },
+  {
+    "researchId": "PulsedNuclear",
+    "friendlyName": "Pulsed Nuclear Thermal (Orion Drive)",
+    "description": "Test description",
+    "RequisiteIds": [ "MinaturisedNuclearWarheads", "Opencyclefisionthursters" ],
+    "researchType": "PropulsionSystems",
+    "researched": false,
+    "progress": 0.0,
+    "cost": 0.0
+  },
+  {
+    "researchId": "PowerSystems",
+    "friendlyName": "Power Systems",
+    "description": "test desription2",
+    "RequisiteIds": [],
+    "researchType": "Power",
     "researched": false,
     "progress": 0.0,
     "cost": 0.0
   },
   {
     "researchId": "TraditionalNuclearFissionReactors",
-    "friendlyName": "TraditionalNuclearFissionReactors",
+    "friendlyName": "Traditional Nuclear Fission Reactors",
     "description": "test desription2",
     "RequisiteIds": [],
     "researchType": "Power",
@@ -47,6 +105,15 @@
     "researched": false,
     "progress": 0.0,
     "cost": 0.0
+  },
+  {
+    "researchId": "AdvancedRadiatonShielding",
+    "friendlyName": "Advanced Radiaton Shielding Materials",
+    "description": "Test description",
+    "RequisiteIds": [],
+    "researchType": "MaterialScience",
+    "researched": false,
+    "progress": 0.0
   },
   {
     "researchId": "AstroNavigation1",
@@ -91,6 +158,16 @@
   {
     "researchId": "OffensiveTechnologies",
     "friendlyName": "test friendly name",
+    "description": "test desription",
+    "RequisiteIds": [],
+    "researchType": "OffensiveTechnologies",
+    "researched": false,
+    "progress": 0.0,
+    "cost": 0.0
+  },
+  {
+    "researchId": "MinaturisedNuclearWarheads",
+    "friendlyName": "Mass produced Minaturised Nuclear Warheads",
     "description": "test desription",
     "RequisiteIds": [],
     "researchType": "OffensiveTechnologies",
