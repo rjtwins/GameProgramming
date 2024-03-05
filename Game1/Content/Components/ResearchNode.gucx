@@ -511,6 +511,24 @@
         <Value xsi:type="xsd:boolean">false</Value>
         <SetsValue>true</SetsValue>
       </Variable>
+      <Variable>
+        <Type>float</Type>
+        <Name>ResearchDescription.Font Scale</Name>
+        <Value xsi:type="xsd:float">1</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>float</Type>
+        <Name>ResearchDescription.Height</Name>
+        <Value xsi:type="xsd:float">10</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>float</Type>
+        <Name>ResearchDescription.Width</Name>
+        <Value xsi:type="xsd:float">-5</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
     </State>
     <State>
       <Name>Deployed</Name>
@@ -518,6 +536,24 @@
         <Type>bool</Type>
         <Name>DescriptionBorder.Visible</Name>
         <Value xsi:type="xsd:boolean">true</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>float</Type>
+        <Name>ResearchDescription.Font Scale</Name>
+        <Value xsi:type="xsd:float">1.25</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>float</Type>
+        <Name>ResearchDescription.Height</Name>
+        <Value xsi:type="xsd:float">30</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>float</Type>
+        <Name>ResearchDescription.Width</Name>
+        <Value xsi:type="xsd:float">-20</Value>
         <SetsValue>true</SetsValue>
       </Variable>
     </State>

@@ -242,6 +242,10 @@ namespace Game1.ScreenModels
                     {
                         line.SetProperty("Color", System.Drawing.Color.Green);
                     });
+
+                    ResearchNodeElements.ForEach(x => x.ApplyState("Collapsed"));
+
+                    element.ApplyState("Deployed");
                 };
             });
 
