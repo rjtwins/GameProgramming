@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.GameLogic.SubSystems
 {
@@ -24,6 +20,8 @@ namespace Game1.GameLogic.SubSystems
         public string Name { get; set; }
         public string Description { get; set; }
         public int Mass { get; set; } = 10;
+
+        public int BuildPoints { get; set; } = 10;
 
         public double EnergyGeneration { get; set; }
         public double EnergyStorage { get; set; }

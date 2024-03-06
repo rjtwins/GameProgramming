@@ -105,6 +105,11 @@ namespace Game1.GameLogic
             return true;
         }
 
+        public int GetBuildPoints()
+        {
+            return 1000;
+        }
+
         public object Clone()
         {
             var ghost = this.MemberwiseClone() as ShipDesign;
