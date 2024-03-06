@@ -53,6 +53,60 @@
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
+      <Type>int</Type>
+      <Name>DescriptionBackground.Alpha</Name>
+      <Value xsi:type="xsd:int">255</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>int</Type>
+      <Name>DescriptionBackground.Blue</Name>
+      <Value xsi:type="xsd:int">25</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>int</Type>
+      <Name>DescriptionBackground.Green</Name>
+      <Value xsi:type="xsd:int">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>DescriptionBackground.Height</Name>
+      <Value xsi:type="xsd:float">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>DimensionUnitType</Type>
+      <Name>DescriptionBackground.Height Units</Name>
+      <Value xsi:type="xsd:int">4</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>string</Type>
+      <Name>DescriptionBackground.Parent</Name>
+      <Value xsi:type="xsd:string">ContainerInstance</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>int</Type>
+      <Name>DescriptionBackground.Red</Name>
+      <Value xsi:type="xsd:int">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>DescriptionBackground.Width</Name>
+      <Value xsi:type="xsd:float">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>DimensionUnitType</Type>
+      <Name>DescriptionBackground.Width Units</Name>
+      <Value xsi:type="xsd:int">2</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
       <Type>float?</Type>
       <Name>DescriptionBorder.CustomFrameTextureCoordinateWidth</Name>
       <Value xsi:type="xsd:float">17</Value>
@@ -73,7 +127,7 @@
     <Variable>
       <Type>string</Type>
       <Name>DescriptionBorder.Parent</Name>
-      <Value xsi:type="xsd:string">ContainerInstance</Value>
+      <Value xsi:type="xsd:string">DescriptionBackground</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -506,15 +560,48 @@
     <State>
       <Name>Collapsed</Name>
       <Variable>
-        <Type>bool</Type>
-        <Name>DescriptionBorder.Visible</Name>
-        <Value xsi:type="xsd:boolean">false</Value>
+        <Type>DimensionUnitType</Type>
+        <Name>DescriptionBackground.Height Units</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>DimensionUnitType</Type>
+        <Name>DescriptionBorder.Height Units</Name>
+        <Value xsi:type="xsd:int">0</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>float</Type>
-        <Name>ResearchDescription.Font Scale</Name>
-        <Value xsi:type="xsd:float">1</Value>
+        <Name>ResearchDescription.Height</Name>
+        <Value xsi:type="xsd:float">0</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>DimensionUnitType</Type>
+        <Name>ResearchDescription.Height Units</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>State</Type>
+        <Name>State</Name>
+        <Value xsi:type="xsd:string">Default</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+    </State>
+    <State>
+      <Name>Deployed</Name>
+      <Variable>
+        <Type>DimensionUnitType</Type>
+        <Name>DescriptionBackground.Height Units</Name>
+        <Value xsi:type="xsd:int">4</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>DimensionUnitType</Type>
+        <Name>DescriptionBorder.Height Units</Name>
+        <Value xsi:type="xsd:int">4</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
@@ -524,36 +611,15 @@
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
-        <Type>float</Type>
-        <Name>ResearchDescription.Width</Name>
-        <Value xsi:type="xsd:float">-5</Value>
-        <SetsValue>true</SetsValue>
-      </Variable>
-    </State>
-    <State>
-      <Name>Deployed</Name>
-      <Variable>
-        <Type>bool</Type>
-        <Name>DescriptionBorder.Visible</Name>
-        <Value xsi:type="xsd:boolean">true</Value>
+        <Type>DimensionUnitType</Type>
+        <Name>ResearchDescription.Height Units</Name>
+        <Value xsi:type="xsd:int">4</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
-        <Type>float</Type>
-        <Name>ResearchDescription.Font Scale</Name>
-        <Value xsi:type="xsd:float">1.25</Value>
-        <SetsValue>true</SetsValue>
-      </Variable>
-      <Variable>
-        <Type>float</Type>
-        <Name>ResearchDescription.Height</Name>
-        <Value xsi:type="xsd:float">30</Value>
-        <SetsValue>true</SetsValue>
-      </Variable>
-      <Variable>
-        <Type>float</Type>
-        <Name>ResearchDescription.Width</Name>
-        <Value xsi:type="xsd:float">-20</Value>
+        <Type>State</Type>
+        <Name>State</Name>
+        <Value xsi:type="xsd:string">Default</Value>
         <SetsValue>true</SetsValue>
       </Variable>
     </State>
@@ -565,6 +631,11 @@
   </Instance>
   <Instance>
     <Name>DescriptionBorder</Name>
+    <BaseType>NineSlice</BaseType>
+    <DefinedByBase>false</DefinedByBase>
+  </Instance>
+  <Instance>
+    <Name>DescriptionBackground</Name>
     <BaseType>NineSlice</BaseType>
     <DefinedByBase>false</DefinedByBase>
   </Instance>

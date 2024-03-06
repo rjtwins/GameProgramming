@@ -31,7 +31,8 @@ namespace Game1.ScreenModels
         public List<GraphicalUiElement> ResearchNodeElements { get; private set; } = new();
         public Dictionary<ResearchNode, List<GraphicalUiElement>> RequisiteLines { get; private set; } = new();
         GraphicalUiElement _researchContainer { get; set; }
-        Layer _layer { get; set; }
+        Layer _nodeLayer { get; set; }
+        Layer _descriptionLayer { get; set; }
 
         public bool Init { get; set; } = false;
 
@@ -39,11 +40,12 @@ namespace Game1.ScreenModels
         {
             Instance = this;
 
-            _layer = SystemManagers.Default.Renderer.AddLayer();
+            _nodeLayer = SystemManagers.Default.Renderer.AddLayer();
+            _descriptionLayer = SystemManagers.Default.Renderer.AddLayer();
             var layerCameraSettings = new LayerCameraSettings();
             layerCameraSettings.Zoom = 1;
 
-            _layer.LayerCameraSettings = layerCameraSettings;
+            _nodeLayer.LayerCameraSettings = layerCameraSettings;
             Screen = GlobalStatic.GumProject.Screens.First(x => x.Name == "Research").ToGraphicalUiElement(SystemManagers.Default, true);
 
             _researchContainer = Screen.GetGraphicalUiElementByName("ResearchContainer");
@@ -110,19 +112,19 @@ namespace Game1.ScreenModels
             //Zoom:
             if (FlatMouse.Instance.ScrolledUp())
             {
-                var zoom = _layer.LayerCameraSettings.Zoom.Value;
+                var zoom = _nodeLayer.LayerCameraSettings.Zoom.Value;
                 zoom = MathF.Min(zoom * 1.2f, 2f);
-                _layer.LayerCameraSettings.Zoom = zoom;
-                Debug.WriteLine(_layer.LayerCameraSettings.Zoom);
+                _nodeLayer.LayerCameraSettings.Zoom = zoom;
+                Debug.WriteLine(_nodeLayer.LayerCameraSettings.Zoom);
             }
 
             if (FlatMouse.Instance.ScrolledDown())
             {
-                var zoom = _layer.LayerCameraSettings.Zoom.Value;
+                var zoom = _nodeLayer.LayerCameraSettings.Zoom.Value;
                 zoom = MathF.Max(zoom * 0.8f, 0.1f);
 
-                _layer.LayerCameraSettings.Zoom = zoom;
-                Debug.WriteLine(_layer.LayerCameraSettings.Zoom);
+                _nodeLayer.LayerCameraSettings.Zoom = zoom;
+                Debug.WriteLine(_nodeLayer.LayerCameraSettings.Zoom);
             }
         }
 
@@ -148,6 +150,7 @@ namespace Game1.ScreenModels
                         continue;
 
                     var element = _researchNodeSave.ToGraphicalUiElement(SystemManagers.Default, false);
+                    element.ApplyState("Collapsed");
                     element.SetProperty("ResearchNameText", node.FriendlyName);
                     element.Tag = node;
                     element.X = cursorX;
@@ -244,14 +247,19 @@ namespace Game1.ScreenModels
                     });
 
                     ResearchNodeElements.ForEach(x => x.ApplyState("Collapsed"));
+                    
+                    if (node.Collapsed)
+                    {
+                        element.ApplyState("Deployed");
+                    }
 
-                    element.ApplyState("Deployed");
+                    node.Collapsed = !node.Collapsed;
                 };
             });
 
             Screen.SuspendLayout();
 
-            _researchContainer.MoveToLayer(_layer);
+            _researchContainer.MoveToLayer(_nodeLayer);
 
             RequisiteLines.SelectMany(x => x.Value).ToList().ForEach(x => 
             {
@@ -262,8 +270,9 @@ namespace Game1.ScreenModels
             ResearchNodeElements.ForEach(x =>
             {
                 _researchContainer.Children.Add(x);
+                var descriptionElement = x.GetGraphicalUiElementByName("DescriptionBackground");
+                descriptionElement.MoveToLayer(_descriptionLayer);
             });
-
 
             Screen.ResumeLayout(true);
             //Screen.UpdateLayout();

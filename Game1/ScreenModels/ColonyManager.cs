@@ -10,6 +10,7 @@ using GumRuntime;
 using Microsoft.Xna.Framework.Input;
 using RenderingLibrary;
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Game1.ScreenModels
@@ -30,8 +31,10 @@ namespace Game1.ScreenModels
             _amountPlus,
             _amountMinus,
             _amountContinuous,
+            _amountText,
             _allocationPlus,
-            _allocationMinus;
+            _allocationMinus,
+            _allocationText;
 
         private ScrollView _buildQueue { get; set; }
         private ScrollView _buildingList { get; set; }
@@ -69,6 +72,7 @@ namespace Game1.ScreenModels
         private int _editorAmount { get; set; } = 0;
         private int _editorAllocation { get; set; } = 0;
         private bool _continuous { get; set; } = false;
+        private TextBox _editorAmountTextBox, _editorAllocationTextBox;
 
         public ColonyManager()
         {
@@ -145,10 +149,31 @@ namespace Game1.ScreenModels
             _amountPlus = panel.GetGraphicalUiElementByName("QueueAmountPlus");
             _amountMinus = panel.GetGraphicalUiElementByName("QueueAmountMinus");
             _amountContinuous = panel.GetGraphicalUiElementByName("QueueAmountContinuous");
+            _amountText = panel.GetGraphicalUiElementByName("QueueAmount");
+
+            _editorAmountTextBox = new TextBox(_amountText);
+            _editorAmountTextBox.SetText(_editorAmount.ToString());
+            _editorAmountTextBox.OnTextChanged += (string newText) =>
+            {
+                if (!int.TryParse(newText, out int number))
+                    _editorAmountTextBox.SetText("", true);
+
+                _editorAmount = number;
+            };
 
             _allocationPlus = panel.GetGraphicalUiElementByName("QueueAllocationPlus");
             _allocationMinus = panel.GetGraphicalUiElementByName("QueueAllocationMinus");
+            _allocationText = panel.GetGraphicalUiElementByName("QueueAllocation");
 
+            _editorAllocationTextBox = new TextBox(_allocationText);
+            _editorAllocationTextBox.SetText(_editorAllocation.ToString(), true);
+            _editorAllocationTextBox.OnTextChanged += (string newText) =>
+            {
+                if (!int.TryParse(newText, out int number))
+                    _editorAllocationTextBox.SetText("", true);
+
+                _editorAllocation = number;
+            };
 
             //buttons:
             new InteractiveGUE(_upButton).OnClick = () =>
@@ -254,7 +279,8 @@ namespace Game1.ScreenModels
                 _editorAmount += div;
                 _continuous = false;
 
-                Screen.SetProperty("QueueAmountText", _editorAmount.ToString());
+                _editorAmountTextBox.SetText(_editorAmount.ToString(), true);
+                //Screen.SetProperty("QueueAmountText", _editorAmount.ToString());
             };
 
             new InteractiveGUE(_amountMinus).OnClick = () => {
@@ -270,28 +296,40 @@ namespace Game1.ScreenModels
                 _editorAmount = Math.Max(0, _editorAmount);
                 _continuous = false;
 
-                Screen.SetProperty("QueueAmountText", _editorAmount.ToString());
+                _editorAmountTextBox.SetText(_editorAmount.ToString(), true);
+
+                //Screen.SetProperty("QueueAmountText", _editorAmount.ToString());
             };
 
             new InteractiveGUE(_amountContinuous).OnClick = () => {
                 _continuous = !_continuous;
 
-                Screen.SetProperty("QueueAmountText", "C");
+                _editorAmountTextBox.SetText("C", true);
+                //Screen.SetProperty("QueueAmountText", "C");
             };
 
             new InteractiveGUE(_allocationPlus).OnClick = () => {
                 _editorAllocation += FlatKeyboard.Instance.IsKeyDown(Keys.LeftShift) ? 20 : 5;
                 _editorAllocation = Math.Min(100, _editorAllocation);
 
-                Screen.SetProperty("QueueAllocationText", $"{_editorAllocation}%");
+                _editorAllocationTextBox.SetText(_editorAllocation.ToString(), true);
+
+                //Screen.SetProperty("QueueAllocationText", $"{_editorAllocation}%");
             };
 
             new InteractiveGUE(_allocationMinus).OnClick = () => {
                 _editorAllocation -= FlatKeyboard.Instance.IsKeyDown(Keys.LeftShift) ? 20 : 5;
                 _editorAllocation = Math.Max(0, _editorAllocation);
 
-                Screen.SetProperty("QueueAllocationText", $"{_editorAllocation}%");
+                _editorAllocationTextBox.SetText(_editorAllocation.ToString(), true);
+
+                //Screen.SetProperty("QueueAllocationText", $"{_editorAllocation}%");
             };
+
+        }
+
+        public void SetupShipYards()
+        {
 
         }
 
