@@ -46,7 +46,7 @@ namespace Game1
                 }
             });
 
-            GameState.GameEntities.OfType<Fleet>().ToList().ForEach(x => x.Animate());
+            //GameState.GameEntities.OfType<Fleet>().ToList().ForEach(x => x.Animate());
             //GameState.GameEntities.OfType<Planet>().Select(x => x.Colony).Where(x => x != null).ToList().ForEach(x => x.Animate());
 
             //Keeping track of fleet ghosts.
@@ -106,6 +106,16 @@ namespace Game1
                 {
                     x.Update(TimeSinceLastUpdate);
                 })).ToList();
+
+            GameState.GameEntities.OfType<Fleet>().ToList().ForEach(x =>
+            {
+                var task = Task.Run(() =>
+                {
+                    x.Update(TimeSinceLastUpdate);
+                });
+
+                taskList.Add(task);
+            });
 
             taskList.Add(Task.Run(() => { ResearchManager.Instance.Update(TimeSinceLastUpdate); }));
 

@@ -464,7 +464,13 @@ namespace Game1.ScreenModels
             _buildingList.SetItems(new());
             _buildingList.Container.Visible = true;
 
-            var elements = GameState.BuildingInfo.OrderBy(x => x.Value.FriendlyName).Select(x =>
+            if (!(_selectedEntity is Orbital o) || !(o.Colony is Colony c) || c == null)
+                return;
+
+            var elements = GameState
+                .BuildingInfo
+                .Where(x => c.CanBuildOnColony(x.Key))
+                .OrderBy(x => x.Value.FriendlyName).Select(x =>
             {
                 var element = _BuildInfoItem.ToGraphicalUiElement(SystemManagers.Default, false);
                 element.SetProperty("NameText", x.Value.FriendlyName);

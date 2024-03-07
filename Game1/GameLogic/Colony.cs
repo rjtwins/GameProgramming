@@ -1,4 +1,5 @@
 ﻿using Game1.GameEntities;
+using Game1.GameLogic.Shipbuilding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,9 @@ namespace Game1.GameLogic
         public Dictionary<Resource, double> ResourceStockpiles { get; set; } = new ();
         public Dictionary<Resource, List<(double time, double value)>> ResourceStockpileChangeLog { get; set;} = new ();
 
+        public List<Shipyard> Shipyards { get; set; } = new List<Shipyard>();
+        public Fleet HomeFleet { get; private set; }
+
         //public Dictionary<Resource, double> PreviousResourceStockpiles { get; set; } = new();
 
         public Colony()
@@ -59,7 +63,10 @@ namespace Game1.GameLogic
                 ResourceStockpileChangeLog[x] = new();
             });
 
+            HomeFleet = new();
+            HomeFleet.SOIEntity = HostBody;
             GameState.Colonies.Add(this);
+            GameState.GameEntities.Add(HomeFleet);
         }
 
         public override void Update(double deltaTime)
@@ -87,6 +94,11 @@ namespace Game1.GameLogic
             UpdateBuilding(deltaTime, ic);
 
             UpdateMining(deltaTime, efficiency);
+
+            UpdateShipBuilding(deltaTime);
+
+            HomeFleet.X = HostBody.X;
+            HomeFleet.Y = HostBody.Y;
 
             //if(_timeSinceStockpileLog >= 2.628e6)
             //    ResourceStockpiles.ToList().ForEach(x => PreviousResourceStockpiles)
@@ -183,6 +195,11 @@ namespace Game1.GameLogic
             });
         }
 
+        private void UpdateShipBuilding(double deltaTime)
+        {
+            Shipyards.ForEach(x => x.Update(deltaTime));
+        }
+
         public Dictionary<Resource, double> GetDailyMining()
         {
             var record = Enum.GetValues<Resource>().ToDictionary(x => x, x => ResourceStockpileChangeLog[x].FirstOrDefault(y => GameState.TotalSeconds - y.time >= 86400).value);
@@ -193,5 +210,62 @@ namespace Game1.GameLogic
         {
             return CurrentBuildings[colonyBuilding] * GameState.BuildingInfo[colonyBuilding].Pop;
         }
+
+        /// <summary>
+        /// Checks if a building type can be constructed on the colony
+        /// </summary>
+        /// <param name="colonyBuilding">The type of building to be constructed</param>
+        /// <returns>True if the building can be constructed, otherwise false</returns>
+        public bool CanBuildOnColony(ColonyBuilding colonyBuilding)
+        {
+            switch (colonyBuilding)
+            {
+                case ColonyBuilding.ResearchAcademy:
+                    // Check if there are no existing research academies in any colony of the same faction
+                    return GameState.Colonies.Where(x => x.Faction == Faction).All(x => x.CurrentBuildings[ColonyBuilding.ResearchAcademy] == 0);
+                case ColonyBuilding.SpacePort:
+                    // Check if there are no existing space ports in the colony
+                    return CurrentBuildings[ColonyBuilding.SpacePort] == 0;
+                case ColonyBuilding.CivShipyard:
+                    // Check if there are no existing civilian shipyards in the colony
+                    return CurrentBuildings[ColonyBuilding.CivShipyard] == 0;
+                case ColonyBuilding.MillShipyard:
+                    // Check if there are no existing military shipyards in the colony
+                    return CurrentBuildings[ColonyBuilding.MillShipyard] == 0;
+                case ColonyBuilding.CivSlipway:
+                    // Check if there is exactly one existing civilian slipway in the colony
+                    return CurrentBuildings[ColonyBuilding.CivShipyard] == 1;
+                case ColonyBuilding.MilSlipway:
+                    // Check if there is exactly one existing military slipway in the colony
+                    return CurrentBuildings[ColonyBuilding.MillShipyard] == 1;
+
+                case ColonyBuilding.CivSlipwayCap:
+                    // New civilian slipways cannot be constructed
+                    return false;
+                case ColonyBuilding.MilSlipwayCap:
+                    // New military slipways cannot be constructed
+                    return false;
+
+                // The following buildings can be constructed without any restrictions
+                //case ColonyBuilding.HabInfrastructure:
+                //case ColonyBuilding.Infrastructure:
+                //case ColonyBuilding.ProductionFactory:
+                //case ColonyBuilding.ResearchOutpost:
+                //case ColonyBuilding.ShipBuildingSupport:
+                //case ColonyBuilding.Mine:
+                //case ColonyBuilding.AutomatedMine:
+                //case ColonyBuilding.FinancialCenter:
+                //case ColonyBuilding.MassDriver:
+                //case ColonyBuilding.TerraformingFacility:
+                //case ColonyBuilding.GeneticsFacility:
+                //case ColonyBuilding.AgriCenter:
+                //case ColonyBuilding.ShuttlePort:
+                //    return true;
+                default:
+                    // By default, new building can be constructed
+                    return true;
+            }
+        }
+
     }
 }

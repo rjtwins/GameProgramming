@@ -58,7 +58,6 @@ namespace Game1.GameEntities
             return Children.Union(Children.SelectMany(x => x.GetAllChildren())).ToList();
         }
 
-
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)

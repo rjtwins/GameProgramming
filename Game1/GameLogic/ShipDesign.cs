@@ -116,5 +116,16 @@ namespace Game1.GameLogic
             ghost.SubSystems = this.SubSystems.Select(x => x.Clone() as SubSystemBase).ToList();
             return ghost;
         }
+
+        public Dictionary<Resource, int> GetResourceCost()
+        {
+            var cost = new Dictionary<Resource, int>();
+            cost[Resource.LowDensityElements] = 100;
+            cost[Resource.BasicMetals] = 100;
+            cost[Resource.HeavyMetals] = 100;
+            cost[Resource.NobelElements] = 100;
+
+            return cost;
+        }
     }
 }

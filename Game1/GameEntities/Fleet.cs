@@ -23,7 +23,7 @@ namespace Game1.GameEntities
         public GameEntity SOIEntity { get; set; } = null;
         public virtual Guid SOIGuid
         {
-            get => SOIEntity.Guid;
+            get => SOIEntity?.Guid ?? Guid.Empty;
             set
             {
 
@@ -213,7 +213,7 @@ namespace Game1.GameEntities
             entity.ShouldDrawLabel = false;
             entity.GameEntity = this;
             entity.FixedSize = true;
-            this.GraphicalEntity = entity;
+            GraphicalEntity = entity;
             _camera = Game.Services.GetService<Camera>();
 
             return entity;
